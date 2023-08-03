@@ -6,6 +6,7 @@ The following series of hands-on BGP labs will help you master numerous aspects 
 
 * Establish a BGP session
 * Protect a BGP session with MD5 password, TCP-AO password, and TTL check
+* (Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 
 **Simple End-User Setup**
 
@@ -16,10 +17,16 @@ The following series of hands-on BGP labs will help you master numerous aspects 
 * Redistribute IGP information into BGP and use BGP summarization to minimize the number of BGP advertisements
 * Perform simple load balancing across parallel links and across upstream provider
 
+**Multiprotocol BGP**
+
+* Run BGP with IPv6
+* (Advanced) Run IPv4 and IPv6 over the same BGP session
+
 **Simple Transit Network Setup**
 
 * Use IBGP to transport BGP information across your network
 * Use BGP route reflectors to reduce the number of IBGP sessions
+* (Advanced) Use a hierarchy of route reflectors
 
 **Networks with Multiple BGP Speakers**
 
