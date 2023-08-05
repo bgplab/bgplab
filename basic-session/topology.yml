@@ -1,0 +1,15 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../defaults.yml ]
+
+nodes:
+  rtr:
+  x1:
+    device: cumulus
+    module: [ bgp ]
+    bgp.as: 65100
+    id: 10
+    config: [ extra-config ]
+
+links:
+- rtr-x1

@@ -4,7 +4,7 @@ The following series of hands-on BGP labs will help you master numerous aspects 
 
 **Basic BGP Setup**
 
-* Establish a BGP session
+* [Establish a BGP session](basic-session/) (basic-session)
 * Protect a BGP session with MD5 password, TCP-AO password, and TTL check
 * (Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 
