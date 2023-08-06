@@ -5,12 +5,13 @@ The following series of hands-on BGP labs will help you master numerous aspects 
 **Basic BGP Setup**
 
 * [Establish a BGP session](basic-session/) (basic-session)
-* Protect a BGP session with MD5 password, TCP-AO password, and TTL check
+* [Connect to two upstream providers](basic-multihomed) (basic-multihomed)
+* Advertise your IP prefixes
+* (Optional) Protect a BGP session with MD5 password, TCP-AO password, and TTL check
 * (Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 
 **Simple End-User Setup**
 
-* Connect to two upstream providers and advertise your IP prefixes
 * Use BGP weights to prefer one of the upstream providers
 * Prevent route leaking between upstream providers with AS-path filters
 * Minimize the size of your BGP table with inbound filters

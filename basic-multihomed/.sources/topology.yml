@@ -1,0 +1,27 @@
+# This topology is used to create the BGP configuration on X1
+
+defaults.device: eos
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    module: [ bgp ]
+    config: [ extra-config ]
+    device: cumulus
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    module: [ bgp ]
+    bgp.originate: [ 192.168.42.0/24 ]
+  x1:
+    bgp.as: 65100
+    id: 10
+    bgp.originate: [ 192.168.100.0/24 ]
+  x2:
+    bgp.as: 65101
+    id: 11
+    bgp.originate: [ 192.168.101.0/24 ]
+links:
+- rtr-x1
+- rtr-x2

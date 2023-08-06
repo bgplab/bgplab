@@ -1,0 +1,18 @@
+!
+! Configure BGP on EBGP peer
+!
+router bgp 65101
+ bgp router-id 10.0.0.11
+ no bgp default ipv4-unicast
+ bgp bestpath as-path multipath-relax
+ neighbor 10.1.0.5 remote-as 65000
+ neighbor 10.1.0.5 description rtr
+ !
+ address-family ipv4 unicast
+  network 10.0.0.11/32
+  network 192.168.101.0/24
+  neighbor 10.1.0.5 activate
+  neighbor 10.1.0.5 default-originate
+ exit-address-family
+!
+do write
