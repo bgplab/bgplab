@@ -21,8 +21,9 @@ ansible.log
 __pycache__
 *.pyc
 
-# Ignore Sphinx build directory
+# Ignore Sphinx and mkdocs build directory
 _build
+_html
 build/
 
 # Don't publish SFTP configuration

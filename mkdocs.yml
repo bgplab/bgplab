@@ -1,0 +1,17 @@
+site_name: BGP Hands-on Labs
+docs_dir: .
+site_dir: _html
+plugins: [ same-dir ]
+nav:
+- "Home": README.md
+- "Getting Started":
+  - basic-session/README.md
+  - basic-multihomed/README.md
+markdown_extensions: 
+- footnotes
+exclude_docs: |
+  LICENSE.md
+  config/
+  *.j2
+theme:
+  name: readthedocs
