@@ -1,6 +1,8 @@
 # Configure a Single EBGP Session
 
-We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1):
+We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).
+
+**Note:** if you're creating your lab infrastructure manually, it might be better to skip this exercise and go straight to *[configuring two uplinks](../basic-multihomed)*.
 
 ![Lab topology](topology.png)
 
@@ -45,5 +47,24 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 **Next:**
 
+* [Connect with the second upstream provider](../basic-multihomed) and advertise your address space.
 * You might want to protect the EBGP session with an MD5 password and the TTL check.
-* If you're in a rush, connect with the second upstream provider.
+
+## Reference Information
+
+You might find the following information useful if you're not using _netlab_ to build the lab:
+
+### Lab Wiring
+
+| Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
+|-----------------|---------------|-------------|--------------------|------------------|
+|  | rtr | Ethernet1 | x1 | swp1 |
+
+### Lab Addressing
+
+| Node/Interface | IPv4 Address | IPv6 Address | Description |
+|----------------|-------------:|-------------:|-------------|
+| **rtr** |  10.0.0.1/32 |  | Loopback |
+| Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
+| **x1** |  10.0.0.10/32 |  | Loopback |
+| swp1 | 10.1.0.2/30 |  | x1 -> rtr |

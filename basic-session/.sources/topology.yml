@@ -1,5 +1,7 @@
 # This topology is used to create the BGP configuration on X1
 
+defaults.device: eos
+
 module: [ bgp ]
 
 nodes:
