@@ -1,12 +1,12 @@
-site_name: BGP Hands-on Labs
-docs_dir: .
+site_name: BGP Configuration Labs
+docs_dir: docs
 site_dir: _html
 plugins: [ same-dir ]
-nav:
-- "Home": README.md
-- "Getting Started":
-  - basic-session/README.md
-  - basic-multihomed/README.md
+#nav:
+#- "Home": README.md
+#- "Getting Started":
+#  - basic-session/README.md
+#  - basic-multihomed/README.md
 markdown_extensions: 
 - footnotes
 exclude_docs: |

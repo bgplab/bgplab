@@ -2,7 +2,7 @@
 
 Now that you know how to configure an EBGP session let's move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you're running EBGP with them.
 
-![Lab topology](topology.png)
+![Lab topology](topology-multihomed.png)
 
 The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.
 
@@ -15,6 +15,16 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 | **AS65101** |||
 | x2 | 10.0.0.11 |  | 10.0.0.11/32<br>192.168.101.0/24 |
 
+## Start the Lab
+
+Assuming you already [set up your lab infrastructure](../1-setup.md):
+
+* Change directory to `basic/2-multihomed`
+* Execute **netlab up** ([other options](../2-manual.md))
+* Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
+
+## Configuration Tasks
+
 After starting the lab with **netlab up**, log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
 
 Configure EBGP sessions using the following parameters:
@@ -25,6 +35,8 @@ Configure EBGP sessions using the following parameters:
 | rtr | x2 | 10.1.0.6 | 65101 |  |
 
 You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
+
+## Verification
 
 Check the state of the BGP session with a command similar to **show ip bgp summary**. This is a printout taken from Arista EOS:
 

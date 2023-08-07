@@ -1,0 +1,12 @@
+# Getting Started
+
+In the first set of the lab exercises you'll do basic BGP-related configuration tasks:
+
+* [Establish a BGP session](1-session.md)
+* [Connect to two upstream providers](2-multihomed.md)
+* Advertise your IP prefixes
+
+You can also challenge yourself with more advanced tasks:
+
+* Protect a BGP session with MD5 password, TCP-AO password, and TTL check
+* Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses

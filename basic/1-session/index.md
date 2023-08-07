@@ -2,11 +2,19 @@
 
 We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).
 
-**Note:** if you're creating your lab infrastructure manually, it might be better to skip this exercise and go straight to *[configuring two uplinks](../basic-multihomed)*.
+**Note:** if you're [creating your lab infrastructure manually](../2-manual.md), it might be better to skip this exercise and go straight to *[configuring two uplinks](2-multihomed.md)*.
 
-![Lab topology](topology.png)
+![Lab topology](topology-session.png)
 
-After starting the lab with **netlab up**, log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
+## Start the Lab
+
+Assuming you already [set up your lab infrastructure](../1-setup.md):
+
+* Change directory to `basic/1-session`
+* Execute **netlab up** ([other options](../2-manual.md))
+* Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
+
+## Configuration Tasks
 
 Configure an EBGP session using the following parameters:
 
@@ -15,6 +23,8 @@ Configure an EBGP session using the following parameters:
 | 10.1.0.2            | 65100              |
 
 You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
+
+## Verification
 
 Check the state of the BGP session with a command similar to **show ip bgp summary**. This is a printout taken from Arista EOS:
 
@@ -47,7 +57,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 **Next:**
 
-* [Connect with the second upstream provider](../basic-multihomed) and advertise your address space.
+* [Connect with the second upstream provider](2-multihomed.md) and advertise your address space.
 * You might want to protect the EBGP session with an MD5 password and the TTL check.
 
 ## Reference Information
