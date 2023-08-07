@@ -4,21 +4,21 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Configure Multiple EBGP Sessions - BGP Hands-on Labs</title>
-    <link rel="stylesheet" href="../css/theme.css" />
-    <link rel="stylesheet" href="../css/theme_extra.css" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Configure Multiple EBGP Sessions - BGP Configuration Labs</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
         var mkdocs_page_name = "Configure Multiple EBGP Sessions";
-        var mkdocs_page_input_path = "basic-multihomed/README.md";
+        var mkdocs_page_input_path = "getting-started/2-multihomed.md";
         var mkdocs_page_url = null;
       </script>
     
     <!--[if lt IE 9]>
-      <script src="../js/html5shiv.min.js"></script>
+      <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
       <script>hljs.highlightAll();</script> 
@@ -30,21 +30,35 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-          <a href=".." class="icon icon-home"> BGP Hands-on Labs
+          <a href="../.." class="icon icon-home"> BGP Configuration Labs
         </a>
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Overview</a>
                 </li>
               </ul>
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../1-setup/">Installation and Setup</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../2-manual/">Manual Setup</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting started</span></p>
               <ul class="current">
-                  <li class="toctree-l1"><a class="reference internal" href="../basic-session/">Configure a Single EBGP Session</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../1-session/">Configure a Single EBGP Session</a>
                   </li>
                   <li class="toctree-l1 current"><a class="reference internal current" href="./">Configure Multiple EBGP Sessions</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#start-the-lab">Start the Lab</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-tasks">Configuration Tasks</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verification">Verification</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#reference-information">Reference Information</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#lab-wiring">Lab Wiring</a>
@@ -63,14 +77,14 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
       <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="..">BGP Hands-on Labs</a>
+          <a href="../..">BGP Configuration Labs</a>
         
       </nav>
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
-          <li>Getting Started &raquo;</li>
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Getting started &raquo;</li>
       <li class="breadcrumb-item active">Configure Multiple EBGP Sessions</li>
     <li class="wy-breadcrumbs-aside">
     </li>
@@ -82,7 +96,7 @@
               
                 <h1 id="configure-multiple-ebgp-sessions">Configure Multiple EBGP Sessions</h1>
 <p>Now that you know how to configure an EBGP session let's move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you're running EBGP with them.</p>
-<p><img alt="Lab topology" src="topology.png" /></p>
+<p><img alt="Lab topology" src="../topology-multihomed.png" /></p>
 <p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.</p>
 <table>
 <thead>
@@ -132,6 +146,14 @@
 </tr>
 </tbody>
 </table>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>basic/2-multihomed</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
+<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
+</ul>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>After starting the lab with <strong>netlab up</strong>, log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</p>
 <p>Configure EBGP sessions using the following parameters:</p>
 <table>
@@ -162,6 +184,7 @@
 </tbody>
 </table>
 <p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
+<h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
 <pre><code>rtr#show ip bgp summary
 BGP summary information for VRF default
@@ -283,7 +306,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../basic-session/" class="btn btn-neutral float-left" title="Configure a Single EBGP Session"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../1-session/" class="btn btn-neutral float-left" title="Configure a Single EBGP Session"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -306,15 +329,15 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../basic-session/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../1-session/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>
 </div>
-    <script src="../js/jquery-3.6.0.min.js"></script>
-    <script>var base_url = "..";</script>
-    <script src="../js/theme_extra.js"></script>
-    <script src="../js/theme.js"></script>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
     <script>
         jQuery(function () {
             SphinxRtdTheme.Navigation.enable(true);
