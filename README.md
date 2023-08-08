@@ -4,9 +4,12 @@ The following series of hands-on BGP labs will help you master numerous aspects 
 
 **Basic BGP Setup**
 
-* [Establish a BGP session](basic-session/) (basic-session)
-* [Connect to two upstream providers](basic-multihomed) (basic-multihomed)
-* Advertise your IP prefixes
+* [Establish a BGP session](basic-session/) (basic/1-session)
+* [Connect to two upstream providers](basic-multihomed) (basic/2-multihomed)
+* [Advertise your IP prefixes](basic/3-originate) (basic/3-originate)
+
+See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of planned labs.
+<!--
 * (Optional) Protect a BGP session with MD5 password, TCP-AO password, and TTL check
 * (Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 
