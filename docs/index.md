@@ -13,6 +13,10 @@ You can already do the following labs:
 * [Connect to two upstream providers](basic/2-multihomed.md)
 * [Advertise your IPv4 address space](basic/3-originate.md)
 
+### Simple End-User BGP Routing Policies
+
+* [Use BGP weights](policy/1-weights,md) to prefer one of the upstream providers
+
 ## Upcoming Labs
 
 **Basic BGP Setup**
@@ -22,7 +26,6 @@ You can already do the following labs:
 
 **Simple End-User BGP Routing Policies**
 
-* Use BGP weights to prefer one of the upstream providers
 * Prevent route leaking between upstream providers with AS-path filters
 * Minimize the size of your BGP table with inbound filters
 * Redistribute IGP information into BGP and use BGP summarization to minimize the number of BGP advertisements

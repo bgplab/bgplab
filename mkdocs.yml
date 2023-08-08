@@ -9,6 +9,7 @@ nav:
   - 1-setup.md
   - 2-manual.md
 - "Getting Started": basic/
+- "Simple Policies": policy/
 
 #- "Getting Started":
 #  - basic-session/README.md
