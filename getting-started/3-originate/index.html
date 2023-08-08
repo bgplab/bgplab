@@ -5,15 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../../img/favicon.ico" />
-    <title>Configure Multiple EBGP Sessions - BGP Configuration Labs</title>
+    <title>Advertise IPv4 Prefixes to BGP Neighbors - BGP Configuration Labs</title>
     <link rel="stylesheet" href="../../css/theme.css" />
     <link rel="stylesheet" href="../../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Configure Multiple EBGP Sessions";
-        var mkdocs_page_input_path = "getting-started/2-multihomed.md";
+        var mkdocs_page_name = "Advertise IPv4 Prefixes to BGP Neighbors";
+        var mkdocs_page_input_path = "getting-started/3-originate.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -51,7 +51,9 @@
               <ul class="current">
                   <li class="toctree-l1"><a class="reference internal" href="../1-session/">Configure a Single EBGP Session</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Configure Multiple EBGP Sessions</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../2-multihomed/">Configure Multiple EBGP Sessions</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Advertise IPv4 Prefixes to BGP Neighbors</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#start-the-lab">Start the Lab</a>
     </li>
@@ -69,8 +71,6 @@
     </li>
     </ul>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a>
-                  </li>
               </ul>
       </div>
     </div>
@@ -87,7 +87,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
           <li>Getting started &raquo;</li>
-      <li class="breadcrumb-item active">Configure Multiple EBGP Sessions</li>
+      <li class="breadcrumb-item active">Advertise IPv4 Prefixes to BGP Neighbors</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -96,9 +96,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="configure-multiple-ebgp-sessions">Configure Multiple EBGP Sessions</h1>
-<p>Now that you know how to configure an EBGP session let's move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you're running EBGP with them.</p>
-<p><img alt="Lab topology" src="../topology-multihomed.png" /></p>
+                <h1 id="advertise-ipv4-prefixes-to-bgp-neighbors">Advertise IPv4 Prefixes to BGP Neighbors</h1>
+<p>In the <a href="../2-multihomed/">previous lab exercise</a> you configured EBGP sessions with two routers belonging to upstream ISPs. Now it's time to advertise your address space (IPv4 prefixes) to them so you'll start receiving some traffic.</p>
+<p><img alt="Lab topology" src="../topology-originate.png" /></p>
 <p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.</p>
 <table>
 <thead>
@@ -151,52 +151,21 @@
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Change directory to <code>basic/2-multihomed</code></li>
+<li>Change directory to <code>basic/3-originate</code></li>
 <li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
+<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you're not using <em>netlab</em> just continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>Configure EBGP sessions using the following parameters:</p>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Neighbor</th>
-<th style="text-align: right;">Neighbor IPv4</th>
-<th style="text-align: right;">Neighbor AS</th>
-<th style="text-align: right;">Local AS</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>rtr</td>
-<td>x1</td>
-<td style="text-align: right;">10.1.0.2</td>
-<td style="text-align: right;">65100</td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>rtr</td>
-<td>x2</td>
-<td style="text-align: right;">10.1.0.6</td>
-<td style="text-align: right;">65101</td>
-<td style="text-align: right;"></td>
-</tr>
-</tbody>
-</table>
-<p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
+<p>You have to advertise two prefixes to the upstream providers:</p>
+<ul>
+<li><code>192.168.42.0</code> -- the IP address space belonging to your organization</li>
+<li><code>10.0.0.1</code> -- your loopback IP address.</li>
+</ul>
+<p><strong>Important:</strong> you should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. </p>
 <h2 id="verification">Verification</h2>
-<p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
-<pre><code>rtr#show ip bgp summary
-BGP summary information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Neighbor Status Codes: m - Under maintenance
-  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100             11        10    0    0 00:00:17 Estab   3      3
-  10.1.0.6 4 65101              9         8    0    0 00:00:12 Estab   3      3
-</code></pre>
-<p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is how the printout looks like on Arista EOS:</p>
-<pre><code>rtr#show ip bgp
+<p>The IPv4 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to <strong>show ip bgp</strong> is thus a good starting point. This is how Arista EOS displays it:</p>
+<pre><code>rtr&gt;show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -209,15 +178,59 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     0       65101 i
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
  * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
  * &gt;      10.0.0.11/32           10.1.0.6              0       -          100     0       65101 i
+ * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 </code></pre>
-<p><strong>Next:</strong></p>
-<ul>
-<li><a href="../3-originate/">Advertise your IPv4 address space</a> to the EBGP neighbors</li>
-</ul>
+<p>However, you really want to know if the prefixes are advertised to the EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:</p>
+<pre><code>rtr&gt;show ip bgp neighbor 10.1.0.2 advertised-routes
+BGP routing table information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast, q - Queued for advertisement
+                    % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            10.1.0.1              -       -          -       -       65000 i
+ * &gt;      10.0.0.11/32           10.1.0.1              -       -          -       -       65000 65101 i
+ * &gt;      192.168.42.0/24        10.1.0.1              -       -          -       -       65000 ?
+ * &gt;      192.168.101.0/24       10.1.0.1              -       -          -       -       65000 65101 i
+</code></pre>
+<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that's a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it's way easier in a lab -- connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you're not using <em>netlab</em>), start <code>vtysh</code> and execute the <strong>show ip bgp</strong> command:</p>
+<pre><code>$ netlab connect x1
+Connecting to container clab-originate-x1, starting bash
+Use vtysh to connect to FRR daemon
+
+x1(bash)#sudo vtysh
+
+Hello, this is FRRouting (version 7.5+cl4.4.0u4).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
+x1# show ip bgp
+BGP table version is 6, local router ID is 10.0.0.10, vrf id 0
+Default local pref 100, local AS 65100
+Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*&gt; 10.0.0.1/32      10.1.0.1                               0 65000 i
+*&gt; 10.0.0.10/32     0.0.0.0                  0         32768 i
+*&gt; 10.0.0.11/32     10.1.0.1                               0 65000 65101 i
+*&gt; 192.168.42.0/24  10.1.0.1                               0 65000 ?
+*&gt; 192.168.100.0/24 0.0.0.0                  0         32768 i
+*&gt; 192.168.101.0/24 10.1.0.1                               0 65000 65101 i
+
+Displayed  6 routes and 6 total paths
+x1#
+</code></pre>
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
@@ -307,8 +320,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href="../1-session/" class="btn btn-neutral float-left" title="Configure a Single EBGP Session"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../3-originate/" class="btn btn-neutral float-right" title="Advertise IPv4 Prefixes to BGP Neighbors">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../2-multihomed/" class="btn btn-neutral float-left" title="Configure Multiple EBGP Sessions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
     </div>
 
   <hr/>
@@ -331,10 +343,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../1-session/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../2-multihomed/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
-    
-      <span><a href="../3-originate/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
