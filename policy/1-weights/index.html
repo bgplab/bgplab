@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Configure a Single EBGP Session - BGP Configuration Labs</title>
+        <title>Select Preferred EBGP Peer with Weights - BGP Configuration Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -43,29 +43,29 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active">Configure a Single EBGP Session</a>
+    <a href="../../basic/1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
                                     
 <li>
-    <a href="../2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
+    <a href="../../basic/2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
                                     
 <li>
-    <a href="../3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
+    <a href="../../basic/3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Simple Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="./" class="dropdown-item active">Select Preferred EBGP Peer with Weights</a>
 </li>
                                 </ul>
                             </li>
@@ -78,12 +78,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../2-manual/" class="nav-link">
+                                <a rel="prev" href="../../basic/3-originate/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../2-multihomed/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -105,8 +105,12 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#configure-a-single-ebgp-session" class="nav-link">Configure a Single EBGP Session</a>
+            <li class="nav-item" data-level="1"><a href="#select-preferred-ebgp-peer-with-weights" class="nav-link">Select Preferred EBGP Peer with Weights</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
               </ul>
@@ -130,45 +134,98 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="configure-a-single-ebgp-session">Configure a Single EBGP Session</h1>
-<p>We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).</p>
-<p><strong>Note:</strong> if you're <a href="../../2-manual/">creating your lab infrastructure manually</a>, it might be better to skip this exercise and go straight to <em><a href="../2-multihomed/">configuring two uplinks</a></em>.</p>
-<p><img alt="Lab topology" src="../topology-session.png" /></p>
-<h2 id="start-the-lab">Start the Lab</h2>
-<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
-<ul>
-<li>Change directory to <code>basic/1-session</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
-</ul>
-<h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>Configure an EBGP session using the following parameters:</p>
+<h1 id="select-preferred-ebgp-peer-with-weights">Select Preferred EBGP Peer with Weights</h1>
+<p>In the previous lab exercises you <a href="../../basic/2-multihomed/">configured EBGP sessions</a> with two routers belonging to upstream ISPs and <a href="../../basic/3-originate/">advertised your IPv4 prefixes to them</a>.</p>
+<p>Now imagine that you want to use one of the uplinks just for backup purposes -- it might be either too slow or too expensive for regular use.</p>
+<p><img alt="Lab topology" src="../topology-weights.png" /></p>
+<p>In this lab, you'll modify your BGP configuration to ensure your router always prefers routes advertised by X1 (ISP-1).</p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream router also advertise the default route to you.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: right;">neighbor IP address</th>
-<th style="text-align: right;">neighbor AS number</th>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th>BGP RR</th>
+<th style="text-align: right;">Advertised prefixes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;">10.1.0.2</td>
-<td style="text-align: right;">65100</td>
+<td>AS65000</td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>rtr</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td></td>
+<td style="text-align: right;">10.0.0.1/32<br>192.168.42.0/24</td>
+</tr>
+<tr>
+<td>AS65100</td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td></td>
+<td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
+</tr>
+<tr>
+<td>AS65101</td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.0.0.11</td>
+<td></td>
+<td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
 </tr>
 </tbody>
 </table>
-<p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
+<p>Your device (rtr) has these EBGP neighbors:</p>
+<table>
+<thead>
+<tr>
+<th>Neighbor</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+<th style="text-align: right;">Neighbor AS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.1.0.2</td>
+<td style="text-align: right;">65100</td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.1.0.6</td>
+<td style="text-align: right;">65101</td>
+</tr>
+</tbody>
+</table>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>policy/1-weights</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
+<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
+</ul>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using <em>netlab</em> just continue with the configuration you made during the <a href="../../basic/3-originate/">previous exercise</a>.</p>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>You want your device to prefer routes advertised by X1 over routes advertised by X2. For example, the route for X2's loopback interface should use X1 as the next hop.</p>
+<p>Many BGP implementations use a mechanism called <em>weight</em> (usually applied per neighbor) to prefer routes advertised by one of the BGP peers.</p>
+<p>If your device supports <em>BGP weights</em>, use them to prefer routes advertised by X1. Otherwise, you'll have to use <em>BGP local preference</em> to achieve the same result.</p>
 <h2 id="verification">Verification</h2>
-<p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
-<pre><code>rtr#show ip bgp summary
-BGP summary information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Neighbor Status Codes: m - Under maintenance
-  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100             33        37    0    0 00:01:25 Estab   2      2
-</code></pre>
-<p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received two prefixes from the EBGP neighbor: the default route and the loopback remote interface (10.0.0.10/32). This is how the printout looks like on Arista EOS:</p>
-<pre><code>rtr#show ip bgp
+<p>Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:</p>
+<pre><code>rtr#sh ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -179,13 +236,36 @@ RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
- * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
+ * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     200     65100 i
+ *        0.0.0.0/0              10.1.0.6              0       -          100     100     65101 i
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     200     65100 i
+ *        10.0.0.10/32           10.1.0.6              0       -          100     100     65101 65100 i
+ * &gt;      10.0.0.11/32           10.1.0.2              0       -          100     200     65100 65101 i
+ *        10.0.0.11/32           10.1.0.6              0       -          100     100     65101 i
+ * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
+ * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     200     65100 i
+ *        192.168.100.0/24       10.1.0.6              0       -          100     100     65101 65100 i
+ * &gt;      192.168.101.0/24       10.1.0.2              0       -          100     200     65100 65101 i
+ *        192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 </code></pre>
-<p><strong>Next:</strong></p>
-<ul>
-<li><a href="../2-multihomed/">Connect with the second upstream provider</a> and advertise your address space.</li>
-</ul>
+<p>You could dig deeper and examine the details of an IPv4 prefix originated in AS 65101 (X2), for example 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)</p>
+<pre><code>rtr#show ip bgp 10.0.0.11
+BGP routing table information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+BGP routing table entry for 10.0.0.11/32
+ Paths: 2 available
+  65100 65101
+    10.1.0.2 from 10.1.0.2 (10.0.0.10)
+      Origin IGP, metric 0, localpref 100, IGP metric 0, weight 200, tag 0
+      Received 00:02:47 ago, valid, external, best
+      Rx SAFI: Unicast
+  65101
+    10.1.0.6 from 10.1.0.6 (10.0.0.11)
+      Origin IGP, metric 0, localpref 100, IGP metric 0, weight 100, tag 0
+      Received 00:02:47 ago, valid, external
+      Rx SAFI: Unicast
+</code></pre>
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
@@ -206,6 +286,20 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
+</tr>
+<tr>
+<td></td>
+<td>rtr</td>
+<td>Ethernet2</td>
+<td>x2</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td></td>
+<td>x1</td>
+<td>swp2</td>
+<td>x2</td>
+<td>swp2</td>
 </tr>
 </tbody>
 </table>
@@ -233,6 +327,12 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>rtr -&gt; x1</td>
 </tr>
 <tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x2</td>
+</tr>
+<tr>
 <td><strong>x1</strong></td>
 <td style="text-align: right;">10.0.0.10/32</td>
 <td style="text-align: right;"></td>
@@ -243,6 +343,30 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
 <td>x1 -&gt; rtr</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; x2</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; rtr</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; x1</td>
 </tr>
 </tbody>
 </table></div>
