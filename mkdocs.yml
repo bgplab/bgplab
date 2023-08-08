@@ -1,9 +1,15 @@
 site_name: BGP Configuration Labs
 docs_dir: docs
 site_dir: _html
-plugins: [ same-dir ]
-#nav:
-#- "Home": README.md
+plugins:
+- search
+- include_dir_to_nav
+nav:
+- Installation:
+  - 1-setup.md
+  - 2-manual.md
+- "Getting Started": basic/
+
 #- "Getting Started":
 #  - basic-session/README.md
 #  - basic-multihomed/README.md
@@ -13,5 +19,5 @@ exclude_docs: |
   LICENSE.md
   config/
   *.j2
-theme:
-  name: readthedocs
+#theme:
+#  name: readthedocs

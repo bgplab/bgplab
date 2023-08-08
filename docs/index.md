@@ -7,11 +7,11 @@ The following series of hands-on labs will help you master numerous aspects of E
 
 You can already do the following labs:
 
-**Basic BGP Setup**
+### Basic BGP Setup
 
-* [Establish a BGP session](getting-started/1-session.md)
-* [Connect to two upstream providers](getting-started/2-multihomed.md)
-* [Advertise your IPv4 address space](getting-started/3-originate.md)
+* [Establish a BGP session](basic/1-session.md)
+* [Connect to two upstream providers](basic/2-multihomed.md)
+* [Advertise your IPv4 address space](basic/3-originate.md)
 
 ## Upcoming Labs
 
