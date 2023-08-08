@@ -1,6 +1,6 @@
-# Master BGP Configuration with ipSpace.net Hands-On Labs
+# ipSpace.net BGP Configuration Labs
 
-The following series of hands-on BGP labs will help you master numerous aspects of EBGP and IBGP on a platform of your choice[^PC]. The labs will cover:
+This repository contains _netlab_ topology files for a series of hands-on labs will help you master numerous aspects of EBGP,  IBGP, and BGP routing policy configuration on a platform of your choice[^PC]. The labs cover:
 
 **Basic BGP Setup**
 
@@ -44,5 +44,6 @@ See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of 
 
 * Use BGP communities to influence route selection in upstream ISPs
 * Build a transit autonomous system using BGP communities to change routing policies
+-->
 
 [^PC]: Some assembly required: while the Cumulus Linux VMs/containers that are used for external BGP speakers are easy to download, you'll have to build a Vagrant box or install a Docker container image for your platform. 

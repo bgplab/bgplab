@@ -1,17 +1,20 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-name: multihomed
+name: originate
+
+module: [ bgp ]
 
 groups:
   external:
     members: [ x1, x2 ]
-    module: [ bgp ]
     config: [ extra-config ]
     device: cumulus
 
 nodes:
   rtr:
+    bgp.as: 65000
+    bgp.advertise_loopback: false
   x1:
     bgp.as: 65100
     id: 10

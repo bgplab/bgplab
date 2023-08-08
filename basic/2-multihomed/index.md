@@ -25,8 +25,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-After starting the lab with **netlab up**, log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
-
 Configure EBGP sessions using the following parameters:
 
 | Node | Neighbor | Neighbor IPv4 | Neighbor AS | Local AS |
@@ -74,7 +72,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 **Next:**
 
-* Advertise your address space
+* [Advertise your IPv4 address space](3-originate.md) to the EBGP neighbors
 
 ## Reference Information
 

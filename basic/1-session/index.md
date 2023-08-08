@@ -58,7 +58,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 **Next:**
 
 * [Connect with the second upstream provider](2-multihomed.md) and advertise your address space.
-* You might want to protect the EBGP session with an MD5 password and the TTL check.
 
 ## Reference Information
 

@@ -1,15 +1,22 @@
 ---
 title: Overview
 ---
-# Master BGP Configuration with ipSpace.net Hands-On Labs
+# ipSpace.net BGP Configuration Labs
 
-The following series of hands-on BGP labs will help you master numerous aspects of EBGP and IBGP on a platform of your choice[^PC]. The labs will cover:
+The following series of hands-on labs will help you master numerous aspects of EBGP, IBGP, and BGP routing policy configuration on a platform of your choice[^PC].
+
+You can already do the following labs:
 
 **Basic BGP Setup**
 
 * [Establish a BGP session](getting-started/1-session.md)
 * [Connect to two upstream providers](getting-started/2-multihomed.md)
-* Advertise your IP prefixes
+* [Advertise your IPv4 address space](getting-started/3-originate.md)
+
+## Upcoming Labs
+
+**Basic BGP Setup**
+
 * (Optional) Protect a BGP session with MD5 password, TCP-AO password, and TTL check
 * (Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 
