@@ -222,6 +222,7 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you'll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won't accept anything they send you.</p>
 <p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
