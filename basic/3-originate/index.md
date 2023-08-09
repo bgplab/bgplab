@@ -34,6 +34,8 @@ You have to advertise two prefixes to the upstream providers:
 
 **Important:** you should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. 
 
+**Note:** If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
+
 ## Verification
 
 The IPv4 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to **show ip bgp** is thus a good starting point. This is how Arista EOS displays it:
