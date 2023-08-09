@@ -16,7 +16,8 @@ You can already do the following labs:
 ### Simple End-User BGP Routing Policies
 
 * [Use BGP weights](policy/1-weights.md) to prefer one of the upstream providers
-* [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with AS-path filters
+* [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
+* [Filter prefixes advertised by your autonomous system](policy/3-prefix.md) with a prefix list.
 
 ## Upcoming Labs
 
@@ -29,7 +30,7 @@ You can already do the following labs:
 
 * Minimize the size of your BGP table with inbound filters
 * Redistribute IGP information into BGP and use BGP summarization to minimize the number of BGP advertisements
-* Perform simple load balancing across parallel links and across upstream provider
+* Perform simple load balancing across parallel links and across upstream providers
 
 **Multiprotocol BGP**
 

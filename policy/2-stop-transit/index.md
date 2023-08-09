@@ -88,6 +88,8 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  6 routes and 8 total paths
 ```
 
+**Next**: [Filter prefixes advertised to EBGP neighbors](3-prefix.md)
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:

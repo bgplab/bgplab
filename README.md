@@ -4,13 +4,15 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 
 **Basic BGP Setup**
 
-* [Establish a BGP session](basic-session/) (basic/1-session)
-* [Connect to two upstream providers](basic-multihomed) (basic/2-multihomed)
-* [Advertise your IP prefixes](basic/3-originate) (basic/3-originate)
+* [Establish a BGP session](basic/1-session)
+* [Connect to two upstream providers](basic/2-multihomed)
+* [Advertise your IP prefixes](basic/3-originate)
 
 **Simple End-User Setup**
 
 * [Use BGP weights](policy/1-weights) to prefer one of the upstream providers
+* [Prevent route leaking between upstream providers](policy/2-stop-transit) with an AS-path filter
+* [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list.
 
 See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of planned labs.
 <!--
@@ -21,7 +23,6 @@ See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of 
 
 **Simple End-User Setup**
 
-* Prevent route leaking between upstream providers with AS-path filters
 * Minimize the size of your BGP table with inbound filters
 * Redistribute IGP information into BGP and use BGP summarization to minimize the number of BGP advertisements
 * Perform simple load balancing across parallel links and across upstream provider
