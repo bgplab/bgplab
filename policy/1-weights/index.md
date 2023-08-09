@@ -10,7 +10,7 @@ In this lab, you'll modify your BGP configuration to ensure your router always p
 
 ## Existing BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream router also advertise the default route to you.
+The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (str).
 
 | Node/ASN | Router ID | BGP RR | Advertised prefixes |
 |----------|----------:|--------|--------------------:|
@@ -45,6 +45,8 @@ You want your device to prefer routes advertised by X1 over routes advertised by
 Many BGP implementations use a mechanism called *weight* (usually applied per neighbor) to prefer routes advertised by one of the BGP peers.
 
 If your device supports *BGP weights*, use them to prefer routes advertised by X1. Otherwise, you'll have to use *BGP local preference* to achieve the same result.
+
+Please note that applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates -- you might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
 
 ## Verification
 
@@ -95,6 +97,8 @@ BGP routing table entry for 10.0.0.11/32
       Received 00:02:47 ago, valid, external
       Rx SAFI: Unicast
 ```
+
+**Next**: Use AS-path filters to [stop advertising transit routes ](2-stop-transit.md).
 
 ## Reference Information
 

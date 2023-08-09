@@ -112,6 +112,10 @@ Displayed  6 routes and 6 total paths
 x1#
 ```
 
+**Next:**
+
+* Use BGP weights to [prefer one of the upstream ISPs](../policy/1-weights.md).
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:
