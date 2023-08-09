@@ -67,6 +67,10 @@
 <li>
     <a href="./" class="dropdown-item active">Select Preferred EBGP Peer with Weights</a>
 </li>
+                                    
+<li>
+    <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -83,7 +87,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../2-stop-transit/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -140,7 +144,7 @@
 <p><img alt="Lab topology" src="../topology-weights.png" /></p>
 <p>In this lab, you'll modify your BGP configuration to ensure your router always prefers routes advertised by X1 (ISP-1).</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream router also advertise the default route to you.</p>
+<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (str).</p>
 <table>
 <thead>
 <tr>
@@ -223,6 +227,7 @@
 <p>You want your device to prefer routes advertised by X1 over routes advertised by X2. For example, the route for X2's loopback interface should use X1 as the next hop.</p>
 <p>Many BGP implementations use a mechanism called <em>weight</em> (usually applied per neighbor) to prefer routes advertised by one of the BGP peers.</p>
 <p>If your device supports <em>BGP weights</em>, use them to prefer routes advertised by X1. Otherwise, you'll have to use <em>BGP local preference</em> to achieve the same result.</p>
+<p>Please note that applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates -- you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:</p>
 <pre><code>rtr#sh ip bgp
