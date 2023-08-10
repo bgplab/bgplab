@@ -75,6 +75,10 @@
 <li>
     <a href="policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
+                                    
+<li>
+    <a href="policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -121,7 +125,7 @@
 <p>You can already do the following labs:</p>
 <h3 id="basic-bgp-setup">Basic BGP Setup</h3>
 <ul>
-<li><a href="basic/1-session/">Establish a BGP session</a></li>
+<li><a href="basic/1-session/">Establish an EBGP session</a> with an ISP</li>
 <li><a href="basic/2-multihomed/">Connect to two upstream providers</a></li>
 <li><a href="basic/3-originate/">Advertise your IPv4 address space</a></li>
 </ul>
@@ -129,7 +133,8 @@
 <ul>
 <li><a href="policy/1-weights/">Use BGP weights</a> to prefer one of the upstream providers</li>
 <li><a href="policy/2-stop-transit/">Prevent route leaking between upstream providers</a> with an AS-path filter</li>
-<li><a href="policy/3-prefix/">Filter prefixes advertised by your autonomous system</a> with a prefix list.</li>
+<li><a href="policy/3-prefix/">Filter prefixes advertised by your autonomous system</a> with a prefix list</li>
+<li><a href="policy/4-reduce/">Minimize the size of your BGP table</a> with inbound filters</li>
 </ul>
 <h2 id="upcoming-labs">Upcoming Labs</h2>
 <p><strong>Basic BGP Setup</strong></p>
@@ -139,7 +144,6 @@
 </ul>
 <p><strong>Simple End-User BGP Routing Policies</strong></p>
 <ul>
-<li>Minimize the size of your BGP table with inbound filters</li>
 <li>Redistribute IGP information into BGP and use BGP summarization to minimize the number of BGP advertisements</li>
 <li>Perform simple load balancing across parallel links and across upstream providers</li>
 </ul>
@@ -257,5 +261,5 @@
 
 <!--
 MkDocs version : 1.5.2
-Build Date UTC : 2023-08-09 17:22:34.496451+00:00
+Build Date UTC : 2023-08-10 16:05:18.008337+00:00
 -->
