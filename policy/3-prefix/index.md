@@ -105,6 +105,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.42.0/24        10.1.0.1              -       -          -       -       65000 ?
 ```
  
+**Next**: [Reduce the size of your BGP table](4-reduce.md) with inbound filters
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:

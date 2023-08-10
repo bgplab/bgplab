@@ -12,7 +12,8 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 
 * [Use BGP weights](policy/1-weights) to prefer one of the upstream providers
 * [Prevent route leaking between upstream providers](policy/2-stop-transit) with an AS-path filter
-* [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list.
+* [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list
+* [Minimize the size of your BGP table](policy/4-reduce) with inbound filters
 
 See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of planned labs.
 <!--
