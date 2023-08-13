@@ -16,7 +16,7 @@ body::before {
     top: 0;
     left: 0;
     background-color: #f8f8f8;
-    background: url(../img/grid.png) repeat-x;
+/*    background: url(../img/grid.png) repeat-x; */
     will-change: transform;
     z-index: -1;
 }
@@ -30,6 +30,8 @@ body > .container {
     /* csslint ignore:start */
     position: -webkit-sticky;
     position: sticky;
+    background-image: none;
+    background-color: #372f2d !important;
     /* csslint ignore:end */
 }
 
@@ -104,12 +106,18 @@ kbd {
     box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
 }
 
+a {
+    color: #d26400;
+}
 a code {
-    color: #2FA4E7;
+    color: #d26400;
 }
 
+a:hover {
+    color: #9b652f;
+}
 a:hover code, a:focus code {
-    color: #157AB5;
+    color: #d26400;
 }
 
 footer {
@@ -121,6 +129,10 @@ footer {
 
 .modal-dialog {
     margin-top: 60px;
+}
+
+button:focus {
+    outline: 1px dotted !important;
 }
 
 /*
@@ -260,11 +272,18 @@ blockquote {
     }
 }
 
-.dropdown-item.open { /* csslint allow: adjoining-classes */
+.dropdown-item {
     color: #fff;
-    background-color: #2FA4E7;
 }
 
+.dropdown-item.open, .dropdown-item.active { /* csslint allow: adjoining-classes */
+    color: #fff;
+    background-color: #D26400;
+}
+
+.dropdown-item:hover {
+    background-color: #9b652f;
+}
 .dropdown-submenu > .dropdown-menu {
     margin: 0 0 0 1.5rem;
     padding: 0;
@@ -287,6 +306,10 @@ blockquote {
 
 .dropdown-submenu:hover > a::after {
     border-left-color: #fff;
+}
+
+.dropdown-menu {
+    background-color: #372f2d !important;
 }
 
 @media (min-width: 992px) {

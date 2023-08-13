@@ -7,11 +7,11 @@
         
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>Labs Overview - BGP Configuration Labs</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Upcoming Labs - BGP Configuration Labs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
@@ -20,7 +20,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">BGP Configuration Labs</a>
+                <a class="navbar-brand" href="..">BGP Configuration Labs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -35,19 +35,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="." class="dropdown-item active">Labs Overview</a>
+    <a href=".." class="dropdown-item">Labs Overview</a>
 </li>
                                     
 <li>
-    <a href="1-setup/" class="dropdown-item">Installation and Setup</a>
+    <a href="../1-setup/" class="dropdown-item">Installation and Setup</a>
 </li>
                                     
 <li>
-    <a href="2-manual/" class="dropdown-item">Manual Setup</a>
+    <a href="../2-manual/" class="dropdown-item">Manual Setup</a>
 </li>
                                     
 <li>
-    <a href="3-upcoming/" class="dropdown-item">Upcoming Labs</a>
+    <a href="./" class="dropdown-item active">Upcoming Labs</a>
 </li>
                                 </ul>
                             </li>
@@ -56,15 +56,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="basic/1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
+    <a href="../basic/1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
                                     
 <li>
-    <a href="basic/2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
+    <a href="../basic/2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
                                     
 <li>
-    <a href="basic/3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
+    <a href="../basic/3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
                                 </ul>
                             </li>
@@ -73,19 +73,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
 </li>
                                     
 <li>
-    <a href="policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
+    <a href="../policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
                                     
 <li>
-    <a href="policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
+    <a href="../policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
                                     
 <li>
-    <a href="policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
+    <a href="../policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
                                 </ul>
                             </li>
@@ -98,12 +98,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
+                                <a rel="prev" href="../2-manual/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="1-setup/" class="nav-link">
+                                <a rel="next" href="../basic/1-session/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -125,13 +125,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#ipspacenet-bgp-configuration-labs" class="nav-link">ipSpace.net BGP Configuration Labs</a>
+            <li class="nav-item" data-level="1"><a href="#upcoming-labs" class="nav-link">Upcoming Labs</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#basic-bgp-setup" class="nav-link">Basic BGP Setup</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#simple-bgp-routing-policies" class="nav-link">Simple BGP Routing Policies</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#bgp-in-enterprise-networks" class="nav-link">BGP in Enterprise Networks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#controlling-inbound-traffic" class="nav-link">Controlling Inbound Traffic</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#bgp-in-service-provider-networks" class="nav-link">BGP in Service Provider Networks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#use-mpls-with-bgp" class="nav-link">Use MPLS with BGP</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -142,30 +158,45 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="ipspacenet-bgp-configuration-labs">ipSpace.net BGP Configuration Labs</h1>
-<p>The following series of hands-on labs will help you master numerous aspects of EBGP, IBGP, and BGP routing policy configuration on a platform of your choice<sup id="fnref:PC"><a class="footnote-ref" href="#fn:PC">1</a></sup>.</p>
-<p>You can already do the following labs with over a dozen labs coming in the future (see the list of <a href="3-upcoming/">upcoming labs</a>).</p>
+<h1 id="upcoming-labs">Upcoming Labs</h1>
+<p>While we're working on new stuff you can already enjoy <a href="../">over a half dozen</a> labs. In case you're curious about what's coming next, here are a few ideas:</p>
 <h2 id="basic-bgp-setup">Basic BGP Setup</h2>
 <ul>
-<li><a href="basic/1-session/">Establish an EBGP session</a> with an ISP</li>
-<li><a href="basic/2-multihomed/">Connect to two upstream providers</a></li>
-<li><a href="basic/3-originate/">Advertise your IPv4 address space</a></li>
+<li>Run BGP with IPv6</li>
+<li>(Optional) Protect a BGP session with MD5 password, TCP-AO password, and TTL check</li>
+<li>(Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses</li>
+<li>(Advanced) Run IPv4 and IPv6 over the same BGP session</li>
+<li>Redistribute IGP information into BGP</li>
+<li>Use BGP summarization to minimize the number of BGP advertisements</li>
 </ul>
 <h2 id="simple-bgp-routing-policies">Simple BGP Routing Policies</h2>
 <ul>
-<li><a href="policy/1-weights/">Use BGP weights</a> to prefer one of the upstream providers</li>
-<li><a href="policy/2-stop-transit/">Prevent route leaking between upstream providers</a> with an AS-path filter</li>
-<li><a href="policy/3-prefix/">Filter prefixes advertised by your autonomous system</a> with a prefix list</li>
-<li><a href="policy/4-reduce/">Minimize the size of your BGP table</a> with inbound filters</li>
+<li>Perform simple load balancing across parallel links and across upstream providers</li>
 </ul>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:PC">
-<p>Some assembly required: the Cumulus Linux VMs/containers that are used for external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See <a href="1-setup/">installation and setup</a> for details.&#160;<a class="footnote-backref" href="#fnref:PC" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></div>
+<h2 id="bgp-in-enterprise-networks">BGP in Enterprise Networks</h2>
+<ul>
+<li>Use IBGP with multiple WAN edge routers</li>
+<li>Use BGP local preference to prefer one of the upstream providers</li>
+<li>Use more complex BGP local preference setup to prefer direct connectivity with customers of upstream ISPs</li>
+<li>Use MED to influence route selection in an upstream ISP</li>
+<li>Use AS-path prepending to influence route selection across multiple upstream ISPs</li>
+</ul>
+<h2 id="controlling-inbound-traffic">Controlling Inbound Traffic</h2>
+<ul>
+<li>Use BGP communities to influence route selection in upstream ISPs</li>
+</ul>
+<h2 id="bgp-in-service-provider-networks">BGP in Service Provider Networks</h2>
+<ul>
+<li>Build a simple service provider network with IBGP</li>
+<li>Use BGP route reflectors to reduce the number of IBGP sessions</li>
+<li>Use a hierarchy of route reflectors</li>
+<li>Build a transit autonomous system using BGP communities to change routing policies</li>
+</ul>
+<h2 id="use-mpls-with-bgp">Use MPLS with BGP</h2>
+<ul>
+<li>Use MPLS to build a BGP-free core</li>
+<li>Use SR-MPLS to minimize the number of control-plane protocols</li>
+</ul></div>
             </div>
         </div>
 
@@ -173,14 +204,14 @@
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../js/jquery-3.6.0.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
         <script>
-            var base_url = ".",
+            var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
-        <script src="search/main.js"></script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
