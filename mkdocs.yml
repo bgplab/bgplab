@@ -5,9 +5,11 @@ plugins:
 - search
 - include_dir_to_nav
 nav:
-- Installation:
+- Overview:
+  - index.md
   - 1-setup.md
   - 2-manual.md
+  - 3-upcoming.md
 - "Getting Started": basic/
 - "Simple Policies": policy/
 
@@ -20,5 +22,6 @@ exclude_docs: |
   LICENSE.md
   config/
   *.j2
-#theme:
-#  name: readthedocs
+theme:
+  name: mkdocs
+  custom_dir: _mkdocs_theme
