@@ -39,6 +39,16 @@ body > .container {
     float: right;
 }
 
+@media (min-width: 992px) {
+    .col-md-9 {
+        padding-left: 35px;
+    }
+
+    h1, h2, h3, h4 {
+        margin-left: -20px;
+    }
+}
+
 .col-md-9 img {
     max-width: 100%;
     display: inline-block;
@@ -50,15 +60,41 @@ body > .container {
     margin: 20px auto 30px auto;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
     color: #444;
     font-weight: 400;
-    font-size: 42px;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
 }
 
-h2, h3, h4, h5, h6 {
-    color: #444;
-    font-weight: 300;
+h1:first-child, h2:first-child, h3:first-child {
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+@media (min-width: 992px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
 }
 
 hr {
@@ -116,6 +152,7 @@ a code {
 a:hover {
     color: #9b652f;
 }
+
 a:hover code, a:focus code {
     color: #d26400;
 }
