@@ -163,15 +163,31 @@
 <h2 id="basic-bgp-setup">Basic BGP Setup</h2>
 <ul>
 <li>Run BGP with IPv6</li>
-<li>(Optional) Protect a BGP session with MD5 password, TCP-AO password, and TTL check</li>
-<li>(Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses</li>
-<li>(Advanced) Run IPv4 and IPv6 over the same BGP session</li>
 <li>Redistribute IGP information into BGP</li>
 <li>Use BGP summarization to minimize the number of BGP advertisements</li>
+</ul>
+<p>Optional exercises:</p>
+<ul>
+<li>Protect a BGP session with MD5 password, TCP-AO password, and TTL check</li>
+<li>Use session templates and BGP peer groups</li>
+<li>Improve convergence speed with BFD</li>
+</ul>
+<p>Advanced exercises:</p>
+<ul>
+<li>Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses</li>
+<li>Run IPv4 and IPv6 over the same BGP session</li>
+<li>Fine-tune BGP Fast External Failover</li>
+<li>Configure BGP graceful restart</li>
 </ul>
 <h2 id="simple-bgp-routing-policies">Simple BGP Routing Policies</h2>
 <ul>
 <li>Perform simple load balancing across parallel links and across upstream providers</li>
+<li>Use BGP link bandwidth to influence the load balancing weights</li>
+</ul>
+<p>Advanced exercises:</p>
+<ul>
+<li>Use BGP route refresh and soft reconfiguration</li>
+<li>Use outbound route filters (ORF)</li>
 </ul>
 <h2 id="bgp-in-enterprise-networks">BGP in Enterprise Networks</h2>
 <ul>
@@ -184,6 +200,8 @@
 <h2 id="controlling-inbound-traffic">Controlling Inbound Traffic</h2>
 <ul>
 <li>Use BGP communities to influence route selection in upstream ISPs</li>
+<li>Use controlled disaggregation to influence inbound traffic flow</li>
+<li>Use conditional route advertisements to select primary/backup links for the inbound traffic</li>
 </ul>
 <h2 id="bgp-in-service-provider-networks">BGP in Service Provider Networks</h2>
 <ul>
@@ -191,11 +209,14 @@
 <li>Use BGP route reflectors to reduce the number of IBGP sessions</li>
 <li>Use a hierarchy of route reflectors</li>
 <li>Build a transit autonomous system using BGP communities to change routing policies</li>
+<li>Reduce routing instabilities with BGP route flap dampening</li>
+<li>Implement policy-based routing with BGP</li>
 </ul>
 <h2 id="use-mpls-with-bgp">Use MPLS with BGP</h2>
 <ul>
 <li>Use MPLS to build a BGP-free core</li>
 <li>Use SR-MPLS to minimize the number of control-plane protocols</li>
+<li>Use BGP Labeled Unicast to extend MPLS paths across multiple autonomous systems</li>
 </ul></div>
             </div>
         </div>
