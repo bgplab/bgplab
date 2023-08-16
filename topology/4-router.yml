@@ -1,0 +1,37 @@
+# The baseline topology for small (4-router) labs
+#
+defaults.sources.extra: [ ../defaults.yml ]
+provider: external
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    device: cumulus
+
+nodes:
+  c1:
+  c2:
+  x1:
+    id: 10
+  x2:
+    id: 11
+links:
+- c1:
+  x1:
+  name: C1-to-X1
+- c1:
+  x2:
+  name: C1-to-X2
+- x1:
+  x2:
+  name: X1-to-X2
+- c2:
+  x1:
+  name: C2-to-X1
+- c2:
+  x2:
+  name: C2-to-X2
+- c1:
+  c2:
+  type: lan
+  name: C1-C2 LAN

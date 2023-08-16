@@ -12,7 +12,9 @@ nav:
 - Overview:
   - index.md
   - 1-setup.md
-  - 2-manual.md
+  - "Custom Lab Infrastructure":
+    - external/index.md
+    - external/4-router.md
   - 3-upcoming.md
 - "Getting Started": basic/
 - "Simple Policies": policy/

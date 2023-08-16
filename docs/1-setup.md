@@ -3,7 +3,7 @@ title: Installation and Setup
 ---
 # Software Installation and Lab Setup
 
-It's easiest to use the BGP labs with _[netlab](https://netlab.tools/)_, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we'll assume you decided to use _netlab_; if you want to set up your lab in some other way you might find the [Manual Setup](2-manual.md) document useful.
+It's easiest to use the BGP labs with _[netlab](https://netlab.tools/)_, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we'll assume you decided to use _netlab_; if you want to set up your lab in some other way you might find the [Manual Setup](external/index.md) document useful.
 
 ## Selecting the Network Devices
 
