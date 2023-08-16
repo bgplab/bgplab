@@ -192,7 +192,7 @@
 </table>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
+<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on the EBGP session or your device won&rsquo;t accept updates from its EBGP neighbor(s).</p>
 </div>
 <p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
