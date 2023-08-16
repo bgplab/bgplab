@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../img/favicon.ico">
         <title>Installation and Setup - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/1-setup.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -151,16 +154,16 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="software-installation-and-lab-setup">Software Installation and Lab Setup</h1>
-<p>It's easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we'll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way you might find the <a href="../2-manual/">Manual Setup</a> document useful.</p>
+<p>It&rsquo;s easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we&rsquo;ll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way you might find the <a href="../2-manual/">Manual Setup</a> document useful.</p>
 <h2 id="selecting-the-network-devices">Selecting the Network Devices</h2>
-<p>The labs heavily rely on external BGP feeds -- preconfigured devices that you have to connect to and exchange routing information with. It's best if you run Cumulus Linux on those devices; if you insist on using something else we'd appreciate if you would consider submitting your configurations in a pull request.</p>
+<p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices that you have to connect to and exchange routing information with. It&rsquo;s best if you run Cumulus Linux on those devices; if you insist on using something else we&rsquo;d appreciate if you would consider submitting your configurations in a pull request.</p>
 <p>You can run Cumulus Linux in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt or Docker), and  if you want to keep your life simple consider using it for your devices as well. Obviously you can use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a>.</p>
 <h2 id="selecting-the-virtualization-environment">Selecting the Virtualization Environment</h2>
-<p>Now that you know which network device you want to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that's just me.</p>
-<p>There's a gotcha though: you can use <em>containerlab</em> and <em>libvirt</em> only on a Linux host. You can use <em>virtualbox</em> if you want to run the labs on your Windows- or MacOS laptop, or run a Ubuntu VM on the laptop.</p>
-<p>One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don't need that to run Docker containers, unless you're using the crazy trick we're forced to use for Juniper vMX or Nokia SR OS -- they're running as a virtual machine <em>within a container</em>.</p>
+<p>Now that you know which network device you want to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that&rsquo;s just me.</p>
+<p>There&rsquo;s a gotcha though: you can use <em>containerlab</em> and <em>libvirt</em> only on a Linux host. You can use <em>virtualbox</em> if you want to run the labs on your Windows- or MacOS laptop, or run a Ubuntu VM on the laptop.</p>
+<p>One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t need that to run Docker containers, unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Juniper vMX or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
 <h2 id="software-installation">Software Installation</h2>
-<p>Based on the choices you made, you'll find the installation instructions in one of these documents:</p>
+<p>Based on the choices you made, you&rsquo;ll find the installation instructions in one of these documents:</p>
 <ul>
 <li><a href="https://netlab.tools/labs/virtualbox/">Virtualbox-Based Lab on Windows or MacOS</a></li>
 <li><a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM Installation</a> on Windows or MacOS</li>
@@ -171,11 +174,11 @@
 <p>Once you completed the software installation you have to deal with the stupidities of downloading and installing network device images (<a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/libvirt/#vagrant-boxes">libvirt</a>, <a href="https://netlab.tools/labs/clab/#container-images">containers</a>) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
 <p>I would love to make the whole process simpler, but the networking vendors refuse to play along. Even worse, it looks like<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">1</a></sup> their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you. Fortunately, you only have to go through this colossal waste of time once.</p>
 <h2 id="setting-up-the-labs">Setting Up the Labs</h2>
-<p>We finally got to the fun part -- setting up the labs:</p>
+<p>We finally got to the fun part &ndash; setting up the labs:</p>
 <ul>
 <li>Select a directory where you want to have the BGP labs</li>
 <li>Clone the <code>bgplab</code> <a href="https://github.com/ipspace/bgplab">GitHub repository</a> with <code>git clone git@github.com:ipspace/bgplab.git</code>. <a href="https://github.com/ipspace/bgplab">GitHub UI</a> gives you other options in the green <code>Code</code> button, including <em>Download ZIP</em></li>
-<li>Open the <code>defaults.yml</code> file in the main directory and edit it to set your preferred network device and virtualization environment. For example, I'm using the following settings to run the labs with Arista EOS containers:</li>
+<li>Open the <code>defaults.yml</code> file in the main directory and edit it to set your preferred network device and virtualization environment. For example, I&rsquo;m using the following settings to run the labs with Arista EOS containers:</li>
 </ul>
 <pre><code>device: eos         # Change to your preferred network device
 provider: clab      # Change to virtualbox or libvirt if needed
@@ -184,13 +187,13 @@ provider: clab      # Change to virtualbox or libvirt if needed
 <li>In a terminal window, change current directory to one of the lab directories (for example, <code>basic/1-session</code>) and execute <strong>netlab up</strong>.</li>
 <li>Wait for the lab to start and use <strong>netlab connect</strong> to connect to individual lab devices</li>
 <li>Have fun.</li>
-<li>When you're done, collect the device configurations with <strong>netlab collect</strong> (if you want to save them) and shut down the lab with <strong>netlab down</strong></li>
+<li>When you&rsquo;re done, collect the device configurations with <strong>netlab collect</strong> (if you want to save them) and shut down the lab with <strong>netlab down</strong></li>
 </ul>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:NPAL">
-<p>I'm not going to pay a lawyer to read their boilerplate stuff, and I'm definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>I&rsquo;m not going to pay a lawyer to read their boilerplate stuff, and I&rsquo;m definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
@@ -198,8 +201,8 @@ provider: clab      # Change to virtualbox or libvirt if needed
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../js/jquery-3.6.0.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>

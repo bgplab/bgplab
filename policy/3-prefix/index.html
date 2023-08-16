@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Filter Advertised Prefixes - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/policy/3-prefix.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -155,10 +158,10 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="filter-advertised-prefixes">Filter Advertised Prefixes</h1>
-<p>In the previous lab exercise you <a href="../2-stop-transit/">filtered prefixes advertised by your router based on the AS-path contents</a>. That's the absolute minimum you should do, but it's not always enough -- every other blue moon a network operator manages to mess up two-way redistribution and advertise hundreds of thousands of prefixes as belonging to their autonomous system. You should therefore filter the prefixes advertised to EBGP neighbors to ensure you advertise only the address space assigned to you.</p>
-<p>In our simple lab topology your device advertises a /24 prefix (that we'll assume is assigned to you) and a loopback (/32) prefix that should not be visible elsewhere.</p>
+<p>In the previous lab exercise you <a href="../2-stop-transit/">filtered prefixes advertised by your router based on the AS-path contents</a>. That&rsquo;s the absolute minimum you should do, but it&rsquo;s not always enough &ndash; every other blue moon a network operator manages to mess up two-way redistribution and advertise hundreds of thousands of prefixes as belonging to their autonomous system. You should therefore filter the prefixes advertised to EBGP neighbors to ensure you advertise only the address space assigned to you.</p>
+<p>In our simple lab topology your device advertises a /24 prefix (that we&rsquo;ll assume is assigned to you) and a loopback (/32) prefix that should not be visible elsewhere.</p>
 <p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
-<p>You don't have to trust me -- log into X1 and execute <code>sudo vtysh -c 'show ip bgp regexp 65000$'</code> command<sup id="fnref:VT"><a class="footnote-ref" href="#fn:VT">1</a></sup>. You'll see that your autonomous system advertises two prefixes; this is what I got in my lab:</p>
+<p>You don&rsquo;t have to trust me &ndash; log into X1 and execute <code>sudo vtysh -c 'show ip bgp regexp 65000$'</code> command<sup id="fnref:VT"><a class="footnote-ref" href="#fn:VT">1</a></sup>. You&rsquo;ll see that your autonomous system advertises two prefixes; this is what I got in my lab:</p>
 <pre><code>x1(bash)#sudo vtysh -c 'show ip bgp regexp 65000$'
 BGP table version is 6, local router ID is 10.0.0.10, vrf id 0
 Default local pref 100, local AS 65100
@@ -173,7 +176,7 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *  192.168.42.0/24  10.1.0.10                              0 65101 65000 ?
 *&gt;                  10.1.0.1                               0 65000 ?
 </code></pre>
-<p>You could also use a command similar to <strong>show ip bgp show ip bgp neighbors <em>neighbor-ip</em> advertised-routes</strong> if it's available on your device to check what you're advertising to an individual neighbor.</p>
+<p>You could also use a command similar to <strong>show ip bgp show ip bgp neighbors <em>neighbor-ip</em> advertised-routes</strong> if it&rsquo;s available on your device to check what you&rsquo;re advertising to an individual neighbor.</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
 <table>
@@ -253,16 +256,16 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 <li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using <em>netlab</em> just continue with the configuration you made during the <a href="../2-stop-transit/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../2-stop-transit/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You have to filter BGP prefixes sent to X1 and X2, and advertise only the 192.168.101.0/24 prefix. Most BGP implementations support <em>prefix lists</em> that can match IP prefixes and subnet masks; you should match both to ensure you're not advertising more-specific prefixes to your EBGP neighbors.</p>
+<p>You have to filter BGP prefixes sent to X1 and X2, and advertise only the 192.168.101.0/24 prefix. Most BGP implementations support <em>prefix lists</em> that can match IP prefixes and subnet masks; you should match both to ensure you&rsquo;re not advertising more-specific prefixes to your EBGP neighbors.</p>
 <p>On some BGP implementations (example: Cisco IOS and IOS XE, Cumulus Linux, FRR, Arista EOS) you can apply a <em>prefix list</em> as an inbound or outbound filter on a BGP neighbor. </p>
 <p>Some other implementations (example: Arista EOS) might require a more convoluted approach using a <em>route map</em> as an intermediate step:</p>
 <ul>
 <li>After configuring the <em>prefix list</em>, create a <em>route map</em> that permits BGP prefixes matching your <em>prefix list</em>.</li>
 <li>Apply that route map as an outbound filter to all EBGP neighbors.</li>
 </ul>
-<p>Please note that applying filters to BGP neighbors doesn't necessarily trigger new updates -- you might have to use a command similar to <code>clear ip bgp * soft out</code> to tell your router to recalculate and resend BGP prefixes from its BGP table to its neighbors.</p>
+<p>Please note that applying filters to BGP neighbors doesn&rsquo;t necessarily trigger new updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft out</code> to tell your router to recalculate and resend BGP prefixes from its BGP table to its neighbors.</p>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on X1 and X2 to verify that your router advertises only a single IPv4 prefix. This is the printout you should get on X1:</p>
 <pre><code>$ sudo vtysh -c 'show ip bgp neighbor 10.1.0.1 routes'
@@ -292,7 +295,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </code></pre>
 <p><strong>Next</strong>: <a href="../4-reduce/">Reduce the size of your BGP table</a> with inbound filters</p>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
+<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
@@ -399,7 +402,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <hr />
 <ol>
 <li id="fn:VT">
-<p><strong>sudo</strong> to make sure you're an admin user, <strong>vtysh</strong> is the name of the FRR CLI shell, and the <code>-c</code> argument passes the following argument to <strong>vtysh</strong> so you don't have to type another line. The <strong>regexp</strong> part of the <strong>show</strong> command tells the device to display BGP entries where the AS path matches the regular expression and <code>65000$</code> matches all AS paths ending with 65000 (= originating in your network).&#160;<a class="footnote-backref" href="#fnref:VT" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p><strong>sudo</strong> to make sure you&rsquo;re an admin user, <strong>vtysh</strong> is the name of the FRR CLI shell, and the <code>-c</code> argument passes the following argument to <strong>vtysh</strong> so you don&rsquo;t have to type another line. The <strong>regexp</strong> part of the <strong>show</strong> command tells the device to display BGP entries where the AS path matches the regular expression and <code>65000$</code> matches all AS paths ending with 65000 (= originating in your network).&#160;<a class="footnote-backref" href="#fnref:VT" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
@@ -407,8 +410,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../../js/jquery-3.6.0.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>

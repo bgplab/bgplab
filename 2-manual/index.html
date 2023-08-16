@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../img/favicon.ico">
         <title>Manual Setup - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/2-manual.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -135,19 +138,19 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="manual-setup">Manual Setup</h1>
-<p>You don't have to use <em><a href="https://netlab.tools">netlab</a></em> to create your labs; you can build them with any other tool, or use physical devices or a mix of physical- and virtual devices.</p>
+<p>You don&rsquo;t have to use <em><a href="https://netlab.tools">netlab</a></em> to create your labs; you can build them with any other tool, or use physical devices or a mix of physical- and virtual devices.</p>
 <p>Lab instructions contain wiring tables that you can use to set up your infrastructure, and I tried to use the same setup for as many labs as possible to reduce your hassle.</p>
-<p>All labs rely on preconfigured external BGP routers using Cumulus Linux. They are automatically configured by <em>netlab</em>; if you decide to use some other infrastructure you'll have to configure them yourself.</p>
+<p>All labs rely on preconfigured external BGP routers using Cumulus Linux. They are automatically configured by <em>netlab</em>; if you decide to use some other infrastructure you&rsquo;ll have to configure them yourself.</p>
 <p>Lab directories in the <a href="https://github.com/ipspace/bgplab">GitHub repository</a> contain <code>config</code> subdirectory with <code>/etc/frr/frr.conf</code> and <code>/etc/network/interfaces</code> files. I would use <code>git clone</code> to clone the GitHub repository to the local disk; GitHub also offers ZIP download. If you prefer point-and-click approach feel free to download individual files from the GitHub web UI. Finally, you could use <code>curl</code> on Cumulus Linux to pull them into the devices straight from GitHub.</p>
 <p>Whatever you decide to do, in the end you have to get the configuration files to individual Cumulus Linux devices, reconfigure interfaces with <code>ifreload -a</code>, and restart FRR.</p>
-<p>Most labs also configure IP addressing and basic BGP setup on your devices. Without <em>netlab</em> you'll have to start from scratch; the information you need is in the lab instructions but it might become tedious.</p>
+<p>Most labs also configure IP addressing and basic BGP setup on your devices. Without <em>netlab</em> you&rsquo;ll have to start from scratch; the information you need is in the lab instructions but it might become tedious.</p>
 <p><strong>Long story short:</strong> Use <em>netlab</em> 😉</p></div>
             </div>
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../js/jquery-3.6.0.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>

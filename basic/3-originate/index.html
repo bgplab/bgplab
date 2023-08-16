@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Advertise IPv4 Prefixes to BGP Neighbors - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/basic/3-originate.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -151,7 +154,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="advertise-ipv4-prefixes-to-bgp-neighbors">Advertise IPv4 Prefixes to BGP Neighbors</h1>
-<p>In the <a href="../2-multihomed/">previous lab exercise</a> you configured EBGP sessions with two routers belonging to upstream ISPs. Now it's time to advertise your address space (IPv4 prefixes) to them so you'll start receiving some traffic.</p>
+<p>In the <a href="../2-multihomed/">previous lab exercise</a> you configured EBGP sessions with two routers belonging to upstream ISPs. Now it&rsquo;s time to advertise your address space (IPv4 prefixes) to them so you&rsquo;ll start receiving some traffic.</p>
 <p><img alt="Lab topology" src="../topology-originate.png" /></p>
 <p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.</p>
 <table>
@@ -209,15 +212,15 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you're not using <em>netlab</em> just continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>You have to advertise two prefixes to the upstream providers:</p>
 <ul>
-<li><code>192.168.42.0</code> -- the IP address space belonging to your organization</li>
-<li><code>10.0.0.1</code> -- your loopback IP address.</li>
+<li><code>192.168.42.0</code> &ndash; the IP address space belonging to your organization</li>
+<li><code>10.0.0.1</code> &ndash; your loopback IP address.</li>
 </ul>
 <p><strong>Important:</strong> you should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. </p>
-<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you'll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won't send them anything.</p>
+<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won&rsquo;t send them anything.</p>
 <h2 id="verification">Verification</h2>
 <p>The IPv4 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to <strong>show ip bgp</strong> is thus a good starting point. This is how Arista EOS displays it:</p>
 <pre><code>rtr&gt;show ip bgp
@@ -240,7 +243,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 </code></pre>
-<p>However, you really want to know if the prefixes are advertised to the EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:</p>
+<p>However, you really want to know if the prefixes are advertised to the EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here&rsquo;s how that command works on Arista EOS:</p>
 <pre><code>rtr&gt;show ip bgp neighbor 10.1.0.2 advertised-routes
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -257,7 +260,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      192.168.42.0/24        10.1.0.1              -       -          -       -       65000 ?
  * &gt;      192.168.101.0/24       10.1.0.1              -       -          -       -       65000 65101 i
 </code></pre>
-<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that's a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it's way easier in a lab -- connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you're not using <em>netlab</em>), start <code>vtysh</code> and execute the <strong>show ip bgp</strong> command:</p>
+<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it&rsquo;s way easier in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> and execute the <strong>show ip bgp</strong> command:</p>
 <pre><code>$ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
 Use vtysh to connect to FRR daemon
@@ -291,7 +294,7 @@ x1#
 <li>Use BGP weights to <a href="../../policy/1-weights/">prefer one of the upstream ISPs</a>.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
+<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
@@ -379,8 +382,8 @@ x1#
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../../js/jquery-3.6.0.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>

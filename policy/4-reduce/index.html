@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Minimize the Size of Your BGP Table - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/policy/4-reduce.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -157,11 +160,11 @@
 <h1 id="minimize-the-size-of-your-bgp-table">Minimize the Size of Your BGP Table</h1>
 <p>In the previous lab exercises you establish EBGP sessions with two upstream Service Providers, accepted all routes they were willing to send you, and let your router do its magic selecting the best BGP routes (either based on AS-path length or <a href="../1-weights/">weights</a>).</p>
 <p>That might not be a good idea if you bought cost-optimized hardware that can do packet forwarding at ludicrous speeds but only for a few tens of thousands of routes while your neighbors send you the full Internet BGP table (over 930.000 routes in August 2023).</p>
-<p>In this lab exercise you'll use inbound filters to reduce the amount of information inserted in the BGP table (and subsequently routing table) of your device.</p>
+<p>In this lab exercise you&rsquo;ll use inbound filters to reduce the amount of information inserted in the BGP table (and subsequently routing table) of your device.</p>
 <p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
-<p>Your link to ISP-1 is much faster than the link to ISP-2, so you have to use ISP-1 for most of the outbound traffic. As X1 advertises a default route to you, you don't have to accept any other routing information from it.</p>
-<p>It would be a shame to let the link to ISP-2 remain idle while the link to ISP-1 is operational. Let's send the traffic for AS 65101 directly over the link to X2 -- that means you have to accept prefixes originated in AS 65101 from X2.</p>
-<p>Finally, you'll need a default route even if the link to ISP-1 goes down. You should therefore accept the default route from ISP-2 as well, but make it less preferred than the one received from ISP-1.</p>
+<p>Your link to ISP-1 is much faster than the link to ISP-2, so you have to use ISP-1 for most of the outbound traffic. As X1 advertises a default route to you, you don&rsquo;t have to accept any other routing information from it.</p>
+<p>It would be a shame to let the link to ISP-2 remain idle while the link to ISP-1 is operational. Let&rsquo;s send the traffic for AS 65101 directly over the link to X2 &ndash; that means you have to accept prefixes originated in AS 65101 from X2.</p>
+<p>Finally, you&rsquo;ll need a default route even if the link to ISP-1 goes down. You should therefore accept the default route from ISP-2 as well, but make it less preferred than the one received from ISP-1.</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
 <table>
@@ -241,15 +244,15 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using <em>netlab</em> just continue with the configuration you made during the <a href="../3-prefix/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../3-prefix/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <ul>
 <li>Configure a <em>prefix list</em> that will accept just the default route and apply it as an inbound filter on the EBGP session with X1. You did something very similar in the <em><a href="../3-prefix/">Filter Advertised Prefixes</a></em> exercise, so you should be familiar with the process.</li>
-<li>The inbound filter for X2 is a bit more complex: you have to accept a prefix if it originates in AS 65101 or if it's the default route. You already implemented <a href="../3-prefix/">prefix filters</a> and <a href="../2-stop-transit/">AS-path based filters</a>, now you have to combine them. Implementing such a condition usually requires a more complex routing policy; many BGP implementations call it a <em>route map</em>. </li>
+<li>The inbound filter for X2 is a bit more complex: you have to accept a prefix if it originates in AS 65101 or if it&rsquo;s the default route. You already implemented <a href="../3-prefix/">prefix filters</a> and <a href="../2-stop-transit/">AS-path based filters</a>, now you have to combine them. Implementing such a condition usually requires a more complex routing policy; many BGP implementations call it a <em>route map</em>. </li>
 </ul>
-<p><strong>Hint</strong>: You'll have to get fluent with regular expressions if you want to become a master of BGP routing policies, but let's do things one step at a time -- the regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
+<p><strong>Hint</strong>: You&rsquo;ll have to get fluent with regular expressions if you want to become a master of BGP routing policies, but let&rsquo;s do things one step at a time &ndash; the regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
 <ul>
-<li>Finally, you have to make routes received from X1 preferred over routes received from X2. You did exactly that in the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise, so you're good to go.</li>
+<li>Finally, you have to make routes received from X1 preferred over routes received from X2. You did exactly that in the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise, so you&rsquo;re good to go.</li>
 </ul>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on your device. It should contain:</p>
@@ -258,7 +261,7 @@
 <li>Two IP prefixes originated by X2</li>
 <li>Two paths for the default route; the path advertised by X1 should be the best path.</li>
 </ul>
-<p>If you're using Arista EOS on your device you should get this printout:</p>
+<p>If you&rsquo;re using Arista EOS on your device you should get this printout:</p>
 <pre><code>rtr#sh ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -278,7 +281,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
+<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
@@ -385,8 +388,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../../js/jquery-3.6.0.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>

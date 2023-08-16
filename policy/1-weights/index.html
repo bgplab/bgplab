@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Select Preferred EBGP Peer with Weights - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/policy/1-weights.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -156,9 +159,9 @@
 
 <h1 id="select-preferred-ebgp-peer-with-weights">Select Preferred EBGP Peer with Weights</h1>
 <p>In the previous lab exercises you <a href="../../basic/2-multihomed/">configured EBGP sessions</a> with two routers belonging to upstream ISPs and <a href="../../basic/3-originate/">advertised your IPv4 prefixes to them</a>.</p>
-<p>Now imagine that you want to use one of the uplinks just for backup purposes -- it might be either too slow or too expensive for regular use.</p>
+<p>Now imagine that you want to use one of the uplinks just for backup purposes &ndash; it might be either too slow or too expensive for regular use.</p>
 <p><img alt="Lab topology" src="../topology-weights.png" /></p>
-<p>In this lab, you'll modify your BGP configuration to ensure your router always prefers routes advertised by X1 (ISP-1).</p>
+<p>In this lab, you&rsquo;ll modify your BGP configuration to ensure your router always prefers routes advertised by X1 (ISP-1).</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (str).</p>
 <table>
@@ -238,12 +241,12 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using <em>netlab</em> just continue with the configuration you made during the <a href="../../basic/3-originate/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../../basic/3-originate/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You want your device to prefer routes advertised by X1 over routes advertised by X2. For example, the route for X2's loopback interface should use X1 as the next hop.</p>
+<p>You want your device to prefer routes advertised by X1 over routes advertised by X2. For example, the route for X2&rsquo;s loopback interface should use X1 as the next hop.</p>
 <p>Many BGP implementations use a mechanism called <em>weight</em> (usually applied per neighbor) to prefer routes advertised by one of the BGP peers.</p>
-<p>If your device supports <em>BGP weights</em>, use them to prefer routes advertised by X1. Otherwise, you'll have to use <em>BGP local preference</em> to achieve the same result.</p>
-<p>Please note that applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates -- you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
+<p>If your device supports <em>BGP weights</em>, use them to prefer routes advertised by X1. Otherwise, you&rsquo;ll have to use <em>BGP local preference</em> to achieve the same result.</p>
+<p>Please note that applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:</p>
 <pre><code>rtr#sh ip bgp
@@ -289,7 +292,7 @@ BGP routing table entry for 10.0.0.11/32
 </code></pre>
 <p><strong>Next</strong>: Use AS-path filters to <a href="../2-stop-transit/">stop advertising transit routes </a>.</p>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
+<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
@@ -396,8 +399,8 @@ BGP routing table entry for 10.0.0.11/32
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../../js/jquery-3.6.0.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>

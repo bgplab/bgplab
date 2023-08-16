@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Configure a Single EBGP Session - BGP Configuration Labs</title>
@@ -107,6 +107,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/basic/1-session.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -151,8 +154,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="configure-a-single-ebgp-session">Configure a Single EBGP Session</h1>
-<p>We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).</p>
-<p><strong>Note:</strong> if you're <a href="../../2-manual/">creating your lab infrastructure manually</a>, it might be better to skip this exercise and go straight to <em><a href="../2-multihomed/">configuring two uplinks</a></em>.</p>
+<p>We&rsquo;ll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).</p>
+<p><strong>Note:</strong> if you&rsquo;re <a href="../../2-manual/">creating your lab infrastructure manually</a>, it might be better to skip this exercise and go straight to <em><a href="../2-multihomed/">configuring two uplinks</a></em>.</p>
 <p><img alt="Lab topology" src="../topology-session.png" /></p>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
@@ -177,7 +180,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you'll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won't accept anything they send you.</p>
+<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
 <p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
@@ -208,7 +211,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <li><a href="../2-multihomed/">Connect with the second upstream provider</a> and advertise your address space.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you're not using <em>netlab</em> to build the lab:</p>
+<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
@@ -271,8 +274,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
         </div>
 
         <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
         </footer>
         <script src="../../js/jquery-3.6.0.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>
