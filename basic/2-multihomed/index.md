@@ -6,33 +6,34 @@ Now that you know how to configure an EBGP session let's move on to a more reali
 
 The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.
 
-| Node/ASN | Router ID | BGP RR | Advertised prefixes |
-|----------|----------:|--------|--------------------:|
-| **AS65000** |||
-| rtr | 10.0.0.1 |  | |
-| **AS65100** |||
-| x1 | 10.0.0.10 |  | 10.0.0.10/32<br>192.168.100.0/24 |
-| **AS65101** |||
-| x2 | 10.0.0.11 |  | 10.0.0.11/32<br>192.168.101.0/24 |
+| Node/ASN | Router ID | Advertised prefixes |
+|----------|----------:|--------------------:|
+| **AS65000** ||
+| rtr | 10.0.0.1 | |
+| **AS65100** ||
+| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| **AS65101** ||
+| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
 
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/2-multihomed`
-* Execute **netlab up** ([other options](../2-manual.md))
+* Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
 
 ## Configuration Tasks
 
 Configure EBGP sessions using the following parameters:
 
-| Node | Neighbor | Neighbor IPv4 | Neighbor AS | Local AS |
-|------|----------|--------------:|------------:|---------:|
-| rtr | x1 | 10.1.0.2 | 65100 |  |
-| rtr | x2 | 10.1.0.6 | 65101 |  |
+| Node | Neighbor | Neighbor IPv4 | Neighbor AS |
+|------|----------|--------------:|------------:|
+| rtr | x1 | 10.1.0.2 | 65100 |
+| rtr | x2 | 10.1.0.6 | 65101 |
 
-**Note:** If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
+!!! Warning
+    If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
 
 You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
 
@@ -82,10 +83,12 @@ You might find the following information useful if you're not using _netlab_ to 
 
 ### Lab Wiring
 
-| Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
-|-----------------|---------------|-------------|--------------------|------------------|
-|  | rtr | Ethernet1 | x1 | swp1 |
-|  | rtr | Ethernet2 | x2 | swp1 |
+This lab uses a subset of the [4-router lab topology](../external/4-router.md):
+
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| rtr | Ethernet1 | x1 | swp1 |
+| rtr | Ethernet2 | x2 | swp1 |
 
 ### Lab Addressing
 

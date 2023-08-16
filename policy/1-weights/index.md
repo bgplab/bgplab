@@ -12,16 +12,16 @@ In this lab, you'll modify your BGP configuration to ensure your router always p
 
 The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (str).
 
-| Node/ASN | Router ID | BGP RR | Advertised prefixes |
-|----------|----------:|--------|--------------------:|
-| AS65000 |||
-| rtr | 10.0.0.1 |  | 10.0.0.1/32<br>192.168.42.0/24 |
-| AS65100 |||
-| x1 | 10.0.0.10 |  | 10.0.0.10/32<br>192.168.100.0/24 |
-| AS65101 |||
-| x2 | 10.0.0.11 |  | 10.0.0.11/32<br>192.168.101.0/24 |
+| Node/ASN | Router ID | Advertised prefixes |
+|----------|----------:|--------------------:|
+| **AS65000** ||
+| rtr | 10.0.0.1 | 10.0.0.1/32<br>192.168.42.0/24 |
+| **AS65100** ||
+| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| **AS65101** ||
+| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
 
-Your device (rtr) has these EBGP neighbors:
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -33,7 +33,7 @@ Your device (rtr) has these EBGP neighbors:
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/1-weights`
-* Execute **netlab up** ([other options](../2-manual.md))
+* Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
 **Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab* just continue with the configuration you made during the [previous exercise](../basic/3-originate.md).
@@ -46,7 +46,8 @@ Many BGP implementations use a mechanism called *weight* (usually applied per ne
 
 If your device supports *BGP weights*, use them to prefer routes advertised by X1. Otherwise, you'll have to use *BGP local preference* to achieve the same result.
 
-Please note that applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates -- you might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
+!!! Warning
+    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates -- you might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
 
 ## Verification
 
@@ -106,11 +107,13 @@ You might find the following information useful if you're not using _netlab_ to 
 
 ### Lab Wiring
 
-| Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
-|-----------------|---------------|-------------|--------------------|------------------|
-|  | rtr | Ethernet1 | x1 | swp1 |
-|  | rtr | Ethernet2 | x2 | swp1 |
-|  | x1 | swp2 | x2 | swp2 |
+This lab uses a subset of the [4-router lab topology](../external/4-router.md):
+
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| rtr | Ethernet1 | x1 | swp1 |
+| rtr | Ethernet2 | x2 | swp1 |
+| x1 | swp2 | x2 | swp2 |
 
 ### Lab Addressing
 

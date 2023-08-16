@@ -6,21 +6,28 @@ In the [previous lab exercise](2-multihomed.md) you configured EBGP sessions wit
 
 The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.
 
-| Node/ASN | Router ID | BGP RR | Advertised prefixes |
-|----------|----------:|--------|--------------------:|
-| **AS65000** |||
-| rtr | 10.0.0.1 |  | |
-| **AS65100** |||
-| x1 | 10.0.0.10 |  | 10.0.0.10/32<br>192.168.100.0/24 |
-| **AS65101** |||
-| x2 | 10.0.0.11 |  | 10.0.0.11/32<br>192.168.101.0/24 |
+| Node/ASN | Router ID | Advertised prefixes |
+|----------|----------:|--------------------:|
+| **AS65000** ||
+| rtr | 10.0.0.1 | |
+| **AS65100** ||
+| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| **AS65101** ||
+| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
+
+Your router has these EBGP neighbors. _netlab_ configures them automatically, if you're using some other lab infrastructure you'll have to configure them manually.
+
+| Node | Neighbor | Neighbor IPv4 | Neighbor AS |
+|------|----------|--------------:|------------:|
+| rtr | x1 | 10.1.0.2 | 65100 |
+| rtr | x2 | 10.1.0.6 | 65101 |
 
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/3-originate`
-* Execute **netlab up** ([other options](../2-manual.md))
+* Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and basic BGP configuration.
 
 **Note:** *netlab* will configure IP addressing and EBGP sessions on your router. If you're not using *netlab* just continue with the configuration you made during the [previous exercise](2-multihomed.md).
@@ -32,9 +39,18 @@ You have to advertise two prefixes to the upstream providers:
 * `192.168.42.0` -- the IP address space belonging to your organization
 * `10.0.0.1` -- your loopback IP address.
 
-**Important:** you should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. 
+!!! Warning
+    This is a lab exercise and we're using a loopback IP address just to have a directly-connected subnet you can advertise. You should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. 
 
-**Note:** If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
+BGP never originates IP prefixes without being told to do so. The usual ways to do that are:
+
+1. Redistribution of other sources of routing information into BGP -- for example, redistributing directly connected subnets or OSPF routes.
+2. Origination of configured prefixes, often using **network** router configuration command. This approach assumes *there's an exact match in the IP routing table*
+
+While the first method is usually used within enterprise networks using BGP as an internal routing protocol or to connect to an MPLS/VPN service, you should have a tight control over the prefixes advertised into the public Internet. Please use the second method in this lab exercise.
+
+!!! Warning
+    If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
 
 ## Verification
 
@@ -124,10 +140,12 @@ You might find the following information useful if you're not using _netlab_ to 
 
 ### Lab Wiring
 
-| Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
-|-----------------|---------------|-------------|--------------------|------------------|
-|  | rtr | Ethernet1 | x1 | swp1 |
-|  | rtr | Ethernet2 | x2 | swp1 |
+This lab uses a subset of the [4-router lab topology](../external/4-router.md):
+
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| rtr | Ethernet1 | x1 | swp1 |
+| rtr | Ethernet2 | x2 | swp1 |
 
 ### Lab Addressing
 

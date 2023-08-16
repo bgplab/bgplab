@@ -2,7 +2,7 @@
 
 We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).
 
-**Note:** if you're [creating your lab infrastructure manually](../2-manual.md), it might be better to skip this exercise and go straight to *[configuring two uplinks](2-multihomed.md)*.
+**Note:** if you're [creating your lab infrastructure manually](../external/index.md), it might be better to skip this exercise and go straight to *[configuring two uplinks](2-multihomed.md)*.
 
 ![Lab topology](topology-session.png)
 
@@ -11,7 +11,7 @@ We'll start with the simplest possible scenario: configure an EBGP session betwe
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/1-session`
-* Execute **netlab up** ([other options](../2-manual.md))
+* Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
 
 ## Configuration Tasks
@@ -22,7 +22,8 @@ Configure an EBGP session using the following parameters:
 |--------------------:|-------------------:|
 | 10.1.0.2            | 65100              |
 
-**Note:** If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
+!!! Warning
+    If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
 
 You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
 
@@ -67,9 +68,11 @@ You might find the following information useful if you're not using _netlab_ to 
 
 ### Lab Wiring
 
-| Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
-|-----------------|---------------|-------------|--------------------|------------------|
-|  | rtr | Ethernet1 | x1 | swp1 |
+This lab uses a subset of the [4-router lab topology](../external/4-router.md):
+
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| rtr | Ethernet1 | x1 | swp1 |
 
 ### Lab Addressing
 

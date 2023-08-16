@@ -16,16 +16,16 @@ You don't have to trust me -- log into X2 and execute `sudo vtysh -c 'show ip bg
 
 The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).
 
-| Node/ASN | Router ID | BGP RR | Advertised prefixes |
-|----------|----------:|--------|--------------------:|
-| AS65000 |||
-| rtr | 10.0.0.1 |  | 10.0.0.1/32<br>192.168.42.0/24 |
-| AS65100 |||
-| x1 | 10.0.0.10 |  | 10.0.0.10/32<br>192.168.100.0/24 |
-| AS65101 |||
-| x2 | 10.0.0.11 |  | 10.0.0.11/32<br>192.168.101.0/24 |
+| Node/ASN | Router ID | Advertised prefixes |
+|----------|----------:|--------------------:|
+| **AS65000** ||
+| rtr | 10.0.0.1 | 10.0.0.1/32<br>192.168.42.0/24 |
+| **AS65100** ||
+| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| **AS65101** ||
+| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
 
-Your device (rtr) has these EBGP neighbors:
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually. You can also use the configuration you made in the [previous exercise](1-weights.md).
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -37,7 +37,7 @@ Your device (rtr) has these EBGP neighbors:
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/2-stop-transit`
-* Execute **netlab up** ([other options](../2-manual.md))
+* Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
 **Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab* just continue with the configuration you made during the [previous exercise](1-weights.md).
@@ -60,7 +60,8 @@ Some other implementations (example: Arista EOS) might require a more convoluted
 * After configuring the AS-path access list, create a *route map* that permits BGP prefixes matching your AS-path access list.
 * Apply that route map as an outbound filter to all EBGP neighbors.
 
-Please note that applying filters to BGP neighbors doesn't necessarily trigger new updates -- you might have to use a command similar to `clear ip bgp * soft out` to tell your router to recalculate and resend BGP prefixes from its BGP table to its neighbors.
+!!! Warning
+    Applying filters to BGP neighbors doesn't necessarily trigger new updates -- you might have to use a command similar to `clear ip bgp * soft out` to tell your router to recalculate and resend BGP prefixes from its BGP table to its neighbors.
 
 ## Verification
 
@@ -96,11 +97,13 @@ You might find the following information useful if you're not using _netlab_ to 
 
 ### Lab Wiring
 
-| Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
-|-----------------|---------------|-------------|--------------------|------------------|
-|  | rtr | Ethernet1 | x1 | swp1 |
-|  | rtr | Ethernet2 | x2 | swp1 |
-|  | x1 | swp2 | x2 | swp2 |
+This lab uses a subset of the [4-router lab topology](../external/4-router.md):
+
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| rtr | Ethernet1 | x1 | swp1 |
+| rtr | Ethernet2 | x2 | swp1 |
+| x1 | swp2 | x2 | swp2 |
 
 ### Lab Addressing
 
