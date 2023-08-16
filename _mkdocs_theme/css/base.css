@@ -321,14 +321,13 @@ blockquote {
 }
 
 .admonition.note, details.note { /* csslint allow: adjoining-classes */
-    color: #2e6b89;
-    background-color: #e2f0f7;
-    border-color: #bce8f1;
+/*    color: #2e6b89; */
+    background-color: rgba(209,191,171,0.5);
+/*    border-color: #bce8f1; */
 }
 
 .admonition.warning, details.warning { /* csslint allow: adjoining-classes */
-    color: #7a6032;
-    background-color: #fffae5;
+    background-color: rgba(251,160,2,0.4);
     border-color: #fbeed5;
 }
 

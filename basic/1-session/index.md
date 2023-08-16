@@ -23,7 +23,7 @@ Configure an EBGP session using the following parameters:
 | 10.1.0.2            | 65100              |
 
 !!! Warning
-    If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
+    If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on the EBGP session or your device won't accept updates from its EBGP neighbor(s).
 
 You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
 
