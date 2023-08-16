@@ -204,6 +204,15 @@ table.table-striped tbody tr:nth-of-type(even) {
     margin-top: 60px;
 }
 
+.modal-header h4.modal-title {
+    margin-left: 0;
+    margin-top: 0;
+}
+
+.modal-body h3 {
+    margin-left: 0;
+}
+
 button:focus {
     outline: 1px dotted !important;
 }
