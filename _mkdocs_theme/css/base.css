@@ -64,6 +64,15 @@ body > .container {
     padding-left: 19px;
 }
 
+.col-md-9 ol {
+    padding-left: 19px;
+}
+
+.footnote ol {
+    padding-left: 19px;
+    font-size: 90%;
+}
+
 h1, h2, h3, h4, h5, h6 {
     color: #372f2d;
     font-weight: 400;
@@ -166,6 +175,29 @@ footer {
     margin-bottom: 10px;
     text-align: center;
     font-weight: 200;
+    font-size: 80%;
+}
+
+table.table {
+    border-collapse: collapse;
+    border: 1px solid #dee2e6;
+    width: auto;
+}
+
+table.table th, table.table td {
+    padding: 0.5rem 0.75rem;
+}
+
+table.table thead tr {
+    background-color: rgba(205, 205, 205, 0.16);
+}
+
+table.table-striped tbody tr:nth-of-type(odd) {
+    background-color: transparent;
+}
+
+table.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgba(205, 205, 205, 0.04);
 }
 
 .modal-dialog {
