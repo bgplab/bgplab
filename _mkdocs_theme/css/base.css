@@ -60,8 +60,12 @@ body > .container {
     margin: 20px auto 30px auto;
 }
 
+.col-md-9 ul {
+    padding-left: 19px;
+}
+
 h1, h2, h3, h4, h5, h6 {
-    color: #444;
+    color: #372f2d;
     font-weight: 400;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
