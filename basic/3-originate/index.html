@@ -42,9 +42,19 @@
     <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../../2-manual/" class="dropdown-item">Manual Setup</a>
+    <a href="../../external/" class="dropdown-item">Manual Setup</a>
 </li>
+            
+<li>
+    <a href="../../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
                                     
 <li>
     <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
@@ -162,7 +172,6 @@
 <tr>
 <th>Node/ASN</th>
 <th style="text-align: right;">Router ID</th>
-<th>BGP RR</th>
 <th style="text-align: right;">Advertised prefixes</th>
 </tr>
 </thead>
@@ -170,38 +179,57 @@
 <tr>
 <td><strong>AS65000</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>rtr</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td><strong>AS65100</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td></td>
 <td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td></td>
 <td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
+</tr>
+</tbody>
+</table>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically, if you&rsquo;re using some other lab infrastructure you&rsquo;ll have to configure them manually.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Neighbor</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+<th style="text-align: right;">Neighbor AS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rtr</td>
+<td>x1</td>
+<td style="text-align: right;">10.1.0.2</td>
+<td style="text-align: right;">65100</td>
+</tr>
+<tr>
+<td>rtr</td>
+<td>x2</td>
+<td style="text-align: right;">10.1.0.6</td>
+<td style="text-align: right;">65101</td>
 </tr>
 </tbody>
 </table>
@@ -209,7 +237,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/3-originate</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
@@ -219,8 +247,20 @@
 <li><code>192.168.42.0</code> &ndash; the IP address space belonging to your organization</li>
 <li><code>10.0.0.1</code> &ndash; your loopback IP address.</li>
 </ul>
-<p><strong>Important:</strong> you should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. </p>
-<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won&rsquo;t send them anything.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is a lab exercise and we&rsquo;re using a loopback IP address just to have a directly-connected subnet you can advertise. You should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. </p>
+</div>
+<p>BGP never originates IP prefixes without being told to do so. The usual ways to do that are:</p>
+<ol>
+<li>Redistribution of other sources of routing information into BGP &ndash; for example, redistributing directly connected subnets or OSPF routes.</li>
+<li>Origination of configured prefixes, often using <strong>network</strong> router configuration command. This approach assumes <em>there&rsquo;s an exact match in the IP routing table</em></li>
+</ol>
+<p>While the first method is usually used within enterprise networks using BGP as an internal routing protocol or to connect to an MPLS/VPN service, you should have a tight control over the prefixes advertised into the public Internet. Please use the second method in this lab exercise.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won&rsquo;t send them anything.</p>
+</div>
 <h2 id="verification">Verification</h2>
 <p>The IPv4 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to <strong>show ip bgp</strong> is thus a good starting point. This is how Arista EOS displays it:</p>
 <pre><code>rtr&gt;show ip bgp
@@ -296,10 +336,10 @@ x1#
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>
-<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -308,14 +348,12 @@ x1#
 </thead>
 <tbody>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet2</td>
 <td>x2</td>

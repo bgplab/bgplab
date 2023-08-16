@@ -42,9 +42,19 @@
     <a href="./" class="dropdown-item active">Installation and Setup</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../2-manual/" class="dropdown-item">Manual Setup</a>
+    <a href="../external/" class="dropdown-item">Manual Setup</a>
 </li>
+            
+<li>
+    <a href="../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
                                     
 <li>
     <a href="../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
@@ -103,7 +113,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../2-manual/" class="nav-link">
+                                <a rel="next" href="../external/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -154,7 +164,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="software-installation-and-lab-setup">Software Installation and Lab Setup</h1>
-<p>It&rsquo;s easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we&rsquo;ll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way you might find the <a href="../2-manual/">Manual Setup</a> document useful.</p>
+<p>It&rsquo;s easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we&rsquo;ll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way you might find the <a href="../external/">Manual Setup</a> document useful.</p>
 <h2 id="selecting-the-network-devices">Selecting the Network Devices</h2>
 <p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices that you have to connect to and exchange routing information with. It&rsquo;s best if you run Cumulus Linux on those devices; if you insist on using something else we&rsquo;d appreciate if you would consider submitting your configurations in a pull request.</p>
 <p>You can run Cumulus Linux in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt or Docker), and  if you want to keep your life simple consider using it for your devices as well. Obviously you can use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a>.</p>

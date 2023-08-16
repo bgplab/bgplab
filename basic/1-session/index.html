@@ -42,9 +42,19 @@
     <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../../2-manual/" class="dropdown-item">Manual Setup</a>
+    <a href="../../external/" class="dropdown-item">Manual Setup</a>
 </li>
+            
+<li>
+    <a href="../../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
                                     
 <li>
     <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
@@ -155,13 +165,13 @@
 
 <h1 id="configure-a-single-ebgp-session">Configure a Single EBGP Session</h1>
 <p>We&rsquo;ll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).</p>
-<p><strong>Note:</strong> if you&rsquo;re <a href="../../2-manual/">creating your lab infrastructure manually</a>, it might be better to skip this exercise and go straight to <em><a href="../2-multihomed/">configuring two uplinks</a></em>.</p>
+<p><strong>Note:</strong> if you&rsquo;re <a href="../../external/">creating your lab infrastructure manually</a>, it might be better to skip this exercise and go straight to <em><a href="../2-multihomed/">configuring two uplinks</a></em>.</p>
 <p><img alt="Lab topology" src="../topology-session.png" /></p>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/1-session</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
 </ul>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
@@ -180,7 +190,10 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
+</div>
 <p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
@@ -213,10 +226,10 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>
-<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -225,7 +238,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet1</td>
 <td>x1</td>

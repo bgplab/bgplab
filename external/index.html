@@ -42,9 +42,19 @@
     <a href="../1-setup/" class="dropdown-item">Installation and Setup</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="./" class="dropdown-item active">Manual Setup</a>
 </li>
+            
+<li>
+    <a href="4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
                                     
 <li>
     <a href="../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
@@ -103,12 +113,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../3-upcoming/" class="nav-link">
+                                <a rel="next" href="4-router/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/2-manual.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/external/index.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -130,6 +140,18 @@
             
             <li class="nav-item" data-level="1"><a href="#manual-setup" class="nav-link">Manual Setup</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#lab-topologies" class="nav-link">Lab Topologies</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#external-bgp-routers" class="nav-link">External BGP Routers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#initial-device-configurations" class="nav-link">Initial Device Configurations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -139,11 +161,14 @@
 
 <h1 id="manual-setup">Manual Setup</h1>
 <p>You don&rsquo;t have to use <em><a href="https://netlab.tools">netlab</a></em> to create your labs; you can build them with any other tool, or use physical devices or a mix of physical- and virtual devices.</p>
-<p>Lab instructions contain wiring tables that you can use to set up your infrastructure, and I tried to use the same setup for as many labs as possible to reduce your hassle.</p>
-<p>All labs rely on preconfigured external BGP routers using Cumulus Linux. They are automatically configured by <em>netlab</em>; if you decide to use some other infrastructure you&rsquo;ll have to configure them yourself.</p>
+<h2 id="lab-topologies">Lab Topologies</h2>
+<p>Lab instructions contain wiring tables that you can use to set up your infrastructure, and I tried to use the same setup for as many labs as possible to reduce your hassle. For the moment, all exercises use the 4-router lab.</p>
+<h2 id="external-bgp-routers">External BGP Routers</h2>
+<p>The labs rely on preconfigured external BGP routers using Cumulus Linux. They are automatically configured by <em>netlab</em>; if you decide to use some other infrastructure you&rsquo;ll have to configure them yourself.</p>
 <p>Lab directories in the <a href="https://github.com/ipspace/bgplab">GitHub repository</a> contain <code>config</code> subdirectory with <code>/etc/frr/frr.conf</code> and <code>/etc/network/interfaces</code> files. I would use <code>git clone</code> to clone the GitHub repository to the local disk; GitHub also offers ZIP download. If you prefer point-and-click approach feel free to download individual files from the GitHub web UI. Finally, you could use <code>curl</code> on Cumulus Linux to pull them into the devices straight from GitHub.</p>
 <p>Whatever you decide to do, in the end you have to get the configuration files to individual Cumulus Linux devices, reconfigure interfaces with <code>ifreload -a</code>, and restart FRR.</p>
-<p>Most labs also configure IP addressing and basic BGP setup on your devices. Without <em>netlab</em> you&rsquo;ll have to start from scratch; the information you need is in the lab instructions but it might become tedious.</p>
+<h2 id="initial-device-configurations">Initial Device Configurations</h2>
+<p>When using <em>netlab</em>, you&rsquo;ll get IP addressing configured on your devices. Most labs (apart from the <em>configure BGP sessions</em> ones) also configure basic BGP setup on your devices. Without <em>netlab</em> you&rsquo;ll have to start from scratch; the information you need is in the lab instructions but it might become tedious.</p>
 <p><strong>Long story short:</strong> Use <em>netlab</em> 😉</p></div>
             </div>
         </div>

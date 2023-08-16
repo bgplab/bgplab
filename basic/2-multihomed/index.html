@@ -42,9 +42,19 @@
     <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../../2-manual/" class="dropdown-item">Manual Setup</a>
+    <a href="../../external/" class="dropdown-item">Manual Setup</a>
 </li>
+            
+<li>
+    <a href="../../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
                                     
 <li>
     <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
@@ -162,7 +172,6 @@
 <tr>
 <th>Node/ASN</th>
 <th style="text-align: right;">Router ID</th>
-<th>BGP RR</th>
 <th style="text-align: right;">Advertised prefixes</th>
 </tr>
 </thead>
@@ -170,37 +179,31 @@
 <tr>
 <td><strong>AS65000</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>rtr</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td><strong>AS65100</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td></td>
 <td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td></td>
 <td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
 </tr>
 </tbody>
@@ -209,7 +212,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/2-multihomed</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
 </ul>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
@@ -221,7 +224,6 @@
 <th>Neighbor</th>
 <th style="text-align: right;">Neighbor IPv4</th>
 <th style="text-align: right;">Neighbor AS</th>
-<th style="text-align: right;">Local AS</th>
 </tr>
 </thead>
 <tbody>
@@ -230,18 +232,19 @@
 <td>x1</td>
 <td style="text-align: right;">10.1.0.2</td>
 <td style="text-align: right;">65100</td>
-<td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>rtr</td>
 <td>x2</td>
 <td style="text-align: right;">10.1.0.6</td>
 <td style="text-align: right;">65101</td>
-<td style="text-align: right;"></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Note:</strong> If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
+</div>
 <p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
@@ -279,10 +282,10 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>
-<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -291,14 +294,12 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet2</td>
 <td>x2</td>

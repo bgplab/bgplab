@@ -42,9 +42,19 @@
     <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../../2-manual/" class="dropdown-item">Manual Setup</a>
+    <a href="../../external/" class="dropdown-item">Manual Setup</a>
 </li>
+            
+<li>
+    <a href="../../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
                                     
 <li>
     <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
@@ -172,50 +182,43 @@
 <tr>
 <th>Node/ASN</th>
 <th style="text-align: right;">Router ID</th>
-<th>BGP RR</th>
 <th style="text-align: right;">Advertised prefixes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AS65000</td>
+<td><strong>AS65000</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>rtr</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td></td>
 <td style="text-align: right;">10.0.0.1/32<br>192.168.42.0/24</td>
 </tr>
 <tr>
-<td>AS65100</td>
+<td><strong>AS65100</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td></td>
 <td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
 </tr>
 <tr>
-<td>AS65101</td>
+<td><strong>AS65101</strong></td>
 <td style="text-align: right;"></td>
-<td></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td></td>
 <td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
 </tr>
 </tbody>
 </table>
-<p>Your device (rtr) has these EBGP neighbors:</p>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
 <table>
 <thead>
 <tr>
@@ -241,7 +244,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/4-reduce</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../2-manual/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../3-prefix/">previous exercise</a>.</p>
@@ -254,6 +257,10 @@
 <ul>
 <li>Finally, you have to make routes received from X1 preferred over routes received from X2. You did exactly that in the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise, so you&rsquo;re good to go.</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
+</div>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on your device. It should contain:</p>
 <ul>
@@ -261,7 +268,7 @@
 <li>Two IP prefixes originated by X2</li>
 <li>Two paths for the default route; the path advertised by X1 should be the best path.</li>
 </ul>
-<p>If you&rsquo;re using Arista EOS on your device you should get this printout:</p>
+<p>If you&rsquo;re using Arista EOS, you should get this printout:</p>
 <pre><code>rtr#sh ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -283,10 +290,10 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>
-<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -295,21 +302,18 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td></td>
 <td>rtr</td>
 <td>Ethernet2</td>
 <td>x2</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td></td>
 <td>x1</td>
 <td>swp2</td>
 <td>x2</td>
