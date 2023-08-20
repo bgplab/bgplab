@@ -7,6 +7,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Establish a BGP session](basic/1-session)
 * [Connect to two upstream providers](basic/2-multihomed)
 * [Advertise your IP prefixes](basic/3-originate)
+* [Configure BGP for IPv6](basic/4-ipv6)
 
 **Simple End-User Setup**
 

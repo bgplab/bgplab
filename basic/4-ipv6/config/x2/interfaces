@@ -1,0 +1,39 @@
+auto lo
+iface lo inet loopback
+
+auto lo
+iface lo inet loopback
+	address 10.0.0.11/32
+
+auto lo
+iface lo inet6 loopback
+	address 2001:db8:101:1::1/64
+
+auto mgmt
+iface mgmt
+	vrf-table auto
+
+auto eth0
+iface eth0 inet static
+	address 192.168.121.111
+	vrf mgmt
+
+auto swp1
+iface swp1 inet static
+	address 10.1.0.6/30
+
+auto swp1
+iface swp1 inet6 static
+	address 2001:db8:42:1::2/64
+
+auto swp1
+iface swp1
+	mtu 1500
+
+auto lo1
+iface lo1
+	pre-up ip link add lo1 type dummy
+
+auto lo1
+iface lo1 inet6 loopback
+	address 2001:db8:101::b/48

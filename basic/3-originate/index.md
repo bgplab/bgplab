@@ -132,6 +132,7 @@ x1#
 
 **Next:**
 
+* (Optional) [Configure BGP for IPv6](4-ipv6.md)
 * Use BGP weights to [prefer one of the upstream ISPs](../policy/1-weights.md).
 
 ## Reference Information

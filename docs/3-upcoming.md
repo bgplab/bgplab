@@ -4,7 +4,6 @@ While we're working on new stuff you can already enjoy [over a half dozen](index
 
 ## Basic BGP Setup
 
-* Run BGP with IPv6
 * Redistribute IGP information into BGP
 * Use BGP summarization to minimize the number of BGP advertisements
 
