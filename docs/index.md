@@ -7,7 +7,7 @@ The following series of hands-on labs will help you master numerous aspects of E
 
 [^PC]: Some assembly required: the Cumulus Linux VMs/containers that are used for external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See [installation and setup](1-setup.md) for details.
 
-You can already do the following labs with over a dozen labs coming in the future (see the list of [upcoming labs](3-upcoming.md)).
+You can already do the following labs with tons of labs coming in the future (see the list of [upcoming labs](3-upcoming.md)). However, you should probably read the [Installation and Setup](1-setup.md) documentation first.
 
 ## Basic BGP Setup
 

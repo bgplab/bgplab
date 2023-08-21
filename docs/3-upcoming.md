@@ -7,13 +7,13 @@ While we're working on new stuff you can already enjoy [over a half dozen](index
 * Redistribute IGP information into BGP
 * Use BGP summarization to minimize the number of BGP advertisements
 
-Optional exercises:
+**Optional exercises:**
 
 * Protect a BGP session with MD5 password, TCP-AO password, and TTL check
 * Use session templates and BGP peer groups
 * Improve convergence speed with BFD
 
-Advanced exercises:
+**Advanced exercises:**
 
 * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 * Run IPv4 and IPv6 over the same BGP session
@@ -25,7 +25,7 @@ Advanced exercises:
 * Perform simple load balancing across parallel links and across upstream providers
 * Use BGP link bandwidth to influence the load balancing weights
 
-Advanced exercises:
+**Advanced exercises:**
 
 * Use BGP route refresh and soft reconfiguration
 * Use outbound route filters (ORF)
