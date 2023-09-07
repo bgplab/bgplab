@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Minimize the Size of Your BGP Table - BGP Configuration Labs</title>
+        <title>Redistribute IGP Information Into BGP - BGP Configuration Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -61,49 +61,49 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../basic/1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
+    <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
                                     
 <li>
-    <a href="../../basic/2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
+    <a href="../2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
                                     
 <li>
-    <a href="../../basic/3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
+    <a href="../3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
                                     
 <li>
-    <a href="../../basic/4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
+    <a href="../4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
 </li>
                                     
 <li>
-    <a href="../../basic/5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
+    <a href="./" class="dropdown-item active">Redistribute IGP Information Into BGP</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Simple Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
 </li>
                                     
 <li>
-    <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
+    <a href="../../policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
                                     
 <li>
-    <a href="../3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
+    <a href="../../policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Minimize the Size of Your BGP Table</a>
+    <a href="../../policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
                                 </ul>
                             </li>
@@ -116,17 +116,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../3-prefix/" class="nav-link">
+                                <a rel="prev" href="../4-ipv6/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../../policy/1-weights/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/policy/4-reduce.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/basic/5-redistribute.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -146,12 +146,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#minimize-the-size-of-your-bgp-table" class="nav-link">Minimize the Size of Your BGP Table</a>
+            <li class="nav-item" data-level="1"><a href="#redistribute-igp-information-into-bgp" class="nav-link">Redistribute IGP Information Into BGP</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
               </ul>
@@ -175,16 +171,12 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="minimize-the-size-of-your-bgp-table">Minimize the Size of Your BGP Table</h1>
-<p>In the previous lab exercises you establish EBGP sessions with two upstream Service Providers, accepted all routes they were willing to send you, and let your router do its magic selecting the best BGP routes (either based on AS-path length or <a href="../1-weights/">weights</a>).</p>
-<p>That might not be a good idea if you bought cost-optimized hardware that can do packet forwarding at ludicrous speeds but only for a few tens of thousands of routes while your neighbors send you the full Internet BGP table (over 930.000 routes in August 2023).</p>
-<p>In this lab exercise you&rsquo;ll use inbound filters to reduce the amount of information inserted in the BGP table (and subsequently routing table) of your device.</p>
-<p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
-<p>Your link to ISP-1 is much faster than the link to ISP-2, so you have to use ISP-1 for most of the outbound traffic. As X1 advertises a default route to you, you don&rsquo;t have to accept any other routing information from it.</p>
-<p>It would be a shame to let the link to ISP-2 remain idle while the link to ISP-1 is operational. Let&rsquo;s send the traffic for AS 65101 directly over the link to X2 &ndash; that means you have to accept prefixes originated in AS 65101 from X2.</p>
-<p>Finally, you&rsquo;ll need a default route even if the link to ISP-1 goes down. You should therefore accept the default route from ISP-2 as well, but make it less preferred than the one received from ISP-1.</p>
-<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
+<h1 id="redistribute-igp-information-into-bgp">Redistribute IGP Information Into BGP</h1>
+<p>When using BGP to connect to the public Internet, you should advertise the minimum number of prefixes needed to make your site reachable from the Internet &ndash; the best approach is to configure the prefixes you want to advertise as you did in the Advertise IPv4 Prefixes to BGP Neighbors lab exercise. That makes little sense when using BGP as a generic routing protocol, for example, when connecting your sites to an MPLS/VPN service. In these scenarios, it&rsquo;s better to redistribute local routing information (connected subnets, static routes, and IGP routes) into the BGP table; you&rsquo;ll practice this approach in this exercise.</p>
+<p>Your lab has two sites connected to an MPLS/VPN provider. Each site has a WAN edge router and a core router, running OSPF between them. Your task is to establish connectivity between your sites to enable the core routers to ping each other.</p>
+<p><img alt="Lab topology" src="../topology-2-sites.png" /></p>
+<p>If you&rsquo;re using <em>netlab, </em>you&rsquo;ll start with a preconfigured lab &ndash; <em>netlab</em> will configure IP addressing, OSPF routing, and EBGP sessions. If you&rsquo;re using any other lab environment, you&rsquo;ll have to configure all of that manually. The following tables describe the OSPF and BGP setup; the Reference Information section contains IP addressing information.</p>
+<h3 id="bgp-routers-and-as-numbers">BGP Routers and AS Numbers</h3>
 <table>
 <thead>
 <tr>
@@ -200,9 +192,19 @@
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>rtr</td>
+<td>c1</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">10.0.0.1/32<br>192.168.42.0/24</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td><strong>AS65001</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>c2</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;"></td>
 </tr>
 <tr>
 <td><strong>AS65100</strong></td>
@@ -212,72 +214,172 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
-</tr>
-<tr>
-<td><strong>AS65101</strong></td>
-<td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
+<td style="text-align: right;"></td>
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<h3 id="bgp-neighbors">BGP Neighbors</h3>
 <table>
 <thead>
 <tr>
+<th>Node</th>
 <th>Neighbor</th>
-<th style="text-align: right;">Neighbor IPv4</th>
 <th style="text-align: right;">Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><strong>c1</strong></td>
 <td>x1</td>
-<td style="text-align: right;">10.1.0.2</td>
 <td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.2</td>
 </tr>
 <tr>
+<td><strong>c2</strong></td>
 <td>x2</td>
-<td style="text-align: right;">10.1.0.6</td>
-<td style="text-align: right;">65101</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.10</td>
+</tr>
+<tr>
+<td><strong>x1</strong></td>
+<td>x2</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.0.0.11</td>
+</tr>
+<tr>
+<td></td>
+<td>c1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.1.0.1</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td>x1</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.0.0.10</td>
+</tr>
+<tr>
+<td></td>
+<td>c2</td>
+<td style="text-align: right;">65001</td>
+<td style="text-align: right;">10.1.0.9</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ospf-setup">OSPF Setup</h3>
+<h4 id="area-1-as-65000">Area 1 (AS 65000)</h4>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th>Neighbor(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c1</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.13/30</td>
+<td>s1</td>
+</tr>
+<tr>
+<td>s1</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td>c1</td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet2</td>
+<td style="text-align: right;">172.16.0.3/24</td>
+<td>passive</td>
+</tr>
+</tbody>
+</table>
+<h4 id="area-2-as-65001">Area 2 (AS 65001)</h4>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th>Neighbor(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c2</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.17/30</td>
+<td>s2</td>
+</tr>
+<tr>
+<td>s2</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.18/30</td>
+<td>c2</td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet2</td>
+<td style="text-align: right;">172.16.1.4/24</td>
+<td>passive</td>
 </tr>
 </tbody>
 </table>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Change directory to <code>policy/4-reduce</code></li>
+<li>Change directory to <code>basic/5-redistribute</code></li>
 <li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
+<li>Log into your devices with <strong>netlab connect</strong> and verify IP addresses, OSPF routing, and basic BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../3-prefix/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you&rsquo;re not using <em>netlab</em>, you&rsquo;ll have to configure them manually.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>You have to exchange OSPF routing information between the two sites using BGP. To get that done, you have to:</p>
 <ul>
-<li>Configure a <em>prefix list</em> that will accept just the default route and apply it as an inbound filter on the EBGP session with X1. You did something very similar in the <em><a href="../3-prefix/">Filter Advertised Prefixes</a></em> exercise, so you should be familiar with the process.</li>
-<li>The inbound filter for X2 is a bit more complex: you have to accept a prefix if it originates in AS 65101 or if it&rsquo;s the default route. You already implemented <a href="../3-prefix/">prefix filters</a> and <a href="../2-stop-transit/">AS-path based filters</a>, now you have to combine them. Implementing such a condition usually requires a more complex routing policy; many BGP implementations call it a <em>route map</em>. </li>
-</ul>
-<p><strong>Hint</strong>: You&rsquo;ll have to get fluent with regular expressions if you want to become a master of BGP routing policies, but let&rsquo;s do things one step at a time &ndash; the regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
-<ul>
-<li>Finally, you have to make routes received from X1 preferred over routes received from X2. You did exactly that in the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise, so you&rsquo;re good to go.</li>
+<li>Configure OSPF-to-BGP redistribution on C1 and C2, usually using a command similar to <strong>redistribute ospf</strong><sup id="fnref:PN"><a class="footnote-ref" href="#fn:PN">1</a></sup> within the BGP configuration.</li>
+<li>Configure BGP-to-OSPF redistribution on C1 and C2, usually using a command similar to <strong>redistribute bgp</strong><sup id="fnref:AS"><a class="footnote-ref" href="#fn:AS">2</a></sup> within the OSPF configuration.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
+<p>Two-way redistribution between routing protocols could quickly become exceedingly complex. Advertising the default route into the edge routing protocol is often better than redistributing core routes. You might want to test this alternative as an optional part of the lab exercise. </p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Examine the BGP table on your device. It should contain:</p>
-<ul>
-<li>IP prefixes your device is originating;</li>
-<li>Two IP prefixes originated by X2</li>
-<li>Two paths for the default route; the path advertised by X1 should be the best path.</li>
-</ul>
-<p>If you&rsquo;re using Arista EOS, you should get this printout:</p>
-<pre><code>rtr#sh ip bgp
+<p>The local OSPF prefixes you want to advertise to the remote site must be in your router&rsquo;s BGP table first. A command similar to <strong>show ip bgp</strong> is thus a good starting point; it&rsquo;s even better to use a command that displays only the locally-originated prefixes, such as <strong>show ip bgp regexp ^$</strong>. The following printout contains the information displayed on C1 running Arista EOS:</p>
+<pre><code>c1#show ip bgp regexp ^$
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -288,17 +390,50 @@ RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     200     65100 i
- *        0.0.0.0/0              10.1.0.6              0       -          100     100     65101 i
- * &gt;      10.0.0.1/32            -                     -       -          -       0       i
- * &gt;      10.0.0.11/32           10.1.0.6              0       -          100     100     65101 i
- * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
- * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
+ * &gt;      10.0.0.3/32            10.1.0.14             -       -          -       0       i
+ * &gt;      172.16.0.0/24          10.1.0.14             -       -          -       0       i
+
+c1#show ip bgp
+...
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.3/32            10.1.0.14             -       -          -       0       i
+ * &gt;      10.0.0.4/32            10.1.0.2              0       -          100     0       65100 65001 i
+ * &gt;      172.16.0.0/24          10.1.0.14             -       -          -       0       i
+ * &gt;      172.16.1.0/24          10.1.0.2              0       -          100     0       65100 65001 i
+</code></pre>
+<p>After validating the BGP table on C1 and C2, check that the BGP routes are redistributed into intra-site OSPF &ndash; inspect the routing table and OSPF topology database on S1 and S2. This is what Arista EOS displays on S1:</p>
+<pre><code>s1&gt;show ip route
+
+VRF: default
+Codes: C - connected, S - static, K - kernel,
+       O - OSPF, IA - OSPF inter area, E1 - OSPF external type 1,
+       E2 - OSPF external type 2, N1 - OSPF NSSA external type 1,
+       N2 - OSPF NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, O3 - OSPFv3, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route
+
+Gateway of last resort:
+ S        0.0.0.0/0 [1/0] via 192.168.121.1, Management0
+
+ O        10.0.0.1/32 [110/20] via 10.1.0.13, Ethernet1
+ C        10.0.0.3/32 is directly connected, Loopback0
+ O E2     10.0.0.4/32 [110/1] via 10.1.0.13, Ethernet1
+ C        10.1.0.12/30 is directly connected, Ethernet1
+ C        172.16.0.0/24 is directly connected, Ethernet2
+ O E2     172.16.1.0/24 [110/1] via 10.1.0.13, Ethernet1
+ C        192.168.121.0/24 is directly connected, Management0
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
+<p>This lab uses a superset of the <a href="../../external/4-router/">4-router lab topology</a>. You can still use that topology without the S1/S2 routers, and redistribute <em>connected</em> prefixes into BGP.</p>
+<h4 id="point-to-point-links">Point-to-Point Links</h4>
 <table>
 <thead>
 <tr>
@@ -310,22 +445,56 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td>rtr</td>
+<td>c1</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>rtr</td>
-<td>Ethernet2</td>
-<td>x2</td>
-<td>swp1</td>
-</tr>
-<tr>
 <td>x1</td>
 <td>swp2</td>
 <td>x2</td>
 <td>swp2</td>
+</tr>
+<tr>
+<td>c2</td>
+<td>Ethernet1</td>
+<td>x2</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>c1</td>
+<td>Ethernet2</td>
+<td>s1</td>
+<td>Ethernet1</td>
+</tr>
+<tr>
+<td>c2</td>
+<td>Ethernet2</td>
+<td>s2</td>
+<td>Ethernet1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="stub-links">Stub Links</h4>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s1</td>
+<td>Ethernet2</td>
+<td>s1 -&gt; stub</td>
+</tr>
+<tr>
+<td>s2</td>
+<td>Ethernet2</td>
+<td>s2 -&gt; stub</td>
 </tr>
 </tbody>
 </table>
@@ -341,7 +510,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td><strong>rtr</strong></td>
+<td><strong>c1</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -350,13 +519,31 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x1</td>
+<td>c1 -&gt; x1</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;">10.1.0.13/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x2</td>
+<td>c1 -&gt; s1</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>c2 -&gt; x2</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.17/30</td>
+<td style="text-align: right;"></td>
+<td>c2 -&gt; s2</td>
 </tr>
 <tr>
 <td><strong>x1</strong></td>
@@ -368,11 +555,11 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; rtr</td>
+<td>x1 -&gt; c1</td>
 </tr>
 <tr>
 <td>swp2</td>
-<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
 <td>x1 -&gt; x2</td>
 </tr>
@@ -383,19 +570,66 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
-<td style="text-align: right;">10.1.0.6/30</td>
-<td style="text-align: right;"></td>
-<td>x2 -&gt; rtr</td>
-</tr>
-<tr>
 <td>swp2</td>
-<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
 <td>x2 -&gt; x1</td>
 </tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; c2</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td style="text-align: right;"></td>
+<td>s1 -&gt; c1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">172.16.0.3/24</td>
+<td style="text-align: right;"></td>
+<td>s1 -&gt; stub</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.18/30</td>
+<td style="text-align: right;"></td>
+<td>s2 -&gt; c2</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">172.16.1.4/24</td>
+<td style="text-align: right;"></td>
+<td>s2 -&gt; stub</td>
+</tr>
 </tbody>
-</table></div>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:PN">
+<p>You might have to add OSPF process number to the command.&#160;<a class="footnote-backref" href="#fnref:PN" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:AS">
+<p>You might have to add BGP AS number to the command. Some older platforms have to be told to redistribute <strong>subnets</strong> into OSPF.&#160;<a class="footnote-backref" href="#fnref:AS" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 

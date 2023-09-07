@@ -80,6 +80,10 @@
 <li>
     <a href="../basic/4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
 </li>
+                                    
+<li>
+    <a href="../basic/5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -179,7 +183,6 @@
 <p>While we&rsquo;re working on new stuff you can already enjoy <a href="../">over a half dozen</a> labs. In case you&rsquo;re curious about what&rsquo;s coming next, here are a few ideas:</p>
 <h2 id="basic-bgp-setup">Basic BGP Setup</h2>
 <ul>
-<li>Redistribute IGP information into BGP</li>
 <li>Use BGP summarization to minimize the number of BGP advertisements</li>
 </ul>
 <p><strong>Optional exercises:</strong></p>
@@ -190,6 +193,8 @@
 </ul>
 <p><strong>Advanced exercises:</strong></p>
 <ul>
+<li>Change the BGP AS number presented to the BGP neighbor (<strong>local-as</strong> functionality)</li>
+<li>Disable AS path check on incoming updates (<strong>allowas-in</strong> functionality)</li>
 <li>Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses</li>
 <li>Run IPv4 and IPv6 over the same BGP session</li>
 <li>Fine-tune BGP Fast External Failover</li>
