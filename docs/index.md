@@ -15,6 +15,7 @@ You can already do the following labs with tons of labs coming in the future (se
 * [Connect to two upstream providers](basic/2-multihomed.md)
 * [Advertise your IPv4 address space](basic/3-originate.md)
 * [Configure BGP for IPv6](basic/4-ipv6.md)
+* [Redistribute IGP Information Into BGP](basic/5-redistribute.md)
 
 ## Simple BGP Routing Policies
 

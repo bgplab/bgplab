@@ -4,7 +4,6 @@ While we're working on new stuff you can already enjoy [over a half dozen](index
 
 ## Basic BGP Setup
 
-* Redistribute IGP information into BGP
 * Use BGP summarization to minimize the number of BGP advertisements
 
 **Optional exercises:**
@@ -15,6 +14,8 @@ While we're working on new stuff you can already enjoy [over a half dozen](index
 
 **Advanced exercises:**
 
+* Change the BGP AS number presented to the BGP neighbor (**local-as** functionality)
+* Disable AS path check on incoming updates (**allowas-in** functionality)
 * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
 * Run IPv4 and IPv6 over the same BGP session
 * Fine-tune BGP Fast External Failover

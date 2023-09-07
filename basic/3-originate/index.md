@@ -1,6 +1,6 @@
 # Advertise IPv4 Prefixes to BGP Neighbors
 
-In the [previous lab exercise](2-multihomed.md) you configured EBGP sessions with two routers belonging to upstream ISPs. Now it's time to advertise your address space (IPv4 prefixes) to them so you'll start receiving some traffic.
+In the [previous lab exercise](2-multihomed.md), you configured EBGP sessions with two routers belonging to upstream ISPs. Now it's time to advertise your address space (IPv4 prefixes) to them so you'll start receiving some traffic.
 
 ![Lab topology](topology-originate.png)
 
@@ -15,7 +15,7 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 | **AS65101** ||
 | x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically, if you're using some other lab infrastructure you'll have to configure them manually.
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure them manually.
 
 | Node | Neighbor | Neighbor IPv4 | Neighbor AS |
 |------|----------|--------------:|------------:|
@@ -30,7 +30,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and basic BGP configuration.
 
-**Note:** *netlab* will configure IP addressing and EBGP sessions on your router. If you're not using *netlab* just continue with the configuration you made during the [previous exercise](2-multihomed.md).
+**Note:** *netlab* will configure IP addressing and EBGP sessions on your router. If you're not using *netlab*, just continue with the configuration you made during the [previous exercise](2-multihomed.md).
 
 ## Configuration Tasks
 
@@ -40,21 +40,21 @@ You have to advertise two prefixes to the upstream providers:
 * `10.0.0.1` -- your loopback IP address.
 
 !!! Warning
-    This is a lab exercise and we're using a loopback IP address just to have a directly-connected subnet you can advertise. You should NEVER advertise your loopback addresses (or any other prefix more specific than a /24) to the public Internet. 
+    This is a lab exercise, and we're using a loopback IP address to have a directly connected subnet you can advertise. You should NEVER advertise your loopback addresses (or any prefix more specific than a /24) to the public Internet. 
 
 BGP never originates IP prefixes without being told to do so. The usual ways to do that are:
 
-1. Redistribution of other sources of routing information into BGP -- for example, redistributing directly connected subnets or OSPF routes.
+1. Redistribution of other routing information sources into BGP -- for example, redistributing directly connected subnets or OSPF routes. You'll practice that in the [Redistribute IGP Information Into BGP](5-redistribute.md) lab exercise.
 2. Origination of configured prefixes, often using **network** router configuration command. This approach assumes *there's an exact match in the IP routing table*
 
-While the first method is usually used within enterprise networks using BGP as an internal routing protocol or to connect to an MPLS/VPN service, you should have a tight control over the prefixes advertised into the public Internet. Please use the second method in this lab exercise.
+While the first method is usually used within enterprise networks that use BGP as an internal routing protocol or to connect to an MPLS/VPN service, you should have tight control over the prefixes advertised to the public Internet. Please use the second method in this lab exercise.
 
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
 
 ## Verification
 
-The IPv4 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to **show ip bgp** is thus a good starting point. This is how Arista EOS displays it:
+The IPv4 prefixes you want to advertise to EBGP neighbors must be in your router's BGP table first. A command similar to **show ip bgp** is thus a good starting point. This is how Arista EOS displays the BGP table:
 
 ```
 rtr>show ip bgp
@@ -78,7 +78,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 ```
 
-However, you really want to know if the prefixes are advertised to the EBGP neighbors. Some network devices have a **show** command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:
+However, you probably want to know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a **show** command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:
 
 ```
 rtr>show ip bgp neighbor 10.1.0.2 advertised-routes
@@ -133,11 +133,12 @@ x1#
 **Next:**
 
 * (Optional) [Configure BGP for IPv6](4-ipv6.md)
+* (Optional) [Redistribute IGP Information Into BGP](5-redistribute.md)
 * Use BGP weights to [prefer one of the upstream ISPs](../policy/1-weights.md).
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+You might find the following information helpful if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 
