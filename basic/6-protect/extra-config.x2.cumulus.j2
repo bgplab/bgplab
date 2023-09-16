@@ -1,0 +1,13 @@
+!
+! Configure BGP on EBGP peer
+!
+router bgp 65101
+ !
+ neighbor 10.1.0.5 password GuessWhat
+ !
+ address-family ipv4 unicast
+  neighbor 10.1.0.5 activate
+  neighbor 10.1.0.5 default-originate
+ exit-address-family
+!
+do write

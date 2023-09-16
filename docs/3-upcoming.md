@@ -1,6 +1,6 @@
 # Upcoming Labs
 
-While we're working on new stuff you can already enjoy [over a half dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
+While we're working on new stuff you can already enjoy [almost a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
 
 ## Basic BGP Setup
 
@@ -8,7 +8,6 @@ While we're working on new stuff you can already enjoy [over a half dozen](index
 
 **Optional exercises:**
 
-* Protect a BGP session with MD5 password, TCP-AO password, and TTL check
 * Use session templates and BGP peer groups
 * Improve convergence speed with BFD
 
