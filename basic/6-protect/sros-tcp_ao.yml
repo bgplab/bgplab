@@ -24,6 +24,7 @@ nodes:
     bgp.as: 65100
     id: 10
     bgp.originate: [ 192.168.100.0/24 ]
+    device: srlinux # Only supports basic MD5 authentication for now
   x2:
     bgp.as: 65101
     id: 11
@@ -32,6 +33,7 @@ links:
 - rtr:
   x1:
   bgp.password: "Secret1"
+  bgp.tcp_ao: ""  # Use regular MD5 authentication
 - rtr:
   x2:
   bgp.password: "Secret2"
