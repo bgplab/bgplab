@@ -1,0 +1,37 @@
+# Configure a BGP session with an external BGP speaker, using the new TCP AO option in ebgp.utils plugin
+
+name: protect-tcp_ao
+
+provider: clab
+
+defaults.device: sros
+
+plugin: [ ebgp.utils ]
+
+module: [ bgp ]
+
+bgp.tcp_ao: True # Enable TCP Authentication Option (RFC5925) globally
+
+groups:
+  external:
+    members: [ x1, x2 ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    bgp.originate: [ 192.168.42.0/24 ]
+  x1:
+    bgp.as: 65100
+    id: 10
+    bgp.originate: [ 192.168.100.0/24 ]
+  x2:
+    bgp.as: 65101
+    id: 11
+    bgp.originate: [ 192.168.101.0/24 ]
+links:
+- rtr:
+  x1:
+  bgp.password: "Secret1"
+- rtr:
+  x2:
+  bgp.password: "Secret2"
