@@ -135,6 +135,7 @@ x1#
 * (Optional) [Protect EBGP sessions](6-protect.md)
 * (Optional) [Configure BGP for IPv6](4-ipv6.md)
 * (Optional) [Redistribute IGP Information Into BGP](5-redistribute.md)
+* (Optional) [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * Use BGP weights to [prefer one of the upstream ISPs](../policy/1-weights.md).
 
 ## Reference Information

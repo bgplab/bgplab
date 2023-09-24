@@ -9,7 +9,6 @@ While we're working on new stuff you can already enjoy [almost a dozen](index.md
 **Optional exercises:**
 
 * Use session templates and BGP peer groups
-* Improve convergence speed with BFD
 
 **Advanced exercises:**
 

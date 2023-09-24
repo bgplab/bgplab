@@ -10,6 +10,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Protect EBGP sessions](basic/6-protect)
 * [Configure BGP for IPv6](basic/4-ipv6)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute)
+* [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
 
 **Simple End-User Setup**
 

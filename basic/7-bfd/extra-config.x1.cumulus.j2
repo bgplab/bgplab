@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+set -e
+cat >/tmp/config <<CONFIG
+!
+! Configure BGP long BGP timers and BFD on BGP neighbors
+!
+router bgp 65100
+ neighbor 10.1.0.1 bfd
+ neighbor 10.1.0.1 timers 60 180
+ neighbor 10.1.0.5 bfd
+ neighbor 10.1.0.5 timers 60 180
+!
+! Configure logging to stdout
+!
+CONFIG
+vtysh -f /tmp/config
+vtysh -c 'write'
+vtysh -c 'clear ip bgp *'

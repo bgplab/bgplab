@@ -1,0 +1,31 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+name: bfd
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ x1 ]
+    config: [ extra-config ]
+    device: cumulus
+
+nodes:
+  r1:
+    bgp.as: 65000
+    bgp.originate: [ 192.168.42.0/24 ]
+    bgp.advertise_loopback: false
+  r2:
+    bgp.as: 65001
+    bgp.originate: [ 192.168.43.0/24 ]
+    bgp.advertise_loopback: false
+  x1:
+    bgp.as: 65100
+    id: 10
+    bgp.advertise_loopback: false
+links:
+- r1-x1
+- x1:               # Link added to 
+  pool: l2only
+- r2-x1
