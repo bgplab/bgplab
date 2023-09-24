@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Configure a Single EBGP Session - BGP Configuration Labs</title>
+        <title>Use BFD to Speed Up BGP Convergence - BGP Configuration Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -66,7 +66,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active">Configure a Single EBGP Session</a>
+    <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
                                     
 <li>
@@ -90,7 +90,7 @@
 </li>
                                     
 <li>
-    <a href="../7-bfd/" class="dropdown-item">Use BFD to Speed Up BGP Convergence</a>
+    <a href="./" class="dropdown-item active">Use BFD to Speed Up BGP Convergence</a>
 </li>
                                 </ul>
                             </li>
@@ -124,17 +124,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../3-upcoming/" class="nav-link">
+                                <a rel="prev" href="../6-protect/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../2-multihomed/" class="nav-link">
+                                <a rel="next" href="../../policy/1-weights/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/basic/1-session.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/ipspace/bgplab/edit/master/docs/basic/7-bfd.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -154,17 +154,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#configure-a-single-ebgp-session" class="nav-link">Configure a Single EBGP Session</a>
+            <li class="nav-item" data-level="1"><a href="#use-bfd-to-speed-up-bgp-convergence" class="nav-link">Use BFD to Speed Up BGP Convergence</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+            <li class="nav-item" data-level="2"><a href="#checking-the-convergence-time" class="nav-link">Checking the Convergence Time</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+            <li class="nav-item" data-level="2"><a href="#reduce-the-bgp-timers" class="nav-link">Reduce the BGP Timers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configure-bfd" class="nav-link">Configure BFD</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -179,65 +183,99 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="configure-a-single-ebgp-session">Configure a Single EBGP Session</h1>
-<p>We&rsquo;ll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).</p>
-<p><strong>Note:</strong> if you&rsquo;re <a href="../../external/">creating your lab infrastructure manually</a>, it might be better to skip this exercise and go straight to <em><a href="../2-multihomed/">configuring two uplinks</a></em>.</p>
-<p><img alt="Lab topology" src="../topology-session.png" /></p>
-<h2 id="start-the-lab">Start the Lab</h2>
-<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<h1 id="use-bfd-to-speed-up-bgp-convergence">Use BFD to Speed Up BGP Convergence</h1>
+<p>Out-of-the-box EBGP is notoriously slow to converge &ndash; it can take up to three minutes to detect a failed EBGP neighbor. It&rsquo;s possible to tweak BGP timers to detect a failed neighbor in a few seconds, but it&rsquo;s <a href="https://blog.ipspace.net/2017/10/to-bfd-or-not-to-bfd.html">much better</a> to combine BGP with Bidirectional Forwarding Detection (BFD) &ndash; a lightweight protocol that can <a href="https://blog.ipspace.net/2020/11/detecting-network-failure.html">detect a link- or node failure in milliseconds</a>.</p>
+<p>In this lab you&rsquo;ll use both mechanisms:</p>
 <ul>
-<li>Change directory to <code>basic/1-session</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
+<li>You&rsquo;ll tweak the BGP timers to detect a link failure within 10 seconds.</li>
+<li>You&rsquo;ll enable BFD on an EBGP neighbor to reduce the failure detection time to approximately a second.</li>
 </ul>
-<h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>Configure an EBGP session using the following parameters:</p>
+<p><img alt="Lab topology" src="../topology-bfd.png" /></p>
+<p>The routers in your lab use the following BGP AS numbers. Your routers advertise an IPv4 prefix each; X1 does not advertise BGP prefixes.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: right;">neighbor IP address</th>
-<th style="text-align: right;">neighbor AS number</th>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;">10.1.0.2</td>
-<td style="text-align: right;">65100</td>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>r1</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">192.168.42.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65001</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>r2</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">192.168.43.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65100</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td style="text-align: right;"></td>
 </tr>
 </tbody>
 </table>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on the EBGP session or your device won&rsquo;t accept updates from its EBGP neighbor(s).</p>
-</div>
-<p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
-<h2 id="verification">Verification</h2>
-<p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
-<pre><code>rtr#show ip bgp summary
-BGP summary information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Neighbor Status Codes: m - Under maintenance
-  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100             33        37    0    0 00:01:25 Estab   2      2
-</code></pre>
-<p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received two prefixes from the EBGP neighbor: the default route and the loopback remote interface (10.0.0.10/32). This is how the printout looks like on Arista EOS:</p>
-<pre><code>rtr#show ip bgp
-BGP routing table information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
-
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
- * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
-</code></pre>
-<p><strong>Next:</strong></p>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li><a href="../2-multihomed/">Connect with the second upstream provider</a> and advertise your address space.</li>
+<li>Change directory to <code>basic/7-bfd</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Log into your devices (R1,R2) with <strong>netlab connect <em>node</em></strong> and verify their configuration.</li>
+</ul>
+<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully-configured lab, including BGP prefix origination on R1 and R2, and EBGP sessions between R1/R2 and X1. If you&rsquo;re using some other lab platform, you&rsquo;ll have to do a fair amount of prep work<sup id="fnref:PW"><a class="footnote-ref" href="#fn:PW">1</a></sup>.</p>
+<h2 id="checking-the-convergence-time">Checking the Convergence Time</h2>
+<ul>
+<li>Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS), or monitoring of IP routing table (example: Arista EOS <strong>event monitor</strong>). You&rsquo;ll have to inspect the BGP table on R2 every few seconds if your platform does not have similar functionality.</li>
+<li>Log into R1 and remove the IP address from the R1-X1 link.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It would be easier to shut down the R1-X1 link, but that trick doesn&rsquo;t work with devices like Arista EOS that tear down the BGP session before shutting down the link.</p>
+</div>
+<p>I used Arista EOS <strong>event monitor</strong> on R2, added IP address on the R1 Ethernet1 interface, and removed it as soon as the BGP session was established. It took BGP almost exactly three minutes to detect the failed EBGP session between X1 and R1:</p>
+<pre><code>r2#sh event-monitor route match-ip 192.168.42.0/24
+2023-09-16 16:02:25.953617|192.168.42.0/24|default|ebgp|0|200|updated|24
+2023-09-16 16:05:27.071501|192.168.42.0/24|default|ebgp|0|0|removed|25
+</code></pre>
+<h2 id="reduce-the-bgp-timers">Reduce the BGP Timers</h2>
+<p>You can reduce BGP session timers to improve BGP convergence:</p>
+<ul>
+<li>On the R1-X1 EBGP session, set the keepalive timer to three seconds and hold timer (timeout) to nine seconds.</li>
+<li>Clear the EBGP session if needed<sup id="fnref:ATD"><a class="footnote-ref" href="#fn:ATD">2</a></sup> &ndash; the BGP timers are negotiated during the BGP session establishment phase.</li>
+</ul>
+<p>Verification:</p>
+<ul>
+<li>Verify that you managed to reduce the BGP timers with a command similar to <strong>show ip bgp neighbor detail</strong>. </li>
+<li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 within nine seconds.</li>
+</ul>
+<h2 id="configure-bfd">Configure BFD</h2>
+<p>While some BGP implementations allow you to use very small BGP timers (example: one second keep alive timer), you shouldn&rsquo;t use that approach if you care about BGP convergence speed. It&rsquo;s much better to combine BGP with BFD:</p>
+<ul>
+<li>Configure BFD on the EBGP neighbor session on R1</li>
+<li>Clear the BGP session if needed</li>
+</ul>
+<p>Verification:</p>
+<ul>
+<li>Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the <strong>show ip bgp neighbor details</strong> (or similar) command. Some implementations have BFD-specific show commands like <strong>show bad neighbors</strong>.</li>
+<li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 almost immediately.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
@@ -254,10 +292,16 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td>rtr</td>
+<td>r1</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
+</tr>
+<tr>
+<td>r2</td>
+<td>Ethernet1</td>
+<td>x1</td>
+<td>swp3</td>
 </tr>
 </tbody>
 </table>
@@ -273,7 +317,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td><strong>rtr</strong></td>
+<td><strong>r1</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -282,7 +326,19 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x1</td>
+<td>r1 -&gt; x1</td>
+</tr>
+<tr>
+<td><strong>r2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>r2 -&gt; x1</td>
 </tr>
 <tr>
 <td><strong>x1</strong></td>
@@ -294,10 +350,27 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; rtr</td>
+<td>x1 -&gt; r1</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; r2</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:PW">
+<p>I did <a href="../../1-setup/">tell you to use <em>netlab</em></a>, didn&rsquo;t I?&#160;<a class="footnote-backref" href="#fnref:PW" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:ATD">
+<p>Some BGP implementations tear down BGP session when you change the BGP timers.&#160;<a class="footnote-backref" href="#fnref:ATD" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
