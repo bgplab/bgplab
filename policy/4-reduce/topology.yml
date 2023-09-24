@@ -4,11 +4,11 @@ defaults.sources.extra: [ ../../defaults.yml ]
 name: reduce
 
 module: [ bgp ]
+plugin: [ ebgp.utils ]
 
 groups:
   external:
     members: [ x1, x2 ]
-    config: [ extra-config ]
     device: cumulus
 
 nodes:
@@ -23,7 +23,13 @@ nodes:
     bgp.as: 65101
     id: 11
     bgp.originate: [ 192.168.101.0/24 ]
+    config: [ extra-config ]
 links:
-- rtr-x1
-- rtr-x2
-- x1-x2
+- rtr:
+  x1:
+    bgp.default_originate: True
+- rtr:
+  x2:
+    bgp.default_originate: True
+- x1:
+  x2:

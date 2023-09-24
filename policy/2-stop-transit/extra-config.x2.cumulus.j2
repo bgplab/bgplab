@@ -9,7 +9,6 @@ route-map customer permit 10
 router bgp 65101
  !
  address-family ipv4 unicast
-  neighbor 10.1.0.5 default-originate
   neighbor 10.1.0.5 route-map customer in
  exit-address-family
 !
