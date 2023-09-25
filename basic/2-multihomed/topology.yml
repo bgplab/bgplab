@@ -3,15 +3,19 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 name: multihomed
 
+# Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
+defaults.attributes.node.bgp:
+plugin: [ ebgp.utils ]
+
 groups:
   external:
     members: [ x1, x2 ]
     module: [ bgp ]
-    config: [ extra-config ]
     device: cumulus
 
 nodes:
   rtr:
+    bgp.as: 65000
   x1:
     bgp.as: 65100
     id: 10
@@ -21,5 +25,9 @@ nodes:
     id: 11
     bgp.originate: [ 192.168.101.0/24 ]
 links:
-- rtr-x1
-- rtr-x2
+- rtr:
+  x1:
+    bgp.default_originate: True
+- rtr:
+  x2:
+    bgp.default_originate: True

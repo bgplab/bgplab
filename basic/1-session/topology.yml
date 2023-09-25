@@ -1,16 +1,27 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
+
+# Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
+defaults.attributes.node.bgp:
+
 name: session
+plugin: [ ebgp.utils ]
+
+groups:
+  external:
+    members: [ x1 ]
+    module: [ bgp ]
+    device: cumulus
 
 nodes:
   rtr:
+    bgp.as: 65000
   x1:
-    device: cumulus
-    module: [ bgp ]
     bgp.as: 65100
     id: 10
-    config: [ extra-config ]
 
 links:
-- rtr-x1
+- rtr:
+  x1:
+    bgp.default_originate: True
