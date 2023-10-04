@@ -1,7 +1,11 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
+<<<<<<< HEAD
 name: protect
+=======
+name: originate
+>>>>>>> 31a88d8 (New lab: Protect EBGP sessions)
 
 module: [ bgp ]
 plugin: [ ebgp.utils ]

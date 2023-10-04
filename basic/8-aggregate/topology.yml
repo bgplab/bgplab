@@ -1,0 +1,38 @@
+# The baseline topology for small (4-router) labs
+#
+defaults.sources.extra: [ ../../defaults.yml ]
+name: aggregate
+
+groups:
+  external:
+    members: [ x1, sw ]
+    device: cumulus
+
+bgp.advertise_loopback: False
+
+nodes:
+  ce1:
+    bgp.as: 65000
+    module: [ ospf,bgp ]
+  ce2:
+    bgp.as: 65001
+    module: [ bgp ]
+  x1:
+    id: 10
+    bgp.as: 65100
+    module: [ bgp ]
+  sw:
+    module: [ ospf ]
+links:
+- ce1-x1
+- ce1-sw
+- x1:                 # Unused link to preserve interface names
+  sw:
+  pool: l2only
+- ce2-x1
+- type: loopback
+  sw:
+    ipv4: 10.42.42.129/25
+- type: loopback
+  sw:
+    ipv4: 10.42.42.17/28

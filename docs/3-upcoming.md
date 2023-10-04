@@ -4,8 +4,6 @@ While we're working on new stuff you can already enjoy [almost a dozen](index.md
 
 ## Basic BGP Setup
 
-* Use BGP summarization to minimize the number of BGP advertisements
-
 **Optional exercises:**
 
 * Use session templates and BGP peer groups

@@ -18,6 +18,7 @@ You can already do the following labs with tons of labs coming in the future (se
 * [Configure BGP for IPv6](basic/4-ipv6.md)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute.md)
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)
+* [BGP route aggregation](basic/8-aggregate.md)
 
 ## Simple BGP Routing Policies
 

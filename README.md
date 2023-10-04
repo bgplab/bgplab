@@ -11,6 +11,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Configure BGP for IPv6](basic/4-ipv6)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute)
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
+* [BGP route aggregation](basic/8-aggregate)
 
 **Simple End-User Setup**
 
@@ -27,8 +28,6 @@ See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of 
 
 **Simple End-User Setup**
 
-* Minimize the size of your BGP table with inbound filters
-* Redistribute IGP information into BGP and use BGP summarization to minimize the number of BGP advertisements
 * Perform simple load balancing across parallel links and across upstream provider
 
 **Multiprotocol BGP**
