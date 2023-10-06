@@ -96,6 +96,10 @@
 <li>
     <a href="../8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
 </li>
+                                    
+<li>
+    <a href="../9-ao/" class="dropdown-item">Protect BGP Sessions with TCP Authentication Option (TCP-AO)</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -192,8 +196,9 @@
 <p>In this lab you&rsquo;ll use:</p>
 <ul>
 <li>GTSM on the EBGP session with ISP-1</li>
-<li>MD5 checksum on the EBGP session with ISP-2<sup id="fnref:NOL"><a class="footnote-ref" href="#fn:NOL">1</a></sup></li>
+<li>MD5 checksum on the EBGP session with ISP-2<sup id="fnref2:NOL"><a class="footnote-ref" href="#fn:NOL">1</a></sup></li>
 </ul>
+<p>If you want to practice BGP session protection with TCP-AO, check out the <a href="../9-ao/">TCP-AO lab</a><sup id="fnref:NOL"><a class="footnote-ref" href="#fn:NOL">1</a></sup>.</p>
 <p><img alt="Lab topology" src="../topology-protect.png" /></p>
 <p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.</p>
 <table>
@@ -358,7 +363,7 @@ Neighbor Status Codes: m - Under maintenance
 <hr />
 <ol>
 <li id="fn:NOL">
-<p>I would love to add TCP-AO-protected session to the lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it&rsquo;s not yet (as of September 2023) implemented in the Linux kernel. That&rsquo;s the price you&rsquo;re paying for riding on top of other people&rsquo;s infrastructure.&#160;<a class="footnote-backref" href="#fnref:NOL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>I would love to add TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it&rsquo;s not yet (as of September 2023) implemented in the Linux kernel. That&rsquo;s the price you&rsquo;re paying for riding on top of other people&rsquo;s infrastructure.&#160;<a class="footnote-backref" href="#fnref:NOL" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:NOL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
