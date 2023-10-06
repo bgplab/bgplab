@@ -10,7 +10,9 @@ In this lab you'll use:
 * GTSM on the EBGP session with ISP-1
 * MD5 checksum on the EBGP session with ISP-2[^NOL]
 
-[^NOL]: I would love to add TCP-AO-protected session to the lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it's not yet (as of September 2023) implemented in the Linux kernel. That's the price you're paying for riding on top of other people's infrastructure.
+If you want to practice BGP session protection with TCP-AO, check out the [TCP-AO lab](9-ao.md)[^NOL].
+
+[^NOL]: I would love to add TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it's not yet (as of September 2023) implemented in the Linux kernel. That's the price you're paying for riding on top of other people's infrastructure.
 
 ![Lab topology](topology-protect.png)
 

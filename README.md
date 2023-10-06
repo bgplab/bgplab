@@ -8,6 +8,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Connect to two upstream providers](basic/2-multihomed)
 * [Advertise your IP prefixes](basic/3-originate)
 * [Protect EBGP sessions](basic/6-protect)
+* [Protect BGP sessions with TCP Authentication Option (TCP-AO)](basic/9-ao)
 * [Configure BGP for IPv6](basic/4-ipv6)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute)
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)

@@ -15,6 +15,7 @@ You can already do the following labs with tons of labs coming in the future (se
 * [Connect to two upstream providers](basic/2-multihomed.md)
 * [Advertise your IPv4 address space](basic/3-originate.md)
 * [Protect EBGP sessions](basic/6-protect.md)
+* [Protect BGP sessions with TCP Authentication Option (TCP-AO)](basic/9-ao.md)
 * [Configure BGP for IPv6](basic/4-ipv6.md)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute.md)
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)
