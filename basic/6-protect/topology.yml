@@ -1,11 +1,7 @@
-# Configure a BGP session with an external BGP speaker
+# Protect BGP sessions with MD5 passwords and GTSM
 
 defaults.sources.extra: [ ../../defaults.yml ]
-<<<<<<< HEAD
 name: protect
-=======
-name: originate
->>>>>>> 31a88d8 (New lab: Protect EBGP sessions)
 
 module: [ bgp ]
 plugin: [ ebgp.utils ]
