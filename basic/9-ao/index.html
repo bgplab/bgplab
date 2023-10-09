@@ -213,7 +213,7 @@
 <li>You installed Arista EOS Vagrant box (instructions: <a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/eos/">KVM/libvirt</a>)</li>
 </ul>
 <p>If you created Cisco CSR1000v Vagrant box for your environment, replace <code>device: eos</code> in the <strong>external</strong> group in <code>topology.yml</code> with <code>device: csr</code>.</p>
-<p>If you want to run your labs with containers, you could use Nokia SR-OS as the external router<sup id="fnref:GLF"><a class="footnote-ref" href="#fn:GLF">1</a></sup> &ndash; replace the <code>device: eos</code> with <code>device: sros</code>.</p>
+<p>If you want to run your labs with containers, you could use Nokia SR-OS as the external router<sup id="fnref:GLF"><a class="footnote-ref" href="#fn:GLF">1</a></sup> &ndash; replace the <code>device: eos</code> with <code>device: sros</code>. <em>netlab</em> uses <em>containerlab</em> provider to run Nokia SR-OS, so you might have to add <code>provider: clab</code> to the <strong>external</strong> group.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Nokia SR-OS runs as a virtual machine inside a container. You&rsquo;ll still need <em>nested virtualization</em> to run it if you&rsquo;re running your labs in a Ubuntu virtual machine.</p>
