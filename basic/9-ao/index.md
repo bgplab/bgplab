@@ -26,7 +26,7 @@ The topology file (`topology.yml`) in the `basic/9-ao` directory uses Arista EOS
 
 If you created Cisco CSR1000v Vagrant box for your environment, replace `device: eos` in the **external** group in `topology.yml` with `device: csr`.
 
-If you want to run your labs with containers, you could use Nokia SR-OS as the external router[^GLF] -- replace the `device: eos` with `device: sros`.
+If you want to run your labs with containers, you could use Nokia SR-OS as the external router[^GLF] -- replace the `device: eos` with `device: sros`. _netlab_ uses _containerlab_ provider to run Nokia SR-OS, so you might have to add `provider: clab` to the **external** group.
 
 !!! Warning
     Nokia SR-OS runs as a virtual machine inside a container. You'll still need _nested virtualization_ to run it if you're running your labs in a Ubuntu virtual machine.
