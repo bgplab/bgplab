@@ -482,12 +482,7 @@ BGP routing table entry for 172.16.101.0/24
       Received 00:05:29 ago, invalid, internal
       Rx SAFI: Unicast
 </code></pre>
-<p>Arista EOS is not exactly helpful in this scenario; you have to guess that the underlying root cause is that the BGP next hop is not reachable.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Most environments supported by <em>netlab</em> add a default route (pointing to the management interface) to the virtual machines or containers running in a virtual lab. In many cases (including all Vagrant boxes built using <em>netlab</em>-provided build recipes), the management interface belongs to a separate VRF and does not interfere with the in-lab IP routing.</p>
-<p>However, on Arista cEOS and other network devices that do not use a separate network management VRF <em>and</em> accept the default route as a valid route toward a BGP next hop, the IBGP prefix will be valid, but the resulting route will point to the management interface.</p>
-</div>
+<p>Arista EOS is not exactly helpful in this scenario; you have to guess that the underlying root cause is that the BGP next hop is not reachable<sup id="fnref:NHNR"><a class="footnote-ref" href="#fn:NHNR">1</a></sup>.</p>
 <h2 id="fix-the-bgp-next-hop-of-ibgp-prefixes">Fix the BGP Next Hop of IBGP Prefixes</h2>
 <p>BGP routers do not change the BGP next hop of EBGP routes when advertising them over IBGP &ndash; the BGP next hop of routes in AS 65101 as advertised by R2 to R1 is thus the IP address of X2 on the R2-X1 link (<a href="https://blog.ipspace.net/2011/08/bgp-next-hop-processing.html">more details</a>). R1 does not have a route to that IP subnet in its IP routing table, so it considers the IBGP prefix using that BGP next hop invalid.  </p>
 <p>There are two approaches to make the BGP next hop of IBGP prefixes valid:</p>
@@ -701,7 +696,15 @@ Gateway of last resort is not set
 </tr>
 </tbody>
 </table>
-<p><strong>Note</strong>: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.</p></div>
+<p><strong>Note</strong>: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:NHNR">
+<p>Some network devices consider any BGP next hop reachable if they have a default route. That can happen in a virtual lab if the lab device does not use a management VRF &ndash; most lab environments use DHCP to add the default route pointing to the management interface. When that default route appears in the global IP routing table, the IBGP prefix could be considered valid, but the resulting route would point to the management interface.&#160;<a class="footnote-backref" href="#fnref:NHNR" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
