@@ -65,41 +65,69 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Setting Up BGP</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
-                                    
+            
 <li>
     <a href="../2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
-                                    
+            
 <li>
     <a href="../3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
-                                    
+            
 <li>
     <a href="./" class="dropdown-item active">Configure BGP for IPv6</a>
 </li>
-                                    
+            
 <li>
     <a href="../5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Protecting BGP Sessions</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../6-protect/" class="dropdown-item">Protect EBGP Sessions</a>
+    <a href="../6-protect/" class="dropdown-item">MD5 Passwords and GTSM</a>
 </li>
+            
+<li>
+    <a href="../9-ao/" class="dropdown-item">TCP Autentication Option (TCP-AO)</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">BGP in Larger Networks</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../ibgp/1-ibgp.md" class="dropdown-item">Establish an IBGP Session</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Advanced Topics</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../7-bfd/" class="dropdown-item">Use BFD to Speed Up BGP Convergence</a>
 </li>
-                                    
+            
 <li>
     <a href="../8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
 </li>
-                                    
-<li>
-    <a href="../9-ao/" class="dropdown-item">Protect BGP Sessions with TCP Authentication Option (TCP-AO)</a>
-</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -178,6 +206,14 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -374,7 +410,8 @@ Displayed  5 routes and 5 total paths
 </code></pre>
 <p><strong>Next:</strong></p>
 <ul>
-<li>Use BGP weights to <a href="../../policy/1-weights/">prefer one of the upstream ISPs</a>.</li>
+<li>If you&rsquo;re interested in BGP routing policies proceed to <a href="../../policy/1-weights/">Use BGP Weights</a> to prefer one of the upstream ISPs.</li>
+<li>If you want to build networks with more than one BGP router, continue with <a href="../../ibgp/1-edge/">Running BGP in Larger Networks</a></li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>

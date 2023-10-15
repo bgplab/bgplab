@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Protect EBGP Sessions - BGP Configuration Labs</title>
+        <title>MD5 Passwords and GTSM - BGP Configuration Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -65,41 +65,69 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Setting Up BGP</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
-                                    
+            
 <li>
     <a href="../2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
-                                    
+            
 <li>
     <a href="../3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
-                                    
+            
 <li>
     <a href="../4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
 </li>
-                                    
+            
 <li>
     <a href="../5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Protecting BGP Sessions</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="./" class="dropdown-item active">Protect EBGP Sessions</a>
+    <a href="./" class="dropdown-item active">MD5 Passwords and GTSM</a>
 </li>
+            
+<li>
+    <a href="../9-ao/" class="dropdown-item">TCP Autentication Option (TCP-AO)</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">BGP in Larger Networks</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../ibgp/1-ibgp.md" class="dropdown-item">Establish an IBGP Session</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Advanced Topics</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../7-bfd/" class="dropdown-item">Use BFD to Speed Up BGP Convergence</a>
 </li>
-                                    
+            
 <li>
     <a href="../8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
 </li>
-                                    
-<li>
-    <a href="../9-ao/" class="dropdown-item">Protect BGP Sessions with TCP Authentication Option (TCP-AO)</a>
-</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -137,7 +165,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../7-bfd/" class="nav-link">
+                                <a rel="next" href="../9-ao/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -162,7 +190,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#protect-ebgp-sessions" class="nav-link">Protect EBGP Sessions</a>
+            <li class="nav-item" data-level="1"><a href="#protect-bgp-sessions-with-passwords-and-gtsm" class="nav-link">Protect BGP Sessions with Passwords and GTSM</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
@@ -178,6 +206,14 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -187,7 +223,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="protect-ebgp-sessions">Protect EBGP Sessions</h1>
+<h1 id="protect-bgp-sessions-with-passwords-and-gtsm">Protect BGP Sessions with Passwords and GTSM</h1>
 <p>Now that you know how to <a href="../2-multihomed/">configure EBGP sessions</a> let&rsquo;s see how you can make it harder for someone to mess them up. Two mechanisms are commonly used to protect EBGP sessions (or the control plane/CPU of the router running them):</p>
 <ul>
 <li>Generalized TTL Security Mechanism (GTSM) described in <a href="https://www.rfc-editor.org/rfc/rfc5082">RFC 5082</a> (<a href="https://blog.ipspace.net/2023/03/advantages-bgp-gtsm.html">more details</a>)</li>

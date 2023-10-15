@@ -65,41 +65,69 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Setting Up BGP</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="./" class="dropdown-item active">Configure a Single EBGP Session</a>
 </li>
-                                    
+            
 <li>
     <a href="../2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
-                                    
+            
 <li>
     <a href="../3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
-                                    
+            
 <li>
     <a href="../4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
 </li>
-                                    
+            
 <li>
     <a href="../5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Protecting BGP Sessions</a>
+    <ul class="dropdown-menu">
+            
 <li>
-    <a href="../6-protect/" class="dropdown-item">Protect EBGP Sessions</a>
+    <a href="../6-protect/" class="dropdown-item">MD5 Passwords and GTSM</a>
 </li>
+            
+<li>
+    <a href="../9-ao/" class="dropdown-item">TCP Autentication Option (TCP-AO)</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">BGP in Larger Networks</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../ibgp/1-ibgp.md" class="dropdown-item">Establish an IBGP Session</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Advanced Topics</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../7-bfd/" class="dropdown-item">Use BFD to Speed Up BGP Convergence</a>
 </li>
-                                    
+            
 <li>
     <a href="../8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
 </li>
-                                    
-<li>
-    <a href="../9-ao/" class="dropdown-item">Protect BGP Sessions with TCP Authentication Option (TCP-AO)</a>
-</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -178,6 +206,14 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -218,7 +254,12 @@
 <p class="admonition-title">Warning</p>
 <p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on the EBGP session or your device won&rsquo;t accept updates from its EBGP neighbor(s).</p>
 </div>
-<p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
+<p>On some devices you&rsquo;ll also have to <strong>activate</strong> the EBGP session within the IPv4 <strong>address family</strong> to tell the BGP daemon on your router to accept IPv4 prefixes from its neighbor.</p>
+<p>Finally, it&rsquo;s always a good idea to configure:</p>
+<ul>
+<li>Neighbor description to simplify troubleshooting and</li>
+<li>BGP session logging to get an information message when the BGP session is established.</li>
+</ul>
 <h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
 <pre><code>rtr#show ip bgp summary
