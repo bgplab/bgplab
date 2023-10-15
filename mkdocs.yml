@@ -16,7 +16,21 @@ nav:
     - external/index.md
     - external/4-router.md
   - 3-upcoming.md
-- "Getting Started": basic/
+- "Getting Started":
+  - "Setting Up BGP":
+    - basic/1-session.md
+    - basic/2-multihomed.md
+    - basic/3-originate.md
+    - basic/4-ipv6.md
+    - basic/5-redistribute.md
+  - "Protecting BGP Sessions":
+    - "MD5 Passwords and GTSM": basic/6-protect.md
+    - "TCP Autentication Option (TCP-AO)": basic/9-ao.md
+  - "BGP in Larger Networks":
+    - "Establish an IBGP Session": ibgp/1-edge.md
+  - "Advanced Topics":
+    - basic/7-bfd.md
+    - basic/8-aggregate.md
 - "Simple Policies": policy/
 
 #- "Getting Started":
@@ -38,3 +52,4 @@ exclude_docs: |
 theme:
   name: mkdocs
   custom_dir: _mkdocs_theme
+  navigation_depth: 3

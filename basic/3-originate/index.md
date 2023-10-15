@@ -132,12 +132,16 @@ x1#
 
 **Next:**
 
-* (Optional) [Protect EBGP sessions](6-protect.md)
-* (Optional) [Configure BGP for IPv6](4-ipv6.md)
-* (Optional) [Redistribute IGP Information Into BGP](5-redistribute.md)
-* (Optional) [Use BFD to Speed Up BGP Convergence](7-bfd.md)
-* (Optional) [BGP route aggregation](8-aggregate.md)
-* Use BGP weights to [prefer one of the upstream ISPs](../policy/1-weights.md).
+* If you're interested in BGP routing policies proceed to [Use BGP Weights](../policy/1-weights.md) to prefer one of the upstream ISPs.
+* If you want to build networks with more than one BGP router, continue with [Running BGP in Larger Networks](../ibgp/1-edge.md)
+
+You could also do these optional exercises:
+
+* [Configure BGP for IPv6](4-ipv6.md)
+* [Redistribute IGP Information Into BGP](5-redistribute.md)
+* [Protect EBGP sessions](6-protect.md)
+* [Use BFD to Speed Up BGP Convergence](7-bfd.md)
+* [BGP route aggregation](8-aggregate.md)
 
 ## Reference Information
 

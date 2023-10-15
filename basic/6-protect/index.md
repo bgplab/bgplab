@@ -1,4 +1,4 @@
-# Protect EBGP Sessions
+# Protect BGP Sessions with Passwords and GTSM
 
 Now that you know how to [configure EBGP sessions](2-multihomed.md) let's see how you can make it harder for someone to mess them up. Two mechanisms are commonly used to protect EBGP sessions (or the control plane/CPU of the router running them):
 

@@ -25,7 +25,12 @@ Configure an EBGP session using the following parameters:
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on the EBGP session or your device won't accept updates from its EBGP neighbor(s).
 
-You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
+On some devices you'll also have to **activate** the EBGP session within the IPv4 **address family** to tell the BGP daemon on your router to accept IPv4 prefixes from its neighbor.
+
+Finally, it's always a good idea to configure:
+
+* Neighbor description to simplify troubleshooting and
+* BGP session logging to get an information message when the BGP session is established.
 
 ## Verification
 

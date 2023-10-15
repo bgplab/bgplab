@@ -1,6 +1,6 @@
 # Upcoming Labs
 
-While we're working on new stuff you can already enjoy [almost a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
+While we're working on new stuff you can already enjoy [over a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
 
 ## Basic BGP Setup
 
@@ -29,7 +29,6 @@ While we're working on new stuff you can already enjoy [almost a dozen](index.md
 
 ## BGP in Enterprise Networks
 
-* Use IBGP with multiple WAN edge routers
 * Use BGP local preference to prefer one of the upstream providers
 * Use more complex BGP local preference setup to prefer direct connectivity with customers of upstream ISPs
 * Use MED to influence route selection in an upstream ISP

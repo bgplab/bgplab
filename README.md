@@ -7,19 +7,29 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Establish a BGP session](basic/1-session)
 * [Connect to two upstream providers](basic/2-multihomed)
 * [Advertise your IP prefixes](basic/3-originate)
-* [Protect EBGP sessions](basic/6-protect)
-* [Protect BGP sessions with TCP Authentication Option (TCP-AO)](basic/9-ao)
 * [Configure BGP for IPv6](basic/4-ipv6)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute)
-* [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
-* [BGP route aggregation](basic/8-aggregate)
 
-**Simple End-User Setup**
+**Protecting BGP Sessions**
+
+* [Protect EBGP sessions](basic/6-protect) with MD5 passwords and TTL protection (GTSM)
+* Protect BGP sessions with [TCP Authentication Option (TCP-AO)](basic/9-ao)
+
+**Running BGP in Larger Networks**
+
+* [Establish an IBGP session](ibgp/1-edge) between WAN edge routers
+
+**Simple BGP Routing Policies**
 
 * [Use BGP weights](policy/1-weights) to prefer one of the upstream providers
 * [Prevent route leaking between upstream providers](policy/2-stop-transit) with an AS-path filter
 * [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list
 * [Minimize the size of your BGP table](policy/4-reduce) with inbound filters
+
+**Advanced Topics**
+
+* [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
+* [BGP route aggregation](basic/8-aggregate)
 
 See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of planned labs.
 <!--
@@ -33,7 +43,6 @@ See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of 
 
 **Multiprotocol BGP**
 
-* Run BGP with IPv6
 * (Advanced) Run IPv4 and IPv6 over the same BGP session
 
 **Simple Transit Network Setup**
@@ -44,7 +53,6 @@ See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of 
 
 **Networks with Multiple BGP Speakers**
 
-* Use multiple WAN edge routers to connect to upstream ISPs
 * Use BGP local preference to prefer one of the upstream providers
 * Use more complex BGP local preference setup to prefer direct connectivity with customers of upstream ISPs
 * Use MED to influence route selection in an upstream ISP

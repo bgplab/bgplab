@@ -334,6 +334,11 @@ blockquote {
 /*    border-color: #bce8f1; */
 }
 
+.admonition.tip, details.tip { /* csslint allow: adjoining-classes */
+        background-color: rgba(251,160,2,0.1);
+}
+    
+    
 .admonition.warning, details.warning { /* csslint allow: adjoining-classes */
     background-color: rgba(251,160,2,0.4);
     border-color: #fbeed5;

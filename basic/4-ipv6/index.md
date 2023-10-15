@@ -136,7 +136,8 @@ Displayed  5 routes and 5 total paths
 
 **Next:**
 
-* Use BGP weights to [prefer one of the upstream ISPs](../policy/1-weights.md).
+* If you're interested in BGP routing policies proceed to [Use BGP Weights](../policy/1-weights.md) to prefer one of the upstream ISPs.
+* If you want to build networks with more than one BGP router, continue with [Running BGP in Larger Networks](../ibgp/1-edge.md)
 
 ## Reference Information
 
