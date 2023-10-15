@@ -168,12 +168,9 @@ BGP routing table entry for 172.16.101.0/24
       Rx SAFI: Unicast
 ```
 
-Arista EOS is not exactly helpful in this scenario; you have to guess that the underlying root cause is that the BGP next hop is not reachable.
+Arista EOS is not exactly helpful in this scenario; you have to guess that the underlying root cause is that the BGP next hop is not reachable[^NHNR].
 
-!!! Warning
-    Most environments supported by _netlab_ add a default route (pointing to the management interface) to the virtual machines or containers running in a virtual lab. In many cases (including all Vagrant boxes built using _netlab_-provided build recipes), the management interface belongs to a separate VRF and does not interfere with the in-lab IP routing.
-    
-    However, on Arista cEOS and other network devices that do not use a separate network management VRF _and_ accept the default route as a valid route toward a BGP next hop, the IBGP prefix will be valid, but the resulting route will point to the management interface.
+[^NHNR]: Some network devices consider any BGP next hop reachable if they have a default route. That can happen in a virtual lab if the lab device does not use a management VRF -- most lab environments use DHCP to add the default route pointing to the management interface. When that default route appears in the global IP routing table, the IBGP prefix could be considered valid, but the resulting route would point to the management interface.
 
 ## Fix the BGP Next Hop of IBGP Prefixes
 

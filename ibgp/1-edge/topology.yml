@@ -1,6 +1,8 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
+defaults.devices.eos.clab.node.env.CLAB_MGMT_VRF: management    # Add management VRF to cEOS. Not needed after 1.6.4
+
 name: ibgp
 
 bgp.sessions:
