@@ -1,0 +1,44 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+name: redistribute
+
+module: [ bgp,ospf ]
+
+version: 1.6.4
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    bgp.as: 65100
+
+bgp.advertise_loopback: false
+
+nodes:
+  c1:
+    bgp.as: 65000
+    ospf.area: 1
+  c2:
+    bgp.as: 65001
+    ospf.area: 2
+  x1:
+    id: 10
+  x2:
+    id: 11
+  s1:
+    module: [ ospf ]
+    ospf.area: 1
+  s2:
+    module: [ ospf ]
+    ospf.area: 2
+
+links:
+- c1-x1
+- x2:                   # Bogus link to preserve interface names from the 4-router topology
+  pool: l2only
+- x1-x2
+- c2-x2
+- c1-s1
+- c2-s2
+- s1
+- s2

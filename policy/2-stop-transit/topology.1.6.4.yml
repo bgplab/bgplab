@@ -1,0 +1,35 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+name: no_transit
+version: 1.6.4
+
+module: [ bgp ]
+plugin: [ bgp.session, bgp.policy ]
+
+groups:
+  external:
+    members: [ x1, x2 ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    bgp.originate: [ 192.168.42.0/24 ]
+  x1:
+    bgp.as: 65100
+    id: 10
+    bgp.originate: [ 192.168.100.0/24 ]
+  x2:
+    bgp.as: 65101
+    id: 11
+    bgp.originate: [ 192.168.101.0/24 ]
+links:
+- rtr:
+  x1:
+    bgp.default_originate: True
+- rtr:
+  x2:
+    bgp.default_originate: True
+    bgp.locpref: 200
+- x1:
+  x2:

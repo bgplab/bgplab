@@ -1,0 +1,56 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+
+name: ibgp
+version: 1.6.4
+
+bgp.sessions:
+  ipv4: [ ebgp ]
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    module: [ bgp ]
+  customer:
+    members: [ r1, r2 ]
+    module: [ bgp, ospf ]
+    bgp.advertise_loopback: False
+
+nodes:
+  r1:
+    bgp.as: 65000
+  r2:
+    bgp.as: 65000
+  x1:
+    bgp.as: 65100
+    id: 10
+    loopback.ipv4: 192.168.100.1/24
+  x2:
+    bgp.as: 65101
+    id: 11
+    loopback.ipv4: 172.16.101.1/24
+links:
+- r1:
+  x1:
+  name: WAN uplink R1-to-X1
+- r1:
+  x2:
+  name: Unused WAN link
+  pool: l2only
+- x1:
+  x2:
+  name: Inter-ISP link X1-to-X2
+- r2:
+  x1:
+  name: Unused WAN link
+  pool: l2only
+- r2:
+  x2:
+  name: WAN uplink R2-to-X2
+- r1:
+  r2:
+  type: lan
+  name: Intra-site LAN C1-C2
+  prefix.ipv4: 10.0.100.0/24
+  bgp.advertise: True

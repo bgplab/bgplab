@@ -1,0 +1,51 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+name: ipv6
+plugin: [ bgp.session ]
+
+version: 1.6.4
+
+module: [ bgp ]
+
+addressing:
+  p2p.ipv6: 2001:db8:42::/48
+
+groups:
+  external:
+    members: [ x1, x2 ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    bgp.originate: [ 192.168.42.0/24 ]
+    bgp.sessions:
+      ipv4: [ ibgp, ebgp ]
+      ipv6: []
+  x1:
+    bgp.as: 65100
+    id: 10
+    loopback.ipv6: "2001:db8:100:1::1/64"
+    bgp.originate: [ 192.168.100.0/24 ]
+  x2:
+    bgp.as: 65101
+    id: 11
+    loopback.ipv6: "2001:db8:101:1::1/64"
+    bgp.originate: [ 192.168.101.0/24 ]
+links:
+- rtr:
+  x1:
+    bgp.default_originate: True
+- rtr:
+  x2:
+    bgp.default_originate: True
+- x1:
+  type: loopback
+  prefix:
+    ipv4: false
+    ipv6: "2001:db8:100::/48"
+- x2:
+  type: loopback
+  prefix:
+    ipv4: false
+    ipv6: "2001:db8:101::/48"
