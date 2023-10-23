@@ -223,25 +223,25 @@
 </div>
 <h2 id="selecting-the-network-devices">Selecting the Network Devices</h2>
 <p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices that you have to connect to and exchange routing information with. Use Cumulus Linux on those devices if you&rsquo;re running a <em>netlab</em> release prior to 1.6.4.</p>
-<p>With release 1.6.4 (and later) you can choose any one of these devices for your external BGP feeds<sup id="fnref:OPL"><a class="footnote-ref" href="#fn:OPL">1</a></sup>:</p>
+<p>With release 1.6.4 (and later) you can choose any one of these devices for your external BGP feeds<sup id="fnref:OPL"><a class="footnote-ref" href="#fn:OPL">2</a></sup>:</p>
 <table>
 <thead>
 <tr>
 <th>Environment</th>
-<th>Devices supported<br>as external BGP feeds</th>
+<th>Devices that can be used<br>as external BGP feeds<sup id="fnref:XF"><a class="footnote-ref" href="#fn:XF">1</a></sup></th>
 <th>Recommended</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Containers (clab)</td>
-<td>Arista EOS, Cumulus Linux, FRR</td>
-<td>FRR (<code>frr</code>)<sup id="fnref:FSF"><a class="footnote-ref" href="#fn:FSF">2</a></sup></td>
+<td>Arista EOS, Aruba AOS-CX, Cumulus Linux, FRR</td>
+<td>FRR (<code>frr</code>)<sup id="fnref:FSF"><a class="footnote-ref" href="#fn:FSF">3</a></sup></td>
 </tr>
 <tr>
 <td>Virtual machines (libvirt)</td>
-<td>Arista EOS, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR</td>
-<td>Cumulus Linux (<code>cumulus</code>)<sup id="fnref:CSF"><a class="footnote-ref" href="#fn:CSF">3</a></sup></td>
+<td>Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR</td>
+<td>Cumulus Linux (<code>cumulus</code>)<sup id="fnref:CSF"><a class="footnote-ref" href="#fn:CSF">4</a></sup></td>
 </tr>
 <tr>
 <td>Virtual machines (Virtualbox)</td>
@@ -254,7 +254,7 @@
 <h2 id="selecting-the-virtualization-environment">Selecting the Virtualization Environment</h2>
 <p>Now that you know which network device you want to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that&rsquo;s just me.</p>
 <p>There&rsquo;s a gotcha though: you can use <em>containerlab</em> and <em>libvirt</em> only on a Linux host. You can use <em>virtualbox</em> if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop, but even then I&rsquo;d prefer running them in a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM running on the laptop</a>.</p>
-<p>One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t nested virtualization to run Docker containers, unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Juniper vMX or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
+<p>One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t nested virtualization to run Docker containers, unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Aruba AOS-CX, Juniper vMX or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
 <h2 id="software-installation">Software Installation</h2>
 <p>Based on the choices you made, you&rsquo;ll find the installation instructions in one of these documents:</p>
 <ul>
@@ -265,7 +265,7 @@
 <li><a href="https://netlab.tools/install/cloud/">Running netlab in a Public Cloud</a></li>
 </ul>
 <p>Once you completed the software installation you have to deal with the stupidities of downloading and installing network device images (<a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/libvirt/#vagrant-boxes">libvirt</a>, <a href="https://netlab.tools/labs/clab/#container-images">containers</a>) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
-<p>I would love to make the whole process simpler, but the networking vendors refuse to play along. Even worse, it looks like<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">4</a></sup> their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you. Fortunately, you only have to go through this colossal waste of time once.</p>
+<p>I would love to make the whole process simpler, but the networking vendors refuse to play along. Even worse, it looks like<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">5</a></sup> their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you. Fortunately, you only have to go through this colossal waste of time once.</p>
 <h2 id="setting-up-the-labs">Setting Up the Labs</h2>
 <p>We finally got to the fun part &ndash; setting up the labs:</p>
 <ul>
@@ -291,17 +291,20 @@ groups:
 <div class="footnote">
 <hr />
 <ol>
+<li id="fn:XF">
+<p>You can only use devices supported by <strong><a href="https://netlab.tools/plugins/bgp.session/">bgp.session</a></strong> and <strong><a href="https://netlab.tools/plugins/bgp.policy/">bgp.policy</a></strong> <em>netlab</em> plugins as external BGP feeds.&#160;<a class="footnote-backref" href="#fnref:XF" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
 <li id="fn:OPL">
-<p>If you&rsquo;d like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to <strong>bgp.session</strong> and <strong>bgp.policy</strong> plugins. Thank you!&#160;<a class="footnote-backref" href="#fnref:OPL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>If you&rsquo;d like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to <strong>bgp.session</strong> and <strong>bgp.policy</strong> plugins. Thank you!&#160;<a class="footnote-backref" href="#fnref:OPL" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:FSF">
-<p>An FRR container starts slightly faster than a Cumulus Linux container. Also, the FRR containers are built by the FRR project, while the Cumulus Linux containers are a result of a hobby project of their former employee.&#160;<a class="footnote-backref" href="#fnref:FSF" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>An FRR container starts slightly faster than a Cumulus Linux container. Also, the FRR containers are built by the FRR project, while the Cumulus Linux containers are a result of a hobby project of their former employee.&#160;<a class="footnote-backref" href="#fnref:FSF" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:CSF">
-<p>There is no official FRR virtual machine image &ndash; <em>netlab</em> has to download and install FRR on a Ubuntu VM every time you start an <code>frr</code> node as a virtual machine. Using Cumulus Linux Vagrant box is faster and consumes way less bandwidth.&#160;<a class="footnote-backref" href="#fnref:CSF" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>There is no official FRR virtual machine image &ndash; <em>netlab</em> has to download and install FRR on a Ubuntu VM every time you start an <code>frr</code> node as a virtual machine. Using Cumulus Linux Vagrant box is faster and consumes way less bandwidth.&#160;<a class="footnote-backref" href="#fnref:CSF" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:NPAL">
-<p>I&rsquo;m not going to pay a lawyer to read their boilerplate stuff, and I&rsquo;m definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>I&rsquo;m not going to pay a lawyer to read their boilerplate stuff, and I&rsquo;m definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
