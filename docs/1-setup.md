@@ -14,11 +14,13 @@ The labs heavily rely on external BGP feeds -- preconfigured devices that you ha
 
 With release 1.6.4 (and later) you can choose any one of these devices for your external BGP feeds[^OPL]:
 
-| Environment | Devices supported<br>as external BGP feeds | Recommended |
+| Environment | Devices that can be used<br>as external BGP feeds[^XF] | Recommended |
 |-------------------|--------------------------------|-----|
-| Containers (clab) | Arista EOS, Cumulus Linux, FRR | FRR (`frr`)[^FSF] |
-| Virtual machines (libvirt) | Arista EOS, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR | Cumulus Linux (`cumulus`)[^CSF] |
+| Containers (clab) | Arista EOS, Aruba AOS-CX, Cumulus Linux, FRR | FRR (`frr`)[^FSF] |
+| Virtual machines (libvirt) | Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR | Cumulus Linux (`cumulus`)[^CSF] |
 | Virtual machines (Virtualbox) | Arista EOS, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR | Cumulus Linux (`cumulus`) |
+
+[^XF]: You can only use devices supported by **[bgp.session](https://netlab.tools/plugins/bgp.session/)** and **[bgp.policy](https://netlab.tools/plugins/bgp.policy/)** _netlab_ plugins as external BGP feeds.
 
 [^OPL]: If you'd like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to **bgp.session** and **bgp.policy** plugins. Thank you!
 
@@ -34,7 +36,7 @@ Now that you know which network device you want to use, check [which virtualizat
 
 There's a gotcha though: you can use _containerlab_ and _libvirt_ only on a Linux host. You can use _virtualbox_ if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop, but even then I'd prefer running them in a [Ubuntu VM running on the laptop](https://netlab.tools/install/ubuntu-vm/).
 
-One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support _nested virtualization_ if you want to use _libvirt_ on that Ubuntu VM. You don't nested virtualization to run Docker containers, unless you're using the crazy trick we're forced to use for Juniper vMX or Nokia SR OS -- they're running as a virtual machine _within a container_.
+One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support _nested virtualization_ if you want to use _libvirt_ on that Ubuntu VM. You don't nested virtualization to run Docker containers, unless you're using the crazy trick we're forced to use for Aruba AOS-CX, Juniper vMX or Nokia SR OS -- they're running as a virtual machine _within a container_.
 
 ## Software Installation
 
