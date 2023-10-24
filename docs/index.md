@@ -1,11 +1,21 @@
 ---
 title: Labs Overview
 ---
-# ipSpace.net BGP Configuration Labs
+# Open-Source BGP Configuration Labs
 
-The following series of hands-on labs will help you master numerous aspects of EBGP, IBGP, and BGP routing policy configuration on a platform of your choice[^PC].
+This series of BGP hands-on labs will help you master numerous aspects of EBGP, IBGP, and BGP routing policy configuration on a [platform of your choice](https://netlab.tools/platforms/#platform-routing-support)[^PC], including:
 
-[^PC]: Some assembly required: the Cumulus Linux VMs/containers that are used for external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See [installation and setup](1-setup.md) for details.
+* Arista EOS
+* Aruba AOS-CX
+* Cisco ASAv, IOSv, IOS XE, IOS XR and Nexus OS
+* Cumulus Linux and FRR
+* Dell OS10
+* Juniper vSRX, vMX and vPTX
+* Mikrotik RouterOS
+* Nokia SR OS and SR Linux
+* Vyatta VyOS
+
+[^PC]: Some assembly required: the virtual machines or containers that we recommend to use as external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See [installation and setup](1-setup.md) for details.
 
 You can already do the following labs with tons of labs coming in the future (see the list of [upcoming labs](3-upcoming.md)). However, you should probably read the [Installation and Setup](1-setup.md) documentation first.
 
