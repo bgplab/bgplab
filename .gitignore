@@ -41,3 +41,6 @@ hosts.yml
 ansible.cfg
 Vagrantfile
 clab.yml
+
+# Ignore redirect subproject
+/redirect/
