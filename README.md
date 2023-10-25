@@ -31,7 +31,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
 * [BGP route aggregation](basic/8-aggregate)
 
-See [lab documentation](https://ipspace.github.io/bgplab/) for the full list of planned labs.
+See [lab documentation](https://bgplab.github.io/bgplab/) for the full list of planned labs.
 <!--
 **Basic BGP Setup**
 

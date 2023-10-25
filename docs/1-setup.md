@@ -59,7 +59,7 @@ I would love to make the whole process simpler, but the networking vendors refus
 We finally got to the fun part -- setting up the labs:
 
 * Select a directory where you want to have the BGP labs
-* Clone the `bgplab` [GitHub repository](https://github.com/ipspace/bgplab) with `git clone git@github.com:ipspace/bgplab.git`. [GitHub UI](https://github.com/ipspace/bgplab) gives you other options in the green `Code` button, including _Download ZIP_
+* Clone the `bgplab` [GitHub repository](https://github.com/bgplab/bgplab) with `git clone git@github.com:bgplab/bgplab.git`. [GitHub UI](https://github.com/bgplab/bgplab) gives you other options in the green `Code` button, including _Download ZIP_
 * Open the `defaults.yml` file in the main directory and edit it to set your preferred network device and virtualization environment. For example, I'm using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:
 
 ```

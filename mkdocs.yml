@@ -1,7 +1,7 @@
 site_name: BGP Configuration Labs
 docs_dir: docs
 site_dir: _html
-repo_url: https://github.com/ipspace/bgplab
+repo_url: https://github.com/bgplab/bgplab
 site_description: Hands-on BGP labs using virtual devices
 site_author: Ivan Pepelnjak, ipSpace.net AG
 copyright: (C) 2023 Ivan Pepelnjak (ipSpace.net AG)
