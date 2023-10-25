@@ -3,11 +3,11 @@ iface lo inet loopback
 
 auto lo
 iface lo inet loopback
-	address 10.0.0.11/32
+	address 192.168.101.1/24
 
 auto lo
 iface lo inet6 loopback
-	address 2001:db8:101:1::1/64
+	address 2001:db8:101:1::1/48
 
 auto mgmt
 iface mgmt
@@ -29,11 +29,3 @@ iface swp1 inet6 static
 auto swp1
 iface swp1
 	mtu 1500
-
-auto lo1
-iface lo1
-	pre-up ip link add lo1 type dummy
-
-auto lo1
-iface lo1 inet6 loopback
-	address 2001:db8:101::b/48

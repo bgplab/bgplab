@@ -16,16 +16,16 @@ If you want to practice BGP session protection with TCP-AO, check out the [TCP-A
 
 ![Lab topology](topology-protect.png)
 
-The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.
+The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
 | rtr | 10.0.0.1 | 192.168.42.0/24<br>10.0.0.1/32 |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 192.168.100.0/24<br>10.0.0.10/32 |
+| x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 192.168.101.0/24<br>10.0.0.11/32 |
+| x2 | 10.0.0.11 | 192.168.101.0/24 |
 
 ## Start the Lab
 
@@ -42,7 +42,7 @@ If you're using *netlab*, you'll get a fully-configured lab, including BGP prefi
 The EBGP sessions with X1 and X2 will not be established because X1 and X2 use EBGP session protection. They might be stuck in `Connect`, `OpenSent` or `OpenConfirm` state as illustrated by the following printout produced on Arista cEOS:
 
 ```
-rtr>show ip bgp sum
+rtr>show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
@@ -65,9 +65,9 @@ rtr#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
-  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100             11        10    0    0 00:00:17 Estab   3      3
-  10.1.0.6 4 65101              9         8    0    0 00:00:12 Estab   3      3
+  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  x1                       10.1.0.2 4 65100             42        63    0    0 00:00:16 Estab   2      2
+  x2                       10.1.0.6 4 65101             17        16    0    0 00:00:04 Estab   2      2
 ```
 
 Finally, use a command similar to **show ip bgp** to display the prefixes your router received from its EBGP neighbors.
@@ -92,8 +92,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  10.0.0.10/32 |  | Loopback |
+| **x1** |  192.168.100.1/24 |  | Loopback |
 | swp1 | 10.1.0.2/30 |  | x1 -> rtr |
-| **x2** |  10.0.0.11/32 |  | Loopback |
+| **x2** |  192.168.101.1/24 |  | Loopback |
 | swp1 | 10.1.0.6/30 |  | x2 -> rtr |
 

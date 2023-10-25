@@ -15,7 +15,7 @@ The only way to run this lab is to start external routers as virtual machines us
 * Nokia SR-OS (virtual machine running in a container)
 
 !!! Warning
-    You need _netlab_ release 1.6.3 or later to run this lab.
+    This lab was designed to be used with _netlab_. You need _netlab_ release 1.6.3 or later to run it -- we added TCP-AO support in that release.
 
 ## Adjusting Lab Topology
 
@@ -29,7 +29,8 @@ If you created Cisco CSR1000v Vagrant box for your environment, replace `device:
 If you want to run your labs with containers, you could use Nokia SR-OS as the external router[^GLF] -- replace the `device: eos` with `device: sros`. _netlab_ uses _containerlab_ provider to run Nokia SR-OS, so you might have to add `provider: clab` to the **external** group.
 
 !!! Warning
-    Nokia SR-OS runs as a virtual machine inside a container. You'll still need _nested virtualization_ to run it if you're running your labs in a Ubuntu virtual machine.
+    * Nokia SR-OS runs as a virtual machine inside a container. You'll still need _nested virtualization_ to run it if you're running your labs in a Ubuntu virtual machine.
+    * TCP-AO does not work on Arista EOS container as it uses underlying Linux TCP/IP stack.
 
 [^GLF]: Assuming you manage to get a license to do it from Nokia.
 
@@ -50,13 +51,13 @@ If you're using an unsupported device, it's best if you do this lab exercise aft
 The EBGP sessions with X1 and X2 will not be established because X1 and X2 use TCP-AO BGP session protection. They might be stuck in `Connect`, `OpenSent` or `OpenConfirm` state as illustrated by the following printout produced on Arista EOS:
 
 ```
-rtr#show ip bgp sum
+rtr#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  x1                       10.1.0.2 4 65100              7         8    0    0 00:02:46 Connect
-  x2                       10.1.0.6 4 65101              7         9    0    0 00:02:43 Connect
+  x1                       10.1.0.2 4 65100             11        17    0    0 00:00:04 Connect
+  x2                       10.1.0.6 4 65101             11        15    0    0 00:00:07 Connect
 ```
 
 To make BGP sessions work, configure TCP-AO on both EBGP sessions on your router using the following parameters:
@@ -78,8 +79,8 @@ BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  x1                       10.1.0.2 4 65100             14        17    0    0 00:01:18 Estab   2      2
-  x2                       10.1.0.6 4 65101             13        17    0    0 00:00:07 Estab   2      2
+  x1                       10.1.0.2 4 65100             16        24    0    0 00:00:09 Estab   1      1
+  x2                       10.1.0.6 4 65101             16        22    0    0 00:00:04 Estab   1      1
 ```
 
 You can also inspect the TCP-AO details on some network devices. This is what Arista EOS displays as part of the **show ip bgp neighbor** command:

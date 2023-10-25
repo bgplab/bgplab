@@ -6,24 +6,50 @@ In the previous lab exercises you [configured EBGP sessions](../basic/2-multihom
 
 With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101[^EF]. That wouldn't be so bad if the ISP-2 wouldn't prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.
 
-You don't have to trust me -- log into X2 and execute `sudo vtysh -c 'show ip bgp'` command[^VT]. You'll see that the best paths to AS 65100 (ISP-1) go through AS 65000 (your network).
+You don't have to trust me. After starting the lab, log into X2. Execute `sudo vtysh -c 'show ip bgp'` command[^VT] if you're running Cumulus Linux, or an equivalent command if you're using some other device as the external router. You'll see that the best paths to AS 65100 (ISP-1) uses next hop 10.1.0.5 and goes through AS 65000 (your network).
+
+```
+$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+Connecting to container clab-no_transit-x2, executing sudo vtysh -c "show ip bgp"
+Use vtysh to connect to FRR daemon
+
+BGP table version is 9, local router ID is 10.0.0.11, vrf id 0
+Default local pref 100, local AS 65101
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*> 0.0.0.0/0        10.1.0.5                      200      0 65000 65100 i
+*  192.168.42.0/24  10.1.0.9                               0 65100 65000 ?
+*>                  10.1.0.5                      200      0 65000 ?
+*  192.168.100.0/24 10.1.0.9                 0             0 65100 i
+*>                  10.1.0.5                      200      0 65000 65100 i
+*> 192.168.101.0/24 0.0.0.0                  0         32768 i
+
+Displayed  4 routes and 6 total paths
+```
+
+!!! Tip
+    Did you notice that the Internet Service Provider (X2) accepted the default route from its customer? That's a serious security breach and should never happen in a real-life network, but I wouldn't be too sure about that...
 
 [^EF]: Devices [strictly compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) are an exception -- they won't advertise anything to their EBGP neighbors unless you configured an outbound filter.
 
-[^VT]: **sudo** to make sure you're an admin user, **vtysh** is the name of the FRR CLI shell, and the `-c` argument passes the following argument to **vtysh** so you don't have to type another line.
+[^VT]: **sudo** to make sure you're an admin user, **vtysh** is the name of the FRR CLI shell, and the `-c` argument passes the following argument to **vtysh** so you don't have to type another line. You don't need **sudo** part of the command on Cumulus Linux and FRR running in containers.
 
 ## Existing BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).
+The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| rtr | 10.0.0.1 | 10.0.0.1/32<br>192.168.42.0/24 |
+| rtr | 10.0.0.1 | 192.168.42.0/24 |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
+| x2 | 10.0.0.11 | 192.168.101.0/24 |
 
 Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually. You can also use the configuration you made in the [previous exercise](1-weights.md).
 
@@ -65,28 +91,27 @@ Some other implementations (example: Arista EOS) might require a more convoluted
 
 ## Verification
 
-Examine the BGP table on X1 and X2 to verify that your router advertises only routes from AS 65000. This is the printout you should get on X1:
+Examine the BGP table on X1 and X2 to verify that your router advertises only routes from AS 65000. This is the printout you should get on X2:
 
 ```
-$ sudo vtysh -c 'show ip bgp'
-BGP table version is 6, local router ID is 10.0.0.10, vrf id 0
-Default local pref 100, local AS 65100
+$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+Connecting to container clab-no_transit-x2, executing sudo vtysh -c "show ip bgp"
+Use vtysh to connect to FRR daemon
+
+BGP table version is 11, local router ID is 10.0.0.11, vrf id 0
+Default local pref 100, local AS 65101
 Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
 Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
 
    Network          Next Hop            Metric LocPrf Weight Path
-*  10.0.0.1/32      10.1.0.10                              0 65101 65000 i
-*>                  10.1.0.1                               0 65000 i
-*> 10.0.0.10/32     0.0.0.0                  0         32768 i
-*> 10.0.0.11/32     10.1.0.10                0             0 65101 i
-*  192.168.42.0/24  10.1.0.10                              0 65101 65000 ?
-*>                  10.1.0.1                               0 65000 ?
-*> 192.168.100.0/24 0.0.0.0                  0         32768 i
-*> 192.168.101.0/24 10.1.0.10                0             0 65101 i
+*  192.168.42.0/24  10.1.0.9                               0 65100 65000 ?
+*>                  10.1.0.5                      200      0 65000 ?
+*> 192.168.100.0/24 10.1.0.9                 0             0 65100 i
+*> 192.168.101.0/24 0.0.0.0                  0         32768 i
 
-Displayed  6 routes and 8 total paths
+Displayed  3 routes and 4 total paths
 ```
 
 **Next**: [Filter prefixes advertised to EBGP neighbors](3-prefix.md)
@@ -112,9 +137,9 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  10.0.0.10/32 |  | Loopback |
+| **x1** |  192.168.100.1/24 |  | Loopback |
 | swp1 | 10.1.0.2/30 |  | x1 -> rtr |
 | swp2 | 10.1.0.9/30 |  | x1 -> x2 |
-| **x2** |  10.0.0.11/32 |  | Loopback |
+| **x2** |  192.168.101.1/24 |  | Loopback |
 | swp1 | 10.1.0.6/30 |  | x2 -> rtr |
 | swp2 | 10.1.0.10/30 |  | x2 -> x1 |

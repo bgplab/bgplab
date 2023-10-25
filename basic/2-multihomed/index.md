@@ -4,16 +4,16 @@ Now that you know how to configure an EBGP session let's move on to a more reali
 
 ![Lab topology](topology-multihomed.png)
 
-The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.
+The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
 | rtr | 10.0.0.1 | |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
+| x2 | 10.0.0.11 | 192.168.101.0/24 |
 
 ## Start the Lab
 
@@ -47,8 +47,8 @@ BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100             11        10    0    0 00:00:17 Estab   3      3
-  10.1.0.6 4 65101              9         8    0    0 00:00:12 Estab   3      3
+  10.1.0.2 4 65100              9         8    0    0 00:00:10 Estab   2      2
+  10.1.0.6 4 65101              7         6    0    0 00:00:06 Estab   2      2
 ```
 
 Finally, use a command similar to **show ip bgp** to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is how the printout looks like on Arista EOS:
@@ -67,8 +67,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * >      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     0       65101 i
- * >      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
- * >      10.0.0.11/32           10.1.0.6              0       -          100     0       65101 i
  * >      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * >      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 ```
@@ -97,8 +95,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> rtr |
-| **x2** |  10.0.0.11/32 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | x2 -> rtr |
-
+| **x1** |  192.168.100.1/24 |  | Loopback |
+| eth1 | 10.1.0.2/30 |  | x1 -> rtr |
+| **x2** |  192.168.101.1/24 |  | Loopback |
+| eth1 | 10.1.0.6/30 |  | x2 -> rtr |

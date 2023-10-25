@@ -4,16 +4,16 @@ In the [previous lab exercise](2-multihomed.md), you configured EBGP sessions wi
 
 ![Lab topology](topology-originate.png)
 
-The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.
+The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
 | rtr | 10.0.0.1 | |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
+| x2 | 10.0.0.11 | 192.168.101.0/24 |
 
 Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure them manually.
 
@@ -34,13 +34,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-You have to advertise two prefixes to the upstream providers:
-
-* `192.168.42.0` -- the IP address space belonging to your organization
-* `10.0.0.1` -- your loopback IP address.
-
-!!! Warning
-    This is a lab exercise, and we're using a loopback IP address to have a directly connected subnet you can advertise. You should NEVER advertise your loopback addresses (or any prefix more specific than a /24) to the public Internet. 
+You have to advertise `192.168.42.0/24` -- the IP address space belonging to your organization -- to the upstream providers.
 
 BGP never originates IP prefixes without being told to do so. The usual ways to do that are:
 
@@ -57,7 +51,7 @@ While the first method is usually used within enterprise networks that use BGP a
 The IPv4 prefixes you want to advertise to EBGP neighbors must be in your router's BGP table first. A command similar to **show ip bgp** is thus a good starting point. This is how Arista EOS displays the BGP table:
 
 ```
-rtr>show ip bgp
+rtr#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
@@ -70,9 +64,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * >      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     0       65101 i
- * >      10.0.0.1/32            -                     -       -          -       0       i
- * >      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
- * >      10.0.0.11/32           10.1.0.6              0       -          100     0       65101 i
  * >      192.168.42.0/24        -                     -       -          -       0       ?
  * >      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * >      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
@@ -81,7 +72,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 However, you probably want to know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a **show** command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:
 
 ```
-rtr>show ip bgp neighbor 10.1.0.2 advertised-routes
+rtr#show ip bgp neighbor 10.1.0.2 advertised-routes
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
@@ -92,13 +83,11 @@ RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.1/32            10.1.0.1              -       -          -       -       65000 i
- * >      10.0.0.11/32           10.1.0.1              -       -          -       -       65000 65101 i
  * >      192.168.42.0/24        10.1.0.1              -       -          -       -       65000 ?
  * >      192.168.101.0/24       10.1.0.1              -       -          -       -       65000 65101 i
 ```
 
-You should check the BGP table on the remote router to be absolutely sure everything is OK. While that's a bit hard to do in real life (unless your ISP offers a [looking glass](https://en.wikipedia.org/wiki/Looking_Glass_server)), it's way easier in a lab -- connect to X1 or X2 with **netlab connect** (or SSH into them if you're not using _netlab_), start `vtysh` and execute the **show ip bgp** command:
+You should check the BGP table on the remote router to be absolutely sure everything is OK. While that's a bit hard to do in real life (unless your ISP offers a [looking glass](https://en.wikipedia.org/wiki/Looking_Glass_server)), it's way easier in a lab -- connect to X1 or X2 with **netlab connect** (or SSH into them if you're not using _netlab_), start `vtysh` if you're running FRR or Cumulus Linux on them, and execute the **show ip bgp** command:
 
 ```
 $ netlab connect x1
@@ -107,27 +96,24 @@ Use vtysh to connect to FRR daemon
 
 x1(bash)#sudo vtysh
 
-Hello, this is FRRouting (version 7.5+cl4.4.0u4).
+Hello, this is FRRouting (version 9.0.1_git).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
 
 x1# show ip bgp
-BGP table version is 6, local router ID is 10.0.0.10, vrf id 0
+BGP table version is 5, local router ID is 192.168.100.1, vrf id 0
 Default local pref 100, local AS 65100
 Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
 Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-   Network          Next Hop            Metric LocPrf Weight Path
-*> 10.0.0.1/32      10.1.0.1                               0 65000 i
-*> 10.0.0.10/32     0.0.0.0                  0         32768 i
-*> 10.0.0.11/32     10.1.0.1                               0 65000 65101 i
-*> 192.168.42.0/24  10.1.0.1                               0 65000 ?
-*> 192.168.100.0/24 0.0.0.0                  0         32768 i
-*> 192.168.101.0/24 10.1.0.1                               0 65000 65101 i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 192.168.42.0/24  10.1.0.1                               0 65000 ?
+ *> 192.168.100.0/24 0.0.0.0(x1)              0         32768 i
+ *> 192.168.101.0/24 10.1.0.1                               0 65000 65101 i
 
-Displayed  6 routes and 6 total paths
-x1#
+Displayed  3 routes and 3 total paths
 ```
 
 **Next:**
@@ -163,8 +149,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> rtr |
-| **x2** |  10.0.0.11/32 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | x2 -> rtr |
-
+| **x1** |  192.168.100.1/24 |  | Loopback |
+| eth1 | 10.1.0.2/30 |  | x1 -> rtr |
+| **x2** |  192.168.101.1/24 |  | Loopback |
+| eth1 | 10.1.0.6/30 |  | x2 -> rtr |

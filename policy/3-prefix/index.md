@@ -35,11 +35,11 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| rtr | 10.0.0.1 | 10.0.0.1/32<br>192.168.42.0/24 |
+| rtr | 10.0.0.1 | 192.168.42.0/24<br>10.0.0.1/32 |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
+| x2 | 10.0.0.11 | 192.168.101.0/24 |
 
 Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
@@ -129,9 +129,9 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  10.0.0.10/32 |  | Loopback |
+| **x1** |  192.168.100.1/24 |  | Loopback |
 | swp1 | 10.1.0.2/30 |  | x1 -> rtr |
 | swp2 | 10.1.0.9/30 |  | x1 -> x2 |
-| **x2** |  10.0.0.11/32 |  | Loopback |
+| **x2** |  192.168.101.1/24 |  | Loopback |
 | swp1 | 10.1.0.6/30 |  | x2 -> rtr |
 | swp2 | 10.1.0.10/30 |  | x2 -> x1 |

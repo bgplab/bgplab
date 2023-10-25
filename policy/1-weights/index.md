@@ -10,16 +10,16 @@ In this lab, you'll modify your BGP configuration to ensure your router always p
 
 ## Existing BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (str).
+The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| rtr | 10.0.0.1 | 10.0.0.1/32<br>192.168.42.0/24 |
+| rtr | 10.0.0.1 | 192.168.42.0/24 |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 10.0.0.10/32<br>192.168.100.0/24 |
+| x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 10.0.0.11/32<br>192.168.101.0/24 |
+| x2 | 10.0.0.11 | 192.168.101.0/24 |
 
 Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
@@ -54,7 +54,7 @@ If your device supports *BGP weights*, use them to prefer routes advertised by X
 Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:
 
 ```
-rtr#sh ip bgp
+rtr#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
@@ -67,11 +67,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * >      0.0.0.0/0              10.1.0.2              0       -          100     200     65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     100     65101 i
- * >      10.0.0.1/32            -                     -       -          -       0       i
- * >      10.0.0.10/32           10.1.0.2              0       -          100     200     65100 i
- *        10.0.0.10/32           10.1.0.6              0       -          100     100     65101 65100 i
- * >      10.0.0.11/32           10.1.0.2              0       -          100     200     65100 65101 i
- *        10.0.0.11/32           10.1.0.6              0       -          100     100     65101 i
  * >      192.168.42.0/24        -                     -       -          -       0       ?
  * >      192.168.100.0/24       10.1.0.2              0       -          100     200     65100 i
  *        192.168.100.0/24       10.1.0.6              0       -          100     100     65101 65100 i
@@ -82,20 +77,20 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 You could dig deeper and examine the details of an IPv4 prefix originated in AS 65101 (X2), for example 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)
 
 ```
-rtr#show ip bgp 10.0.0.11
+rtr#show ip bgp 192.168.101.0/24
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
-BGP routing table entry for 10.0.0.11/32
+BGP routing table entry for 192.168.101.0/24
  Paths: 2 available
   65100 65101
     10.1.0.2 from 10.1.0.2 (10.0.0.10)
       Origin IGP, metric 0, localpref 100, IGP metric 0, weight 200, tag 0
-      Received 00:02:47 ago, valid, external, best
+      Received 00:00:46 ago, valid, external, best
       Rx SAFI: Unicast
   65101
     10.1.0.6 from 10.1.0.6 (10.0.0.11)
       Origin IGP, metric 0, localpref 100, IGP metric 0, weight 100, tag 0
-      Received 00:02:47 ago, valid, external
+      Received 00:00:46 ago, valid, external
       Rx SAFI: Unicast
 ```
 
@@ -122,9 +117,9 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  10.0.0.10/32 |  | Loopback |
+| **x1** |  192.168.100.1/24 |  | Loopback |
 | swp1 | 10.1.0.2/30 |  | x1 -> rtr |
 | swp2 | 10.1.0.9/30 |  | x1 -> x2 |
-| **x2** |  10.0.0.11/32 |  | Loopback |
+| **x2** |  192.168.101.1/24 |  | Loopback |
 | swp1 | 10.1.0.6/30 |  | x2 -> rtr |
 | swp2 | 10.1.0.10/30 |  | x2 -> x1 |
