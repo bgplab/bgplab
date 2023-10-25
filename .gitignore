@@ -42,5 +42,6 @@ ansible.cfg
 Vagrantfile
 clab.yml
 
-# Ignore redirect subproject
+# Ignore redirect and GitHub profile subprojects
 /redirect/
+/profile/
