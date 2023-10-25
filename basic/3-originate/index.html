@@ -226,7 +226,7 @@
 <h1 id="advertise-ipv4-prefixes-to-bgp-neighbors">Advertise IPv4 Prefixes to BGP Neighbors</h1>
 <p>In the <a href="../2-multihomed/">previous lab exercise</a>, you configured EBGP sessions with two routers belonging to upstream ISPs. Now it&rsquo;s time to advertise your address space (IPv4 prefixes) to them so you&rsquo;ll start receiving some traffic.</p>
 <p><img alt="Lab topology" src="../topology-originate.png" /></p>
-<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.</p>
+<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.</p>
 <table>
 <thead>
 <tr>
@@ -254,7 +254,7 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
+<td style="text-align: right;">192.168.100.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
@@ -264,7 +264,7 @@
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
+<td style="text-align: right;">192.168.101.0/24</td>
 </tr>
 </tbody>
 </table>
@@ -302,15 +302,7 @@
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em>, just continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You have to advertise two prefixes to the upstream providers:</p>
-<ul>
-<li><code>192.168.42.0</code> &ndash; the IP address space belonging to your organization</li>
-<li><code>10.0.0.1</code> &ndash; your loopback IP address.</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This is a lab exercise, and we&rsquo;re using a loopback IP address to have a directly connected subnet you can advertise. You should NEVER advertise your loopback addresses (or any prefix more specific than a /24) to the public Internet. </p>
-</div>
+<p>You have to advertise <code>192.168.42.0/24</code> &ndash; the IP address space belonging to your organization &ndash; to the upstream providers.</p>
 <p>BGP never originates IP prefixes without being told to do so. The usual ways to do that are:</p>
 <ol>
 <li>Redistribution of other routing information sources into BGP &ndash; for example, redistributing directly connected subnets or OSPF routes. You&rsquo;ll practice that in the <a href="../5-redistribute/">Redistribute IGP Information Into BGP</a> lab exercise.</li>
@@ -323,7 +315,7 @@
 </div>
 <h2 id="verification">Verification</h2>
 <p>The IPv4 prefixes you want to advertise to EBGP neighbors must be in your router&rsquo;s BGP table first. A command similar to <strong>show ip bgp</strong> is thus a good starting point. This is how Arista EOS displays the BGP table:</p>
-<pre><code>rtr&gt;show ip bgp
+<pre><code>rtr#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -336,15 +328,12 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     0       65101 i
- * &gt;      10.0.0.1/32            -                     -       -          -       0       i
- * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
- * &gt;      10.0.0.11/32           10.1.0.6              0       -          100     0       65101 i
  * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 </code></pre>
 <p>However, you probably want to know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here&rsquo;s how that command works on Arista EOS:</p>
-<pre><code>rtr&gt;show ip bgp neighbor 10.1.0.2 advertised-routes
+<pre><code>rtr#show ip bgp neighbor 10.1.0.2 advertised-routes
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -355,39 +344,34 @@ RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      10.0.0.1/32            10.1.0.1              -       -          -       -       65000 i
- * &gt;      10.0.0.11/32           10.1.0.1              -       -          -       -       65000 65101 i
  * &gt;      192.168.42.0/24        10.1.0.1              -       -          -       -       65000 ?
  * &gt;      192.168.101.0/24       10.1.0.1              -       -          -       -       65000 65101 i
 </code></pre>
-<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it&rsquo;s way easier in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> and execute the <strong>show ip bgp</strong> command:</p>
+<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it&rsquo;s way easier in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> if you&rsquo;re running FRR or Cumulus Linux on them, and execute the <strong>show ip bgp</strong> command:</p>
 <pre><code>$ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
 Use vtysh to connect to FRR daemon
 
 x1(bash)#sudo vtysh
 
-Hello, this is FRRouting (version 7.5+cl4.4.0u4).
+Hello, this is FRRouting (version 9.0.1_git).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
 
 x1# show ip bgp
-BGP table version is 6, local router ID is 10.0.0.10, vrf id 0
+BGP table version is 5, local router ID is 192.168.100.1, vrf id 0
 Default local pref 100, local AS 65100
 Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
 Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-   Network          Next Hop            Metric LocPrf Weight Path
-*&gt; 10.0.0.1/32      10.1.0.1                               0 65000 i
-*&gt; 10.0.0.10/32     0.0.0.0                  0         32768 i
-*&gt; 10.0.0.11/32     10.1.0.1                               0 65000 65101 i
-*&gt; 192.168.42.0/24  10.1.0.1                               0 65000 ?
-*&gt; 192.168.100.0/24 0.0.0.0                  0         32768 i
-*&gt; 192.168.101.0/24 10.1.0.1                               0 65000 65101 i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *&gt; 192.168.42.0/24  10.1.0.1                               0 65000 ?
+ *&gt; 192.168.100.0/24 0.0.0.0(x1)              0         32768 i
+ *&gt; 192.168.101.0/24 10.1.0.1                               0 65000 65101 i
 
-Displayed  6 routes and 6 total paths
-x1#
+Displayed  3 routes and 3 total paths
 </code></pre>
 <p><strong>Next:</strong></p>
 <ul>
@@ -461,24 +445,24 @@ x1#
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;">192.168.100.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
 <td>x1 -&gt; rtr</td>
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;">192.168.101.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
 <td>x2 -&gt; rtr</td>

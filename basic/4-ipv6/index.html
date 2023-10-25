@@ -192,6 +192,10 @@
             
             <li class="nav-item" data-level="1"><a href="#configure-bgp-for-ipv6" class="nav-link">Configure BGP for IPv6</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#bgp-as-numbers" class="nav-link">BGP AS Numbers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
               </ul>
@@ -226,7 +230,8 @@
 <h1 id="configure-bgp-for-ipv6">Configure BGP for IPv6</h1>
 <p>In the previous lab exercises you <a href="../2-multihomed/">configured EBGP sessions with two upstream ISPs</a> and <a href="../3-originate/">advertised IPv4 prefixes to them</a>. Now let&rsquo;s add IPv6 to the mix.</p>
 <p><img alt="Lab topology" src="../topology-originate.png" /></p>
-<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback (IPv4 and IPv6 prefix), another IPv4 and IPv6 prefix, and the default route.</p>
+<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix, an IPv6 prefix, and the default route.</p>
+<h2 id="bgp-as-numbers">BGP AS Numbers</h2>
 <table>
 <thead>
 <tr>
@@ -254,7 +259,7 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">192.168.100.0/24<br>10.0.0.10/32<br>2001:db8:100:1::/64<br>2001:db8:100::/48</td>
+<td style="text-align: right;">192.168.100.0/24<br>2001:db8:100::/48</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
@@ -264,7 +269,7 @@
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">192.168.101.0/24<br>10.0.0.11/32<br>2001:db8:101:1::/64<br>2001:db8:101::/48</td>
+<td style="text-align: right;">192.168.101.0/24<br>2001:db8:101::/48</td>
 </tr>
 </tbody>
 </table>
@@ -341,8 +346,21 @@
 </ul>
 <p>I&rsquo;m positive you&rsquo;ll figure out those details. Just keep in mind that there&rsquo;s not much difference (usually) between IPv4 and IPv6, and you already know how to <a href="../2-multihomed/">setup EBGP sessions</a> and <a href="../3-originate/">advertise IPv4 prefixes in BGP</a>. Just do the same thing for IPv6.</p>
 <h2 id="verification">Verification</h2>
+<p>Before going into the details, you&rsquo;d want to know that the IPv6 BGP sessions are up. Use a command similar to <strong>show bgp ipv6 summary</strong> to verify that:</p>
+<pre><code>rtr#sh bgp ipv6 unicast summary
+BGP summary information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor         V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+                           2001:db8:42::2   4 65100              9         8    0    0 00:00:09 Estab   2      2
+                           2001:db8:42:1::2 4 65101              9         8    0    0 00:00:09 Estab   2      2
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>For historic reasons, many network devices have inconsistent command structure &ndash; the IPv4 BGP commands are simpler than IPv6 BGP commands. For example, you can use <strong>show bgp summary</strong> on Arista EOS to display BGP summary information for the IPv4 address family while you have to use <strong>show ipv6 unicast summary</strong> to display the same information for the IPv6 address family.</p>
+</div>
 <p>The IPv6 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to <strong>show bgp ipv6</strong> or <strong>show bgp ipv6 unicast</strong> is thus a good starting point. This is how Arista EOS displays it:</p>
-<pre><code>rtr&gt;show bgp ipv6 unicast
+<pre><code>rtr#show bgp ipv6 unicast
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -357,9 +375,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *        ::/0                   2001:db8:42:1::2      0       -          100     0       65101 i
  * &gt;      2001:db8:1::/48        -                     -       -          -       0       ?
  * &gt;      2001:db8:100::/48      2001:db8:42::2        0       -          100     0       65100 i
- * &gt;      2001:db8:100:1::/64    2001:db8:42::2        0       -          100     0       65100 i
  * &gt;      2001:db8:101::/48      2001:db8:42:1::2      0       -          100     0       65101 i
- * &gt;      2001:db8:101:1::/64    2001:db8:42:1::2      0       -          100     0       65101 i
 </code></pre>
 <p>However, you really want to know if the prefixes are advertised to the EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here&rsquo;s how that command works on Arista EOS:</p>
 <pre><code>rtr#show bgp neighbor 2001:db8:42::2 advertised-routes
@@ -375,9 +391,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      2001:db8:1::/48        2001:db8:42::1        -       -          -       -       65000 ?
  * &gt;      2001:db8:101::/48      2001:db8:42::1        -       -          -       -       65000 65101 i
- * &gt;      2001:db8:101:1::/64    2001:db8:42::1        -       -          -       -       65000 65101 i
 </code></pre>
-<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life, it&rsquo;s trivial in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> and execute the <strong>show ip bgp</strong> command:</p>
+<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life, it&rsquo;s trivial in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> (if you&rsquo;re using Cumulus Linux or FRR) and execute the <strong>show ip bgp</strong> command:</p>
 <pre><code>$ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
 Use vtysh to connect to FRR daemon
@@ -388,7 +403,7 @@ Hello, this is FRRouting (version 7.5+cl4.4.0u4).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
 
 x1# show bgp ipv6 unicast
-BGP table version is 7, local router ID is 10.0.0.10, vrf id 0
+BGP table version is 3, local router ID is 10.0.0.10, vrf id 0
 Default local pref 100, local AS 65100
 Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
@@ -399,14 +414,10 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *&gt; 2001:db8:1::/48  2001:db8:42::1                         0 65000 ?
 *&gt; 2001:db8:100::/48
                     ::                       0         32768 i
-*&gt; 2001:db8:100:1::/64
-                    ::                       0         32768 i
 *&gt; 2001:db8:101::/48
                     2001:db8:42::1                         0 65000 65101 i
-*&gt; 2001:db8:101:1::/64
-                    2001:db8:42::1                         0 65000 65101 i
 
-Displayed  5 routes and 5 total paths
+Displayed  3 routes and 3 total paths
 </code></pre>
 <p><strong>Next:</strong></p>
 <ul>
@@ -472,8 +483,8 @@ Displayed  5 routes and 5 total paths
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">10.0.0.10/32</td>
-<td style="text-align: right;">2001:db8:100:1::1/64</td>
+<td style="text-align: right;">192.168.100.1/24</td>
+<td style="text-align: right;">2001:db8:100:1::1/48</td>
 <td>Loopback</td>
 </tr>
 <tr>
@@ -484,8 +495,8 @@ Displayed  5 routes and 5 total paths
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">10.0.0.11/32</td>
-<td style="text-align: right;">2001:db8:101:1::1/64</td>
+<td style="text-align: right;">192.168.101.1/24</td>
+<td style="text-align: right;">2001:db8:101:1::1/48</td>
 <td>Loopback</td>
 </tr>
 <tr>

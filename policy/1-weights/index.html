@@ -233,7 +233,7 @@
 <p><img alt="Lab topology" src="../topology-weights.png" /></p>
 <p>In this lab, you&rsquo;ll modify your BGP configuration to ensure your router always prefers routes advertised by X1 (ISP-1).</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (str).</p>
+<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
 <table>
 <thead>
 <tr>
@@ -251,7 +251,7 @@
 <tr>
 <td>rtr</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">10.0.0.1/32<br>192.168.42.0/24</td>
+<td style="text-align: right;">192.168.42.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65100</strong></td>
@@ -261,7 +261,7 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
+<td style="text-align: right;">192.168.100.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
@@ -271,7 +271,7 @@
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
+<td style="text-align: right;">192.168.101.0/24</td>
 </tr>
 </tbody>
 </table>
@@ -315,7 +315,7 @@
 </div>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:</p>
-<pre><code>rtr#sh ip bgp
+<pre><code>rtr#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
@@ -328,11 +328,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     200     65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     100     65101 i
- * &gt;      10.0.0.1/32            -                     -       -          -       0       i
- * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     200     65100 i
- *        10.0.0.10/32           10.1.0.6              0       -          100     100     65101 65100 i
- * &gt;      10.0.0.11/32           10.1.0.2              0       -          100     200     65100 65101 i
- *        10.0.0.11/32           10.1.0.6              0       -          100     100     65101 i
  * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     200     65100 i
  *        192.168.100.0/24       10.1.0.6              0       -          100     100     65101 65100 i
@@ -340,20 +335,20 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *        192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 </code></pre>
 <p>You could dig deeper and examine the details of an IPv4 prefix originated in AS 65101 (X2), for example 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)</p>
-<pre><code>rtr#show ip bgp 10.0.0.11
+<pre><code>rtr#show ip bgp 192.168.101.0/24
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
-BGP routing table entry for 10.0.0.11/32
+BGP routing table entry for 192.168.101.0/24
  Paths: 2 available
   65100 65101
     10.1.0.2 from 10.1.0.2 (10.0.0.10)
       Origin IGP, metric 0, localpref 100, IGP metric 0, weight 200, tag 0
-      Received 00:02:47 ago, valid, external, best
+      Received 00:00:46 ago, valid, external, best
       Rx SAFI: Unicast
   65101
     10.1.0.6 from 10.1.0.6 (10.0.0.11)
       Origin IGP, metric 0, localpref 100, IGP metric 0, weight 100, tag 0
-      Received 00:02:47 ago, valid, external
+      Received 00:00:46 ago, valid, external
       Rx SAFI: Unicast
 </code></pre>
 <p><strong>Next</strong>: Use AS-path filters to <a href="../2-stop-transit/">stop advertising transit routes </a>.</p>
@@ -422,7 +417,7 @@ BGP routing table entry for 10.0.0.11/32
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;">192.168.100.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -440,7 +435,7 @@ BGP routing table entry for 10.0.0.11/32
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;">192.168.101.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>

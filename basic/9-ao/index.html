@@ -232,7 +232,7 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>You need <em>netlab</em> release 1.6.3 or later to run this lab.</p>
+<p>This lab was designed to be used with <em>netlab</em>. You need <em>netlab</em> release 1.6.3 or later to run it &ndash; we added TCP-AO support in that release.</p>
 </div>
 <h2 id="adjusting-lab-topology">Adjusting Lab Topology</h2>
 <p>The topology file (<code>topology.yml</code>) in the <code>basic/9-ao</code> directory uses Arista EOS virtual machines. You can use it as-is if:</p>
@@ -244,7 +244,10 @@
 <p>If you want to run your labs with containers, you could use Nokia SR-OS as the external router<sup id="fnref:GLF"><a class="footnote-ref" href="#fn:GLF">1</a></sup> &ndash; replace the <code>device: eos</code> with <code>device: sros</code>. <em>netlab</em> uses <em>containerlab</em> provider to run Nokia SR-OS, so you might have to add <code>provider: clab</code> to the <strong>external</strong> group.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Nokia SR-OS runs as a virtual machine inside a container. You&rsquo;ll still need <em>nested virtualization</em> to run it if you&rsquo;re running your labs in a Ubuntu virtual machine.</p>
+<ul>
+<li>Nokia SR-OS runs as a virtual machine inside a container. You&rsquo;ll still need <em>nested virtualization</em> to run it if you&rsquo;re running your labs in a Ubuntu virtual machine.</li>
+<li>TCP-AO does not work on Arista EOS container as it uses underlying Linux TCP/IP stack.</li>
+</ul>
 </div>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>.</p>
@@ -257,13 +260,13 @@
 <p>If you&rsquo;re using an unsupported device, it&rsquo;s best if you do this lab exercise after the <a href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> one. If you&rsquo;re using your own lab infrastructure, use the wiring information from the <a href="../6-protect/">protect EBGP sessions</a> lab.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>The EBGP sessions with X1 and X2 will not be established because X1 and X2 use TCP-AO BGP session protection. They might be stuck in <code>Connect</code>, <code>OpenSent</code> or <code>OpenConfirm</code> state as illustrated by the following printout produced on Arista EOS:</p>
-<pre><code>rtr#show ip bgp sum
+<pre><code>rtr#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  x1                       10.1.0.2 4 65100              7         8    0    0 00:02:46 Connect
-  x2                       10.1.0.6 4 65101              7         9    0    0 00:02:43 Connect
+  x1                       10.1.0.2 4 65100             11        17    0    0 00:00:04 Connect
+  x2                       10.1.0.6 4 65101             11        15    0    0 00:00:07 Connect
 </code></pre>
 <p>To make BGP sessions work, configure TCP-AO on both EBGP sessions on your router using the following parameters:</p>
 <table>
@@ -298,8 +301,8 @@ BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  x1                       10.1.0.2 4 65100             14        17    0    0 00:01:18 Estab   2      2
-  x2                       10.1.0.6 4 65101             13        17    0    0 00:00:07 Estab   2      2
+  x1                       10.1.0.2 4 65100             16        24    0    0 00:00:09 Estab   1      1
+  x2                       10.1.0.6 4 65101             16        22    0    0 00:00:04 Estab   1      1
 </code></pre>
 <p>You can also inspect the TCP-AO details on some network devices. This is what Arista EOS displays as part of the <strong>show ip bgp neighbor</strong> command:</p>
 <pre><code>rtr#show ip bgp neighbors 10.1.0.2|section TCP-AO

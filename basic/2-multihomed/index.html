@@ -226,7 +226,7 @@
 <h1 id="configure-multiple-ebgp-sessions">Configure Multiple EBGP Sessions</h1>
 <p>Now that you know how to configure an EBGP session let&rsquo;s move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you&rsquo;re running EBGP with them.</p>
 <p><img alt="Lab topology" src="../topology-multihomed.png" /></p>
-<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises its loopback, another IPv4 prefix, and the default route.</p>
+<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.</p>
 <table>
 <thead>
 <tr>
@@ -254,7 +254,7 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">10.0.0.10/32<br>192.168.100.0/24</td>
+<td style="text-align: right;">192.168.100.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
@@ -264,7 +264,7 @@
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">10.0.0.11/32<br>192.168.101.0/24</td>
+<td style="text-align: right;">192.168.101.0/24</td>
 </tr>
 </tbody>
 </table>
@@ -313,8 +313,8 @@ BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100             11        10    0    0 00:00:17 Estab   3      3
-  10.1.0.6 4 65101              9         8    0    0 00:00:12 Estab   3      3
+  10.1.0.2 4 65100              9         8    0    0 00:00:10 Estab   2      2
+  10.1.0.6 4 65101              7         6    0    0 00:00:06 Estab   2      2
 </code></pre>
 <p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is how the printout looks like on Arista EOS:</p>
 <pre><code>rtr#show ip bgp
@@ -330,8 +330,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
  *        0.0.0.0/0              10.1.0.6              0       -          100     0       65101 i
- * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
- * &gt;      10.0.0.11/32           10.1.0.6              0       -          100     0       65101 i
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 </code></pre>
@@ -398,24 +396,24 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;">192.168.100.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
 <td>x1 -&gt; rtr</td>
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;">192.168.101.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
 <td>x2 -&gt; rtr</td>
