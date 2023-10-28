@@ -47,6 +47,7 @@ It's best if you take the labs in this order:
 ### Running BGP in Larger Networks
 
 * [Establish an IBGP session](ibgp/1-edge.md) between WAN edge routers
+* [Build a Transit Network with IBGP](ibgp/2-transit.md)
 
 ### Other Useful Topics
 

@@ -1,0 +1,52 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+
+defaults.attributes.node.bgp:           # Make BGP a valid node attribute regardless of what module is used
+
+name: transit
+version: 1.6.4
+
+groups:
+  external:
+    members: [ ext, pe1 ]
+    module: [ bgp ]
+
+nodes:
+  core:                                 # Customer router (C1) - core router in the customer network
+    module: [ ospf ]                    # ... running OSPF only
+    bgp.as: 65000
+  pe1:                                  # Lab router (X1) - WAN edge router in customer network
+    module: [ bgp, ospf ]               # ... running BGP and OSPF
+    bgp.as: 65000
+  pe2:                                  # Customer router (C2) - another edge router in customer network
+    module: [ bgp, ospf ]               # ... running BGP and OSPF
+    bgp.sessions.ipv4: [ ebgp ]         # ... do not configure IBGP sessions
+    bgp.as: 65000
+  ext:                                  # Lab router (X2) -- source of external BGP route
+    bgp.as: 65100
+    bgp.router_id: 10.0.0.10
+    loopback.ipv4: 172.16.42.42/24      # Odd address to ping -- used to differentiate it from internal loopbacks
+    id: 10
+
+links:
+- core:
+  pe1:
+- core:
+  ext:
+  pool: l2only
+  name: Unused link
+- pe1:
+  ext:
+  name: Inter-AS link
+- pe2:
+  pe1:
+  pool: l2only
+  name: Unused link
+- pe2:
+  ext:
+  pool: l2only
+  name: Unused link
+- core:
+  pe2:
+  prefix.ipv4: True

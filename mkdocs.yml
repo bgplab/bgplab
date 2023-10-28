@@ -28,6 +28,7 @@ nav:
     - "TCP Autentication Option (TCP-AO)": basic/9-ao.md
   - "BGP in Larger Networks":
     - "Establish an IBGP Session": ibgp/1-edge.md
+    - "Build a Transit Network with IBGP": ibgp/2-transit.md
   - "Advanced Topics":
     - basic/7-bfd.md
     - basic/8-aggregate.md

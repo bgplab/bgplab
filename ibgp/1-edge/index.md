@@ -238,13 +238,17 @@ Gateway of last resort is not set
  B E      192.168.100.0/24 [200/0] via 10.1.0.2, Ethernet1
 ```
  
+**Next:**
+
+* [Build a Transit Network with IBGP](2-transit.md)
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 
-This lab uses a subset of the [4-router lab topology](../external/4-router.md):
+This lab uses the [4-router lab topology](../external/4-router.md):
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
