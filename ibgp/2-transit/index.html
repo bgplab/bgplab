@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Establish an IBGP Session - BGP Configuration Labs</title>
+        <title>Build a Transit Network with IBGP - BGP Configuration Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -110,11 +110,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="./" class="dropdown-item active">Establish an IBGP Session</a>
+    <a href="../1-edge/" class="dropdown-item">Establish an IBGP Session</a>
 </li>
             
 <li>
-    <a href="../2-transit/" class="dropdown-item">Build a Transit Network with IBGP</a>
+    <a href="./" class="dropdown-item active">Build a Transit Network with IBGP</a>
 </li>
     </ul>
   </li>
@@ -164,17 +164,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../basic/9-ao/" class="nav-link">
+                                <a rel="prev" href="../1-edge/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../2-transit/" class="nav-link">
+                                <a rel="next" href="../../basic/7-bfd/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/ibgp/1-edge.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/ibgp/2-transit.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -194,7 +194,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#establish-an-ibgp-session-between-wan-edge-routers" class="nav-link">Establish an IBGP Session Between WAN Edge Routers</a>
+            <li class="nav-item" data-level="1"><a href="#build-a-transit-network-with-ibgp" class="nav-link">Build a Transit Network with IBGP</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#existing-lab-configuration" class="nav-link">Existing Lab Configuration</a>
               <ul class="nav flex-column">
@@ -212,19 +212,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#why-do-we-need-ibgp" class="nav-link">Why Do We Need IBGP?</a>
+            <li class="nav-item" data-level="2"><a href="#propagate-external-bgp-routes-to-pe2" class="nav-link">Propagate External BGP Routes to PE2</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#establish-ibgp-session" class="nav-link">Establish IBGP Session</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#fix-the-source-ip-address-of-the-ibgp-session" class="nav-link">Fix the Source IP Address of the IBGP Session</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#fix-the-bgp-next-hop-of-ibgp-prefixes" class="nav-link">Fix the BGP Next Hop of IBGP Prefixes</a>
+            <li class="nav-item" data-level="2"><a href="#fixing-the-core-routing" class="nav-link">Fixing the Core Routing</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -247,15 +239,25 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="establish-an-ibgp-session-between-wan-edge-routers">Establish an IBGP Session Between WAN Edge Routers</h1>
-<p>The <em><a href="../../#setting-up-bgp">Setting Up BGP</a></em> lab exercises covered the simplest possible scenario: your site has a single WAN edge router running BGP with one or more upstream Internet Service Providers (ISPs). That scenario is implausible &ndash; an organization investing in its own IP address space and AS number usually does that to achieve higher resilience of its Internet connectivity, and having a single WAN edge router is not good enough for that.</p>
-<p>In this lab exercise, you&rsquo;ll build a more realistic solution: your organization uses two WAN edge routers running BGP with two upstream ISPs.</p>
-<p><img alt="Lab topology" src="../topology-ibgp.png" /></p>
-<p>Most organizations want to optimize the use of their (still relatively expensive) WAN links &ndash; you&rsquo;ll have to ensure that all your routers reach the destinations in ISP-1 via the R1-X1 uplink (and similarly for ISP-2).</p>
+<h1 id="build-a-transit-network-with-ibgp">Build a Transit Network with IBGP</h1>
+<p>In the <em><a href="../1-edge/">Establish an IBGP Session Between WAN Edge Routers</a></em> lab exercise you built a simple network with two adjacent BGP routers. In this exercise you&rsquo;ll explore the impact of adding a core router between edge routers running BGP.</p>
+<p><img alt="Lab topology" src="../topology-ibgp-transit.png" /></p>
+<p>After starting the lab, you&rsquo;ll have to configure all the IBGP sessions needed to establish connectivity between loopback interfaces of PE2 and EXT routers. You MUST NOT use route redistribution between OSPF and BGP to solve the connectivity issues (there&rsquo;s a <a href="https://blog.ipspace.net/2020/10/redistributing-bgp-into-ospf.html">really good reason</a> for that restriction).</p>
 <h2 id="existing-lab-configuration">Existing Lab Configuration</h2>
-<p>When starting the lab with <em>netlab</em> you&rsquo;ll get a preconfigured lab with EBGP sessions between the three autonomous systems and OSPF running between R1 and R2.</p>
+<p>When starting the lab with <em>netlab</em> you&rsquo;ll get a preconfigured lab:</p>
+<ul>
+<li>All routers will have their interfaces and IP addresses configured</li>
+<li>OSPF will be running between PE1, PE2, and CORE routers.</li>
+<li>BGP will be configured on PE1, PE2 and EXT routers. All three routers will advertise their loopback interfaces in BGP.</li>
+<li>There will be an EBGP session between PE1 and EXT routers.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The lab is using unnumbered IPv4 link between PE2 and CORE routers to simplify the verification process. If your devices don&rsquo;t <a href="https://netlab.tools/platforms/#platform-initial-addresses">support unnumbered IPv4 links</a> or cannot <a href="https://netlab.tools/module/ospf/#ospf-interfaces">run OSPF over unnumbered IPv4 links</a>, remove the <code>prefix.ipv4: True</code> line from the lab topology file.</p>
+</div>
+<p>The following tables summarize the existing lab configuration</p>
 <h3 id="bgp-configuration">BGP Configuration</h3>
-<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix; your routers advertise the IPv4 prefix of the LAN subnet connecting them.</p>
+<p>The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix, your PE-routers advertise their loopback IPv4 addresses.</p>
 <table>
 <thead>
 <tr>
@@ -271,14 +273,14 @@
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>r1</td>
-<td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">10.0.100.0/24</td>
+<td>pe1</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">10.0.0.2/32</td>
 </tr>
 <tr>
-<td>r2</td>
-<td style="text-align: right;">10.0.0.2</td>
-<td style="text-align: right;">10.0.100.0/24</td>
+<td>pe2</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td style="text-align: right;">10.0.0.3/32</td>
 </tr>
 <tr>
 <td><strong>AS65100</strong></td>
@@ -286,23 +288,13 @@
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>x1</td>
-<td style="text-align: right;">192.168.100.1</td>
-<td style="text-align: right;">192.168.100.0/24</td>
-</tr>
-<tr>
-<td><strong>AS65101</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>x2</td>
-<td style="text-align: right;">172.16.101.1</td>
-<td style="text-align: right;">172.16.101.0/24</td>
+<td>ext</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td style="text-align: right;">172.16.42.0/24</td>
 </tr>
 </tbody>
 </table>
-<p><em>netlab</em> configures these EBGP sessions when starting the lab; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<p><em>netlab</em> also configures the EBGP session between PE1 and EXT routers.</p>
 <table>
 <thead>
 <tr>
@@ -314,45 +306,21 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>r1</strong></td>
-<td>x1</td>
-<td style="text-align: right;">65100</td>
-<td style="text-align: right;">10.1.0.2</td>
-</tr>
-<tr>
-<td><strong>r2</strong></td>
-<td>x2</td>
-<td style="text-align: right;">65101</td>
-<td style="text-align: right;">10.1.0.10</td>
-</tr>
-<tr>
-<td><strong>x1</strong></td>
-<td>r1</td>
+<td><strong>ext</strong></td>
+<td>pe1</td>
 <td style="text-align: right;">65000</td>
-<td style="text-align: right;">10.1.0.1</td>
-</tr>
-<tr>
-<td></td>
-<td>x2</td>
-<td style="text-align: right;">65101</td>
 <td style="text-align: right;">10.1.0.6</td>
 </tr>
 <tr>
-<td><strong>x2</strong></td>
-<td>x1</td>
+<td><strong>pe1</strong></td>
+<td>ext</td>
 <td style="text-align: right;">65100</td>
 <td style="text-align: right;">10.1.0.5</td>
-</tr>
-<tr>
-<td></td>
-<td>r2</td>
-<td style="text-align: right;">65000</td>
-<td style="text-align: right;">10.1.0.9</td>
 </tr>
 </tbody>
 </table>
 <h3 id="ospf-configuration">OSPF Configuration</h3>
-<p>OSPF running in backbone area is configured on the following routers:</p>
+<p>OSPF backbone area is configured on the following routers in AS 65000:</p>
 <table>
 <thead>
 <tr>
@@ -364,195 +332,217 @@
 </thead>
 <tbody>
 <tr>
-<td>r1</td>
+<td>core</td>
 <td>Loopback</td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>Ethernet3</td>
-<td style="text-align: right;">10.0.100.1/24</td>
-<td>r2</td>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td>pe1</td>
 </tr>
 <tr>
-<td>r2</td>
+<td></td>
+<td>Ethernet3</td>
+<td style="text-align: right;">True</td>
+<td>pe2</td>
+</tr>
+<tr>
+<td>pe1</td>
 <td>Loopback</td>
 <td style="text-align: right;">10.0.0.2/32</td>
 <td></td>
 </tr>
 <tr>
 <td></td>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td>core</td>
+</tr>
+<tr>
+<td>pe2</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
 <td>Ethernet3</td>
-<td style="text-align: right;">10.0.100.2/24</td>
-<td>r1</td>
+<td style="text-align: right;">True</td>
+<td>core</td>
 </tr>
 </tbody>
 </table>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Change directory to <code>ibgp/1-edge</code></li>
+<li>Change directory to <code>ibgp/2-transit</code></li>
 <li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your devices (R1, R2) with <strong>netlab connect</strong> and verify that <em>netlab</em> correctly configured their IP addresses, OSPF routing, and EBGP sessions.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you&rsquo;re not using <em>netlab</em> you&rsquo;ll have to configure R1 and R2 yourself.</p>
+<p>If you&rsquo;re not using <em>netlab</em> you&rsquo;ll have to configure CORE and PE2 routers yourself. Configurations for PE1 and EXT routers are in the <code>config</code> subdirectory.</p>
 </div>
-<h2 id="why-do-we-need-ibgp">Why Do We Need IBGP?</h2>
-<p>Inspect the BGP tables on R1 and R2. They contain the routes received from upstream ISPs, but not those received by the other WAN router &ndash; R1 cannot use the R2-X2 uplink to reach ISP-2 (and vice versa for R2). The following printouts contain BGP tables on R1 and R2 (all printouts in this lab exercise were generated by Arista vEOS):</p>
-<pre><code>r1&gt;show ip bgp | begin Network
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      10.0.100.0/24          -                     -       -          -       0       i
- * &gt;      172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
- * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
-</code></pre>
-<pre><code>r2&gt;show ip bgp | begin Network
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      10.0.100.0/24          -                     -       -          -       0       i
- * &gt;      172.16.101.0/24        10.1.0.10             0       -          100     0       65101 i
- * &gt;      192.168.100.0/24       10.1.0.10             0       -          100     0       65101 65100 i
-</code></pre>
-<p>The content of the BGP tables on R1 and R2 shouldn&rsquo;t surprise you; R1 and R2 are exchanging internal routes (using OSPF) but not external routes. We could &ldquo;solve&rdquo; the challenge by redistributing external routes into OSPF (hint: <a href="https://blog.ipspace.net/2020/10/redistributing-bgp-into-ospf.html">don&rsquo;t do that</a>), but then we&rsquo;d lose the BGP information like the AS path the routers need to compare the routes.</p>
-<p>The only sane way forward is to establish a BGP session between R1 and R2, and because that session is set up between two routers in the same autonomous system, we call it an <em>internal </em>BGP (IBGP) session.</p>
-<h2 id="establish-ibgp-session">Establish IBGP Session</h2>
-<p><strong>Configuration tasks:</strong></p>
+<h2 id="propagate-external-bgp-routes-to-pe2">Propagate External BGP Routes to PE2</h2>
+<p>Try to ping the external router (<code>172.16.42.42</code>) from PE2. You have to check the connectivity between the loopback addresses, so you should use a version of the <strong>ping</strong> command that specifies the source interface or the source IP address. For example, you have to use <code>ping 172.16.42.42 source loop 0</code> on Arista EOS.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <ul>
-<li>Configure an IBGP session between the loopback interfaces of R1 and R2 (10.0.0.1 and 10.0.0.2) using a BGP configuration command similar to <strong>neighbor <em>address</em> remote-as 65000</strong>.</li>
+<li>You don&rsquo;t have to worry about the source IP address of the ICMP Echo packets on devices that support unnumbered IPv4 interfaces &ndash; these devices will automatically set the packet&rsquo;s source IP address to the device&rsquo;s loopback IP address.</li>
+<li>The extended <strong>ping</strong> command is often available only in privileged (<strong>enable</strong>) CLI mode.</li>
+</ul>
+</div>
+<p>The <strong>ping</strong> command will most likely fail<sup id="fnref:DP"><a class="footnote-ref" href="#fn:DP">1</a></sup>. Arista EOS displays the root cause of the failure: the destination network is not in the IP routing table:</p>
+<pre><code>pe2#ping 172.16.42.42 source loop 0
+PING 172.16.42.42 (172.16.42.42) from 10.0.0.3 : 72(100) bytes of data.
+ping: sendmsg: Network is unreachable
+ping: sendmsg: Network is unreachable
+ping: sendmsg: Network is unreachable
+ping: sendmsg: Network is unreachable
+ping: sendmsg: Network is unreachable
+
+--- 172.16.42.42 ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 40ms
+</code></pre>
+<p>A quick look into the routing- and BGP table on PE2<sup id="fnref:UBP"><a class="footnote-ref" href="#fn:UBP">2</a></sup> confirms that PE2 knows nothing about the IPv4 prefix <code>172.16.42.0/24</code>.</p>
+<pre><code>pe2#show ip route | begin Gateway
+Gateway of last resort is not set
+
+ O        10.0.0.1/32 is directly connected, Ethernet3
+ O        10.0.0.2/32 [110/20] via 10.0.0.1, Ethernet3
+ C        10.0.0.3/32 is directly connected, Loopback0
+ O        10.1.0.0/30 [110/20] via 10.0.0.1, Ethernet3
+
+pe2#show ip bgp | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.3/32            -                     -       -          -       0       i
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You might not have the 10.0.0.3/32 prefix in the BGP table on PE2 due to a bug in <em>netlab</em> releases prior to 1.6.4-post2. If that&rsquo;s the case, configure BGP on PE2 to advertise the PE2 loopback interface (see <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> for more details). Even better: stop the lab, upgrade <em>netlab</em>, and restart the lab.</p>
+</div>
+<p>The lack of BGP routes on PE2 shouldn&rsquo;t surprise you if you successfully completed the <em><a href="../1-edge/">Establish an IBGP Session Between WAN Edge Routers</a></em> lab exercise &ndash; you already know you need an IBGP session between PE1 and PE2.</p>
+<p><strong>Configuration task:</strong></p>
+<ul>
+<li>Configure an IBGP session between the loopback interfaces of PE1 and PE2<sup id="fnref:DFA"><a class="footnote-ref" href="#fn:DFA">3</a></sup>.</li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You&rsquo;ll find more details in the <a href="../../basic/1-session/">Configure a Single EBGP Session</a> lab exercise.</p>
+<p>The IBGP session is preconfigured on PE1 and should be established as soon as you configure it on PE2.</p>
 </div>
-<ul>
-<li>On some devices you&rsquo;ll have to activate the IBGP session within the IPv4 <strong>address family</strong></li>
-</ul>
 <p><strong>Verification:</strong></p>
-<p>Check the status of the IBGP session with a command similar to <strong>show ip bgp summary</strong> or <strong>show ip bgp neighbors</strong></p>
-<p>The following printout contains the BGP summary information on R1 after the IBGP session has been configured. As you can see, the router tries to establish the IBGP session but does not succeed.</p>
-<pre><code>r1#show ip bgp summary
+<p>Check the BGP neighbors and the BGP table on PE2. You should see an established IBGP session between PE1 and PE2, and the BGP route for <code>172.16.42.0/24</code> in the BGP table.</p>
+<p>This is the printout you should get on Arista EOS:</p>
+<pre><code>pe2#show ip bgp sum
 BGP summary information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
+Router identifier 10.0.0.3, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
-  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  r2                       10.0.0.2 4 65000              0         0    0    0 00:06:03 Active
-  x1                       10.1.0.2 4 65100           2616      3068    0    0 02:10:34 Estab   2      2
-</code></pre>
-<h2 id="fix-the-source-ip-address-of-the-ibgp-session">Fix the Source IP Address of the IBGP Session</h2>
-<p>BGP uses TCP as the transport protocol, and without further configuration, the TCP session&rsquo;s source IP address becomes the outgoing interface&rsquo;s IP address. Attempts to establish an IBGP session using the source IP address of the LAN interface are rejected by the IBGP neighbor as the source IP address in the TCP SYN packet does not match the neighbor IP address configured on the remote router.</p>
-<p><strong>Configuration task:</strong></p>
-<ul>
-<li>Configure the source address of the IBGP TCP session with a BGP configuration command similar to <strong>neighbor update-source</strong>.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You could also configure the IBGP session between LAN IP addresses to make the lab work but never do that in a real-life network. You want the IBGP sessions to be stable, and using loopbacks as the endpoints of the TCP sessions (and relying on IGP to figure out how to reach remote loopbacks) is the best way to achieve that goal.</p>
-</div>
-<p><strong>Verification:</strong></p>
-<p>After configuring the source IP address of the IBGP session on R1 and R2 the routers should be able to establish the IBGP session, as illustrated by the following printout:</p>
-<pre><code>r1#show ip bgp summary
-BGP summary information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Neighbor Status Codes: m - Under maintenance
-  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  r2                       10.0.0.2 4 65000              8         8    0    0 00:00:07 Estab   2      2
-  x1                       10.1.0.2 4 65100           2795      3276    0    0 02:19:28 Estab   2      2
-</code></pre>
-<p>After the IBGP session has been established, R1 and R2 exchange BGP prefixes received from X1 and X2, but the prefixes advertised by R2 are not selected as the best routes by R1 (and vice versa):</p>
-<pre><code>r1#show ip bgp | begin Network
+  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.0.0.2 4 65000             20        20    0    0 00:00:08 Estab   2      2
+pe2#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      10.0.100.0/24          -                     -       -          -       0       i
- *        10.0.100.0/24          10.0.0.2              0       -          100     0       i
- * &gt;      172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
-          172.16.101.0/24        10.1.0.10             0       -          100     0       65101 i
- * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
-          192.168.100.0/24       10.1.0.10             0       -          100     0       65101 65100 i
+ * &gt;      10.0.0.2/32            10.0.0.2              0       -          100     0       i
+ * &gt;      10.0.0.3/32            -                     -       -          -       0       i
+ * &gt;      172.16.42.0/24         10.0.0.2              0       -          100     0       65100 i
 </code></pre>
-<p>Further investigation shows that the IBGP prefixes are not used because they are considered <em>invalid</em>.</p>
-<pre><code>r1#show ip bgp 172.16.101.0
-BGP routing table information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-BGP routing table entry for 172.16.101.0/24
- Paths: 2 available
-  65100 65101
-    10.1.0.2 from 10.1.0.2 (192.168.100.1)
-      Origin IGP, metric 0, localpref 100, IGP metric 0, weight 0, tag 0
-      Received 00:07:37 ago, valid, external, best
-      Rx SAFI: Unicast
-  65101
-    10.1.0.10 from 10.0.0.2 (10.0.0.2)
-      Origin IGP, metric 0, localpref 100, IGP metric -, weight 0, tag 0
-      Received 00:05:29 ago, invalid, internal
-      Rx SAFI: Unicast
+<p>Retry the <strong>ping</strong> command. It should no longer complain that the network is unreachable, but could generate another interesting bit of information on devices that parse and display ICMP error reports. For example, Arista EOS reports that the CORE router (10.0.0.1) claims it cannot reach the destination:</p>
+<pre><code>pe2#ping 172.16.42.42 source loop 0
+PING 172.16.42.42 (172.16.42.42) from 10.0.0.3 : 72(100) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Net Unreachable
+
+--- 172.16.42.42 ping statistics ---
+5 packets transmitted, 0 received, +1 errors, 100% packet loss, time 30ms
 </code></pre>
-<p>Arista EOS is not exactly helpful in this scenario; you have to guess that the underlying root cause is that the BGP next hop is not reachable<sup id="fnref:NHNR"><a class="footnote-ref" href="#fn:NHNR">1</a></sup>.</p>
-<h2 id="fix-the-bgp-next-hop-of-ibgp-prefixes">Fix the BGP Next Hop of IBGP Prefixes</h2>
-<p>BGP routers do not change the BGP next hop of EBGP routes when advertising them over IBGP &ndash; the BGP next hop of routes in AS 65101 as advertised by R2 to R1 is thus the IP address of X2 on the R2-X1 link (<a href="https://blog.ipspace.net/2011/08/bgp-next-hop-processing.html">more details</a>). R1 does not have a route to that IP subnet in its IP routing table, so it considers the IBGP prefix using that BGP next hop invalid.  </p>
-<p>There are two approaches to make the BGP next hop of IBGP prefixes valid:</p>
-<ul>
-<li>You can include the external subnets in the IGP process (for example, you can make them part of the OSPF area).</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When using this approach, you must make the external subnets <em>passive</em> &ndash; you don&rsquo;t want to run IGP routing with another autonomous system.</p>
-</div>
-<ul>
-<li>You can change the BGP next hop of the prefixes advertised over IBGP to the IP address of the advertising router. We&rsquo;ll use this approach.</li>
-</ul>
-<p><strong>Configuration task:</strong></p>
-<ul>
-<li>Change the BGP next hop of prefixes advertised over IBGP sessions with a BGP configuration command similar to <strong>neighbor next-hop-self</strong>.</li>
-</ul>
-<p><strong>Verification:</strong></p>
-<p>Inspect the BGP tables and IP routing tables on R1 and R2 and verify that</p>
-<ul>
-<li>R1 and R2 use BGP prefixes with the shortest AS path as the best BGP routes</li>
-<li>BGP-derived IP prefixes in the IP routing tables point to the WAN uplinks or LAN link between R1 and R2.</li>
-</ul>
-<p>You should get printouts similar to the ones generated by Arista EOS on R1:</p>
-<pre><code>r1#show ip bgp | begin Network
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      10.0.100.0/24          -                     -       -          -       0       i
- *        10.0.100.0/24          10.0.0.2              0       -          100     0       i
- * &gt;      172.16.101.0/24        10.0.0.2              0       -          100     0       65101 i
- *        172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
- * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
-</code></pre>
-<pre><code>r1#show ip bgp 172.16.101.0
-BGP routing table information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-BGP routing table entry for 172.16.101.0/24
- Paths: 2 available
-  65101
-    10.0.0.2 from 10.0.0.2 (10.0.0.2)
-      Origin IGP, metric 0, localpref 100, IGP metric 20, weight 0, tag 0
-      Received 00:00:29 ago, valid, internal, best
-      Rx SAFI: Unicast
-  65100 65101
-    10.1.0.2 from 10.1.0.2 (192.168.100.1)
-      Origin IGP, metric 0, localpref 100, IGP metric 0, weight 0, tag 0
-      Received 00:51:03 ago, valid, external
-      Rx SAFI: Unicast
-</code></pre>
-<pre><code>r1#show ip route | begin Gateway
+<h2 id="fixing-the-core-routing">Fixing the Core Routing</h2>
+<p>Log into the router complaining it cannot reach the destination (the CORE router) and check its IP routing table. The route for <code>172.16.42.0/24</code> is missing.</p>
+<pre><code>core#show ip route | begin Gateway
 Gateway of last resort is not set
 
  C        10.0.0.1/32 is directly connected, Loopback0
- O        10.0.0.2/32 [110/20] via 10.0.100.2, Ethernet3
- C        10.0.100.0/24 is directly connected, Ethernet3
+ O        10.0.0.2/32 [110/10] via 10.1.0.2, Ethernet1
+ O        10.0.0.3/32 is directly connected, Ethernet3
  C        10.1.0.0/30 is directly connected, Ethernet1
- B I      172.16.101.0/24 [200/0] via 10.0.100.2, Ethernet3
- B E      192.168.100.0/24 [200/0] via 10.1.0.2, Ethernet1
 </code></pre>
-<p><strong>Next:</strong></p>
+<p>That shouldn&rsquo;t be a big surprise; after all, the external prefix is advertised only in BGP, and CORE router runs only OSPF.</p>
+<p>There are at least three ways to fix the routing in the core of your autonomous system:</p>
 <ul>
-<li><a href="../2-transit/">Build a Transit Network with IBGP</a></li>
+<li>Redistribute EBGP information into OSPF. That&rsquo;s <a href="https://blog.ipspace.net/2020/10/redistributing-bgp-into-ospf.html">dangerous in real-life networks with large BGP tables</a> and thus you are not allowed to do it in this lab exercise.</li>
+<li>Hide the transit packets from the CORE router using MPLS or IP-over-something tunnels. While the MPLS approach is commonly used to <a href="https://blog.ipspace.net/2012/01/bgp-free-service-provider-core-in.html">build BGP-free core networks</a>, it&rsquo;s too complex for this lab exercise<sup id="fnref:FFDI"><a class="footnote-ref" href="#fn:FFDI">4</a></sup>.</li>
+<li>Make CORE router part of the BGP routing. This is the approach we&rsquo;ll use.</li>
 </ul>
+<p><strong>Configuration tasks:</strong></p>
+<ul>
+<li>Configure BGP with AS number 65000 on the CORE router</li>
+<li>Configure IBGP sessions between all BGP routers in AS 65000.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul>
+<li>Due to the IBGP loop avoidance mechanism (never advertise IBGP routes to other IBGP neighbors) you have to configure a full mesh of IBGP sessions, adding PE1-CORE and PE2-CORE IBGP sessions. Your lab might work without the PE2-CORE IBGP session, but would probably stop working the moment you connect an EBGP neighbor to PE2<sup id="fnref:DLER"><a class="footnote-ref" href="#fn:DLER">5</a></sup>.</li>
+<li>The IBGP session between PE1 and CORE routers is preconfigured on PE1 and should be established as soon as you configure it on CORE router. You&rsquo;ll have to configure the PE2-CORE IBGP session on both ends.</li>
+</ul>
+</div>
+<p><strong>Verification:</strong></p>
+<p>Check the BGP neighbors and the BGP table on the CORE router. The router should have two established IBGP sessions and three prefixes in its BGP table:</p>
+<pre><code>core#show ip bgp sum
+BGP summary information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.0.0.2 4 65000             14        14    0    0 00:00:10 Estab   2      2
+  10.0.0.3 4 65000             10         9    0    0 00:00:08 Estab   1      1
+core#show ip bgp | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.2/32            10.0.0.2              0       -          100     0       i
+ * &gt;      10.0.0.3/32            10.0.0.3              0       -          100     0       i
+ * &gt;      172.16.42.0/24         10.0.0.2              0       -          100     0       65100 i
+</code></pre>
+<p>Retry the <strong>ping</strong> command on PE2. PE2 should be able to reach the EXT router:</p>
+<pre><code>pe2#ping 172.16.42.42 source loop 0
+PING 172.16.42.42 (172.16.42.42) from 10.0.0.3 : 72(100) bytes of data.
+80 bytes from 172.16.42.42: icmp_seq=1 ttl=62 time=0.086 ms
+80 bytes from 172.16.42.42: icmp_seq=2 ttl=62 time=0.007 ms
+80 bytes from 172.16.42.42: icmp_seq=3 ttl=62 time=0.008 ms
+80 bytes from 172.16.42.42: icmp_seq=4 ttl=62 time=0.006 ms
+80 bytes from 172.16.42.42: icmp_seq=5 ttl=62 time=0.007 ms
+
+--- 172.16.42.42 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.006/0.022/0.086/0.032 ms, ipg/ewma 0.032/0.053 ms
+</code></pre>
 <h2 id="reference-information">Reference Information</h2>
 <p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>:</p>
+<p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a> with the following mapping between the routers in the 4-router lab topology and this lab:</p>
+<table>
+<thead>
+<tr>
+<th>4-router-topology device</th>
+<th>Lab device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>Core</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>PE2</td>
+</tr>
+<tr>
+<td>X1</td>
+<td>PE1</td>
+</tr>
+<tr>
+<td>X2</td>
+<td>EXT</td>
+</tr>
+</tbody>
+</table>
 <table>
 <thead>
 <tr>
@@ -565,31 +555,45 @@ Gateway of last resort is not set
 </thead>
 <tbody>
 <tr>
-<td>WAN uplink R1-to-X1</td>
-<td>r1</td>
+<td></td>
+<td>core</td>
 <td>Ethernet1</td>
-<td>x1</td>
+<td>pe1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>WAN uplink R2-to-X2</td>
-<td>r2</td>
+<td>Unused link</td>
+<td>core</td>
 <td>Ethernet2</td>
-<td>x2</td>
+<td>ext</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>Inter-AS link</td>
+<td>pe1</td>
+<td>swp2</td>
+<td>ext</td>
+<td>swp2</td>
+</tr>
+<tr>
+<td>Unused link</td>
+<td>pe2</td>
+<td>Ethernet1</td>
+<td>pe1</td>
 <td>swp3</td>
 </tr>
 <tr>
-<td>Inter-ISP link X1-to-X2</td>
-<td>x1</td>
-<td>swp2</td>
-<td>x2</td>
-<td>swp2</td>
+<td>Unused link</td>
+<td>pe2</td>
+<td>Ethernet2</td>
+<td>ext</td>
+<td>swp3</td>
 </tr>
 <tr>
-<td>Intra-site LAN C1-C2</td>
-<td>r1</td>
+<td></td>
+<td>core</td>
 <td>Ethernet3</td>
-<td>r2</td>
+<td>pe2</td>
 <td>Ethernet3</td>
 </tr>
 </tbody>
@@ -607,7 +611,7 @@ Gateway of last resort is not set
 </thead>
 <tbody>
 <tr>
-<td><strong>r1</strong></td>
+<td><strong>core</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -616,47 +620,47 @@ Gateway of last resort is not set
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>WAN uplink R1-to-X1</td>
+<td>core -&gt; pe1</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
-<td></td>
+<td>Unused link</td>
 </tr>
 <tr>
 <td>Ethernet3</td>
-<td style="text-align: right;">10.0.100.1/24</td>
+<td style="text-align: right;">True</td>
 <td style="text-align: right;"></td>
-<td>Intra-site LAN C1-C2</td>
+<td>core -&gt; pe2</td>
 </tr>
 <tr>
-<td><strong>r2</strong></td>
-<td style="text-align: right;">10.0.0.2/32</td>
+<td><strong>ext</strong></td>
+<td style="text-align: right;">172.16.42.42/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>Ethernet1</td>
+<td>swp1</td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
-<td></td>
+<td>Unused link</td>
 </tr>
 <tr>
-<td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.9/30</td>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
-<td>WAN uplink R2-to-X2</td>
+<td>Inter-AS link</td>
 </tr>
 <tr>
-<td>Ethernet3</td>
-<td style="text-align: right;">10.0.100.2/24</td>
+<td>swp3</td>
 <td style="text-align: right;"></td>
-<td>Intra-site LAN C1-C2</td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
 </tr>
 <tr>
-<td><strong>x1</strong></td>
-<td style="text-align: right;">192.168.100.1/24</td>
+<td><strong>pe1</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -664,43 +668,43 @@ Gateway of last resort is not set
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>WAN uplink R1-to-X1</td>
-</tr>
-<tr>
-<td>swp2</td>
-<td style="text-align: right;">10.1.0.5/30</td>
-<td style="text-align: right;"></td>
-<td>Inter-ISP link X1-to-X2</td>
-</tr>
-<tr>
-<td>swp3</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
-</tr>
-<tr>
-<td><strong>x2</strong></td>
-<td style="text-align: right;">172.16.101.1/24</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>swp1</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td></td>
+<td>pe1 -&gt; core</td>
 </tr>
 <tr>
 <td>swp2</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
-<td>Inter-ISP link X1-to-X2</td>
+<td>Inter-AS link</td>
 </tr>
 <tr>
 <td>swp3</td>
-<td style="text-align: right;">10.1.0.10/30</td>
 <td style="text-align: right;"></td>
-<td>WAN uplink R2-to-X2</td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td><strong>pe2</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>Ethernet3</td>
+<td style="text-align: right;">True</td>
+<td style="text-align: right;"></td>
+<td>pe2 -&gt; core</td>
 </tr>
 </tbody>
 </table>
@@ -708,8 +712,20 @@ Gateway of last resort is not set
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:NHNR">
-<p>Some network devices consider any BGP next hop reachable if they have a default route. That can happen in a virtual lab if the lab device does not use a management VRF &ndash; most lab environments use DHCP to add the default route pointing to the management interface. When that default route appears in the global IP routing table, the IBGP prefix could be considered valid, but the resulting route would point to the management interface.&#160;<a class="footnote-backref" href="#fnref:NHNR" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:DP">
+<p>If it doesn&rsquo;t you have a more interesting problem to troubleshoot &ndash; why does it work?&#160;<a class="footnote-backref" href="#fnref:DP" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:UBP">
+<p>Most <strong>show</strong> printouts in this lab exercise use the <code>| begin Something</code> pipe to skip the (mostly irrelevant) header information.&#160;<a class="footnote-backref" href="#fnref:UBP" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:DFA">
+<p>Don&rsquo;t forget to activate the IBGP session within the IPv4 address family (AF) if your device requires per-AF neighbor activation.&#160;<a class="footnote-backref" href="#fnref:DFA" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:FFDI">
+<p>&hellip; but as you have a running lab that&rsquo;s easy to restart, please feel free to try to get it to work. You get bonus points if you <a href="https://blog.ipspace.net/2021/05/segment-routing-mpls-bgp-free-core.html">decide to use Segment Routing</a> ;)&#160;<a class="footnote-backref" href="#fnref:FFDI" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:DLER">
+<p>Proving that is left as an exercise for the reader&#160;<a class="footnote-backref" href="#fnref:DLER" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
