@@ -16,11 +16,13 @@ With release 1.6.4 (and later) you can choose any one of these devices for your 
 
 | Environment | Devices that can be used<br>as external BGP feeds[^XF] | Recommended |
 |-------------------|--------------------------------|-----|
-| Containers (clab) | Arista EOS, Aruba AOS-CX, Cumulus Linux, FRR | FRR (`frr`)[^FSF] |
+| Containers (clab) | Arista EOS, Aruba AOS-CX, Cumulus Linux, FRR, Nokia SR Linux[^R164] | FRR (`frr`)[^FSF] |
 | Virtual machines (libvirt) | Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR | Cumulus Linux (`cumulus`)[^CSF] |
 | Virtual machines (Virtualbox) | Arista EOS, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR | Cumulus Linux (`cumulus`) |
 
 [^XF]: You can only use devices supported by **[bgp.session](https://netlab.tools/plugins/bgp.session/)** and **[bgp.policy](https://netlab.tools/plugins/bgp.policy/)** _netlab_ plugins as external BGP feeds.
+
+[^R164]: You need _netlab_ release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. You will also need to [install additional software](https://netlab.tools/caveats/#caveats-srlinux) to configure Nokia SR Linux.
 
 [^OPL]: If you'd like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to **bgp.session** and **bgp.policy** plugins. Thank you!
 
