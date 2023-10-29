@@ -168,13 +168,14 @@ Gateway of last resort is not set
 
 That shouldn't be a big surprise; after all, the external prefix is advertised only in BGP, and CORE router runs only OSPF.
 
-There are at least three ways to fix the routing in the core of your autonomous system:
+There are at least four ways to fix the routing in the core of your autonomous system:
 
 * Redistribute EBGP information into OSPF. That's [dangerous in real-life networks with large BGP tables](https://blog.ipspace.net/2020/10/redistributing-bgp-into-ospf.html) and thus you are not allowed to do it in this lab exercise.
+* Advertise an OSPF default route from PE1. That would solve your immediate problem but wouldn't result in a true transit network -- you would run into interesting challenges when trying to connect external networks to PE2. This option is thus also off the table.
 * Hide the transit packets from the CORE router using MPLS or IP-over-something tunnels. While the MPLS approach is commonly used to [build BGP-free core networks](https://blog.ipspace.net/2012/01/bgp-free-service-provider-core-in.html), it's too complex for this lab exercise[^FFDI].
 * Make CORE router part of the BGP routing. This is the approach we'll use.
 
-[^FFDI]: ... but as you have a running lab that's easy to restart, please feel free to try to get it to work. You get bonus points if you [decide to use Segment Routing](https://blog.ipspace.net/2021/05/segment-routing-mpls-bgp-free-core.html) ;)
+[^FFDI]: ... but as you have a running lab that's easy to restart, please feel free to try to get it to work. You get bonus points if you [decide to use Segment Routing](https://blog.ipspace.net/2021/05/segment-routing-mpls-bgp-free-core.html) and a virtual 6-pack of Kool-Aid if you use SRv6 ;)
 
 **Configuration tasks:**
 
