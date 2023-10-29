@@ -467,9 +467,10 @@ Gateway of last resort is not set
  C        10.1.0.0/30 is directly connected, Ethernet1
 </code></pre>
 <p>That shouldn&rsquo;t be a big surprise; after all, the external prefix is advertised only in BGP, and CORE router runs only OSPF.</p>
-<p>There are at least three ways to fix the routing in the core of your autonomous system:</p>
+<p>There are at least four ways to fix the routing in the core of your autonomous system:</p>
 <ul>
 <li>Redistribute EBGP information into OSPF. That&rsquo;s <a href="https://blog.ipspace.net/2020/10/redistributing-bgp-into-ospf.html">dangerous in real-life networks with large BGP tables</a> and thus you are not allowed to do it in this lab exercise.</li>
+<li>Advertise an OSPF default route from PE1. That would solve your immediate problem but wouldn&rsquo;t result in a true transit network &ndash; you would run into interesting challenges when trying to connect external networks to PE2. This option is thus also off the table.</li>
 <li>Hide the transit packets from the CORE router using MPLS or IP-over-something tunnels. While the MPLS approach is commonly used to <a href="https://blog.ipspace.net/2012/01/bgp-free-service-provider-core-in.html">build BGP-free core networks</a>, it&rsquo;s too complex for this lab exercise<sup id="fnref:FFDI"><a class="footnote-ref" href="#fn:FFDI">4</a></sup>.</li>
 <li>Make CORE router part of the BGP routing. This is the approach we&rsquo;ll use.</li>
 </ul>
@@ -722,7 +723,7 @@ rtt min/avg/max/mdev = 0.006/0.022/0.086/0.032 ms, ipg/ewma 0.032/0.053 ms
 <p>Don&rsquo;t forget to activate the IBGP session within the IPv4 address family (AF) if your device requires per-AF neighbor activation.&#160;<a class="footnote-backref" href="#fnref:DFA" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:FFDI">
-<p>&hellip; but as you have a running lab that&rsquo;s easy to restart, please feel free to try to get it to work. You get bonus points if you <a href="https://blog.ipspace.net/2021/05/segment-routing-mpls-bgp-free-core.html">decide to use Segment Routing</a> ;)&#160;<a class="footnote-backref" href="#fnref:FFDI" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>&hellip; but as you have a running lab that&rsquo;s easy to restart, please feel free to try to get it to work. You get bonus points if you <a href="https://blog.ipspace.net/2021/05/segment-routing-mpls-bgp-free-core.html">decide to use Segment Routing</a> and a virtual 6-pack of Kool-Aid if you use SRv6 ;)&#160;<a class="footnote-backref" href="#fnref:FFDI" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:DLER">
 <p>Proving that is left as an exercise for the reader&#160;<a class="footnote-backref" href="#fnref:DLER" title="Jump back to footnote 5 in the text">&#8617;</a></p>
