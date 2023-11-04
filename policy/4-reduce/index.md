@@ -1,6 +1,6 @@
 # Minimize the Size of Your BGP Table
 
-In the previous lab exercises you establish EBGP sessions with two upstream Service Providers, accepted all routes they were willing to send you, and let your router do its magic selecting the best BGP routes (either based on AS-path length or [weights](1-weights.md)).
+In the previous lab exercises you establish EBGP sessions with two upstream Service Providers, [accepted all routes they were willing to send you](../basic/2-multihomed.md), and let your router do its magic selecting the best BGP routes (either based on AS-path length or [weights](1-weights.md)).
 
 That might not be a good idea if you bought cost-optimized hardware that can do packet forwarding at ludicrous speeds but only for a few tens of thousands of routes while your neighbors send you the full Internet BGP table (over 930.000 routes in August 2023).
 
@@ -85,6 +85,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.42.0/24        -                     -       -          -       0       ?
  * >      192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 ```
+
+**Next**: Use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
 
 ## Reference Information
 

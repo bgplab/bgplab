@@ -26,6 +26,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Prevent route leaking between upstream providers](policy/2-stop-transit) with an AS-path filter
 * [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list
 * [Minimize the size of your BGP table](policy/4-reduce) with inbound filters
+* [Implement a consistent AS-wide routing policy](policy/5-local-preference) with BGP local preference.
 
 **Advanced Topics**
 

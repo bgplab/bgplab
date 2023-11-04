@@ -62,3 +62,4 @@ The second set of lab exercises helps you master simple BGP routing policies inc
 * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
 * [Filter prefixes advertised by your autonomous system](policy/3-prefix.md) with a prefix list
 * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
+* [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.

@@ -94,7 +94,11 @@ BGP routing table entry for 192.168.101.0/24
       Rx SAFI: Unicast
 ```
 
-**Next**: Use AS-path filters to [stop advertising transit routes ](2-stop-transit.md).
+**Next**:
+
+* Use AS-path filters to [stop advertising transit routes ](2-stop-transit.md).
+* If you're more interested in building [larger BGP-based networks](../ibgp/1-edge.md), use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
+
 
 ## Reference Information
 
