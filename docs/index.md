@@ -54,14 +54,21 @@ It's best if you take the labs in this order:
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)
 * [BGP route aggregation](basic/8-aggregate.md)
 
-## Simple BGP Routing Policies
+## BGP Routing Policies{#policy}
 
-The second set of lab exercises helps you master simple BGP routing policies including:
+These lab exercises will help you master the basic tools you can use to build BGP routing policies:
 
 * [Use BGP weights](policy/1-weights.md) to prefer one of the upstream providers
 * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
 * [Filter prefixes advertised by your autonomous system](policy/3-prefix.md) with a prefix list
 * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
+
+You'll have to master additional BGP attributes if you want to deploy network-wide routing policies:
+
 * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med.md)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
+
+After mastering the individual tools and device configuration constructs, you'll be ready for more complex scenarios:
+
+* [Use backup link to reach adjacent autonomous system](policy/a-locpref-route-map.md) combines AS-path filters, prefix lists, route maps and BGP local preference.

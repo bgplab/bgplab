@@ -1,0 +1,16 @@
+interface Loopback0
+ ip address 192.168.101.1/24
+ ip address 192.168.205.1/24 secondary
+ ip address 192.168.207.1/24 secondary
+!
+router bgp 65101
+ !
+ address-family ipv4
+  network 192.168.205.0/24 route-map uc205
+  network 192.168.207.0/24 route-map uc207
+!
+route-map uc205 permit 10
+ set as-path prepend 65205
+!
+route-map uc207 permit 10
+ set as-path prepend 65207

@@ -8,7 +8,7 @@ You could use [BGP weights](1-weights.md) to get the job done, but as *weights*
 
 In this lab, you'll use BGP local preference to ensure all BGP routers in your network prefer routes received over the C1-X1 link.
 
-## Existing Router Configuration
+## Initial Router Configurations
 
 The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).
 
@@ -115,6 +115,7 @@ BGP routing table entry for 192.168.100.0/24
 **Next:**
 
 * [Use MED to Influence Incoming Traffic Flow](6-med.md)
+* [Using BGP Local Preference in a Complex Routing Policy](a-locpref-route-map.md)
 
 ## Reference Information
 

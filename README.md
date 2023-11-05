@@ -30,6 +30,10 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend)
 
+**Complex BGP Routing Policies**
+
+* [Using BGP Local Preference in a Complex Routing Policy](policy/a-locpref-route-map)
+
 **Advanced Topics**
 
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)

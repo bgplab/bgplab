@@ -29,7 +29,6 @@ While we're working on new stuff you can already enjoy [over a dozen](index.md) 
 
 ## BGP in Enterprise Networks
 
-* Use more complex BGP local preference setup to prefer direct connectivity with customers of upstream ISPs
 * Use AS-path prepending to influence route selection across multiple upstream ISPs
 
 ## Controlling Inbound Traffic

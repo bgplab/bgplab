@@ -1,0 +1,58 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ ebgp.utils ]
+name: a_locpref
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    device: cumulus
+    module: [ bgp ]
+    config: [ extra-config ]
+  customer:
+    bgp.as: 65000
+    members: [ c1, c2 ]
+    module: [ bgp,ospf ]
+    bgp.advertise_loopback: False
+
+nodes:
+  c1:
+  c2:
+  x1:
+    id: 10
+    bgp.router_id: 10.0.0.10
+    bgp.as: 65100
+    loopback.ipv4: 192.168.100.1/24
+  x2:
+    id: 11
+    bgp.router_id: 10.0.0.11
+    bgp.as: 65101
+    loopback.ipv4: 192.168.101.1/24
+links:
+- c1:
+  x1:
+    bgp.default_originate: True
+  name: Primary uplink
+- c1:
+  x2:
+  pool: l2only              
+  name: Unused link           # Used for compliance with 4-router topology
+- x1:
+  x2:
+  name: Inter-ISP link
+- c2:
+  x1:
+  pool: l2only
+  name: Unused link           # Used for compliance with 4-router topology
+- c2:
+  x2:
+    bgp.default_originate: True
+  name: Backup uplink
+- c1:
+  c2:
+  type: lan
+  name: Customer internal link
+  prefix:
+    ipv4: 192.168.42.0/24
+  bgp.advertise: True

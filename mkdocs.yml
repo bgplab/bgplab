@@ -33,7 +33,7 @@ nav:
   - "Advanced Topics":
     - basic/7-bfd.md
     - basic/8-aggregate.md
-- "Simple Policies": policy/
+- "Routing Policies": policy/
 
 #- "Getting Started":
 #  - basic-session/README.md
