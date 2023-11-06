@@ -112,6 +112,10 @@ BGP routing table entry for 192.168.100.0/24
       Rx SAFI: Unicast
 ```
 
+**Next:**
+
+* [Use MED to Influence Incoming Traffic Flow](6-med.md)
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:

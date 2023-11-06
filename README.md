@@ -27,6 +27,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list
 * [Minimize the size of your BGP table](policy/4-reduce) with inbound filters
 * [Implement a consistent AS-wide routing policy](policy/5-local-preference) with BGP local preference.
+* [Use MED to Influence Incoming Traffic Flow](policy/6-med)
 
 **Advanced Topics**
 

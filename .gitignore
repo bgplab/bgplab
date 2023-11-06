@@ -13,6 +13,9 @@ venv/
 # Ignore everything that should be ignored ;)
 *.ignore.*
 
+# Ignore solution files ;)
+*.solution.*
+
 # Ignore Ansible retry and log files
 *.retry
 ansible.log
