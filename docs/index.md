@@ -64,3 +64,4 @@ The second set of lab exercises helps you master simple BGP routing policies inc
 * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
 * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med.md)
+* [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)

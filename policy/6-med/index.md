@@ -148,6 +148,8 @@ If you get a similar printout in your lab, you accomplished your mission -- you 
 !!! Warning
     In real life, you cannot log into other people's routers. In most cases, you're limited to observing the incoming traffic counters on your uplinks and hoping for the best. You might be able to use *looking glasses* (if available) in adjacent networks to inspect their BGP tables or use the *traceroute* tool from a remote vantage point (for example, your laptop tethered to a mobile Internet connection) to check the traffic flow into your network. 
 
+**Next:** [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:
