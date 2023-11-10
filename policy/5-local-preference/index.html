@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/policy/5-local-preference/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Select Preferred Uplink with BGP Local Preference - BGP Configuration Labs</title>
+        <title>Select Preferred Uplink with BGP Local Preference - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../..">BGP Configuration Labs</a>
+                <a class="navbar-brand" href="../..">BGP Labs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -31,12 +31,25 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Overview <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
     <a href="../.." class="dropdown-item">Labs Overview</a>
 </li>
+                                    
+<li>
+    <a href="../../2-labs-by-technology/" class="dropdown-item">Labs by BGP Attributes and Technologies</a>
+</li>
+                                    
+<li>
+    <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
 <li>
     <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
@@ -55,15 +68,15 @@
 </li>
     </ul>
   </li>
-                                    
-<li>
-    <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
-</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../basic/" class="dropdown-item">Overview</a>
+</li>
                                     
   <li class="dropdown-submenu">
     <a href="#" class="dropdown-item">Setting Up BGP</a>
@@ -135,32 +148,62 @@
                                 </ul>
                             </li>
                             <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Simple Policies <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../" class="dropdown-item">Overview</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Route Filters</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
-                                    
+            
 <li>
     <a href="../3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
-                                    
+            
 <li>
     <a href="../4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Outgoing (Egress) Traffic</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+</li>
+            
 <li>
     <a href="./" class="dropdown-item active">Select Preferred Uplink with BGP Local Preference</a>
 </li>
+            
+<li>
+    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Incoming (Ingress) Traffic</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
+            
+<li>
+    <a href="../7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                         </ul>
@@ -172,18 +215,16 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../4-reduce/" class="nav-link">
+                                <a rel="prev" href="../1-weights/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../6-med/" class="nav-link">
+                                <a rel="next" href="../a-locpref-route-map/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/5-local-preference.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
+
                     </ul>
                 </div>
             </div>
@@ -204,7 +245,7 @@
             
             <li class="nav-item" data-level="1"><a href="#select-preferred-uplink-with-bgp-local-preference" class="nav-link">Select Preferred Uplink with BGP Local Preference</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#existing-router-configuration" class="nav-link">Existing Router Configuration</a>
+            <li class="nav-item" data-level="2"><a href="#initial-router-configurations" class="nav-link">Initial Router Configurations</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -244,7 +285,7 @@
 <p><img alt="Lab topology" src="../topology-locpref.png" /></p>
 <p>You could use <a href="../1-weights/">BGP weights</a> to get the job done, but as <em>weights</em> aren&rsquo;t a BGP attribute and thus aren&rsquo;t propagated between routers, you&rsquo;d have to apply them to all BGP sessions on C1 and C2. There&rsquo;s a better way: BGP has the <em>local preference </em>attribute that works like weights but gets propagated across IBGP sessions.</p>
 <p>In this lab, you&rsquo;ll use BGP local preference to ensure all BGP routers in your network prefer routes received over the C1-X1 link.</p>
-<h2 id="existing-router-configuration">Existing Router Configuration</h2>
+<h2 id="initial-router-configurations">Initial Router Configurations</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
 <table>
 <thead>
@@ -380,13 +421,13 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em> you&rsquo;ll have to configure your routers manually.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. You&rsquo;ll have to manually configure your routers if you&rsquo;re not using <em>netlab</em>.</p>
 <h2 id="using-bgp-local-preference">Using BGP Local Preference</h2>
 <p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#page-29">defines the LOCAL_PREF attribute</a> and mandates that:</p>
 <ul>
 <li>All IBGP update messages contain the LOCAL_PREF attribute.</li>
 <li>A BGP speaker never uses the LOCAL_PREF attribute on EBGP updates.</li>
-<li>LOCAL_PREF attribute influences the selection of BGP best paths (higher local preference is better).</li>
+<li>The LOCAL_PREF attribute influences the selection of BGP best paths (higher local preference is better).</li>
 </ul>
 <p>The RFC does not specify how a router sets the BGP local preference or how it influences the BGP best path selection. Most BGP implementations use these defaults to interoperate with older devices:</p>
 <ul>
@@ -405,10 +446,10 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
+<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Examine the BGP table on C2 to verify that the routes advertised by C1 (next hop: 10.0.0.1) have higher local preference and are preferred over routes received from X1 (next hop: 10.1.0.6). This is a printout you should get on Arista EOS:</p>
+<p>Examine the BGP table on C2 to verify that the routes advertised by C1 (next hop: 10.0.0.1) have a higher local preference and are preferred over routes received from X1 (next hop: 10.1.0.6). This is a printout you should get on Arista EOS:</p>
 <pre><code>c2#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      0.0.0.0/0              10.0.0.1              0       -          200     0       65100 i
@@ -418,7 +459,7 @@
  * &gt;      192.168.100.0/24       10.0.0.1              0       -          200     0       65100 i
  *        192.168.100.0/24       10.1.0.6              0       -          50      0       65100 i
 </code></pre>
-<p>You could dig deeper and examine the details of an IPv4 prefix originated in AS 65100, for example <code>192.168.100.0/24</code>:</p>
+<p>You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65100, for example, <code>192.168.100.0/24</code>:</p>
 <pre><code>c2#show ip bgp 192.168.100.0/24
 BGP routing table information for VRF default
 Router identifier 10.0.0.2, local AS number 65000
@@ -438,9 +479,10 @@ BGP routing table entry for 192.168.100.0/24
 <p><strong>Next:</strong></p>
 <ul>
 <li><a href="../6-med/">Use MED to Influence Incoming Traffic Flow</a></li>
+<li><a href="../a-locpref-route-map/">Using BGP Local Preference in a Complex Routing Policy</a></li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might be helpful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>

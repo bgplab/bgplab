@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/policy/4-reduce/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Minimize the Size of Your BGP Table - BGP Configuration Labs</title>
+        <title>Minimize the Size of Your BGP Table - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../..">BGP Configuration Labs</a>
+                <a class="navbar-brand" href="../..">BGP Labs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -31,12 +31,25 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Overview <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
     <a href="../.." class="dropdown-item">Labs Overview</a>
 </li>
+                                    
+<li>
+    <a href="../../2-labs-by-technology/" class="dropdown-item">Labs by BGP Attributes and Technologies</a>
+</li>
+                                    
+<li>
+    <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
 <li>
     <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
@@ -55,15 +68,15 @@
 </li>
     </ul>
   </li>
-                                    
-<li>
-    <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
-</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../basic/" class="dropdown-item">Overview</a>
+</li>
                                     
   <li class="dropdown-submenu">
     <a href="#" class="dropdown-item">Setting Up BGP</a>
@@ -135,32 +148,62 @@
                                 </ul>
                             </li>
                             <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Simple Policies <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../" class="dropdown-item">Overview</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Route Filters</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
-                                    
+            
 <li>
     <a href="../3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
-                                    
+            
 <li>
     <a href="./" class="dropdown-item active">Minimize the Size of Your BGP Table</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Outgoing (Egress) Traffic</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+</li>
+            
 <li>
     <a href="../5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
+            
+<li>
+    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Incoming (Ingress) Traffic</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
+            
+<li>
+    <a href="../7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                         </ul>
@@ -177,13 +220,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../5-local-preference/" class="nav-link">
+                                <a rel="next" href="../1-weights/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/4-reduce.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
+
                     </ul>
                 </div>
             </div>
@@ -240,13 +281,13 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="minimize-the-size-of-your-bgp-table">Minimize the Size of Your BGP Table</h1>
-<p>In the previous lab exercises you establish EBGP sessions with two upstream Service Providers, <a href="../../basic/2-multihomed/">accepted all routes they were willing to send you</a>, and let your router do its magic selecting the best BGP routes (either based on AS-path length or <a href="../1-weights/">weights</a>).</p>
+<p>In the previous lab exercises, you established EBGP sessions with two upstream Service Providers, <a href="../../basic/2-multihomed/">accepted all routes they were willing to send you</a>, and let your router do its magic selecting the best BGP routes.</p>
 <p>That might not be a good idea if you bought cost-optimized hardware that can do packet forwarding at ludicrous speeds but only for a few tens of thousands of routes while your neighbors send you the full Internet BGP table (over 930.000 routes in August 2023).</p>
-<p>In this lab exercise you&rsquo;ll use inbound filters to reduce the amount of information inserted in the BGP table (and subsequently routing table) of your device.</p>
+<p>In this lab exercise, you&rsquo;ll use inbound filters to reduce the information inserted in your device&rsquo;s BGP table (and, subsequently, the routing table).</p>
 <p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
-<p>Your link to ISP-1 is much faster than the link to ISP-2, so you have to use ISP-1 for most of the outbound traffic. As X1 advertises a default route to you, you don&rsquo;t have to accept any other routing information from it.</p>
-<p>It would be a shame to let the link to ISP-2 remain idle while the link to ISP-1 is operational. Let&rsquo;s send the traffic for AS 65101 directly over the link to X2 &ndash; that means you have to accept prefixes originated in AS 65101 from X2.</p>
-<p>Finally, you&rsquo;ll need a default route even if the link to ISP-1 goes down. You should therefore accept the default route from ISP-2 as well, but make it less preferred than the one received from ISP-1.</p>
+<p>Your link to ISP-1 is much faster than the link to ISP-2, so you must use ISP-1 for most outbound traffic. As X1 advertises a default route to you, you don&rsquo;t have to accept any other routing information from it.</p>
+<p>It would be a shame to let the link to ISP-2 remain idle while the link to ISP-1 is operational. Let&rsquo;s send the traffic for AS 65101 directly over the link to X2 &ndash; that means you have to accept prefixes originating in AS 65101 from X2.</p>
+<p>Finally, you&rsquo;ll need a default route even if the link to ISP-1 goes down. You should also accept the default route from ISP-2 but make it less preferred than the one received from ISP-1.</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises one loopback address and another IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
 <table>
@@ -290,7 +331,7 @@
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
 <table>
 <thead>
 <tr>
@@ -319,15 +360,15 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../3-prefix/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../3-prefix/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <ul>
-<li>Configure a <em>prefix list</em> that will accept just the default route and apply it as an inbound filter on the EBGP session with X1. You did something very similar in the <em><a href="../3-prefix/">Filter Advertised Prefixes</a></em> exercise, so you should be familiar with the process.</li>
-<li>The inbound filter for X2 is a bit more complex: you have to accept a prefix if it originates in AS 65101 or if it&rsquo;s the default route. You already implemented <a href="../3-prefix/">prefix filters</a> and <a href="../2-stop-transit/">AS-path based filters</a>, now you have to combine them. Implementing such a condition usually requires a more complex routing policy; many BGP implementations call it a <em>route map</em>. </li>
+<li>Configure a <em>prefix list</em> that will accept only the default route and apply it as an inbound filter on the EBGP session with X1. You did something similar in the <em><a href="../3-prefix/">Filter Advertised Prefixes</a></em> exercise, so you should know the process.</li>
+<li>The inbound filter for X2 is a bit more complex: you have to accept a prefix if it originates in AS 65101 or is the default route. You already implemented <a href="../3-prefix/">prefix filters</a> and <a href="../2-stop-transit/">AS-path based filters</a>; now you have to combine them. Implementing such a condition often requires a more complex routing policy; many BGP implementations call it a <em>route map</em>. </li>
 </ul>
-<p><strong>Hint</strong>: You&rsquo;ll have to get fluent with regular expressions if you want to become a master of BGP routing policies, but let&rsquo;s do things one step at a time &ndash; the regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
+<p><strong>Hint</strong>: You&rsquo;ll have to get fluent with regular expressions to master BGP routing policies, but let&rsquo;s do things one step at a time &ndash; the regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
 <ul>
-<li>Finally, you have to make routes received from X1 preferred over routes received from X2. You did exactly that in the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise, so you&rsquo;re good to go.</li>
+<li>Finally, you must make routes received from X1 preferred over routes received from X2. If you don&rsquo;t know how to do it, first do the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -338,7 +379,7 @@
 <ul>
 <li>IP prefixes your device is originating;</li>
 <li>Two IP prefixes originated by X2</li>
-<li>Two paths for the default route; the path advertised by X1 should be the best path.</li>
+<li>Two paths for the default route; the path advertised by X1 should be the best.</li>
 </ul>
 <p>If you&rsquo;re using Arista EOS, you should get this printout:</p>
 <pre><code>rtr#sh ip bgp
@@ -361,7 +402,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </code></pre>
 <p><strong>Next</strong>: Use <a href="../5-local-preference/">BGP local preference</a> to implement a consistent AS-wide routing policy.</p>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>

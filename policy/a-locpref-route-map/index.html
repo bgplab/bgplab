@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/policy/2-stop-transit/">
+        <link rel="canonical" href="https://bgplabs.net/policy/a-locpref-route-map/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Filter Transit Routes - BGP Labs</title>
+        <title>BGP Local Preference in a Complex Routing Policy - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -160,7 +160,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="./" class="dropdown-item active">Filter Transit Routes</a>
+    <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
             
 <li>
@@ -186,7 +186,7 @@
 </li>
             
 <li>
-    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+    <a href="./" class="dropdown-item active">BGP Local Preference in a Complex Routing Policy</a>
 </li>
     </ul>
   </li>
@@ -215,12 +215,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../" class="nav-link">
+                                <a rel="prev" href="../5-local-preference/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../3-prefix/" class="nav-link">
+                                <a rel="next" href="../6-med/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -243,9 +243,13 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#filter-transit-routes" class="nav-link">Filter Transit Routes</a>
+            <li class="nav-item" data-level="1"><a href="#bgp-local-preference-in-a-complex-routing-policy" class="nav-link">BGP Local Preference in a Complex Routing Policy</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+            <li class="nav-item" data-level="2"><a href="#initial-router-configurations" class="nav-link">Initial Router Configurations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#external-autonomous-systems" class="nav-link">External Autonomous Systems</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -253,7 +257,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+            <li class="nav-item" data-level="2"><a href="#default-outgoing-traffic-flow" class="nav-link">Default Outgoing Traffic Flow</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#implement-complex-routing-policy" class="nav-link">Implement Complex Routing Policy</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -280,37 +288,15 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="filter-transit-routes">Filter Transit Routes</h1>
-<p>In the previous lab exercises you <a href="../../basic/2-multihomed/">configured EBGP sessions</a> with two routers belonging to upstream ISPs.</p>
-<p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
-<p>With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101<sup id="fnref:EF"><a class="footnote-ref" href="#fn:EF">1</a></sup>. That wouldn&rsquo;t be so bad if the ISP-2 wouldn&rsquo;t prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.</p>
-<p>You don&rsquo;t have to trust me. After starting the lab, log into X2. Execute <code>sudo vtysh -c 'show ip bgp'</code> command<sup id="fnref:VT"><a class="footnote-ref" href="#fn:VT">2</a></sup> if you&rsquo;re running Cumulus Linux, or an equivalent command if you&rsquo;re using some other device as the external router. You&rsquo;ll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
-Connecting to container clab-no_transit-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
-Use vtysh to connect to FRR daemon
-
-BGP table version is 9, local router ID is 10.0.0.11, vrf id 0
-Default local pref 100, local AS 65101
-Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
-               i internal, r RIB-failure, S Stale, R Removed
-Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
-Origin codes:  i - IGP, e - EGP, ? - incomplete
-
-   Network          Next Hop            Metric LocPrf Weight Path
-*&gt; 0.0.0.0/0        10.1.0.5                      200      0 65000 65100 i
-*  192.168.42.0/24  10.1.0.9                               0 65100 65000 ?
-*&gt;                  10.1.0.5                      200      0 65000 ?
-*  192.168.100.0/24 10.1.0.9                 0             0 65100 i
-*&gt;                  10.1.0.5                      200      0 65000 65100 i
-*&gt; 192.168.101.0/24 0.0.0.0                  0         32768 i
-
-Displayed  4 routes and 6 total paths
-</code></pre>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Did you notice that the Internet Service Provider (X2) accepted the default route from its customer? That&rsquo;s a serious security breach and should never happen in a real-life network, but I wouldn&rsquo;t be too sure about that&hellip;</p>
-</div>
-<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<h1 id="bgp-local-preference-in-a-complex-routing-policy">BGP Local Preference in a Complex Routing Policy</h1>
+<p>In a previous lab exercise, you <a href="../5-local-preference/">used BGP local preference to prefer a high-speed uplink over a low-speed uplink</a>. That approach works well if you&rsquo;re willing to leave the backup link idle while the primary link is operational. Now, imagine that you want to send at least some of the traffic over the backup link that is connected to a different ISP:</p>
+<p><img alt="Lab topology" src="../topology-policy-2isp.png" /></p>
+<p>In this lab, you&rsquo;ll create a routing policy using BGP local preference to:</p>
+<ul>
+<li>Send traffic toward prefixes in AS 65101 over the C2-X2 link</li>
+<li>Send all other traffic over the C1-X1 link</li>
+</ul>
+<h2 id="initial-router-configurations">Initial Router Configurations</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
 <table>
 <thead>
@@ -327,8 +313,13 @@ Displayed  4 routes and 6 total paths
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>rtr</td>
+<td>c1</td>
 <td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">192.168.42.0/24</td>
+</tr>
+<tr>
+<td>c2</td>
+<td style="text-align: right;">10.0.0.2</td>
 <td style="text-align: right;">192.168.42.0/24</td>
 </tr>
 <tr>
@@ -353,81 +344,222 @@ Displayed  4 routes and 6 total paths
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually. You can also use the configuration you made in the <a href="../1-weights/">previous exercise</a>.</p>
+<p>Your routers have these BGP neighbors:</p>
 <table>
 <thead>
 <tr>
-<th>Neighbor</th>
+<th>Node</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
 <th style="text-align: right;">Neighbor IPv4</th>
-<th style="text-align: right;">Neighbor AS</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>x1</td>
-<td style="text-align: right;">10.1.0.2</td>
-<td style="text-align: right;">65100</td>
+<td><strong>c1</strong></td>
+<td>10.0.0.1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
 </tr>
 <tr>
+<td></td>
+<td>c2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>x1</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.2</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td>10.0.0.2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>c1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
 <td>x2</td>
-<td style="text-align: right;">10.1.0.6</td>
 <td style="text-align: right;">65101</td>
+<td style="text-align: right;">10.1.0.10</td>
 </tr>
 </tbody>
 </table>
-<h2 id="start-the-lab">Start the Lab</h2>
-<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
-<ul>
-<li>Change directory to <code>policy/2-stop-transit</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
-</ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../1-weights/">previous exercise</a>.</p>
-<h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You must filter BGP prefixes sent to X1 and X2, and advertise only prefixes with an empty AS path &ndash; the prefixes originating in your autonomous system<sup id="fnref:FT"><a class="footnote-ref" href="#fn:FT">3</a></sup>.</p>
-<p>On some BGP implementations (for example: Cisco IOS and IOS XE, Cumulus Linux, FRR), you configure outbound AS-path filters in two steps:</p>
-<ul>
-<li>Configure an AS-path access list that matches an empty AS path<sup id="fnref:RE"><a class="footnote-ref" href="#fn:RE">4</a></sup>.</li>
-<li>Apply the AS-path access list as an outbound filter to all EBGP neighbors.</li>
-</ul>
-<p>Some other implementations (for example: Arista EOS) might require a more convoluted approach using a <em>route map</em> as an intermediate step:</p>
-<ul>
-<li>After configuring the AS-path access list, create a <em>route map</em> that permits BGP prefixes matching your AS-path access list.</li>
-<li>Apply that route map as an outbound filter to all EBGP neighbors.</li>
-</ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Applying filters to BGP neighbors doesn&rsquo;t necessarily trigger new updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft out</code> to tell your router to recalculate and resend BGP prefixes from its BGP table to its neighbors.</p>
-</div>
-<h2 id="verification">Verification</h2>
-<p>Examine the BGP table on X1 and X2 to verify that your router advertises only routes from AS 65000. This is the printout you should get on X2:</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
-Connecting to container clab-no_transit-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
-Use vtysh to connect to FRR daemon
-
-BGP table version is 11, local router ID is 10.0.0.11, vrf id 0
-Default local pref 100, local AS 65101
-Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
-               i internal, r RIB-failure, S Stale, R Removed
-Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
-Origin codes:  i - IGP, e - EGP, ? - incomplete
-
-   Network          Next Hop            Metric LocPrf Weight Path
-*  192.168.42.0/24  10.1.0.9                               0 65100 65000 ?
-*&gt;                  10.1.0.5                      200      0 65000 ?
-*&gt; 192.168.100.0/24 10.1.0.9                 0             0 65100 i
-*&gt; 192.168.101.0/24 0.0.0.0                  0         32768 i
-
-Displayed  3 routes and 4 total paths
-</code></pre>
-<p><strong>Next</strong>: <a href="../3-prefix/">Filter prefixes advertised to EBGP neighbors</a></p>
-<h2 id="reference-information">Reference Information</h2>
-<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
-<h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
+<p>Your network is also running OSPF in the backbone area:</p>
 <table>
 <thead>
 <tr>
+<th>Router</th>
+<th>Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th>Neighbor(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c1</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet3</td>
+<td style="text-align: right;">192.168.42.1/24</td>
+<td>c2</td>
+</tr>
+<tr>
+<td>c2</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet3</td>
+<td style="text-align: right;">192.168.42.2/24</td>
+<td>c1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="external-autonomous-systems">External Autonomous Systems</h2>
+<p>Three other autonomous systems (AS65200, AS65205 and AS65207) are connected to the upstream ISPs:</p>
+<p><img alt="External autonomous systems" src="../policy-extra-asn.png" /></p>
+<p>The external autonomous systems advertise these prefixes:</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65200</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>uc200</td>
+<td style="text-align: right;">192.168.200.1</td>
+<td style="text-align: right;">192.168.200.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65205</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>uc205</td>
+<td style="text-align: right;">192.168.205.1</td>
+<td style="text-align: right;">192.168.205.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65207</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>uc207</td>
+<td style="text-align: right;">192.168.207.1</td>
+<td style="text-align: right;">192.168.207.0/24</td>
+</tr>
+</tbody>
+</table>
+<p>The virtual lab topology starts three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use <a href="../../external/">lab infrastructure that is not managed by <em>netlab</em></a>, you can use the <a href="../../external/4-router/">common 4-router lab topology</a> with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).</p>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>policy/a-locpref-route-map</code></li>
+<li>Execute <strong>netlab up</strong> if you have enough memory to start a 7-node lab or <strong>netlab up topology.extra.yml</strong> if you want to start a 4-node lab<sup id="fnref:XC"><a class="footnote-ref" href="#fn:XC">1</a></sup>. You can also <a href="../../external/">deploy the lab on your own lab infrastructure</a>.</li>
+<li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
+</ul>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em> you&rsquo;ll have to configure your routers manually.</p>
+<h2 id="default-outgoing-traffic-flow">Default Outgoing Traffic Flow</h2>
+<p>After staring the lab, log into C2 and examine its BGP table. You should get a printout similar to this one (generated on Arista cEOS):</p>
+<pre><code>c2&gt;show ip bgp | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      0.0.0.0/0              10.1.0.10             0       -          100     0       65101 i
+ *        0.0.0.0/0              10.0.0.1              0       -          100     0       65100 i
+ * &gt;      192.168.42.0/24        -                     -       -          -       0       i
+ *        192.168.42.0/24        10.0.0.1              0       -          100     0       i
+ * &gt;      192.168.100.0/24       10.0.0.1              0       -          100     0       65100 i
+ *        192.168.100.0/24       10.1.0.10             0       -          100     0       65101 65100 i
+ * &gt;      192.168.101.0/24       10.1.0.10             0       -          100     0       65101 i
+ * &gt;      192.168.200.0/24       10.0.0.1              0       -          100     0       65100 65200 i
+ *        192.168.200.0/24       10.1.0.10             0       -          100     0       65101 65100 65200 i
+ * &gt;      192.168.205.0/24       10.1.0.10             0       -          100     0       65101 65205 i
+ *        192.168.205.0/24       10.0.0.1              0       -          100     0       65100 65205 i
+ * &gt;      192.168.207.0/24       10.1.0.10             0       -          100     0       65101 65207 i
+</code></pre>
+<p>As you can see, C2 uses the C2-X2 link to reach AS 65100, AS 65205 and AS 65207. It also uses the C2-X2 link to reach unknown destinations (the default route points to X2).</p>
+<p>Hint: there&rsquo;s an easier way to find BGP prefixes using the C2-X2 link if your devices support printouts filters with regular expressions &ndash; match all lines that include the &lsquo;&gt;&rsquo; character (best route) and 10.1.0.10 (the next hop):</p>
+<pre><code>c2&gt;show ip bgp | include &gt;.*10.1.0.10
+ * &gt;      0.0.0.0/0              10.1.0.10             0       -          100     0       65101 i
+ * &gt;      192.168.101.0/24       10.1.0.10             0       -          100     0       65101 i
+ * &gt;      192.168.205.0/24       10.1.0.10             0       -          100     0       65101 65205 i
+ * &gt;      192.168.207.0/24       10.1.0.10             0       -          100     0       65101 65207 i
+</code></pre>
+<h2 id="implement-complex-routing-policy">Implement Complex Routing Policy</h2>
+<p>We want to use the C2-X2 link only for the traffic toward destinations in AS65101 &ndash; you will have to create a routing policy on C2 that will:</p>
+<ul>
+<li>Increase the local preference for BGP prefixes originated in AS 65101 (where the AS-path ends with 65101)</li>
+<li>Decrease the local preference for the default route &ndash; BGP routers advertise default route as belonging to their autonomous system</li>
+<li>Decrease the local preference for all other BGP prefixes received from AS 65101</li>
+</ul>
+<p><strong>Hint:</strong> you have probably used routing policies (often called <strong>route maps</strong>) in <a href="../../#policy">previous lab exercises</a>. You have also practiced:</p>
+<ul>
+<li>AS-path filters in the <a href="../2-stop-transit/">Filter Transit Routes</a> exercise</li>
+<li>Prefix filters in the <a href="../4-reduce/">Minimize the Size of Your BGP Table</a> exercise</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<p>Examine the BGP table on C2 to verify the local preference of routes received from X2. You could use the simple <strong>show ip bgp</strong> command and sift through the printout, or use printout filters matching on the next hop (<code>10.1.0.10</code>), or display routes from a specific neighbor (assuming your device supports that)<sup id="fnref:RA"><a class="footnote-ref" href="#fn:RA">2</a></sup>.</p>
+<p>The following printout uses the last mechanism on Arista cEOS:</p>
+<pre><code>c2#show ip bgp neighbors 10.1.0.10 routes | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ *        0.0.0.0/0              10.1.0.10             0       -          50      0       65101 i
+ *        192.168.100.0/24       10.1.0.10             0       -          50      0       65101 65100 i
+ * &gt;      192.168.101.0/24       10.1.0.10             0       -          200     0       65101 i
+ *        192.168.200.0/24       10.1.0.10             0       -          50      0       65101 65100 65200 i
+ *        192.168.205.0/24       10.1.0.10             0       -          50      0       65101 65205 i
+ *        192.168.207.0/24       10.1.0.10             0       -          50      0       65101 65207 i
+</code></pre>
+<p>As you can see:</p>
+<ul>
+<li>Routes originated in AS 65101 have local preference 200 and are used as the best routes</li>
+<li>All other routes advertised by AS 65101 have local preference 50 and are not used.</li>
+</ul>
+<p>Finally, you should log into C1 and examine routes received from C2. C1 should use C2 only to reach <code>192.168.101/24</code>.</p>
+<pre><code>c1&gt;show ip bgp neighbors 10.0.0.2 routes | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ *        192.168.42.0/24        10.0.0.2              0       -          100     0       i
+ * &gt;      192.168.101.0/24       10.0.0.2              0       -          200     0       65101 i
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>C2 does not advertise routes it does not use to C1, so you won&rsquo;t be able to see any other routes from the C2 BGP table on C1.</p>
+</div>
+<h2 id="reference-information">Reference Information</h2>
+<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
+<table>
+<thead>
+<tr>
+<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -436,22 +568,46 @@ Displayed  3 routes and 4 total paths
 </thead>
 <tbody>
 <tr>
-<td>rtr</td>
+<td>Primary uplink</td>
+<td>c1</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>rtr</td>
+<td>Unused link</td>
+<td>c1</td>
 <td>Ethernet2</td>
 <td>x2</td>
 <td>swp1</td>
 </tr>
 <tr>
+<td>Inter-ISP link</td>
 <td>x1</td>
 <td>swp2</td>
 <td>x2</td>
 <td>swp2</td>
+</tr>
+<tr>
+<td>Unused link</td>
+<td>c2</td>
+<td>Ethernet1</td>
+<td>x1</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>Backup uplink</td>
+<td>c2</td>
+<td>Ethernet2</td>
+<td>x2</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>Customer internal link</td>
+<td>c1</td>
+<td>Ethernet3</td>
+<td>c2</td>
+<td>Ethernet3</td>
 </tr>
 </tbody>
 </table>
@@ -467,7 +623,7 @@ Displayed  3 routes and 4 total paths
 </thead>
 <tbody>
 <tr>
-<td><strong>rtr</strong></td>
+<td><strong>c1</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -476,13 +632,43 @@ Displayed  3 routes and 4 total paths
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x1</td>
+<td>Primary uplink</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x2</td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>Ethernet3</td>
+<td style="text-align: right;">192.168.42.1/24</td>
+<td style="text-align: right;"></td>
+<td>Customer internal link</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>Backup uplink</td>
+</tr>
+<tr>
+<td>Ethernet3</td>
+<td style="text-align: right;">192.168.42.2/24</td>
+<td style="text-align: right;"></td>
+<td>Customer internal link</td>
 </tr>
 <tr>
 <td><strong>x1</strong></td>
@@ -494,13 +680,19 @@ Displayed  3 routes and 4 total paths
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; rtr</td>
+<td>Primary uplink</td>
 </tr>
 <tr>
 <td>swp2</td>
-<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; x2</td>
+<td>Inter-ISP link</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
 </tr>
 <tr>
 <td><strong>x2</strong></td>
@@ -510,32 +702,32 @@ Displayed  3 routes and 4 total paths
 </tr>
 <tr>
 <td>swp1</td>
-<td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
-<td>x2 -&gt; rtr</td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
 </tr>
 <tr>
 <td>swp2</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>Inter-ISP link</td>
+</tr>
+<tr>
+<td>swp3</td>
 <td style="text-align: right;">10.1.0.10/30</td>
 <td style="text-align: right;"></td>
-<td>x2 -&gt; x1</td>
+<td>Backup uplink</td>
 </tr>
 </tbody>
 </table>
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:EF">
-<p>Devices <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">strictly compliant with RFC 8212</a> are an exception &ndash; they won&rsquo;t advertise anything to their EBGP neighbors unless you configured an outbound filter.&#160;<a class="footnote-backref" href="#fnref:EF" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:XC">
+<p>The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.&#160;<a class="footnote-backref" href="#fnref:XC" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:VT">
-<p><strong>sudo</strong> to make sure you&rsquo;re an admin user, <strong>vtysh</strong> is the name of the FRR CLI shell, and the <code>-c</code> argument passes the following argument to <strong>vtysh</strong> so you don&rsquo;t have to type another line. You don&rsquo;t need <strong>sudo</strong> part of the command on Cumulus Linux and FRR running in containers.&#160;<a class="footnote-backref" href="#fnref:VT" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-<li id="fn:FT">
-<p>Please note that all BGP implementations I&rsquo;ve seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while they&rsquo;re in the BGP table of your router.&#160;<a class="footnote-backref" href="#fnref:FT" title="Jump back to footnote 3 in the text">&#8617;</a></p>
-</li>
-<li id="fn:RE">
-<p>I don&rsquo;t want you to waste too much time on regular expressions, so here&rsquo;s a hint: you can usually use <code>^$</code> to match an empty AS-path.&#160;<a class="footnote-backref" href="#fnref:RE" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<li id="fn:RA">
+<p>Some devices (example: Arista cEOS) can display routes <em>received</em> from a neighbor (before being process by inbound routing policies) and routes <em>received and accepted</em> from a neighbor (after the routing policies). Make sure you use the correct form of the <strong>show</strong> command.&#160;<a class="footnote-backref" href="#fnref:RA" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

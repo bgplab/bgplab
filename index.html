@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <title>Labs Overview - BGP Configuration Labs</title>
+        <title>Labs Overview - BGP Labs</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="css/base.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">BGP Configuration Labs</a>
+                <a class="navbar-brand" href=".">BGP Labs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -31,12 +31,25 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Overview <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
     <a href="." class="dropdown-item active">Labs Overview</a>
 </li>
+                                    
+<li>
+    <a href="2-labs-by-technology/" class="dropdown-item">Labs by BGP Attributes and Technologies</a>
+</li>
+                                    
+<li>
+    <a href="3-upcoming/" class="dropdown-item">Upcoming Labs</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
 <li>
     <a href="1-setup/" class="dropdown-item">Installation and Setup</a>
@@ -55,15 +68,15 @@
 </li>
     </ul>
   </li>
-                                    
-<li>
-    <a href="3-upcoming/" class="dropdown-item">Upcoming Labs</a>
-</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="basic/" class="dropdown-item">Overview</a>
+</li>
                                     
   <li class="dropdown-submenu">
     <a href="#" class="dropdown-item">Setting Up BGP</a>
@@ -135,32 +148,62 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Simple Policies <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="policy/" class="dropdown-item">Overview</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Route Filters</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
-                                    
+            
 <li>
     <a href="policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
-                                    
+            
 <li>
     <a href="policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Outgoing (Egress) Traffic</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+</li>
+            
 <li>
     <a href="policy/5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
+            
+<li>
+    <a href="policy/a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Incoming (Ingress) Traffic</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="policy/6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
+            
+<li>
+    <a href="policy/7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                         </ul>
@@ -177,13 +220,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="1-setup/" class="nav-link">
+                                <a rel="next" href="2-labs-by-technology/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/index.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
+
                     </ul>
                 </div>
             </div>
@@ -204,27 +245,11 @@
             
             <li class="nav-item" data-level="1"><a href="#open-source-bgp-configuration-labs" class="nav-link">Open-Source BGP Configuration Labs</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#getting-started" class="nav-link">Getting Started</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#setting-up-bgp" class="nav-link">Setting Up BGP</a>
+            <li class="nav-item" data-level="2"><a href="#deploy-bgp-in-your-network" class="nav-link">Deploy BGP in Your Network</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="3"><a href="#protecting-bgp-sessions-optional" class="nav-link">Protecting BGP Sessions (Optional)</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#running-bgp-in-larger-networks" class="nav-link">Running BGP in Larger Networks</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#other-useful-topics" class="nav-link">Other Useful Topics</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#simple-bgp-routing-policies" class="nav-link">Simple BGP Routing Policies</a>
+            <li class="nav-item" data-level="2"><a href="#policy" class="nav-link">BGP Routing Policies</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -248,49 +273,21 @@
 <li>Nokia SR OS and SR Linux</li>
 <li>Vyatta VyOS</li>
 </ul>
-<p>You can already do the following labs with tons of labs coming in the future (see the list of <a href="3-upcoming/">upcoming labs</a>). However, you should probably read the <a href="1-setup/">Installation and Setup</a> documentation first.</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>The first set of the BGP labs focuses on the basics:</p>
+<p>More than a dozen labs are already waiting for you (with more <a href="3-upcoming/">coming in the near future</a>), but if this is your first visit to this site, you should start with the <a href="1-setup/">Installation and Setup</a> documentation.</p>
+<h2 id="deploy-bgp-in-your-network">Deploy BGP in Your Network</h2>
+<p>In the first set of the BGP labs, you&rsquo;ll master these skills:</p>
 <ul>
-<li>Establishing BGP sessions</li>
-<li>Advertising IPv4 and IPv6 prefixes</li>
-<li>Building networks with more than one BGP-speaking router</li>
-<li>Protecting BGP sessions</li>
-<li>Other useful topics like using BFD or BGP route aggregation.</li>
+<li><a href="basic/#simple">Configure BGP sessions and advertise IPv4 and IPv6 prefixes</a></li>
+<li><a href="basic/#protect">Protect BGP sessions</a></li>
+<li><a href="basic/#ibgp">Run BGP in networks with more than one BGP router</a></li>
+<li><a href="basic/#advanced">Configure advanced BGP features</a> like BFD or BGP route aggregation.</li>
 </ul>
-<p>It&rsquo;s best if you take the labs in this order:</p>
-<h3 id="setting-up-bgp">Setting Up BGP</h3>
+<h2 id="policy">BGP Routing Policies</h2>
+<p>These lab exercises will help you master the basic tools you can use to build BGP routing policies that will:</p>
 <ul>
-<li><a href="basic/1-session/">Establish an EBGP session</a> with an ISP</li>
-<li><a href="basic/2-multihomed/">Connect to two upstream providers</a></li>
-<li><a href="basic/3-originate/">Advertise your IPv4 address space</a></li>
-<li><a href="basic/4-ipv6/">Configure BGP for IPv6</a></li>
-<li><a href="basic/5-redistribute/">Redistribute IGP Information Into BGP</a></li>
-</ul>
-<h3 id="protecting-bgp-sessions-optional">Protecting BGP Sessions (Optional)</h3>
-<ul>
-<li><a href="basic/6-protect/">Use MD5 passwords and TTL-based session protection</a></li>
-<li><a href="basic/9-ao/">Use TCP Authentication Option (TCP-AO)</a></li>
-</ul>
-<h3 id="running-bgp-in-larger-networks">Running BGP in Larger Networks</h3>
-<ul>
-<li><a href="ibgp/1-edge/">Establish an IBGP session</a> between WAN edge routers</li>
-<li><a href="ibgp/2-transit/">Build a Transit Network with IBGP</a></li>
-</ul>
-<h3 id="other-useful-topics">Other Useful Topics</h3>
-<ul>
-<li><a href="basic/7-bfd/">Use BFD to Speed Up BGP Convergence</a></li>
-<li><a href="basic/8-aggregate/">BGP route aggregation</a></li>
-</ul>
-<h2 id="simple-bgp-routing-policies">Simple BGP Routing Policies</h2>
-<p>The second set of lab exercises helps you master simple BGP routing policies including:</p>
-<ul>
-<li><a href="policy/1-weights/">Use BGP weights</a> to prefer one of the upstream providers</li>
-<li><a href="policy/2-stop-transit/">Prevent route leaking between upstream providers</a> with an AS-path filter</li>
-<li><a href="policy/3-prefix/">Filter prefixes advertised by your autonomous system</a> with a prefix list</li>
-<li><a href="policy/4-reduce/">Minimize the size of your BGP table</a> with inbound filters</li>
-<li><a href="policy/5-local-preference/">Implement a consistent AS-wide routing policy</a> with BGP local preference.</li>
-<li><a href="policy/6-med/">Use MED to Influence Incoming Traffic Flow</a></li>
+<li><a href="policy/#filter">Filter BGP Updates</a></li>
+<li><a href="policy/#egress">Adjust Outgoing Traffic Flow</a></li>
+<li><a href="policy/#ingress">Influence Incoming Traffic Flow</a></li>
 </ul>
 <div class="footnote">
 <hr />

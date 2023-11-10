@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/1-setup/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Installation and Setup - BGP Configuration Labs</title>
+        <title>Installation and Setup - BGP Labs</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">BGP Configuration Labs</a>
+                <a class="navbar-brand" href="..">BGP Labs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -30,13 +30,26 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="dropdown active">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Overview <b class="caret"></b></a>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
     <a href=".." class="dropdown-item">Labs Overview</a>
 </li>
+                                    
+<li>
+    <a href="../2-labs-by-technology/" class="dropdown-item">Labs by BGP Attributes and Technologies</a>
+</li>
+                                    
+<li>
+    <a href="../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
                                     
 <li>
     <a href="./" class="dropdown-item active">Installation and Setup</a>
@@ -55,15 +68,15 @@
 </li>
     </ul>
   </li>
-                                    
-<li>
-    <a href="../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
-</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../basic/" class="dropdown-item">Overview</a>
+</li>
                                     
   <li class="dropdown-submenu">
     <a href="#" class="dropdown-item">Setting Up BGP</a>
@@ -135,32 +148,62 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Simple Policies <b class="caret"></b></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../policy/" class="dropdown-item">Overview</a>
 </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Route Filters</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
-                                    
+            
 <li>
     <a href="../policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
-                                    
+            
 <li>
     <a href="../policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Outgoing (Egress) Traffic</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+</li>
+            
 <li>
     <a href="../policy/5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
+            
+<li>
+    <a href="../policy/a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+</li>
+    </ul>
+  </li>
                                     
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Incoming (Ingress) Traffic</a>
+    <ul class="dropdown-menu">
+            
 <li>
     <a href="../policy/6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
+            
+<li>
+    <a href="../policy/7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                         </ul>
@@ -172,7 +215,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../3-upcoming/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -181,9 +224,7 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/1-setup.md" class="nav-link"><i class="fa fa-github"></i> Edit on GitHub</a>
-                            </li>
+
                     </ul>
                 </div>
             </div>

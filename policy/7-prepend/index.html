@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/external/4-router/">
+        <link rel="canonical" href="https://bgplabs.net/policy/7-prepend/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Small (4-Router) Lab Topology - BGP Labs</title>
+        <title>Use AS-Path Prepending to Influence Incoming Traffic Flow - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -47,7 +47,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -60,11 +60,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../" class="dropdown-item">Manual Setup</a>
+    <a href="../../external/" class="dropdown-item">Manual Setup</a>
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">Small (4-Router) Lab Topology</a>
+    <a href="../../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
 </li>
     </ul>
   </li>
@@ -147,12 +147,12 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../policy/" class="dropdown-item">Overview</a>
+    <a href="../" class="dropdown-item">Overview</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -160,15 +160,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
+    <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
             
 <li>
-    <a href="../../policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
+    <a href="../3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
             
 <li>
-    <a href="../../policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
+    <a href="../4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
     </ul>
   </li>
@@ -178,15 +178,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
 </li>
             
 <li>
-    <a href="../../policy/5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
+    <a href="../5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
             
 <li>
-    <a href="../../policy/a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
 </li>
     </ul>
   </li>
@@ -196,11 +196,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../policy/6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
+    <a href="../6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
             
 <li>
-    <a href="../../policy/7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+    <a href="./" class="dropdown-item active">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
 </li>
     </ul>
   </li>
@@ -215,12 +215,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../" class="nav-link">
+                                <a rel="prev" href="../6-med/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../basic/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -243,14 +243,38 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#small-4-router-lab-topology" class="nav-link">Small (4-Router) Lab Topology</a>
+            <li class="nav-item" data-level="1"><a href="#use-as-path-prepending-to-influence-incoming-traffic-flow" class="nav-link">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#ip-addressing" class="nav-link">IP Addressing</a>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#wtf" class="nav-link">What Do We Have to Fix?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
               </ul>
@@ -260,21 +284,168 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="small-4-router-lab-topology">Small (4-Router) Lab Topology</h1>
-<p>The exercises that have one or two configurable devices use the following 4-router lab topology:</p>
-<p><img alt="Lab topology" src="../4-router.png" /></p>
-<ul>
-<li>C1 and C2 are the lab devices you&rsquo;ll configure in the hands-on labs. C1 is usually named <em>rtr</em>; when a lab uses both routers they&rsquo;re usually named <em>r1</em> and <em>r2</em>.</li>
-<li>X1 and X2 are external BGP routers.</li>
-</ul>
-<p>The individual labs assume you&rsquo;re using Cumulus Linux 4.x as external BGP routers (FRR running on a Ubuntu VM/container would work as well) and provide initial interface- and FRR configurations for them as well as extra configuration needed in your lab.</p>
-<p>You can use any device you want for the external BGP routers, but you&rsquo;ll have to create your own initial configuration files (if you&rsquo;re not using <em>netlab</em>) and <em>extra device configuration</em> templates. Should you decide to go down this route, we&rsquo;d appreciate if you&rsquo;d submit your changes as a pull request.</p>
-<h2 id="lab-wiring">Lab Wiring</h2>
-<p>Creating a full mesh of links between four devices is not hard, but please do retain the interface sequence if you plan to use <em>netlab</em> to configure the devices.</p>
+<h1 id="use-as-path-prepending-to-influence-incoming-traffic-flow">Use AS-Path Prepending to Influence Incoming Traffic Flow</h1>
+<p>In the previous lab exercises you <a href="../6-med/">used BGP Multi-Exit Discriminator</a> to tell routers in an adjacent autonomous system which link(s) you prefer. That approach no longer works if your BGP router has connections to multiple upstream autonomous systems.</p>
+<p><img alt="Lab topology" src="../topology-weights.png" /></p>
+<p>Influencing incoming traffic flow in scenarios with multiple upstream Service Providers is more art than science. The most straightforward tool you can try is AS-path prepending: adding multiple copies of your AS number to the AS path, hoping that the default BGP route selection process in upstream routers results in the desired traffic flow.</p>
+<p>In this lab, you&rsquo;ll configure the AS path prepending on the updates sent to X2, trying to persuade X2 to use the path through X1 to reach your network.</p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises a single IPv4 prefix.</p>
 <table>
 <thead>
 <tr>
-<th>Link Name</th>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>rtr</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">192.168.42.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65100</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td style="text-align: right;">192.168.100.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65101</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.0.0.11</td>
+<td style="text-align: right;">192.168.101.0/24</td>
+</tr>
+</tbody>
+</table>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td>10.0.0.1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>x1</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>x2</td>
+<td style="text-align: right;">65101</td>
+<td style="text-align: right;">10.1.0.6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>policy/7-prepend</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
+</ul>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
+<h2 id="wtf">What Do We Have to Fix?</h2>
+<p>Log into X2 and check its BGP table. Use <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on X2:</p>
+<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
+BGP table version is 3, local router ID is 10.0.0.11, vrf id 0
+Default local pref 100, local AS 65101
+Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*  192.168.42.0/24  10.1.0.9                               0 65100 65000 ?
+*&gt;                  10.1.0.5                               0 65000 ?
+*  192.168.100.0/24 10.1.0.5                               0 65000 65100 i
+*&gt;                  10.1.0.9                 0             0 65100 i
+*&gt; 192.168.101.0/24 0.0.0.0                  0         32768 i
+
+Displayed  3 routes and 5 total paths
+</code></pre>
+<p>As expected, while X2 receives a route to <code>192.168.42.0/24</code> from X1, it prefers the one received from your router over the RTR-X2 link. Cumulus Linux explains how it selected the best BGP route in its <em>detailed BGP prefix information</em> printout &ndash; in this case, X2 chose the route with the shorter AS-path length:</p>
+<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
+Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
+BGP routing table entry for 192.168.42.0/24
+Paths: (2 available, best #2, table default)
+  Advertised to non peer-group peers:
+  10.1.0.5 x1(10.1.0.9)
+  65100 65000
+    10.1.0.9 from x1(10.1.0.9) (10.0.0.10)
+      Origin incomplete, valid, external, bestpath-from-AS 65100
+      Last update: Thu Nov  9 09:24:51 2023
+  65000
+    10.1.0.5 from 10.1.0.5 (10.0.0.1)
+      Origin incomplete, valid, external, bestpath-from-AS 65000, best (AS Path)
+      Last update: Thu Nov  9 09:24:50 2023
+</code></pre>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>You want X2 to prefer routes to your autonomous system going through X1. As X2 selects the best route based on its AS-path length, you&rsquo;ll artificially increase the length of the AS-path in the updates your router sends to X2. To do that, you&rsquo;ll have to:</p>
+<ul>
+<li>Create a simple routing policy (often called a <strong>route map</strong>)</li>
+<li>Configure AS-path prepending in that routing policy. The AS-path X2 receives from X1 has two AS numbers; you&rsquo;ll have to prepend your AS number at least twice to ensure the direct path is worse than the path X2-X1-RTR.</li>
+<li>Apply the routing policy to the outgoing updates sent from your router to X2.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>Some devices allow you to configure either the number of times they prepend your AS number to the AS path or the content of the AS path. Make sure you won&rsquo;t prepend AS 2 to the AS path.</li>
+<li>While you can prepend any AS number to the AS path (assuming your device allows you to specify the content of the AS path), never prepend AS numbers other than your own.</li>
+<li>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change their BGP tables; your router might evaluate the new parameters only when sending new updates. You might have to use a command similar to <code>clear ip bgp * soft out</code> to tell your router to resend the BGP updates to its neighbors.</li>
+</ul>
+</div>
+<h2 id="verification">Verification</h2>
+<p>Using the commands from the <em><a href="#wtf">What Do We Have to Fix</a></em> section, log into X2 and verify that it now prefers the route to 192.168.42.0/24 going through X1.</p>
+<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
+Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
+BGP routing table entry for 192.168.42.0/24
+Paths: (2 available, best #1, table default)
+  Advertised to non peer-group peers:
+  10.1.0.5 x1(10.1.0.9)
+  65100 65000
+    10.1.0.9 from x1(10.1.0.9) (10.0.0.10)
+      Origin incomplete, valid, external, bestpath-from-AS 65100, best (AS Path)
+      Last update: Thu Nov  9 09:24:51 2023
+  65000 65000 65000
+    10.1.0.5 from 10.1.0.5 (10.0.0.1)
+      Origin incomplete, valid, external, bestpath-from-AS 65000
+      Last update: Thu Nov  9 10:06:39 2023
+</code></pre>
+<h2 id="reference-information">Reference Information</h2>
+<p>The following information might be helpful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
+<table>
+<thead>
+<tr>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -283,51 +454,26 @@
 </thead>
 <tbody>
 <tr>
-<td>C1-to-X1</td>
-<td>c1</td>
+<td>rtr</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>C1-to-X2</td>
-<td>c1</td>
+<td>rtr</td>
 <td>Ethernet2</td>
 <td>x2</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>X1-to-X2</td>
 <td>x1</td>
 <td>swp2</td>
 <td>x2</td>
 <td>swp2</td>
-</tr>
-<tr>
-<td>C2-to-X1</td>
-<td>c2</td>
-<td>Ethernet1</td>
-<td>x1</td>
-<td>swp3</td>
-</tr>
-<tr>
-<td>C2-to-X2</td>
-<td>c2</td>
-<td>Ethernet2</td>
-<td>x2</td>
-<td>swp3</td>
-</tr>
-<tr>
-<td>C1-C2 LAN</td>
-<td>c1</td>
-<td>Ethernet3</td>
-<td>c2</td>
-<td>Ethernet3</td>
 </tr>
 </tbody>
 </table>
-<h2 id="ip-addressing">IP Addressing</h2>
-<p>The initial device configurations supplied with individual labs assume you&rsquo;re using the following IP addressing on the lab links:</p>
+<h3 id="lab-addressing">Lab Addressing</h3>
 <table>
 <thead>
 <tr>
@@ -339,7 +485,7 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>c1</strong></td>
+<td><strong>rtr</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -348,47 +494,17 @@
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>C1-to-X1</td>
+<td>rtr -&gt; x1</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
 <td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
-<td>C1-to-X2</td>
-</tr>
-<tr>
-<td>Ethernet3</td>
-<td style="text-align: right;">172.16.0.1/24</td>
-<td style="text-align: right;"></td>
-<td>C1-C2 LAN</td>
-</tr>
-<tr>
-<td><strong>c2</strong></td>
-<td style="text-align: right;">10.0.0.2/32</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>Ethernet1</td>
-<td style="text-align: right;">10.1.0.13/30</td>
-<td style="text-align: right;"></td>
-<td>C2-to-X1</td>
-</tr>
-<tr>
-<td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.17/30</td>
-<td style="text-align: right;"></td>
-<td>C2-to-X2</td>
-</tr>
-<tr>
-<td>Ethernet3</td>
-<td style="text-align: right;">172.16.0.2/24</td>
-<td style="text-align: right;"></td>
-<td>C1-C2 LAN</td>
+<td>rtr -&gt; x2</td>
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;">192.168.100.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -396,23 +512,17 @@
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>C1-to-X1</td>
+<td>x1 -&gt; rtr</td>
 </tr>
 <tr>
 <td>swp2</td>
 <td style="text-align: right;">10.1.0.9/30</td>
 <td style="text-align: right;"></td>
-<td>X1-to-X2</td>
-</tr>
-<tr>
-<td>swp3</td>
-<td style="text-align: right;">10.1.0.14/30</td>
-<td style="text-align: right;"></td>
-<td>C2-to-X1</td>
+<td>x1 -&gt; x2</td>
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;">192.168.101.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -420,19 +530,13 @@
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
-<td>C1-to-X2</td>
+<td>x2 -&gt; rtr</td>
 </tr>
 <tr>
 <td>swp2</td>
 <td style="text-align: right;">10.1.0.10/30</td>
 <td style="text-align: right;"></td>
-<td>X1-to-X2</td>
-</tr>
-<tr>
-<td>swp3</td>
-<td style="text-align: right;">10.1.0.18/30</td>
-<td style="text-align: right;"></td>
-<td>C2-to-X2</td>
+<td>x2 -&gt; x1</td>
 </tr>
 </tbody>
 </table></div>
