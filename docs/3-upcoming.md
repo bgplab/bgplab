@@ -1,32 +1,29 @@
 # Upcoming Labs
 
-While we're working on new stuff, you can already enjoy [over a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
+While we're working on new stuff you can already enjoy [over a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
 
 ## Basic BGP Setup
 
-**Optional exercises:**
+Optional exercises:
+: * Use session templates and BGP peer groups
 
-* Use session templates and BGP peer groups
-
-**Advanced exercises:**
-
-* Run EBGP multihop session between loopback interfaces
-* Change the BGP AS number presented to the BGP neighbor (**local-as** functionality)
-* Disable AS path check on incoming updates (**allowas-in** functionality)
-* Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
-* Run IPv4 and IPv6 over the same BGP session
-* Fine-tune BGP Fast External Failover
-* Configure BGP graceful restart
+Advanced exercises:
+: * Change the BGP AS number presented to the BGP neighbor (**local-as** functionality)
+  * Disable AS path check on incoming updates (**allowas-in** functionality)
+  * Remove private AS numbers from the AS path
+  * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
+  * Run IPv4 and IPv6 over the same BGP session
+  * Fine-tune BGP Fast External Failover
+  * Configure BGP graceful restart
 
 ## Simple BGP Routing Policies
 
 * Perform simple load balancing across parallel links and upstream providers
 * Use BGP link bandwidth to influence the load-balancing weights
 
-**Advanced exercises:**
-
-* Use BGP route refresh and soft reconfiguration
-* Use outbound route filters (ORF)
+Advanced exercises:
+: * Use BGP route refresh and soft reconfiguration
+  * Use outbound route filters (ORF)
 
 ## BGP in Enterprise Networks
 
