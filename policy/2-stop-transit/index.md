@@ -6,7 +6,7 @@ In the previous lab exercises you [configured EBGP sessions](../basic/2-multihom
 
 With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101[^EF]. That wouldn't be so bad if the ISP-2 wouldn't prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.
 
-You don't have to trust me. After starting the lab, log into X2. Execute `sudo vtysh -c 'show ip bgp'` command[^VT] if you're running Cumulus Linux, or an equivalent command if you're using some other device as the external router. You'll see that the best paths to AS 65100 (ISP-1) uses next hop 10.1.0.5 and goes through AS 65000 (your network).
+You don't have to trust me. After starting the lab, log into X2. Execute `sudo vtysh -c 'show ip bgp'` command[^VT] if you're running Cumulus Linux, or an equivalent command if you're using some other device as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
 
 ```
 $ netlab connect x2 sudo vtysh -c 'show ip bgp'
@@ -70,18 +70,18 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-You have to filter BGP prefixes sent to X1 and X2, and advertise only prefixes with an empty AS path -- the prefixes originating in your autonomous system[^FT].
+You must filter BGP prefixes sent to X1 and X2, and advertise only prefixes with an empty AS path -- the prefixes originating in your autonomous system[^FT].
 
 [^FT]: Please note that all BGP implementations I've seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while they're in the BGP table of your router.
 
-On some BGP implementations (example: Cisco IOS and IOS XE, Cumulus Linux, FRR) you configure outbound AS-path filters in two steps:
+On some BGP implementations (for example: Cisco IOS and IOS XE, Cumulus Linux, FRR), you configure outbound AS-path filters in two steps:
 
 * Configure an AS-path access list that matches an empty AS path[^RE].
 * Apply the AS-path access list as an outbound filter to all EBGP neighbors.
 
 [^RE]: I don't want you to waste too much time on regular expressions, so here's a hint: you can usually use `^$` to match an empty AS-path.
 
-Some other implementations (example: Arista EOS) might require a more convoluted approach using a *route map* as an intermediate step:
+Some other implementations (for example: Arista EOS) might require a more convoluted approach using a *route map* as an intermediate step:
 
 * After configuring the AS-path access list, create a *route map* that permits BGP prefixes matching your AS-path access list.
 * Apply that route map as an outbound filter to all EBGP neighbors.
@@ -118,7 +118,7 @@ Displayed  3 routes and 4 total paths
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might help you if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 

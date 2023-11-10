@@ -1,6 +1,6 @@
 # Upcoming Labs
 
-While we're working on new stuff you can already enjoy [over a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
+While we're working on new stuff, you can already enjoy [over a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
 
 ## Basic BGP Setup
 
@@ -10,6 +10,7 @@ While we're working on new stuff you can already enjoy [over a dozen](index.md) 
 
 **Advanced exercises:**
 
+* Run EBGP multihop session between loopback interfaces
 * Change the BGP AS number presented to the BGP neighbor (**local-as** functionality)
 * Disable AS path check on incoming updates (**allowas-in** functionality)
 * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
@@ -19,8 +20,8 @@ While we're working on new stuff you can already enjoy [over a dozen](index.md) 
 
 ## Simple BGP Routing Policies
 
-* Perform simple load balancing across parallel links and across upstream providers
-* Use BGP link bandwidth to influence the load balancing weights
+* Perform simple load balancing across parallel links and upstream providers
+* Use BGP link bandwidth to influence the load-balancing weights
 
 **Advanced exercises:**
 

@@ -1,4 +1,4 @@
-site_name: BGP Configuration Labs
+site_name: BGP Labs
 docs_dir: docs
 site_dir: _html
 repo_url: https://github.com/bgplab/bgplab
@@ -10,14 +10,17 @@ plugins:
 - search
 - include_dir_to_nav
 nav:
-- Overview:
+- Home:
   - index.md
+  - 2-labs-by-technology.md
+  - 3-upcoming.md
+- Installation:
   - 1-setup.md
   - "Custom Lab Infrastructure":
     - external/index.md
     - external/4-router.md
-  - 3-upcoming.md
-- "Getting Started":
+- "Deploy BGP":
+  - Overview: basic/index.md
   - "Setting Up BGP":
     - basic/1-session.md
     - basic/2-multihomed.md
@@ -33,11 +36,20 @@ nav:
   - "Advanced Topics":
     - basic/7-bfd.md
     - basic/8-aggregate.md
-- "Routing Policies": policy/
+- "Routing Policies":
+  - Overview: policy/index.md
+  - Route Filters:
+    - policy/2-stop-transit.md
+    - policy/3-prefix.md
+    - policy/4-reduce.md
+  - "Outgoing (Egress) Traffic":
+    - policy/1-weights.md
+    - policy/5-local-preference.md
+    - policy/a-locpref-route-map.md
+  - "Incoming (Ingress) Traffic":
+    - policy/6-med.md
+    - policy/7-prepend.md
 
-#- "Getting Started":
-#  - basic-session/README.md
-#  - basic-multihomed/README.md
 markdown_extensions: 
 - footnotes
 - abbr
@@ -47,10 +59,6 @@ markdown_extensions:
 - sane_lists
 - smarty
 
-exclude_docs: |
-  LICENSE.md
-  config/
-  *.j2
 theme:
   name: mkdocs
   custom_dir: _mkdocs_theme

@@ -1,8 +1,8 @@
 # Select Preferred EBGP Peer with Weights
 
-In the previous lab exercises you [configured EBGP sessions](../basic/2-multihomed.md) with two routers belonging to upstream ISPs and [advertised your IPv4 prefixes to them](../basic/3-originate.md).
+In the previous lab exercises, you [configured EBGP sessions](../basic/2-multihomed.md) with two routers belonging to upstream ISPs and [advertised your IPv4 prefixes to them](../basic/3-originate.md).
 
-Now imagine that you want to use one of the uplinks just for backup purposes -- it might be either too slow or too expensive for regular use.
+Now, imagine that you want to use one of the uplinks just for backup purposes -- it might be either too slow or too expensive for regular use.
 
 ![Lab topology](topology-weights.png)
 
@@ -21,7 +21,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -36,11 +36,11 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
-**Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab* just continue with the configuration you made during the [previous exercise](../basic/3-originate.md).
+**Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab*, continue with the configuration you made during the [previous exercise](../basic/3-originate.md).
 
 ## Configuration Tasks
 
-You want your device to prefer routes advertised by X1 over routes advertised by X2. For example, the route for X2's loopback interface should use X1 as the next hop.
+You want your device to prefer routes advertised by X1 over those by X2. For example, the route for X2's loopback interface should use X1 as the next hop.
 
 Many BGP implementations use a mechanism called *weight* (usually applied per neighbor) to prefer routes advertised by one of the BGP peers.
 
@@ -74,7 +74,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *        192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 ```
 
-You could dig deeper and examine the details of an IPv4 prefix originated in AS 65101 (X2), for example 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)
+You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65101 (X2), for example, 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)
 
 ```
 rtr#show ip bgp 192.168.101.0/24
@@ -96,13 +96,13 @@ BGP routing table entry for 192.168.101.0/24
 
 **Next**:
 
-* Use AS-path filters to [stop advertising transit routes ](2-stop-transit.md).
-* If you're more interested in building [larger BGP-based networks](../ibgp/1-edge.md), use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
+* If you still need to learn how to use AS-path filters to [stop advertising transit routes ](2-stop-transit.md), do it now.
+* If you're more interested in building [more extensive BGP-based networks](../ibgp/1-edge.md), use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
 
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might help you if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 

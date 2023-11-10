@@ -49,15 +49,15 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
-**Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab* you'll have to configure your routers manually.
+**Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. You'll have to manually configure your routers if you're not using *netlab*.
 
 ## Using BGP Local Preference
 
 The [Border Gateway Protocol 4 (BGP-4)](https://datatracker.ietf.org/doc/html/rfc4271) RFC (RFC 4271) [defines the LOCAL_PREF attribute](https://datatracker.ietf.org/doc/html/rfc4271#page-29) and mandates that:
 
--   All IBGP update messages contain the LOCAL_PREF attribute.
--   A BGP speaker never uses the LOCAL_PREF attribute on EBGP updates.
--   LOCAL_PREF attribute influences the selection of BGP best paths (higher local preference is better).
+- All IBGP update messages contain the LOCAL_PREF attribute.
+- A BGP speaker never uses the LOCAL_PREF attribute on EBGP updates.
+- The LOCAL_PREF attribute influences the selection of BGP best paths (higher local preference is better).
 
 The RFC does not specify how a router sets the BGP local preference or how it influences the BGP best path selection. Most BGP implementations use these defaults to interoperate with older devices:
 
@@ -75,11 +75,11 @@ Some BGP implementations allow you to change the default local preference value 
     If you're using a network device that cannot change the default LOCAL_PREF value (example: Arista EOS), then you're probably already familiar with route maps. You might have been using them in the [Filter Transit Routes](2-stop-transit.md) or [Filter Advertised Prefixes](3-prefix.md) exercises.
 
 !!! Warning
-    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
+    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
 
 ## Verification
 
-Examine the BGP table on C2 to verify that the routes advertised by C1 (next hop: 10.0.0.1) have higher local preference and are preferred over routes received from X1 (next hop: 10.1.0.6). This is a printout you should get on Arista EOS:
+Examine the BGP table on C2 to verify that the routes advertised by C1 (next hop: 10.0.0.1) have a higher local preference and are preferred over routes received from X1 (next hop: 10.1.0.6). This is a printout you should get on Arista EOS:
 
 ```
 c2#show ip bgp | begin Network
@@ -92,7 +92,7 @@ c2#show ip bgp | begin Network
  *        192.168.100.0/24       10.1.0.6              0       -          50      0       65100 i
 ```
 
-You could dig deeper and examine the details of an IPv4 prefix originated in AS 65100, for example `192.168.100.0/24`:
+You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65100, for example, `192.168.100.0/24`:
 
 ```
 c2#show ip bgp 192.168.100.0/24
@@ -119,7 +119,7 @@ BGP routing table entry for 192.168.100.0/24
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might be helpful if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 
