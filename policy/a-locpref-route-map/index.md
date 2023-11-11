@@ -1,6 +1,6 @@
 # BGP Local Preference in a Complex Routing Policy
 
-In a previous lab exercise, you [used BGP local preference to prefer a high-speed uplink over a low-speed uplink](5-local-preference.md). That approach works well if you're willing to leave the backup link idle while the primary link is operational. Now, imagine that you want to send at least some of the traffic over the backup link that is connected to a different ISP:
+In a previous lab exercise, you [used BGP local preference to prefer a high-speed uplink over a low-speed uplink](5-local-preference.md). That approach works well if you leave the backup link idle while the primary link is operational. Now, imagine that you want to send at least some of the traffic over the backup link that is connected to a different ISP:
 
 ![Lab topology](topology-policy-2isp.png)
 
@@ -60,23 +60,23 @@ The external autonomous systems advertise these prefixes:
 | **AS65207** ||
 | uc207 | 192.168.207.1 | 192.168.207.0/24 |
 
-The virtual lab topology starts three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use [lab infrastructure that is not managed by _netlab_](../external/index.md), you can use the [common 4-router lab topology](../external/4-router.md) with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).
+The virtual lab topology uses three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use [lab infrastructure that is not managed by _netlab_](../external/index.md), you can use the [common 4-router lab topology](../external/4-router.md) with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).
 
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/a-locpref-route-map`
-* Execute **netlab up** if you have enough memory to start a 7-node lab or **netlab up topology.extra.yml** if you want to start a 4-node lab[^XC]. You can also [deploy the lab on your own lab infrastructure](../external/index.md).
+* Execute **netlab up** if you have enough memory to start a 7-node lab or **netlab up topology.extra.yml** if you want to create a 4-node lab[^XC]. You can also [deploy the lab on your lab infrastructure](../external/index.md).
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
 [^XC]: The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.
 
-**Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab* you'll have to configure your routers manually.
+**Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must manually configure your routers.
 
 ## Default Outgoing Traffic Flow
 
-After staring the lab, log into C2 and examine its BGP table. You should get a printout similar to this one (generated on Arista cEOS):
+After starting the lab, log into C2 and examine its BGP table. You should get a printout similar to this one (generated on Arista cEOS):
 
 ```
 c2>show ip bgp | begin Network
@@ -95,9 +95,9 @@ c2>show ip bgp | begin Network
  * >      192.168.207.0/24       10.1.0.10             0       -          100     0       65101 65207 i
 ```
 
-As you can see, C2 uses the C2-X2 link to reach AS 65100, AS 65205 and AS 65207. It also uses the C2-X2 link to reach unknown destinations (the default route points to X2).
+As you can see, C2 uses the C2-X2 link to reach AS 65100, AS 65205, and AS 65207. It also uses the C2-X2 link to reach unknown destinations (the default route points to X2).
 
-Hint: there's an easier way to find BGP prefixes using the C2-X2 link if your devices support printouts filters with regular expressions -- match all lines that include the '>' character (best route) and 10.1.0.10 (the next hop):
+Hint: there's an easier way to find BGP prefixes using the C2-X2 link if your devices support printout filters with regular expressions -- match all lines that include the '>' character (best route) and 10.1.0.10 (the next hop):
 
 ```
 c2>show ip bgp | include >.*10.1.0.10
@@ -111,8 +111,8 @@ c2>show ip bgp | include >.*10.1.0.10
 
 We want to use the C2-X2 link only for the traffic toward destinations in AS65101 -- you will have to create a routing policy on C2 that will:
 
-* Increase the local preference for BGP prefixes originated in AS 65101 (where the AS-path ends with 65101)
-* Decrease the local preference for the default route -- BGP routers advertise default route as belonging to their autonomous system
+* Increase the local preference for BGP prefixes originating in AS 65101 (where the AS path ends with 65101)
+* Decrease the local preference for the default route -- BGP routers advertise the default route as belonging to their autonomous system
 * Decrease the local preference for all other BGP prefixes received from AS 65101
 
 **Hint:** you have probably used routing policies (often called **route maps**) in [previous lab exercises](../index.md#policy). You have also practiced:
@@ -121,13 +121,13 @@ We want to use the C2-X2 link only for the traffic toward destinations in AS6510
 * Prefix filters in the [Minimize the Size of Your BGP Table](4-reduce.md) exercise
 
 !!! Warning
-    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
+    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to `clear ip bgp * soft in` to tell your router to ask its neighbors to resend their BGP updates.
 
 ## Verification
 
 Examine the BGP table on C2 to verify the local preference of routes received from X2. You could use the simple **show ip bgp** command and sift through the printout, or use printout filters matching on the next hop (`10.1.0.10`), or display routes from a specific neighbor (assuming your device supports that)[^RA].
 
-[^RA]: Some devices (example: Arista cEOS) can display routes *received* from a neighbor (before being process by inbound routing policies) and routes *received and accepted* from a neighbor (after the routing policies). Make sure you use the correct form of the **show** command.
+[^RA]: Some devices (example: Arista cEOS) can display routes *received* from a neighbor (before being processed by inbound routing policies) and routes *received and accepted* from a neighbor (after the routing policies). Make sure you use the correct form of the **show** command.
 
 The following printout uses the last mechanism on Arista cEOS:
 
@@ -144,7 +144,7 @@ c2#show ip bgp neighbors 10.1.0.10 routes | begin Network
 
 As you can see:
 
-* Routes originated in AS 65101 have local preference 200 and are used as the best routes
+* Routes originating in AS 65101 have local preference 200 and are used as the best routes
 * All other routes advertised by AS 65101 have local preference 50 and are not used.
 
 Finally, you should log into C1 and examine routes received from C2. C1 should use C2 only to reach `192.168.101/24`.
@@ -161,7 +161,7 @@ c1>show ip bgp neighbors 10.0.0.2 routes | begin Network
     
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might help you if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 
