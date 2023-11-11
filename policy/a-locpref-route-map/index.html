@@ -289,7 +289,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="bgp-local-preference-in-a-complex-routing-policy">BGP Local Preference in a Complex Routing Policy</h1>
-<p>In a previous lab exercise, you <a href="../5-local-preference/">used BGP local preference to prefer a high-speed uplink over a low-speed uplink</a>. That approach works well if you&rsquo;re willing to leave the backup link idle while the primary link is operational. Now, imagine that you want to send at least some of the traffic over the backup link that is connected to a different ISP:</p>
+<p>In a previous lab exercise, you <a href="../5-local-preference/">used BGP local preference to prefer a high-speed uplink over a low-speed uplink</a>. That approach works well if you leave the backup link idle while the primary link is operational. Now, imagine that you want to send at least some of the traffic over the backup link that is connected to a different ISP:</p>
 <p><img alt="Lab topology" src="../topology-policy-2isp.png" /></p>
 <p>In this lab, you&rsquo;ll create a routing policy using BGP local preference to:</p>
 <ul>
@@ -475,17 +475,17 @@
 </tr>
 </tbody>
 </table>
-<p>The virtual lab topology starts three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use <a href="../../external/">lab infrastructure that is not managed by <em>netlab</em></a>, you can use the <a href="../../external/4-router/">common 4-router lab topology</a> with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).</p>
+<p>The virtual lab topology uses three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use <a href="../../external/">lab infrastructure that is not managed by <em>netlab</em></a>, you can use the <a href="../../external/4-router/">common 4-router lab topology</a> with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).</p>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/a-locpref-route-map</code></li>
-<li>Execute <strong>netlab up</strong> if you have enough memory to start a 7-node lab or <strong>netlab up topology.extra.yml</strong> if you want to start a 4-node lab<sup id="fnref:XC"><a class="footnote-ref" href="#fn:XC">1</a></sup>. You can also <a href="../../external/">deploy the lab on your own lab infrastructure</a>.</li>
+<li>Execute <strong>netlab up</strong> if you have enough memory to start a 7-node lab or <strong>netlab up topology.extra.yml</strong> if you want to create a 4-node lab<sup id="fnref:XC"><a class="footnote-ref" href="#fn:XC">1</a></sup>. You can also <a href="../../external/">deploy the lab on your lab infrastructure</a>.</li>
 <li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em> you&rsquo;ll have to configure your routers manually.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must manually configure your routers.</p>
 <h2 id="default-outgoing-traffic-flow">Default Outgoing Traffic Flow</h2>
-<p>After staring the lab, log into C2 and examine its BGP table. You should get a printout similar to this one (generated on Arista cEOS):</p>
+<p>After starting the lab, log into C2 and examine its BGP table. You should get a printout similar to this one (generated on Arista cEOS):</p>
 <pre><code>c2&gt;show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      0.0.0.0/0              10.1.0.10             0       -          100     0       65101 i
@@ -501,8 +501,8 @@
  *        192.168.205.0/24       10.0.0.1              0       -          100     0       65100 65205 i
  * &gt;      192.168.207.0/24       10.1.0.10             0       -          100     0       65101 65207 i
 </code></pre>
-<p>As you can see, C2 uses the C2-X2 link to reach AS 65100, AS 65205 and AS 65207. It also uses the C2-X2 link to reach unknown destinations (the default route points to X2).</p>
-<p>Hint: there&rsquo;s an easier way to find BGP prefixes using the C2-X2 link if your devices support printouts filters with regular expressions &ndash; match all lines that include the &lsquo;&gt;&rsquo; character (best route) and 10.1.0.10 (the next hop):</p>
+<p>As you can see, C2 uses the C2-X2 link to reach AS 65100, AS 65205, and AS 65207. It also uses the C2-X2 link to reach unknown destinations (the default route points to X2).</p>
+<p>Hint: there&rsquo;s an easier way to find BGP prefixes using the C2-X2 link if your devices support printout filters with regular expressions &ndash; match all lines that include the &lsquo;&gt;&rsquo; character (best route) and 10.1.0.10 (the next hop):</p>
 <pre><code>c2&gt;show ip bgp | include &gt;.*10.1.0.10
  * &gt;      0.0.0.0/0              10.1.0.10             0       -          100     0       65101 i
  * &gt;      192.168.101.0/24       10.1.0.10             0       -          100     0       65101 i
@@ -512,8 +512,8 @@
 <h2 id="implement-complex-routing-policy">Implement Complex Routing Policy</h2>
 <p>We want to use the C2-X2 link only for the traffic toward destinations in AS65101 &ndash; you will have to create a routing policy on C2 that will:</p>
 <ul>
-<li>Increase the local preference for BGP prefixes originated in AS 65101 (where the AS-path ends with 65101)</li>
-<li>Decrease the local preference for the default route &ndash; BGP routers advertise default route as belonging to their autonomous system</li>
+<li>Increase the local preference for BGP prefixes originating in AS 65101 (where the AS path ends with 65101)</li>
+<li>Decrease the local preference for the default route &ndash; BGP routers advertise the default route as belonging to their autonomous system</li>
 <li>Decrease the local preference for all other BGP prefixes received from AS 65101</li>
 </ul>
 <p><strong>Hint:</strong> you have probably used routing policies (often called <strong>route maps</strong>) in <a href="../../#policy">previous lab exercises</a>. You have also practiced:</p>
@@ -523,7 +523,7 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
+<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP table on C2 to verify the local preference of routes received from X2. You could use the simple <strong>show ip bgp</strong> command and sift through the printout, or use printout filters matching on the next hop (<code>10.1.0.10</code>), or display routes from a specific neighbor (assuming your device supports that)<sup id="fnref:RA"><a class="footnote-ref" href="#fn:RA">2</a></sup>.</p>
@@ -539,7 +539,7 @@
 </code></pre>
 <p>As you can see:</p>
 <ul>
-<li>Routes originated in AS 65101 have local preference 200 and are used as the best routes</li>
+<li>Routes originating in AS 65101 have local preference 200 and are used as the best routes</li>
 <li>All other routes advertised by AS 65101 have local preference 50 and are not used.</li>
 </ul>
 <p>Finally, you should log into C1 and examine routes received from C2. C1 should use C2 only to reach <code>192.168.101/24</code>.</p>
@@ -553,7 +553,7 @@
 <p>C2 does not advertise routes it does not use to C1, so you won&rsquo;t be able to see any other routes from the C2 BGP table on C1.</p>
 </div>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>
@@ -727,7 +727,7 @@
 <p>The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.&#160;<a class="footnote-backref" href="#fnref:XC" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:RA">
-<p>Some devices (example: Arista cEOS) can display routes <em>received</em> from a neighbor (before being process by inbound routing policies) and routes <em>received and accepted</em> from a neighbor (after the routing policies). Make sure you use the correct form of the <strong>show</strong> command.&#160;<a class="footnote-backref" href="#fnref:RA" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Some devices (example: Arista cEOS) can display routes <em>received</em> from a neighbor (before being processed by inbound routing policies) and routes <em>received and accepted</em> from a neighbor (after the routing policies). Make sure you use the correct form of the <strong>show</strong> command.&#160;<a class="footnote-backref" href="#fnref:RA" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
