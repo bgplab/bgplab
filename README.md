@@ -29,6 +29,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Implement a consistent AS-wide routing policy](policy/5-local-preference) with BGP local preference.
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend)
+* [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach)
 
 **Complex BGP Routing Policies**
 

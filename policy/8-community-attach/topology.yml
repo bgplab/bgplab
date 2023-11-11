@@ -1,0 +1,52 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+name: a_community
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    device: cumulus
+  customer:
+    members: [ c1, c2 ]
+    bgp.advertise_loopback: False
+
+nodes:
+  c1:
+    bgp.as: 65000
+    bgp.originate: [ 192.168.42.0/24 ]
+    bgp.community: []
+  c2:
+    bgp.as: 65001
+    bgp.originate: [ 192.168.37.0/24 ]
+    bgp.community: []
+  x1:
+    id: 10
+    bgp.router_id: 10.0.0.10
+    bgp.as: 65207
+    loopback.ipv4: 172.17.207.1/24
+  x2:
+    id: 11
+    bgp.router_id: 10.0.0.11
+    bgp.as: 65304
+    loopback.ipv4: 172.23.4.1/24
+    config: [ extra-config ]
+links:
+- c1:
+  x1:
+  name: Primary uplink
+- c1:
+  x2:
+  name: Backup uplink
+- x1:
+  x2:
+  name: Inter-ISP link
+- c2:
+  x1:
+  name: Unused link
+  pool: l2only
+- c2:
+  x2:
+  name: Site 2 uplink

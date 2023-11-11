@@ -1,0 +1,23 @@
+! Drop AS paths that have a single AS number in them (potentially multiple times)
+!
+bgp as-path access-list transit-path seq 10 deny ^([0-9]+)(_\1)*$
+bgp as-path access-list transit-path seq 20 permit .*
+!
+bgp community-list standard locpref-low seq 5 permit 65304:100
+!
+route-map customer deny 50
+ match as-path transit-path
+!
+route-map customer permit 90
+ match community locpref-low
+ set local-preference 50
+!
+route-map customer permit 100
+ set local-preference 200
+!
+router bgp {{ bgp.as }}
+ !
+ address-family ipv4 unicast
+{% for ngb in bgp.neighbors if 'ipv4' in ngb and 'c' in ngb.name %}
+  neighbor {{ ngb.ipv4 }} route-map customer in
+{% endfor %}

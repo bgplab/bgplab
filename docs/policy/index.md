@@ -33,3 +33,4 @@ Trying to persuade neighboring autonomous systems to change how they send you th
 
 * [Use MED to Influence Incoming Traffic Flow](6-med.md)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
+* [Attach BGP Communities to Outgoing BGP Updates](8-community-attach.md)

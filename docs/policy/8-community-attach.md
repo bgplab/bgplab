@@ -1,0 +1,1 @@
+../../policy/8-community-attach/index.md

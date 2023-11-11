@@ -24,6 +24,9 @@ AS-path prepending
 BFD (Bidirectional Forwarding Detection)
 : * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)
 
+Communities
+: * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach.md)
+
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
   * [Connect to two upstream providers](basic/2-multihomed.md)

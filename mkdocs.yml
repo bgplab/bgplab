@@ -49,6 +49,7 @@ nav:
   - "Incoming (Ingress) Traffic":
     - policy/6-med.md
     - policy/7-prepend.md
+    - policy/8-community-attach.md
 
 markdown_extensions: 
 - footnotes

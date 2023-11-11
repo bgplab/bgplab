@@ -115,7 +115,7 @@ We want to use the C2-X2 link only for the traffic toward destinations in AS6510
 * Decrease the local preference for the default route -- BGP routers advertise the default route as belonging to their autonomous system
 * Decrease the local preference for all other BGP prefixes received from AS 65101
 
-**Hint:** you have probably used routing policies (often called **route maps**) in [previous lab exercises](../index.md#policy). You have also practiced:
+**Hint:** you have probably used routing policies (often called **route maps**) in [previous lab exercises](index.md). You have also practiced:
 
 * AS-path filters in the [Filter Transit Routes](2-stop-transit.md) exercise
 * Prefix filters in the [Minimize the Size of Your BGP Table](4-reduce.md) exercise
