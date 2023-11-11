@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/policy/7-prepend/">
+        <link rel="canonical" href="https://bgplabs.net/policy/8-community-attach/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Use AS-Path Prepending to Influence Incoming Traffic Flow - BGP Labs</title>
+        <title>Attach BGP Communities to Outgoing BGP Updates - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -200,11 +200,11 @@
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+    <a href="../7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
 </li>
             
 <li>
-    <a href="../8-community-attach/" class="dropdown-item">Attach BGP Communities to Outgoing BGP Updates</a>
+    <a href="./" class="dropdown-item active">Attach BGP Communities to Outgoing BGP Updates</a>
 </li>
     </ul>
   </li>
@@ -219,12 +219,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../6-med/" class="nav-link">
+                                <a rel="prev" href="../7-prepend/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../8-community-attach/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -247,9 +247,9 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#use-as-path-prepending-to-influence-incoming-traffic-flow" class="nav-link">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+            <li class="nav-item" data-level="1"><a href="#attach-bgp-communities-to-outgoing-bgp-updates" class="nav-link">Attach BGP Communities to Outgoing BGP Updates</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+            <li class="nav-item" data-level="2"><a href="#initial-router-configurations" class="nav-link">Initial Router Configurations</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -257,11 +257,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#wtf" class="nav-link">What Do We Have to Fix?</a>
+            <li class="nav-item" data-level="2"><a href="#default-traffic-flow" class="nav-link">Default Traffic Flow</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+            <li class="nav-item" data-level="2"><a href="#configure-as-path-prepending" class="nav-link">Configure AS Path Prepending</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#bgp-communities-to-the-rescue" class="nav-link">BGP Communities to the Rescue</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -288,13 +292,13 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="use-as-path-prepending-to-influence-incoming-traffic-flow">Use AS-Path Prepending to Influence Incoming Traffic Flow</h1>
-<p>In the previous lab exercises you <a href="../6-med/">used BGP Multi-Exit Discriminator</a> to tell routers in an adjacent autonomous system which link(s) you prefer. That approach no longer works if your BGP router has connections to multiple upstream autonomous systems.</p>
-<p><img alt="Lab topology" src="../topology-weights.png" /></p>
-<p>Influencing incoming traffic flow in scenarios with multiple upstream Service Providers is more art than science. The most straightforward tool you can try is AS-path prepending: adding multiple copies of your AS number to the AS path, hoping that the default BGP route selection process in upstream routers results in the desired traffic flow.</p>
-<p>In this lab, you&rsquo;ll configure the AS path prepending on the updates sent to X2, trying to persuade X2 to use the path through X1 to reach your network.</p>
-<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises a single IPv4 prefix.</p>
+<h1 id="attach-bgp-communities-to-outgoing-bgp-updates">Attach BGP Communities to Outgoing BGP Updates</h1>
+<p>In previous lab exercises, you figured out how to nudge an adjacent network to prefer one of the links with the <a href="../6-med/">Multi-Exit Discriminator attribute</a>, and how to push a bit harder with <a href="../7-prepend/">AS path prepending</a>. Sometimes, more than that is needed, and in this lab exercise, you&rsquo;ll have to deal with a scenario in which a Service Provider routing policy interferes strongly with your intentions.</p>
+<p>You have two sites. One is connected to two Service Providers (ISP-1 and ISP-2), and the other has only one uplink (to ISP-2). The link from Site-1 to ISP-1 is significantly faster than the alternate link, and you&rsquo;d like to use it exclusively. The traffic from Site-2 to Site-1 should therefore flow through ISP-2 and ISP-1 (C2→X2→X1→C1)</p>
+<p><img alt="Lab topology" src="../topology-community-attach.png" /></p>
+<p>In this lab, you&rsquo;ll try to influence the Service Provider route selection with AS path prepending and use BGP communities to tell them what changes you&rsquo;d like them to make to their routing policy.</p>
+<h2 id="initial-router-configurations">Initial Router Configurations</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix.</p>
 <table>
 <thead>
 <tr>
@@ -310,33 +314,43 @@
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>rtr</td>
+<td>c1</td>
 <td style="text-align: right;">10.0.0.1</td>
 <td style="text-align: right;">192.168.42.0/24</td>
 </tr>
 <tr>
-<td><strong>AS65100</strong></td>
+<td><strong>AS65001</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>c2</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">192.168.37.0/24</td>
+</tr>
+<tr>
+<td><strong>AS65207</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">192.168.100.0/24</td>
+<td style="text-align: right;">172.17.207.0/24</td>
 </tr>
 <tr>
-<td><strong>AS65101</strong></td>
+<td><strong>AS65304</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">192.168.101.0/24</td>
+<td style="text-align: right;">172.23.4.0/24</td>
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<p>Your routers have these BGP neighbors:</p>
 <table>
 <thead>
 <tr>
@@ -348,7 +362,7 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>rtr</strong></td>
+<td><strong>c1</strong></td>
 <td>10.0.0.1</td>
 <td style="text-align: right;">65000</td>
 <td style="text-align: right;"></td>
@@ -356,100 +370,128 @@
 <tr>
 <td></td>
 <td>x1</td>
-<td style="text-align: right;">65100</td>
+<td style="text-align: right;">65207</td>
 <td style="text-align: right;">10.1.0.2</td>
 </tr>
 <tr>
 <td></td>
 <td>x2</td>
-<td style="text-align: right;">65101</td>
+<td style="text-align: right;">65304</td>
 <td style="text-align: right;">10.1.0.6</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td>10.0.0.2</td>
+<td style="text-align: right;">65001</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>x2</td>
+<td style="text-align: right;">65304</td>
+<td style="text-align: right;">10.1.0.14</td>
 </tr>
 </tbody>
 </table>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Change directory to <code>policy/7-prepend</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
+<li>Change directory to <code>policy/8-community-attach</code></li>
+<li>Execute <strong>netlab up</strong>. You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
+<li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
-<h2 id="wtf">What Do We Have to Fix?</h2>
-<p>Log into X2 and check its BGP table. Use <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on X2:</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
-Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
-BGP table version is 3, local router ID is 10.0.0.11, vrf id 0
-Default local pref 100, local AS 65101
-Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
-               i internal, r RIB-failure, S Stale, R Removed
-Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
-Origin codes:  i - IGP, e - EGP, ? - incomplete
-
-   Network          Next Hop            Metric LocPrf Weight Path
-*  192.168.42.0/24  10.1.0.9                               0 65100 65000 ?
-*&gt;                  10.1.0.5                               0 65000 ?
-*  192.168.100.0/24 10.1.0.5                               0 65000 65100 i
-*&gt;                  10.1.0.9                 0             0 65100 i
-*&gt; 192.168.101.0/24 0.0.0.0                  0         32768 i
-
-Displayed  3 routes and 5 total paths
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must configure your routers manually.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This lab requires additional configuration on X2. That configuration is currently available only for Arista EOS, Cumulus Linux, and FRR &ndash; you have to use one of those devices as the external BGP router(s).</p>
+</div>
+<h2 id="default-traffic-flow">Default Traffic Flow</h2>
+<p>After starting the lab, log into C2 and examine its BGP table, looking for prefixes advertised by C1. You should get a printout similar to this one (generated on Arista cEOS)<sup id="fnref:RAI"><a class="footnote-ref" href="#fn:RAI">1</a></sup>:</p>
+<pre><code>c2&gt;show ip bgp | include 192.168.42.0
+ * &gt;      192.168.42.0/24        10.1.0.14             0       -          100     0       65304 65000 ?
 </code></pre>
-<p>As expected, while X2 receives a route to <code>192.168.42.0/24</code> from X1, it prefers the one received from your router over the RTR-X2 link. Cumulus Linux explains how it selected the best BGP route in its <em>detailed BGP prefix information</em> printout &ndash; in this case, X2 chose the route with the shorter AS-path length:</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
-Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
-BGP routing table entry for 192.168.42.0/24
-Paths: (2 available, best #2, table default)
-  Advertised to non peer-group peers:
-  10.1.0.5 x1(10.1.0.9)
-  65100 65000
-    10.1.0.9 from x1(10.1.0.9) (10.0.0.10)
-      Origin incomplete, valid, external, bestpath-from-AS 65100
-      Last update: Thu Nov  9 09:24:51 2023
-  65000
-    10.1.0.5 from 10.1.0.5 (10.0.0.1)
-      Origin incomplete, valid, external, bestpath-from-AS 65000, best (AS Path)
-      Last update: Thu Nov  9 09:24:50 2023
+<p>As you can see, X2 decided to reach AS 65100 over the direct link. Let&rsquo;s fix that with AS path prepending.</p>
+<h2 id="configure-as-path-prepending">Configure AS Path Prepending</h2>
+<p>X2 might select the path through X1 as the best path toward Site-1 (AS 65100) if you inject enough copies of your AS number into the BGP updates C1 sends to X2. Following the procedure outlined in the <em><a href="../7-prepend/">Use AS-Path Prepending to Influence Incoming Traffic Flow</a></em> exercise, extend the AS path of the prefixes C1 sends to X2. If that doesn&rsquo;t work, prepend more copies of your AS to the AS path.</p>
+<p>Eventually, you&rsquo;ll figure out that no amount of prepending fixes the problem. X2 stubbornly uses the direct path to Site-1 (X2-C1) even if you prepend many copies of <code>65000</code> to the AS path. Here&rsquo;s the relevant printout from C2:</p>
+<pre><code>c2&gt;show ip bgp | include 192.168.42.0
+ * &gt;      192.168.42.0/24        10.1.0.14             0       -          100     0       65304 65000 65000 65000 65000 65000 65000 65000 65000 ?
 </code></pre>
-<h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You want X2 to prefer routes to your autonomous system going through X1. As X2 selects the best route based on its AS-path length, you&rsquo;ll artificially increase the length of the AS-path in the updates your router sends to X2. To do that, you&rsquo;ll have to:</p>
+<h2 id="bgp-communities-to-the-rescue">BGP Communities to the Rescue</h2>
+<p>It&rsquo;s time to give up and give ISP-2 a call. After enjoying the <em>on-hold</em> music for too long and going through too many escalation steps, you might find someone who understands what you&rsquo;re trying to do, pointing you to an online document describing how ISP-2 uses BGP communities. That document might contain a description along these lines<sup id="fnref:BCD"><a class="footnote-ref" href="#fn:BCD">2</a></sup>:</p>
+<hr />
+<p>All customer routes received by ISP-2 are assigned a local preference 200. Customers can alter this local preference using the following BGP communities:</p>
+<table>
+<thead>
+<tr>
+<th>Community</th>
+<th style="text-align: right;">Local Pref</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>65304:102</td>
+<td style="text-align: right;">190</td>
+<td>Used for customer backup when multi-homed to ISP-2</td>
+</tr>
+<tr>
+<td>65304:101</td>
+<td style="text-align: right;">100</td>
+<td>Sets local preference equal to transit routes</td>
+</tr>
+<tr>
+<td>65304:100</td>
+<td style="text-align: right;">50</td>
+<td>Lowest possible value. Used for backup when multi-homed to multiple providers</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>It looks like your woes could be fixed by using community 65304:100. Here&rsquo;s what you have to do:</p>
 <ul>
-<li>Create a simple routing policy (often called a <strong>route map</strong>)</li>
-<li>Configure AS-path prepending in that routing policy. The AS-path X2 receives from X1 has two AS numbers; you&rsquo;ll have to prepend your AS number at least twice to ensure the direct path is worse than the path X2-X1-RTR.</li>
-<li>Apply the routing policy to the outgoing updates sent from your router to X2.</li>
+<li>You already created a routing policy on C1 to implement AS path prepending. If you skipped that step, create a new routing policy (often called a <strong>route map</strong>) on C1. You have already used routing policies in <a href="../">previous lab exercises</a> and should be familiar with them.</li>
+<li>In the routing policy, set the BGP community to <code>65304:100</code></li>
+<li>Attach the routing policy to outgoing updates C1 sends to X2.</li>
+<li>If needed, configure BGP community propagation on C1 with a BGP configuration command similar to <strong>neighbor <em>address</em> send-community</strong>.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
-<li>Some devices allow you to configure either the number of times they prepend your AS number to the AS path or the content of the AS path. Make sure you won&rsquo;t prepend AS 2 to the AS path.</li>
-<li>While you can prepend any AS number to the AS path (assuming your device allows you to specify the content of the AS path), never prepend AS numbers other than your own.</li>
-<li>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change their BGP tables; your router might evaluate the new parameters only when sending new updates. You might have to use a command similar to <code>clear ip bgp * soft out</code> to tell your router to resend the BGP updates to its neighbors.</li>
+<li>Many BGP implementations strip BGP communities from outgoing BGP updates by default. Your routing policy might be perfect, but it will only affect the EBGP updates if you configure BGP community propagation. Even worse, if you use a command like <strong>show ip bgp neighbor <em>address</em> advertised-routes <em>prefix</em></strong>, it might not show the BGP community<sup id="fnref:DWA"><a class="footnote-ref" href="#fn:DWA">3</a></sup>, leading you to the conclusion that your routing policy might be broken.</li>
+<li>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft</code> to tell your router to resend BGP updates to its neighbors.</li>
 </ul>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Using the commands from the <em><a href="#wtf">What Do We Have to Fix</a></em> section, log into X2 and verify that it now prefers the route to 192.168.42.0/24 going through X1.</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
-Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
+<p>Reexamine the BGP table on C2. If you did everything right, you&rsquo;d see that X2 changed its mind and now advertises the path through X1 (AS 65207) as the best path:</p>
+<pre><code>c2&gt;show ip bgp | include 192.168.42.0
+ * &gt;      192.168.42.0/24        10.1.0.14             0       -          100     0       65304 65207 65000 ?
+</code></pre>
+<p>Want to know how the magic works behind the scenes? Log into X2 and inspect its BGP table. This is how you would do it on Cumulus Linux<sup id="fnref:GHU"><a class="footnote-ref" href="#fn:GHU">4</a></sup> (this command also comes in handy if you did something wrong and have to figure out what&rsquo;s going on):</p>
+<pre><code>$ netlab connect x2 vtysh -c 'show ip bgp 192.168.42.0'
+Connecting to container clab-a_community-x2, executing vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
-Paths: (2 available, best #1, table default)
+Paths: (2 available, best #2, table default)
   Advertised to non peer-group peers:
-  10.1.0.5 x1(10.1.0.9)
-  65100 65000
-    10.1.0.9 from x1(10.1.0.9) (10.0.0.10)
-      Origin incomplete, valid, external, bestpath-from-AS 65100, best (AS Path)
-      Last update: Thu Nov  9 09:24:51 2023
-  65000 65000 65000
+  10.1.0.5 x1(10.1.0.9) 10.1.0.13
+  65000 65000 65000 65000 65000 65000 65000 65000
     10.1.0.5 from 10.1.0.5 (10.0.0.1)
-      Origin incomplete, valid, external, bestpath-from-AS 65000
-      Last update: Thu Nov  9 10:06:39 2023
+      Origin incomplete, localpref 50, valid, external, bestpath-from-AS 65000
+      Community: 65304:100
+      Last update: Sat Nov 11 08:42:42 2023
+  65207 65000
+    10.1.0.9 from x1(10.1.0.9) (10.0.0.10)
+      Origin incomplete, valid, external, bestpath-from-AS 65207, best (Local Pref)
+      Last update: Sat Nov 11 08:41:49 2023
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
-<p>The following information might be helpful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>
 <thead>
 <tr>
+<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -458,22 +500,39 @@ Paths: (2 available, best #1, table default)
 </thead>
 <tbody>
 <tr>
-<td>rtr</td>
+<td>Primary uplink</td>
+<td>c1</td>
 <td>Ethernet1</td>
 <td>x1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>rtr</td>
+<td>Backup uplink</td>
+<td>c1</td>
 <td>Ethernet2</td>
 <td>x2</td>
 <td>swp1</td>
 </tr>
 <tr>
+<td>Inter-ISP link</td>
 <td>x1</td>
 <td>swp2</td>
 <td>x2</td>
 <td>swp2</td>
+</tr>
+<tr>
+<td>Unused link</td>
+<td>c2</td>
+<td>Ethernet1</td>
+<td>x1</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>Site 2, uplink 2</td>
+<td>c2</td>
+<td>Ethernet2</td>
+<td>x2</td>
+<td>swp3</td>
 </tr>
 </tbody>
 </table>
@@ -489,7 +548,7 @@ Paths: (2 available, best #1, table default)
 </thead>
 <tbody>
 <tr>
-<td><strong>rtr</strong></td>
+<td><strong>c1</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -498,17 +557,35 @@ Paths: (2 available, best #1, table default)
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x1</td>
+<td>Primary uplink</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
 <td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x2</td>
+<td>Backup uplink</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.13/30</td>
+<td style="text-align: right;"></td>
+<td>Site 2 uplink</td>
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">192.168.100.1/24</td>
+<td style="text-align: right;">172.17.207.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -516,17 +593,23 @@ Paths: (2 available, best #1, table default)
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; rtr</td>
+<td>Primary uplink</td>
 </tr>
 <tr>
 <td>swp2</td>
 <td style="text-align: right;">10.1.0.9/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; x2</td>
+<td>Inter-ISP link</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">192.168.101.1/24</td>
+<td style="text-align: right;">172.23.4.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -534,16 +617,39 @@ Paths: (2 available, best #1, table default)
 <td>swp1</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
-<td>x2 -&gt; rtr</td>
+<td>Backup uplink</td>
 </tr>
 <tr>
 <td>swp2</td>
 <td style="text-align: right;">10.1.0.10/30</td>
 <td style="text-align: right;"></td>
-<td>x2 -&gt; x1</td>
+<td>Inter-ISP link</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td style="text-align: right;"></td>
+<td>Site 2 uplink</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:RAI">
+<p>I&rsquo;m using the concise printout of the BGP table (<strong>show ip bgp</strong>) with an output filter to reduce the amount of information you have to sift through. You could also use a command similar to <strong>show ip bgp 192.168.42.0</strong>&#160;<a class="footnote-backref" href="#fnref:RAI" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:BCD">
+<p>Based on <a href="https://onestep.net/communities/as7922/">an actual ISP document</a>&#160;<a class="footnote-backref" href="#fnref:BCD" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:DWA">
+<p>Details are implementation-dependent. I observed this behavior on Arista EOS.&#160;<a class="footnote-backref" href="#fnref:DWA" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:GHU">
+<p>You should also inspect the configuration of X2 to get some hints for one of the upcoming lab exercises.&#160;<a class="footnote-backref" href="#fnref:GHU" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 

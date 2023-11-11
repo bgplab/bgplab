@@ -131,6 +131,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://bgplabs.net/policy/8-community-attach/</loc>
+         <lastmod>2023-11-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://bgplabs.net/policy/a-locpref-route-map/</loc>
          <lastmod>2023-11-11</lastmod>
          <changefreq>daily</changefreq>
