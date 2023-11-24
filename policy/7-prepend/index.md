@@ -1,10 +1,10 @@
 # Use AS-Path Prepending to Influence Incoming Traffic Flow
 
-In the previous lab exercises you [used BGP Multi-Exit Discriminator](6-med.md) to tell routers in an adjacent autonomous system which link(s) you prefer. That approach no longer works if your BGP router has connections to multiple upstream autonomous systems.
-
-![Lab topology](topology-weights.png)
+In the previous lab exercises, you [used BGP Multi-Exit Discriminator](6-med.md) to tell routers in an adjacent autonomous system which link(s) you prefer. That approach no longer works if your BGP router has connections to multiple upstream autonomous systems.
 
 Influencing incoming traffic flow in scenarios with multiple upstream Service Providers is more art than science. The most straightforward tool you can try is AS-path prepending: adding multiple copies of your AS number to the AS path, hoping that the default BGP route selection process in upstream routers results in the desired traffic flow.
+
+![Lab topology](topology-prepend.png)
 
 In this lab, you'll configure the AS path prepending on the updates sent to X2, trying to persuade X2 to use the path through X1 to reach your network.
 
@@ -21,7 +21,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
 
 | Node | Router ID /<br />Neighbor | Router AS/<br />Neighbor AS | Neighbor IPv4 |
 |------|---------------------------|----------------------------:|--------------:|
@@ -37,7 +37,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
-**Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab* just continue with the configuration you made during the [Advertise IPv4 Prefixes to BGP Neighbors](../basic/3-originate.md) or [Select Preferred EBGP Peer with Weights](1-weights.md) exercises.
+**Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab*, continue with the configuration you made during the [Advertise IPv4 Prefixes to BGP Neighbors](../basic/3-originate.md) or [Select Preferred EBGP Peer with Weights](1-weights.md) exercises.
 
 ## What Do We Have to Fix? {#wtf}
 

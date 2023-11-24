@@ -1,12 +1,12 @@
 # Filter Transit Routes
 
-In the previous lab exercises you [configured EBGP sessions](../basic/2-multihomed.md) with two routers belonging to upstream ISPs.
+In the previous lab exercises, you [configured EBGP sessions](../basic/2-multihomed.md) with two routers belonging to upstream ISPs.
 
 ![Lab topology](topology-stop-transit.png)
 
 With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101[^EF]. That wouldn't be so bad if the ISP-2 wouldn't prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.
 
-You don't have to trust me. After starting the lab, log into X2. Execute `sudo vtysh -c 'show ip bgp'` command[^VT] if you're running Cumulus Linux, or an equivalent command if you're using some other device as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
+You don't have to trust me. After starting the lab, log into X2. If you're running Cumulus Linux, execute `sudo vtysh -c 'show ip bgp'` command[^VT] or an equivalent command for the device you use as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
 
 ```
 $ netlab connect x2 sudo vtysh -c 'show ip bgp'
@@ -36,7 +36,7 @@ Displayed  4 routes and 6 total paths
 
 [^EF]: Devices [strictly compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) are an exception -- they won't advertise anything to their EBGP neighbors unless you configured an outbound filter.
 
-[^VT]: **sudo** to make sure you're an admin user, **vtysh** is the name of the FRR CLI shell, and the `-c` argument passes the following argument to **vtysh** so you don't have to type another line. You don't need **sudo** part of the command on Cumulus Linux and FRR running in containers.
+[^VT]: **sudo** to make sure you're an admin user, **vtysh** is the name of the FRR CLI shell, and the `-c` argument passes the following argument to **vtysh** so you don't have to type another line. You don't need the **sudo** part of the command on Cumulus Linux and FRR running in containers.
 
 ## Existing BGP Configuration
 
@@ -51,7 +51,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually. You can also use the configuration you made in the [previous exercise](1-weights.md).
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes. You can also use the configuration you made in the [previous exercise](1-weights.md).
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -66,22 +66,22 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
-**Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab* just continue with the configuration you made during the [previous exercise](1-weights.md).
+**Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab*, continue with the configuration you made during the [previous exercise](1-weights.md).
 
 ## Configuration Tasks
 
-You must filter BGP prefixes sent to X1 and X2, and advertise only prefixes with an empty AS path -- the prefixes originating in your autonomous system[^FT].
+You must filter BGP prefixes sent to X1 and X2 and advertise only prefixes with an empty AS path -- the prefixes originating in your autonomous system[^FT].
 
-[^FT]: Please note that all BGP implementations I've seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while they're in the BGP table of your router.
+[^FT]: Please note that all BGP implementations I've seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while in your router's BGP table.
 
-On some BGP implementations (for example: Cisco IOS and IOS XE, Cumulus Linux, FRR), you configure outbound AS-path filters in two steps:
+On some BGP implementations (for example, Cisco IOS and IOS XE, Cumulus Linux, FRR), you configure outbound AS-path filters in two steps:
 
 * Configure an AS-path access list that matches an empty AS path[^RE].
 * Apply the AS-path access list as an outbound filter to all EBGP neighbors.
 
 [^RE]: I don't want you to waste too much time on regular expressions, so here's a hint: you can usually use `^$` to match an empty AS-path.
 
-Some other implementations (for example: Arista EOS) might require a more convoluted approach using a *route map* as an intermediate step:
+Some other implementations (for example, Arista EOS) might require a more convoluted approach using a *route map* as an intermediate step:
 
 * After configuring the AS-path access list, create a *route map* that permits BGP prefixes matching your AS-path access list.
 * Apply that route map as an outbound filter to all EBGP neighbors.

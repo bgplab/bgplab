@@ -2,7 +2,7 @@
 
 In the previous lab exercises you [configured EBGP sessions with two upstream ISPs](2-multihomed.md) and [advertised IPv4 prefixes to them](3-originate.md). Now let's add IPv6 to the mix.
 
-![Lab topology](topology-originate.png)
+![Lab topology](topology-ipv6.png)
 
 The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix, an IPv6 prefix, and the default route.
 

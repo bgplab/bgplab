@@ -6,7 +6,7 @@ That might not be a good idea if you bought cost-optimized hardware that can do 
 
 In this lab exercise, you'll use inbound filters to reduce the information inserted in your device's BGP table (and, subsequently, the routing table).
 
-![Lab topology](topology-stop-transit.png)
+![Lab topology](topology-reduce.png)
 
 Your link to ISP-1 is much faster than the link to ISP-2, so you must use ISP-1 for most outbound traffic. As X1 advertises a default route to you, you don't have to accept any other routing information from it.
 

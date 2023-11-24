@@ -1,8 +1,8 @@
 # Use MED to Influence Incoming Traffic Flow
 
-In previous lab exercises, you used [BGP weights](1-weights.md) and [BGP local preference](5-local-preference.md) to change the BGP tables on your routers, thus changing the *outgoing traffic flow*. In this exercise we'll try to change the *incoming traffic flow* with BGP Multi-Exit Discriminator (MED) attribute.
+In previous lab exercises, you used [BGP weights](1-weights.md) and [BGP local preference](5-local-preference.md) to change the BGP tables on your routers, thus changing the *outgoing traffic flow*. In this exercise, we'll change the *incoming traffic flow* with the BGP Multi-Exit Discriminator (MED) attribute.
 
-![Lab topology](topology-locpref.png)
+![Lab topology](topology-med.png)
 
 !!! Warning
     Changing incoming traffic flow is more critical for networks that are not content providers. It's also much more challenging than changing the outgoing traffic flow, as you must try to influence the BGP tables on other people's routers.
@@ -51,7 +51,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 [^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (Cumulus Linux and FRR are very memory-efficient).
 
 !!! Tip
-    *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab* you'll have to configure your routers manually.
+    *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you'll have to configure your routers manually.
 
 ## Check the BGP Tables on External Routers
 
@@ -91,7 +91,7 @@ Paths: (2 available, best #2, table default)
       Last update: Mon Nov  6 07:08:11 2023
 ```
 
-X1 and X2 prefer EBGP path to the customer prefix (`192.168.42.0/24`) over the IBGP path. The distinction between the two paths is small enough for MED to work.
+X1 and X2 prefer the EBGP path to the customer prefix (`192.168.42.0/24`) over the IBGP path. The distinction between the two paths is small enough for MED to work.
 
 ## Using BGP Multi-Exit Discriminator (MED)
 
@@ -99,7 +99,7 @@ The [Border Gateway Protocol 4 (BGP-4)](https://datatracker.ietf.org/doc/html/rf
 intended to be used on external (inter-AS) links to discriminate
 among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.
 
-RFC 4271 also defines how to use MED: "_All other factors being equal, the exit point with the lower metric SHOULD be preferred._" MED is a very weak metric considered at the very end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.
+RFC 4271 also defines how to use MED: "_All other factors being equal, the exit point with the lower metric SHOULD be preferred._" MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.
 
 Finally, RFC 4271 defines MED propagation rules:
 
@@ -112,10 +112,10 @@ We'll use the above behavior to implement a straightforward routing policy:
 -   Set the MED on routes advertised from C1 to X1 to 50
 -   Set the MED on routes advertised from C2 to X2 to 100 (remember: higher MED is worse).
 
-You will probably have to configure a routing policy (often called a **route-map**) on C1 and C2 to change the MED, and then apply the routing policy as the outbound policy on the EBGP neighbors.
+You will probably have to configure a routing policy (often called a **route-map**) on C1 and C2 to change the MED and then apply the routing policy as the outbound policy on the EBGP neighbors.
 
 !!! Warning
-    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to `clear ip bgp * soft` to tell your routers to resend their BGP updates.
+    Applying routing policy parameters to BGP neighbors doesn't necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to `clear ip bgp * soft` to tell your routers to resend their BGP updates.
 
 ## Verification
 
@@ -141,7 +141,7 @@ Paths: (2 available, best #1, table default)
 X2 has two paths toward `192.168.42.0`:
 
 * IBGP path received from 10.0.0.10 (X1) with metric 50. This is the best path due to MED value.
-* EBGP path received from 10.1.0.5 (C2) with metric 100. This is a valid path, but not the best.
+* EBGP path received from 10.1.0.5 (C2) with metric 100. This is a valid path, but there are better.
 
 If you get a similar printout in your lab, you accomplished your mission -- you managed to change the incoming traffic flow to avoid the C2-X2 link.
 
@@ -152,7 +152,7 @@ If you get a similar printout in your lab, you accomplished your mission -- you 
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might help you if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 

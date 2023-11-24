@@ -1,12 +1,16 @@
 # Redistribute IGP Information Into BGP
 
-When using BGP to connect to the public Internet, you should advertise the minimum number of prefixes needed to make your site reachable from the Internet -- the best approach is to configure the prefixes you want to advertise as you did in the [Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md) lab exercise. That makes little sense when using BGP as a generic routing protocol, for example, when connecting your sites to an MPLS/VPN service. In these scenarios, it's better to redistribute local routing information (connected subnets, static routes, and IGP routes) into the BGP table; you'll practice route redistribution approach in this exercise.
+When using BGP to connect to the public Internet, you should advertise the minimum number of prefixes needed to make your site reachable from the Internet -- the best approach is to configure the prefixes you want to advertise as you did in the [Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md) lab exercise. That makes little sense when using BGP as a generic routing protocol, for example, when connecting your sites to an MPLS/VPN service. In these scenarios, it's better to redistribute local routing information (connected subnets, static routes, and IGP routes) into the BGP table; you'll practice the route redistribution approach in this exercise.
 
-Your lab has two sites connected to an MPLS/VPN provider. Each site has a WAN edge router and a core router, running OSPF between them. Your task is to establish connectivity between your sites to enable the core routers to ping each other.
+Your lab has two sites connected to an MPLS/VPN provider. Each site has a WAN edge router and a core router, running OSPF between them. Your WAN edge routers run BGP with the provider edge routers.
 
 ![Lab topology](topology-2-sites.png)
 
-If you're using *netlab, *you'll start with a preconfigured lab -- *netlab* will configure IP addressing, OSPF routing, and EBGP sessions. If you're using any other lab environment, you'll have to configure all of that manually. The following tables describe the OSPF and BGP setup; the _Reference Information_ section contains IP addressing information.
+In this lab exercise, you must establish connectivity between your sites to enable the core routers to ping each other.
+
+## Lab Configuration
+
+If you're using *netlab, *you'll start with a preconfigured lab -- *netlab* will configure IP addressing, OSPF routing, and EBGP sessions. If you're using any other lab environment, you'll have to configure all of that manually. The following tables describe the OSPF and BGP setup; the _[Reference Information](#alt)_ section contains IP addressing information.
 
 ### BGP Routers and AS Numbers
 
@@ -61,7 +65,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your devices with **netlab connect** and verify IP addresses, OSPF routing, and basic BGP configuration.
 
-**Note:** *netlab* will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you're not using *netlab*, you'll have to configure them manually.
+**Note:** *netlab* will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you're not using *netlab*, you must manually configure them.
 
 ## Configuration Tasks
 
@@ -71,11 +75,11 @@ You have to exchange OSPF routing information between the two sites using BGP. T
 * Configure BGP-to-OSPF redistribution on C1 and C2, usually using a command similar to **redistribute bgp**[^AS] within the OSPF configuration.
 
 !!! Warning
-    Two-way redistribution between routing protocols could quickly become exceedingly complex. Advertising the default route into the edge routing protocol is often better than redistributing core routes. You might want to test this alternative as an optional part of the lab exercise. 
+    Two-way redistribution between routing protocols could quickly become exceedingly complex. Advertising the default route into the edge routing protocol is often better than redistributing core routes. You should test this alternative as an optional part of the lab exercise. 
 
-[^PN]: You might have to add OSPF process number to the command.
+[^PN]: You might have to add the OSPF process number to the command.
 
-[^AS]: You might have to add BGP AS number to the command. Some older platforms have to be told to redistribute **subnets** into OSPF.
+[^AS]: Depending on your devices, you might have to add the BGP AS number to the command. Some older platforms must be told to redistribute **subnets** into OSPF.
 
 ## Verification
 
@@ -136,13 +140,13 @@ Gateway of last resort:
  C        192.168.121.0/24 is directly connected, Management0
 ```
 
-## Reference Information
+## Reference Information {#alt}
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might help you if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 
-This lab uses a superset of the [4-router lab topology](../external/4-router.md). You can still use that topology without the S1/S2 routers, and redistribute *connected* prefixes into BGP.
+This lab uses a superset of the [4-router lab topology](../external/4-router.md). You can still use that topology without the S1/S2 routers and redistribute *connected* prefixes into BGP.
 
 #### Point-to-Point Links
 

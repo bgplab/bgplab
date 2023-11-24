@@ -4,9 +4,9 @@ In previous lab exercises, you figured out how to nudge an adjacent network to p
 
 You have two sites. One is connected to two Service Providers (ISP-1 and ISP-2), and the other has only one uplink (to ISP-2). The link from Site-1 to ISP-1 is significantly faster than the alternate link, and you'd like to use it exclusively. The traffic from Site-2 to Site-1 should therefore flow through ISP-2 and ISP-1 (C2→X2→X1→C1)
 
-![Lab topology](topology-community-attach.png)
-
 In this lab, you'll try to influence the Service Provider route selection with AS path prepending and use BGP communities to tell them what changes you'd like them to make to their routing policy.
+
+![Lab topology](topology-community-attach.png)
 
 ## Initial Router Configurations
 
