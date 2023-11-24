@@ -1,0 +1,24 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+
+name: rr
+module: [ bgp,ospf ]
+bgp.as: 65000
+bgp.next_hop_self: False
+
+groups:
+  leafs:
+    members: [ l1, l2, l3, l4 ]
+
+nodes:
+  l1:
+  l2:
+  l3:
+  l4:
+  s1:
+    id: 10
+  s2:
+    id: 11
+
+links: [ l1-s1, l1-s2, l2-s1, l2-s2, l3-s1, l3-s2, l4-s1, l4-s2 ]

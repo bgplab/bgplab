@@ -223,6 +223,8 @@ PING 172.16.42.42 (172.16.42.42) from 10.0.0.3 : 72(100) bytes of data.
 rtt min/avg/max/mdev = 0.006/0.022/0.086/0.032 ms, ipg/ewma 0.032/0.053 ms
 ```
 
+**Next:** [Use BGP Route Reflectors](3-rr.md)
+
 ## Reference Information
 
 You might find the following information useful if you're not using _netlab_ to build the lab:

@@ -19,6 +19,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 
 * [Establish an IBGP session](ibgp/1-edge) between WAN edge routers
 * [Build a Transit Network with IBGP](ibgp/2-transit)
+* [Use BGP Route Reflectors](ibgp/3-rr)
 
 **Simple BGP Routing Policies**
 

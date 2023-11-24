@@ -37,6 +37,7 @@ GTSM (Generic TTL Security Mechanism)
 IBGP sessions
 : * [Establish an IBGP session](ibgp/1-edge.md) between WAN edge routers
   * [Build a Transit Network with IBGP](ibgp/2-transit.md)
+  * [Use BGP Route Reflectors](ibgp/3-rr.md)
 
 LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
@@ -52,6 +53,9 @@ Prefix filters
 : * [Filter prefixes advertised by your autonomous system](policy/3-prefix.md) with a prefix list
   * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
+
+Route reflectors
+: * [Use BGP Route Reflectors](ibgp/3-rr.md)
 
 TCP-AO
 : [Use TCP Authentication Option (TCP-AO)](basic/9-ao.md)

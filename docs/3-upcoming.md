@@ -38,7 +38,6 @@ Advanced exercises:
 ## BGP in Service Provider Networks
 
 * Build a simple service provider network with IBGP
-* Use BGP route reflectors to reduce the number of IBGP sessions
 * Use a hierarchy of route reflectors
 * Build a transit autonomous system using BGP communities to change routing policies
 * Reduce routing instabilities with BGP route flap dampening

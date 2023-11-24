@@ -32,6 +32,7 @@ If your network has multiple BGP routers, they must exchange BGP information. Wh
 
 * [Establish an IBGP session](../ibgp/1-edge.md) between WAN edge routers
 * [Build a Transit Network with IBGP](../ibgp/2-transit.md)
+* [Use BGP Route Reflectors](../ibgp/3-rr.md)
 
 ## Other Useful Topics {#advanced}
 
