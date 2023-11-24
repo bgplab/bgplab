@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
+        <link rel="canonical" href="https://bgplabs.net/ibgp/3-rr/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Use BGP Route Reflectors - BGP Labs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">BGP Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Home <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../.." class="dropdown-item">Labs Overview</a>
+</li>
+                                    
+<li>
+    <a href="../../2-labs-by-technology/" class="dropdown-item">Labs by BGP Attributes and Technologies</a>
+</li>
+                                    
+<li>
+    <a href="../../3-upcoming/" class="dropdown-item">Upcoming Labs</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Installation <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../1-setup/" class="dropdown-item">Installation and Setup</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../external/" class="dropdown-item">Manual Setup</a>
+</li>
+            
+<li>
+    <a href="../../external/4-router/" class="dropdown-item">Small (4-Router) Lab Topology</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../basic/" class="dropdown-item">Overview</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Setting Up BGP</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../basic/1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
+</li>
+            
+<li>
+    <a href="../../basic/2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
+</li>
+            
+<li>
+    <a href="../../basic/3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
+</li>
+            
+<li>
+    <a href="../../basic/4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
+</li>
+            
+<li>
+    <a href="../../basic/5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Protecting BGP Sessions</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../basic/6-protect/" class="dropdown-item">MD5 Passwords and GTSM</a>
+</li>
+            
+<li>
+    <a href="../../basic/9-ao/" class="dropdown-item">TCP Autentication Option (TCP-AO)</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">BGP in Larger Networks</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../1-edge/" class="dropdown-item">Establish an IBGP Session</a>
+</li>
+            
+<li>
+    <a href="../2-transit/" class="dropdown-item">Build a Transit Network with IBGP</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">Use BGP Route Reflectors</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Advanced Topics</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../basic/7-bfd/" class="dropdown-item">Use BFD to Speed Up BGP Convergence</a>
+</li>
+            
+<li>
+    <a href="../../basic/8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../policy/" class="dropdown-item">Overview</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Route Filters</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
+</li>
+            
+<li>
+    <a href="../../policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
+</li>
+            
+<li>
+    <a href="../../policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Outgoing (Egress) Traffic</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+</li>
+            
+<li>
+    <a href="../../policy/5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
+</li>
+            
+<li>
+    <a href="../../policy/a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Incoming (Ingress) Traffic</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../policy/6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
+</li>
+            
+<li>
+    <a href="../../policy/7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+</li>
+            
+<li>
+    <a href="../../policy/8-community-attach/" class="dropdown-item">Attach BGP Communities to Outgoing BGP Updates</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../2-transit/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../basic/7-bfd/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#use-bgp-route-reflectors" class="nav-link">Use BGP Route Reflectors</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#lab-topology" class="nav-link">Lab Topology</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#lab-configuration" class="nav-link">Lab Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#cutting-the-mesh" class="nav-link">Cutting the Mesh</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#adding-route-reflectors" class="nav-link">Adding Route Reflectors</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#alt" class="nav-link">Alternate Solutions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#nonetlab" class="nav-link">Run the Lab without netlab</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="use-bgp-route-reflectors">Use BGP Route Reflectors</h1>
+<p>In the <em><a href="../2-transit/">Build a Transit Network with IBGP</a></em> lab exercise, you learned the basics of IBGP, including the need to have a full mesh of IBGP sessions between all BGP-speaking routers in an autonomous system.</p>
+<p>The original BGP protocol (defined in <a href="https://datatracker.ietf.org/doc/html/rfc4271">RFC 4271</a>) needed a full mesh of IBGP sessions because it had no attribute that could be used to detect routing loops within an autonomous system (AS path is used between autonomous systems). <em>BGP Route Reflection</em> feature (defined in <a href="https://datatracker.ietf.org/doc/html/rfc4456">RFC 4456</a>) adds the extra attributes needed for intra-AS loop detection and allows you to build large networks with a hub-and-spoke topology of IBGP sessions. That&rsquo;s what you&rsquo;ll practice in this lab exercise.</p>
+<h2 id="lab-topology">Lab Topology</h2>
+<p>You&rsquo;ll work with a slightly larger lab containing six routers connected into a leaf-and-spine fabric:</p>
+<p><img alt="Lab topology" src="../topology-leaf-spine.png" /></p>
+<p>The following diagram shows the IBGP sessions needed to distribute routing information (IPv4 prefixes of loopback interfaces) between all routers in your network:</p>
+<p><img alt="IBGP full mesh" src="../ibgp-full-mesh.png" /></p>
+<p>During the lab exercise, you&rsquo;ll remove all IBGP sessions between leaf routers and turn spine routers into BGP route reflectors, resulting in the following IBGP sessions:</p>
+<p><img alt="Hub-and-spoke IBGP sessions" src="../ibgp-rr.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Please note there&rsquo;s still an IBGP session between the two spine routers. Removing it would reduce the resiliency of BGP routing in your network.</p>
+</div>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>, change directory to <code>ibgp/3-rr</code></p>
+<p>You can choose between these lab topologies:</p>
+<ul>
+<li><code>topology.yml</code>: 6-router topology with a full mesh of IBGP sessions. Start with <strong>netlab up</strong>.</li>
+<li><code>hub-spoke.yml</code>: 6-router topology with hub-and-spoke IBGP sessions. Start with <strong>netlab up hub-spoke.yml</strong>.</li>
+<li><code>4-router.yml</code>: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and Cumulus Linux running on the leaf routers. Use this topology when you&rsquo;re low on memory; start it with <strong>netlab up 4-router.yml</strong>.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you don&rsquo;t want to use <em>netlab</em>, read the <em><a href="#nonetlab">Run the Lab without netlab</a></em> section.</p>
+</div>
+<p>After starting the lab, log into lab devices with <strong>netlab connect</strong> and verify that <em>netlab</em> correctly configured their IP addresses, OSPF routing, and EBGP sessions.</p>
+<h2 id="lab-configuration">Lab Configuration</h2>
+<p><em>netlab</em> will configure IP addressing, OSPF, and a full mesh of IBGP sessions on the lab devices.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>l1</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+</tr>
+<tr>
+<td>l2</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">10.0.0.2/32</td>
+</tr>
+<tr>
+<td>l3</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td style="text-align: right;">10.0.0.3/32</td>
+</tr>
+<tr>
+<td>l4</td>
+<td style="text-align: right;">10.0.0.4</td>
+<td style="text-align: right;">10.0.0.4/32</td>
+</tr>
+<tr>
+<td>s1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td style="text-align: right;">10.0.0.10/32</td>
+</tr>
+<tr>
+<td>s2</td>
+<td style="text-align: right;">10.0.0.11</td>
+<td style="text-align: right;">10.0.0.11/32</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>l1</strong></td>
+<td>10.0.0.1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>l3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>l4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.10</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.11</td>
+</tr>
+<tr>
+<td><strong>l2</strong></td>
+<td>10.0.0.2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>l3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>l4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.10</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.11</td>
+</tr>
+<tr>
+<td><strong>l3</strong></td>
+<td>10.0.0.3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>l4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.10</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.11</td>
+</tr>
+<tr>
+<td><strong>l4</strong></td>
+<td>10.0.0.4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>l3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.10</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.11</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td>10.0.0.10</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>l3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>l4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.11</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td>10.0.0.11</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>l3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>l4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.10</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cutting-the-mesh">Cutting the Mesh</h2>
+<p>Log into L4 and inspect its BGP table. It should contain six prefixes (loopback addresses of all routers in your lab). This is the printout you&rsquo;d get when using Arista cEOS containers:</p>
+<pre><code>l4&gt;show ip bgp
+BGP routing table information for VRF default
+Router identifier 10.0.0.4, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
+                    % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            10.0.0.1              0       -          100     0       i
+ * &gt;      10.0.0.2/32            10.0.0.2              0       -          100     0       i
+ * &gt;      10.0.0.3/32            10.0.0.3              0       -          100     0       i
+ * &gt;      10.0.0.4/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.10/32           10.0.0.10             0       -          100     0       i
+ * &gt;      10.0.0.11/32           10.0.0.11             0       -          100     0       i
+</code></pre>
+<p>Next, log into all leaf routers and remove IBGP sessions with other leaf routers. After completing this part of the exercise, you should have two BGP neighbors on every leaf router.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you don&rsquo;t like the extra practice, start the <code>hub-spoke.yml</code> lab topology.</p>
+</div>
+<p>You&rsquo;ll also notice that L4 no longer knows how to reach the loopback interfaces of L1, L2, or L3:</p>
+<pre><code>l4&gt;show ip bgp
+BGP routing table information for VRF default
+Router identifier 10.0.0.4, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
+                    % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.4/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.10/32           10.0.0.10             0       -          100     0       i
+ * &gt;      10.0.0.11/32           10.0.0.11             0       -          100     0       i
+</code></pre>
+<h2 id="adding-route-reflectors">Adding Route Reflectors</h2>
+<p>Reducing the number of IBGP sessions in our network is good, but we still need full connectivity between leaf routers. You could  advertise the default route or an aggregate prefix from the spine routers (<a href="#alt">try it out</a>); we&rsquo;ll turn them into route reflectors:</p>
+<ul>
+<li>Configure IBGP neighbors to be <em>route reflector clients</em> on both spine routers. <strong>neighbor route-reflector-client</strong> is a typical configuration command you would use.</li>
+</ul>
+<h2 id="verification">Verification</h2>
+<p>Log into L4 and inspect its BGP table. As both route reflectors (S1 and S2) send IBGP routes to L4, you should see two copies of every loopback prefix. Some devices (including Arista EOS) will also show additional BGP attributes attached to reflected routes (ORIGINATOR_ID and CLUSTER_LIST):</p>
+<pre><code>l4#show ip bgp
+BGP routing table information for VRF default
+Router identifier 10.0.0.4, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
+                    % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            10.0.0.1              0       -          100     0       i Or-ID: 10.0.0.1 C-LST: 10.0.0.10
+ *        10.0.0.1/32            10.0.0.1              0       -          100     0       i Or-ID: 10.0.0.1 C-LST: 10.0.0.11
+ * &gt;      10.0.0.2/32            10.0.0.2              0       -          100     0       i Or-ID: 10.0.0.2 C-LST: 10.0.0.10
+ *        10.0.0.2/32            10.0.0.2              0       -          100     0       i Or-ID: 10.0.0.2 C-LST: 10.0.0.11
+ * &gt;      10.0.0.3/32            10.0.0.3              0       -          100     0       i Or-ID: 10.0.0.3 C-LST: 10.0.0.10
+ *        10.0.0.3/32            10.0.0.3              0       -          100     0       i Or-ID: 10.0.0.3 C-LST: 10.0.0.11
+ * &gt;      10.0.0.4/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.10/32           10.0.0.10             0       -          100     0       i
+ *        10.0.0.10/32           10.0.0.10             0       -          100     0       i Or-ID: 10.0.0.10 C-LST: 10.0.0.11
+ * &gt;      10.0.0.11/32           10.0.0.11             0       -          100     0       i
+ *        10.0.0.11/32           10.0.0.11             0       -          100     0       i Or-ID: 10.0.0.11 C-LST: 10.0.0.10
+</code></pre>
+<p>You can inspect a single BGP prefix to see the route reflection-related attributes on most network devices:</p>
+<pre><code>l4#show ip bgp 10.0.0.1
+BGP routing table information for VRF default
+Router identifier 10.0.0.4, local AS number 65000
+BGP routing table entry for 10.0.0.1/32
+ Paths: 2 available
+  Local
+    10.0.0.1 from 10.0.0.10 (10.0.0.10)
+      Origin IGP, metric 0, localpref 100, IGP metric 30, weight 0, tag 0
+      Received 00:07:01 ago, valid, internal, best
+      Originator: 10.0.0.1, Cluster list: 10.0.0.10
+      Rx SAFI: Unicast
+  Local
+    10.0.0.1 from 10.0.0.11 (10.0.0.11)
+      Origin IGP, metric 0, localpref 100, IGP metric 30, weight 0, tag 0
+      Received 00:06:43 ago, valid, internal
+      Originator: 10.0.0.1, Cluster list: 10.0.0.11
+      Rx SAFI: Unicast
+</code></pre>
+<h2 id="alt">Alternate Solutions</h2>
+<p>Your lab uses a very structured addressing scheme, so you can advertise an aggregate prefix (for example, <code>10.0.0.0/24</code>) from the spine routers to fix the routing in your lab. You could advertise the default route from the spine routers in a less structured lab.</p>
+<p>You can easily try out both solutions:</p>
+<ul>
+<li>Start the <code>hub-spoke.yml</code> lab topology with <strong>netlab up hub-spoke.yml</strong></li>
+<li>Configure an aggregate prefix on both spine routers (see <a href="../../basic/8-aggregate/">BGP Route Aggregation</a> exercise for more details) or configure default route advertisement on spine routers with a configuration command similar to <strong>neighbor default-originate always</strong>.</li>
+</ul>
+<h2 id="nonetlab">Run the Lab without <em>netlab</em></h2>
+<p>You can run this lab on any <a href="../../external/">virtual lab infrastructure</a> conforming to the <a href="../../external/4-router/">four router lab topology</a> &ndash; your devices (S1, S2) will be spine routers;  leaf routers (L1, L2) will run Cumulus Linux.</p>
+<p>The leaf router configurations are in the <code>ibgp/3-rr/config</code> directory. You&rsquo;ll have to configure the spine routers yourself.</p>
+<p>Use the following information if you decide to do that<sup id="fnref:NM"><a class="footnote-ref" href="#fn:NM">1</a></sup>:</p>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Link Name</th>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Destination Device</th>
+<th>Destination Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1-L1</td>
+<td>s1</td>
+<td>Ethernet1</td>
+<td>l1</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>S1-L2</td>
+<td>s1</td>
+<td>Ethernet2</td>
+<td>l2</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>Unused link</td>
+<td>l1</td>
+<td>swp2</td>
+<td>l2</td>
+<td>swp2</td>
+</tr>
+<tr>
+<td>S2-L1</td>
+<td>s2</td>
+<td>Ethernet1</td>
+<td>l1</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>S2-L2</td>
+<td>s2</td>
+<td>Ethernet2</td>
+<td>l2</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>Unused link</td>
+<td>s1</td>
+<td>Ethernet3</td>
+<td>s2</td>
+<td>Ethernet3</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Some interfaces are not used to conform with the predefined 4-router lab topology.</p>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>l1</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>S1-L1</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>S2-L1</td>
+</tr>
+<tr>
+<td><strong>l2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>S1-L2</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.13/30</td>
+<td style="text-align: right;"></td>
+<td>S2-L2</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td style="text-align: right;"></td>
+<td>S1-L1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>S1-L2</td>
+</tr>
+<tr>
+<td>Ethernet3</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>S2-L1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td style="text-align: right;"></td>
+<td>S2-L2</td>
+</tr>
+<tr>
+<td>Ethernet3</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td>Unused link</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:NM">
+<p>I wouldn&rsquo;t, but that&rsquo;s just me.&#160;<a class="footnote-backref" href="#fnref:NM" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+<hr>
+    <p>(C) 2023 Ivan Pepelnjak (ipSpace.net AG)</p>
+        </footer>
+        <script src="../../js/jquery-3.6.0.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
