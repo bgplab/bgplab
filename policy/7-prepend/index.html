@@ -293,9 +293,9 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="use-as-path-prepending-to-influence-incoming-traffic-flow">Use AS-Path Prepending to Influence Incoming Traffic Flow</h1>
-<p>In the previous lab exercises you <a href="../6-med/">used BGP Multi-Exit Discriminator</a> to tell routers in an adjacent autonomous system which link(s) you prefer. That approach no longer works if your BGP router has connections to multiple upstream autonomous systems.</p>
-<p><img alt="Lab topology" src="../topology-weights.png" /></p>
+<p>In the previous lab exercises, you <a href="../6-med/">used BGP Multi-Exit Discriminator</a> to tell routers in an adjacent autonomous system which link(s) you prefer. That approach no longer works if your BGP router has connections to multiple upstream autonomous systems.</p>
 <p>Influencing incoming traffic flow in scenarios with multiple upstream Service Providers is more art than science. The most straightforward tool you can try is AS-path prepending: adding multiple copies of your AS number to the AS path, hoping that the default BGP route selection process in upstream routers results in the desired traffic flow.</p>
+<p><img alt="Lab topology" src="../topology-prepend.png" /></p>
 <p>In this lab, you&rsquo;ll configure the AS path prepending on the updates sent to X2, trying to persuade X2 to use the path through X1 to reach your network.</p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises a single IPv4 prefix.</p>
@@ -340,7 +340,7 @@
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
 <table>
 <thead>
 <tr>
@@ -378,7 +378,7 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
 <h2 id="wtf">What Do We Have to Fix?</h2>
 <p>Log into X2 and check its BGP table. Use <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on X2:</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'

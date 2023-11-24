@@ -299,8 +299,8 @@
 <h1 id="attach-bgp-communities-to-outgoing-bgp-updates">Attach BGP Communities to Outgoing BGP Updates</h1>
 <p>In previous lab exercises, you figured out how to nudge an adjacent network to prefer one of the links with the <a href="../6-med/">Multi-Exit Discriminator attribute</a>, and how to push a bit harder with <a href="../7-prepend/">AS path prepending</a>. Sometimes, more than that is needed, and in this lab exercise, you&rsquo;ll have to deal with a scenario in which a Service Provider routing policy interferes strongly with your intentions.</p>
 <p>You have two sites. One is connected to two Service Providers (ISP-1 and ISP-2), and the other has only one uplink (to ISP-2). The link from Site-1 to ISP-1 is significantly faster than the alternate link, and you&rsquo;d like to use it exclusively. The traffic from Site-2 to Site-1 should therefore flow through ISP-2 and ISP-1 (C2→X2→X1→C1)</p>
-<p><img alt="Lab topology" src="../topology-community-attach.png" /></p>
 <p>In this lab, you&rsquo;ll try to influence the Service Provider route selection with AS path prepending and use BGP communities to tell them what changes you&rsquo;d like them to make to their routing policy.</p>
+<p><img alt="Lab topology" src="../topology-community-attach.png" /></p>
 <h2 id="initial-router-configurations">Initial Router Configurations</h2>
 <p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix.</p>
 <table>

@@ -293,8 +293,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="use-med-to-influence-incoming-traffic-flow">Use MED to Influence Incoming Traffic Flow</h1>
-<p>In previous lab exercises, you used <a href="../1-weights/">BGP weights</a> and <a href="../5-local-preference/">BGP local preference</a> to change the BGP tables on your routers, thus changing the <em>outgoing traffic flow</em>. In this exercise we&rsquo;ll try to change the <em>incoming traffic flow</em> with BGP Multi-Exit Discriminator (MED) attribute.</p>
-<p><img alt="Lab topology" src="../topology-locpref.png" /></p>
+<p>In previous lab exercises, you used <a href="../1-weights/">BGP weights</a> and <a href="../5-local-preference/">BGP local preference</a> to change the BGP tables on your routers, thus changing the <em>outgoing traffic flow</em>. In this exercise, we&rsquo;ll change the <em>incoming traffic flow</em> with the BGP Multi-Exit Discriminator (MED) attribute.</p>
+<p><img alt="Lab topology" src="../topology-med.png" /></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Changing incoming traffic flow is more critical for networks that are not content providers. It&rsquo;s also much more challenging than changing the outgoing traffic flow, as you must try to influence the BGP tables on other people&rsquo;s routers.</p>
@@ -437,7 +437,7 @@
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em> you&rsquo;ll have to configure your routers manually.</p>
+<p><em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you&rsquo;ll have to configure your routers manually.</p>
 </div>
 <h2 id="check-the-bgp-tables-on-external-routers">Check the BGP Tables on External Routers</h2>
 <p>Log into X1 and X2 and check their BGP tables. Use <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on external routers:</p>
@@ -471,12 +471,12 @@ Paths: (2 available, best #2, table default)
       Origin IGP, valid, external, bestpath-from-AS 65000, best (Peer Type)
       Last update: Mon Nov  6 07:08:11 2023
 </code></pre>
-<p>X1 and X2 prefer EBGP path to the customer prefix (<code>192.168.42.0/24</code>) over the IBGP path. The distinction between the two paths is small enough for MED to work.</p>
+<p>X1 and X2 prefer the EBGP path to the customer prefix (<code>192.168.42.0/24</code>) over the IBGP path. The distinction between the two paths is small enough for MED to work.</p>
 <h2 id="using-bgp-multi-exit-discriminator-med">Using BGP Multi-Exit Discriminator (MED)</h2>
 <p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is
 intended to be used on external (inter-AS) links to discriminate
 among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.</p>
-<p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a very weak metric considered at the very end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
+<p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
 <p>Finally, RFC 4271 defines MED propagation rules:</p>
 <ul>
 <li>MED can be used on EBGP sessions.</li>
@@ -488,10 +488,10 @@ among multiple exit or entry points to the same neighboring AS. The first limita
 <li>Set the MED on routes advertised from C1 to X1 to 50</li>
 <li>Set the MED on routes advertised from C2 to X2 to 100 (remember: higher MED is worse).</li>
 </ul>
-<p>You will probably have to configure a routing policy (often called a <strong>route-map</strong>) on C1 and C2 to change the MED, and then apply the routing policy as the outbound policy on the EBGP neighbors.</p>
+<p>You will probably have to configure a routing policy (often called a <strong>route-map</strong>) on C1 and C2 to change the MED and then apply the routing policy as the outbound policy on the EBGP neighbors.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft</code> to tell your routers to resend their BGP updates.</p>
+<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft</code> to tell your routers to resend their BGP updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
 <p>Examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:</p>
@@ -513,7 +513,7 @@ Paths: (2 available, best #1, table default)
 <p>X2 has two paths toward <code>192.168.42.0</code>:</p>
 <ul>
 <li>IBGP path received from 10.0.0.10 (X1) with metric 50. This is the best path due to MED value.</li>
-<li>EBGP path received from 10.1.0.5 (C2) with metric 100. This is a valid path, but not the best.</li>
+<li>EBGP path received from 10.1.0.5 (C2) with metric 100. This is a valid path, but there are better.</li>
 </ul>
 <p>If you get a similar printout in your lab, you accomplished your mission &ndash; you managed to change the incoming traffic flow to avoid the C2-X2 link.</p>
 <div class="admonition warning">
@@ -522,7 +522,7 @@ Paths: (2 available, best #1, table default)
 </div>
 <p><strong>Next:</strong> <a href="../7-prepend/">Use AS-Path Prepending to Influence Incoming Traffic Flow</a></p>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>

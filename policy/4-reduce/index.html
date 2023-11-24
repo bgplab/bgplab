@@ -292,7 +292,7 @@
 <p>In the previous lab exercises, you established EBGP sessions with two upstream Service Providers, <a href="../../basic/2-multihomed/">accepted all routes they were willing to send you</a>, and let your router do its magic selecting the best BGP routes.</p>
 <p>That might not be a good idea if you bought cost-optimized hardware that can do packet forwarding at ludicrous speeds but only for a few tens of thousands of routes while your neighbors send you the full Internet BGP table (over 930.000 routes in August 2023).</p>
 <p>In this lab exercise, you&rsquo;ll use inbound filters to reduce the information inserted in your device&rsquo;s BGP table (and, subsequently, the routing table).</p>
-<p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
+<p><img alt="Lab topology" src="../topology-reduce.png" /></p>
 <p>Your link to ISP-1 is much faster than the link to ISP-2, so you must use ISP-1 for most outbound traffic. As X1 advertises a default route to you, you don&rsquo;t have to accept any other routing information from it.</p>
 <p>It would be a shame to let the link to ISP-2 remain idle while the link to ISP-1 is operational. Let&rsquo;s send the traffic for AS 65101 directly over the link to X2 &ndash; that means you have to accept prefixes originating in AS 65101 from X2.</p>
 <p>Finally, you&rsquo;ll need a default route even if the link to ISP-1 goes down. You should also accept the default route from ISP-2 but make it less preferred than the one received from ISP-1.</p>
