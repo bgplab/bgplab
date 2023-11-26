@@ -1,0 +1,44 @@
+# Configure a BGP session with an external BGP speaker
+
+defaults.sources.extra: [ ../../defaults.yml ]
+name: use_community
+plugin: [ check_extra_config ]
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ c,x ]
+    device: cumulus
+
+nodes:
+  isp:
+    bgp.as: 65000
+  c:
+    id: 10
+    bgp.router_id: 10.0.0.10
+    bgp.as: 65304
+    loopback.ipv4: 172.17.207.1/24
+    config: [ extra-config ]
+  x:
+    id: 11
+    bgp.router_id: 10.0.0.11
+    bgp.as: 65207
+    bgp.advertise_loopback: False
+
+links:
+- isp:
+  c:
+  name: Customer uplink to ISP
+- isp:
+  x:
+  name: Link to peer ISP
+- c:
+  x:
+  name: Customer uplink to peer ISP
+
+message: |
+  The "Use BGP Communities in Routing Policies" lab is ready. Connect to your
+  router with "netlab connect isp".
+
+  Have fun ;)

@@ -1,0 +1,11 @@
+route-map backup-link permit 10
+  match as-path length = 0
+{% for n in bgp.neighbors if n.name == 'isp' %}
+  set community {{ n.as }}:50 additive
+{% endfor %}
+!
+router bgp {{ bgp.as }}
+{% for n in bgp.neighbors if n.name == 'isp' %}
+  neighbor {{ n.ipv4 }} route-map backup-link out
+{% endfor %}
+!

@@ -1,6 +1,6 @@
 # Upcoming Labs
 
-While we're working on new stuff you can already enjoy [over a dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
+While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
 
 ## Basic BGP Setup
 
@@ -25,13 +25,9 @@ Advanced exercises:
 : * Use BGP route refresh and soft reconfiguration
   * Use outbound route filters (ORF)
 
-## BGP in Enterprise Networks
-
-* Use AS-path prepending to influence route selection across multiple upstream ISPs
-
 ## Controlling Inbound Traffic
 
-* Use BGP communities to influence route selection in upstream ISPs
+* Use AS-path prepending together with BGP communities to prevent BGP wedgies
 * Use controlled disaggregation to influence inbound traffic flow
 * Use conditional route advertisements to select primary/backup links for the inbound traffic
 
@@ -39,7 +35,6 @@ Advanced exercises:
 
 * Build a simple service provider network with IBGP
 * Use a hierarchy of route reflectors
-* Build a transit autonomous system using BGP communities to change routing policies
 * Reduce routing instabilities with BGP route flap dampening
 * Implement policy-based routing with BGP
 

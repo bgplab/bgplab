@@ -31,6 +31,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend)
 * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach)
+* [Use BGP Communities in Routing Policies](policy/9-community-use)
 
 **Complex BGP Routing Policies**
 

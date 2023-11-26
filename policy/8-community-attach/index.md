@@ -131,7 +131,11 @@ Paths: (2 available, best #2, table default)
       Origin incomplete, valid, external, bestpath-from-AS 65207, best (Local Pref)
       Last update: Sat Nov 11 08:41:49 2023
 ```
-    
+
+**Next:** 
+
+* [Use BGP Communities in Routing Policies](9-community-use.md)
+
 ## Reference Information
 
 The following information might help you if you're not using _netlab_ to build the lab:

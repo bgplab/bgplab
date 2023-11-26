@@ -1,0 +1,14 @@
+router bgp {{ bgp.as }}
+ !
+ address-family ipv4 unicast
+{% for n in bgp.neighbors if n.name == 'isp' %}
+  neighbor {{ n.ipv4 }} route-map backup-link out
+{% endfor %}
+!
+bgp as-path access-list no-transit seq 5 permit ^$
+!
+route-map backup-link permit 10
+ match as-path no-transit
+{% for n in bgp.neighbors if n.name == 'isp' %}
+ set community {{ n.as }}:50 additive
+{% endfor %}

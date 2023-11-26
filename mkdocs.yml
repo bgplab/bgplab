@@ -51,6 +51,7 @@ nav:
     - policy/6-med.md
     - policy/7-prepend.md
     - policy/8-community-attach.md
+    - policy/9-community-use.md
 
 markdown_extensions: 
 - footnotes

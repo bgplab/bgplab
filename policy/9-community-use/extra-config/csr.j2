@@ -1,0 +1,20 @@
+ip bgp new-format
+!
+ip as-path access-list 10 permit ^$
+!
+route-map backup-link permit 10
+ match as-path 10
+{% for n in bgp.neighbors if n.name == 'isp' %}
+ set community {{ n.as }}:50 additive
+{% endfor %}
+!
+router bgp {{ bgp.as }}
+ !
+ address-family ipv4
+{% for n in bgp.neighbors if n.name == 'isp' %}
+  neighbor {{ n.ipv4 }} send-community
+  neighbor {{ n.ipv4 }} route-map backup-link out
+{% endfor %}
+!
+do clear ip bgp * soft out
+!
