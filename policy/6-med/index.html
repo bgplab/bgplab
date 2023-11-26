@@ -188,10 +188,6 @@
 <li>
     <a href="../5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
-            
-<li>
-    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
-</li>
     </ul>
   </li>
                                     
@@ -210,9 +206,19 @@
 <li>
     <a href="../8-community-attach/" class="dropdown-item">Attach BGP Communities to Outgoing BGP Updates</a>
 </li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">More Complex Routing Policies</a>
+    <ul class="dropdown-menu">
             
 <li>
     <a href="../9-community-use/" class="dropdown-item">Use BGP Communities in Routing Policies</a>
+</li>
+            
+<li>
+    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
 </li>
     </ul>
   </li>
@@ -227,7 +233,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../a-locpref-route-map/" class="nav-link">
+                                <a rel="prev" href="../5-local-preference/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -477,8 +483,8 @@ Paths: (2 available, best #2, table default)
 </code></pre>
 <p>X1 and X2 prefer the EBGP path to the customer prefix (<code>192.168.42.0/24</code>) over the IBGP path. The distinction between the two paths is small enough for MED to work.</p>
 <h2 id="using-bgp-multi-exit-discriminator-med">Using BGP Multi-Exit Discriminator (MED)</h2>
-<p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is
-intended to be used on external (inter-AS) links to discriminate
+<p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is<br />
+intended to be used on external (inter-AS) links to discriminate<br />
 among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.</p>
 <p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
 <p>Finally, RFC 4271 defines MED propagation rules:</p>

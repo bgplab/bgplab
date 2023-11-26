@@ -188,10 +188,6 @@
 <li>
     <a href="5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
-            
-<li>
-    <a href="a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
-</li>
     </ul>
   </li>
                                     
@@ -210,9 +206,19 @@
 <li>
     <a href="8-community-attach/" class="dropdown-item">Attach BGP Communities to Outgoing BGP Updates</a>
 </li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">More Complex Routing Policies</a>
+    <ul class="dropdown-menu">
             
 <li>
     <a href="9-community-use/" class="dropdown-item">Use BGP Communities in Routing Policies</a>
+</li>
+            
+<li>
+    <a href="a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
 </li>
     </ul>
   </li>
@@ -269,6 +275,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#complex" class="nav-link">More Complex Routing Policies</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -298,16 +308,20 @@
 <li><a href="5-local-preference/">Implement a consistent AS-wide routing policy</a> with BGP local preference.</li>
 </ul>
 <p>Once you master the basics, you&rsquo;ll be ready for more complex scenarios:</p>
-<ul>
-<li><a href="a-locpref-route-map/">Use the backup link to reach the adjacent autonomous system</a>. This exercise combines AS-path filters, prefix lists, route maps, and BGP local preference.</li>
-</ul>
 <h2 id="ingress">Influencing Incoming (Ingress) Traffic Flow</h2>
 <p>Trying to persuade neighboring autonomous systems to change how they send you the traffic is much more complicated than changing the routing in your network. While there&rsquo;s no definitive one-size-fits-all solution, you will find these tools indispensable:</p>
 <ul>
 <li><a href="6-med/">Use MED to Influence Incoming Traffic Flow</a></li>
 <li><a href="7-prepend/">Use AS-Path Prepending to Influence Incoming Traffic Flow</a></li>
 <li><a href="8-community-attach/">Attach BGP Communities to Outgoing BGP Updates</a></li>
-<li><a href="9-community-use/">Use BGP Communities in Routing Policies</a></li>
+</ul>
+<h2 id="complex">More Complex Routing Policies</h2>
+<p>You use these labs to practice how to use a combination of BGP attributes and routing policy tools to build more complex routing policies:</p>
+<ul>
+<li><a href="9-community-use/">Use BGP Communities in Routing Policies</a>.<br />
+This exercise combines BGP community lists, route maps, and the BGP local preference.</li>
+<li><a href="a-locpref-route-map/">Use the backup link to reach the adjacent autonomous system</a>.<br />
+This exercise combines AS-path filters, prefix lists, route maps, and the BGP local preference.</li>
 </ul></div>
             </div>
         </div>
