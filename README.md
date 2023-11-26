@@ -1,6 +1,6 @@
 # ipSpace.net BGP Configuration Labs
 
-This repository contains _netlab_ topology files for a series of hands-on labs will help you master numerous aspects of EBGP,  IBGP, and BGP routing policy configuration on a platform of your choice[^PC]. The labs cover:
+This repository contains _netlab_ topology files for a series of hands-on labs that will help you master numerous aspects of EBGP,  IBGP, and BGP routing policy configuration on a platform of your choice[^PC]. The labs cover:
 
 **Basic BGP Setup**
 
@@ -31,10 +31,10 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend)
 * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach)
-* [Use BGP Communities in Routing Policies](policy/9-community-use)
 
 **Complex BGP Routing Policies**
 
+* [Use BGP Communities in Routing Policies](policy/9-community-use)
 * [Using BGP Local Preference in a Complex Routing Policy](policy/a-locpref-route-map)
 
 **Advanced Topics**
@@ -42,37 +42,6 @@ This repository contains _netlab_ topology files for a series of hands-on labs w
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
 * [BGP route aggregation](basic/8-aggregate)
 
-See [lab documentation](https://bgplab.github.io/bgplab/) for the full list of planned labs.
-<!--
-**Basic BGP Setup**
+See [lab documentation](https://bgplab.github.io/bgplab/) for more details and the complete list of planned labs.
 
-* (Advanced) Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
-
-**Simple End-User Setup**
-
-* Perform simple load balancing across parallel links and across upstream provider
-
-**Multiprotocol BGP**
-
-* (Advanced) Run IPv4 and IPv6 over the same BGP session
-
-**Simple Transit Network Setup**
-
-* Use IBGP to transport BGP information across your network
-* Use BGP route reflectors to reduce the number of IBGP sessions
-* (Advanced) Use a hierarchy of route reflectors
-
-**Networks with Multiple BGP Speakers**
-
-* Use BGP local preference to prefer one of the upstream providers
-* Use more complex BGP local preference setup to prefer direct connectivity with customers of upstream ISPs
-* Use MED to influence route selection in an upstream ISP
-* Use AS-path prepending to influence route selection across multiple upstream ISPs
-
-**Complex BGP Route Policies**
-
-* Use BGP communities to influence route selection in upstream ISPs
-* Build a transit autonomous system using BGP communities to change routing policies
--->
-
-[^PC]: Some assembly required: while the Cumulus Linux VMs/containers that are used for external BGP speakers are easy to download, you'll have to build a Vagrant box or install a Docker container image for your platform. 
+[^PC]: Some assembly required: while the Cumulus Linux VMs/containers used for external BGP speakers are easy to download, you'll have to build a Vagrant box or install a Docker container image for your platform.

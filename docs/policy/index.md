@@ -25,7 +25,6 @@ It's relatively easy to change how traffic leaves your network (autonomous syste
 
 Once you master the basics, you'll be ready for more complex scenarios:
 
-* [Use the backup link to reach the adjacent autonomous system](a-locpref-route-map.md). This exercise combines AS-path filters, prefix lists, route maps, and BGP local preference.
 
 ## Influencing Incoming (Ingress) Traffic Flow {#ingress}
 
@@ -34,4 +33,12 @@ Trying to persuade neighboring autonomous systems to change how they send you th
 * [Use MED to Influence Incoming Traffic Flow](6-med.md)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
 * [Attach BGP Communities to Outgoing BGP Updates](8-community-attach.md)
-* [Use BGP Communities in Routing Policies](9-community-use.md)
+
+## More Complex Routing Policies {#complex}
+
+You use these labs to practice how to use a combination of BGP attributes and routing policy tools to build more complex routing policies:
+
+* [Use BGP Communities in Routing Policies](9-community-use.md).
+This exercise combines BGP community lists, route maps, and the BGP local preference.
+* [Use the backup link to reach the adjacent autonomous system](a-locpref-route-map.md).
+This exercise combines AS-path filters, prefix lists, route maps, and the BGP local preference.

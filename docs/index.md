@@ -35,3 +35,5 @@ These lab exercises will help you master the basic tools you can use to build BG
 * [Filter BGP Updates](policy/index.md#filter)
 * [Adjust Outgoing Traffic Flow](policy/index.md#egress)
 * [Influence Incoming Traffic Flow](policy/index.md#ingress)
+
+Once you mastered the basics, continue with [more complex routing policies](policy/index.md#complex).
