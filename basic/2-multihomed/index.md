@@ -1,6 +1,6 @@
 # Configure Multiple EBGP Sessions
 
-Now that you know how to configure an EBGP session let's move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you're running EBGP with them.
+Now that you know how to [configure an EBGP session](1-session.md), let's move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you're running EBGP with them.
 
 ![Lab topology](topology-multihomed.png)
 
@@ -8,8 +8,6 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
-| **AS65000** ||
-| rtr | 10.0.0.1 | |
 | **AS65100** ||
 | x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
@@ -25,7 +23,8 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-Configure EBGP sessions using the following parameters:
+* Start BGP routing process with AS number 65000
+* Configure EBGP sessions using the following parameters:
 
 | Node | Neighbor | Neighbor IPv4 | Neighbor AS |
 |------|----------|--------------:|------------:|
@@ -35,7 +34,7 @@ Configure EBGP sessions using the following parameters:
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
 
-You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.
+You can also configure neighbor description and BGP neighbor status logging to get an information message when the BGP session is established.
 
 ## Verification
 
@@ -51,7 +50,7 @@ Neighbor Status Codes: m - Under maintenance
   10.1.0.6 4 65101              7         6    0    0 00:00:06 Estab   2      2
 ```
 
-Finally, use a command similar to **show ip bgp** to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is how the printout looks like on Arista EOS:
+Finally, use a command similar to **show ip bgp** to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is what the printout looks like on Arista EOS:
 
 ```
 rtr#show ip bgp
@@ -77,7 +76,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+The following information might help you if you're not using _netlab_ to build the lab:
 
 ### Lab Wiring
 
