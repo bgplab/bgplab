@@ -295,7 +295,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="configure-multiple-ebgp-sessions">Configure Multiple EBGP Sessions</h1>
-<p>Now that you know how to configure an EBGP session let&rsquo;s move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you&rsquo;re running EBGP with them.</p>
+<p>Now that you know how to <a href="../1-session/">configure an EBGP session</a>, let&rsquo;s move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you&rsquo;re running EBGP with them.</p>
 <p><img alt="Lab topology" src="../topology-multihomed.png" /></p>
 <p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.</p>
 <table>
@@ -307,16 +307,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>AS65000</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>rtr</td>
-<td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;"></td>
-</tr>
 <tr>
 <td><strong>AS65100</strong></td>
 <td style="text-align: right;"></td>
@@ -347,7 +337,10 @@
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
 </ul>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>Configure EBGP sessions using the following parameters:</p>
+<ul>
+<li>Start BGP routing process with AS number 65000</li>
+<li>Configure EBGP sessions using the following parameters:</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -376,7 +369,7 @@
 <p class="admonition-title">Warning</p>
 <p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
 </div>
-<p>You might also want to configure neighbor description and BGP session logging to get an information message when the BGP session is established.</p>
+<p>You can also configure neighbor description and BGP neighbor status logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
 <pre><code>rtr#show ip bgp summary
@@ -387,7 +380,7 @@ Neighbor Status Codes: m - Under maintenance
   10.1.0.2 4 65100              9         8    0    0 00:00:10 Estab   2      2
   10.1.0.6 4 65101              7         6    0    0 00:00:06 Estab   2      2
 </code></pre>
-<p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is how the printout looks like on Arista EOS:</p>
+<p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is what the printout looks like on Arista EOS:</p>
 <pre><code>rtr#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -409,7 +402,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <li><a href="../3-originate/">Advertise your IPv4 address space</a> to the EBGP neighbors</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
