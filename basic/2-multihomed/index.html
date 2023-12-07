@@ -371,6 +371,9 @@
 </div>
 <p>You can also configure neighbor description and BGP neighbor status logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
+<p><img alt="" src="../basic-multihomed-validate.png" /></p>
+<p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
 <pre><code>rtr#show ip bgp summary
 BGP summary information for VRF default

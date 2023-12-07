@@ -299,7 +299,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="configure-bgp-for-ipv6">Configure BGP for IPv6</h1>
-<p>In the previous lab exercises you <a href="../2-multihomed/">configured EBGP sessions with two upstream ISPs</a> and <a href="../3-originate/">advertised IPv4 prefixes to them</a>. Now let&rsquo;s add IPv6 to the mix.</p>
+<p>In the previous lab exercises, you <a href="../2-multihomed/">configured EBGP sessions with two upstream ISPs</a> and <a href="../3-originate/">advertised IPv4 prefixes to them</a>. Now, let&rsquo;s add IPv6 to the mix.</p>
 <p><img alt="Lab topology" src="../topology-ipv6.png" /></p>
 <p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix, an IPv6 prefix, and the default route.</p>
 <h2 id="bgp-as-numbers">BGP AS Numbers</h2>
@@ -344,7 +344,7 @@
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP IPv4 neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure you&rsquo;ll have to configure them manually.</p>
+<p>Your router has these EBGP IPv4 neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure them manually.</p>
 <table>
 <thead>
 <tr>
@@ -402,7 +402,7 @@
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
 <p><em>netlab</em> will configure IPv4 addressing, IPv6 addressing, and BGP for IPv4 on your router, resulting in a configuration similar to what you should have done in <a href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a>.</p>
-<p>If you&rsquo;re not using <em>netlab</em> just continue with the configuration you made during the <a href="../3-originate/">previous exercise</a> and add IPv6 addresses to the loopback- and WAN interfaces of your router before proceeding.</p>
+<p>If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../3-originate/">previous exercise</a> and add IPv6 addresses to your router&rsquo;s loopback- and WAN interfaces before proceeding.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>You have to:</p>
 <ul>
@@ -411,13 +411,16 @@
 </ul>
 <p>Most BGP implementations treat IPv4 and IPv6 in almost the same way and use <strong>address families</strong> within BGP configuration to configure them. The details vary:</p>
 <ul>
-<li>On many devices (including Cisco IOS, Arista EOS, Cumulus Linux, and FRR) you have to configure IPv4 and IPv6 BGP sessions within the BGP configuration and then <em>activate</em> those sessions within individual address families.</li>
-<li>Some devices (example: Nexus OS) expect you to configure BGP neighbors <em>within the address families</em></li>
-<li>You might encounter older implementations (example: old Cisco IOS versions) that configure IPv4 parameters within BGP configuration and IPv6 parameters within the IPv6 address family.</li>
+<li>On many devices (including Cisco IOS, Arista EOS, Cumulus Linux, and FRR), you must configure IPv4 and IPv6 BGP sessions within the BGP configuration and then <em>activate</em> those sessions within individual address families.</li>
+<li>Some devices (for example, Nexus OS) expect you to configure BGP neighbors <em>within the address families</em></li>
+<li>You might encounter older implementations (for example, old Cisco IOS versions) that configure IPv4 parameters within BGP configuration and IPv6 parameters within the IPv6 address family.</li>
 </ul>
-<p>I&rsquo;m positive you&rsquo;ll figure out those details. Just keep in mind that there&rsquo;s not much difference (usually) between IPv4 and IPv6, and you already know how to <a href="../2-multihomed/">setup EBGP sessions</a> and <a href="../3-originate/">advertise IPv4 prefixes in BGP</a>. Just do the same thing for IPv6.</p>
+<p>I know you&rsquo;ll figure out those details. Just keep in mind that there&rsquo;s not much difference (usually) between IPv4 and IPv6, and you already know how to <a href="../2-multihomed/">setup EBGP sessions</a> and <a href="../3-originate/">advertise IPv4 prefixes in BGP</a>. Just do the same thing for IPv6.</p>
 <h2 id="verification">Verification</h2>
-<p>Before going into the details, you&rsquo;d want to know that the IPv6 BGP sessions are up. Use a command similar to <strong>show bgp ipv6 summary</strong> to verify that:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
+<p><img alt="" src="../basic-ipv6-validate.png" /></p>
+<p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
+<p>Before digging into the details, check that the IPv6 BGP sessions are up. Use a command similar to <strong>show bgp ipv6 summary</strong> to verify that:</p>
 <pre><code>rtr#sh bgp ipv6 unicast summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -428,9 +431,9 @@ Neighbor Status Codes: m - Under maintenance
 </code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>For historic reasons, many network devices have inconsistent command structure &ndash; the IPv4 BGP commands are simpler than IPv6 BGP commands. For example, you can use <strong>show bgp summary</strong> on Arista EOS to display BGP summary information for the IPv4 address family while you have to use <strong>show ipv6 unicast summary</strong> to display the same information for the IPv6 address family.</p>
+<p>For historical reasons, many network devices have an inconsistent CLI command structure &ndash; the IPv4 BGP commands are more straightforward than IPv6 BGP commands. For example, you can use <strong>show bgp summary</strong> on Arista EOS to display BGP summary information for the IPv4 address family. At the same time, you have to use <strong>show ipv6 unicast summary</strong> to display the same information for the IPv6 address family.</p>
 </div>
-<p>The IPv6 prefixes you want to advertise to EBGP neighbors have to be in the BGP table of your router first. A command similar to <strong>show bgp ipv6</strong> or <strong>show bgp ipv6 unicast</strong> is thus a good starting point. This is how Arista EOS displays it:</p>
+<p>The IPv6 prefixes you want to advertise to EBGP neighbors must be in your router&rsquo;s BGP table first. A command similar to <strong>show bgp ipv6</strong> or <strong>show bgp ipv6 unicast</strong> is thus a good starting point. This is how Arista EOS displays it:</p>
 <pre><code>rtr#show bgp ipv6 unicast
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -463,7 +466,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      2001:db8:1::/48        2001:db8:42::1        -       -          -       -       65000 ?
  * &gt;      2001:db8:101::/48      2001:db8:42::1        -       -          -       -       65000 65101 i
 </code></pre>
-<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life, it&rsquo;s trivial in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> (if you&rsquo;re using Cumulus Linux or FRR) and execute the <strong>show ip bgp</strong> command:</p>
+<p>Check the BGP table on the remote router to ensure everything is okay. While that&rsquo;s a bit hard to do in real life, it&rsquo;s trivial in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> (if you&rsquo;re using Cumulus Linux or FRR) and execute the <strong>show ip bgp</strong> command:</p>
 <pre><code>$ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
 Use vtysh to connect to FRR daemon
@@ -492,11 +495,11 @@ Displayed  3 routes and 3 total paths
 </code></pre>
 <p><strong>Next:</strong></p>
 <ul>
-<li>If you&rsquo;re interested in BGP routing policies proceed to <a href="../../policy/1-weights/">Use BGP Weights</a> to prefer one of the upstream ISPs.</li>
+<li>If you&rsquo;re interested in BGP routing policies, proceed to <a href="../../policy/1-weights/">Use BGP Weights</a> to prefer one of the upstream ISPs.</li>
 <li>If you want to build networks with more than one BGP router, continue with <a href="../../ibgp/1-edge/">Running BGP in Larger Networks</a></li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>

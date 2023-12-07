@@ -371,7 +371,7 @@
 <li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em>, just continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>You have to advertise <code>192.168.42.0/24</code> &ndash; the IP address space belonging to your organization &ndash; to the upstream providers.</p>
 <p>BGP never originates IP prefixes without being told to do so. The usual ways to do that are:</p>
@@ -385,6 +385,9 @@
 <p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won&rsquo;t send them anything.</p>
 </div>
 <h2 id="verification">Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
+<p><img alt="" src="../basic-originate-validate.png" /></p>
+<p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
 <p>The IPv4 prefixes you want to advertise to EBGP neighbors must be in your router&rsquo;s BGP table first. A command similar to <strong>show ip bgp</strong> is thus a good starting point. This is how Arista EOS displays the BGP table:</p>
 <pre><code>rtr#show ip bgp
 BGP routing table information for VRF default
@@ -403,7 +406,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
  * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 </code></pre>
-<p>However, you probably want to know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here&rsquo;s how that command works on Arista EOS:</p>
+<p>However, you must know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a <strong>show</strong> command that displays prefixes advertised to a neighbor. Here&rsquo;s how that command works on Arista EOS:</p>
 <pre><code>rtr#show ip bgp neighbor 10.1.0.2 advertised-routes
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -418,7 +421,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      192.168.42.0/24        10.1.0.1              -       -          -       -       65000 ?
  * &gt;      192.168.101.0/24       10.1.0.1              -       -          -       -       65000 65101 i
 </code></pre>
-<p>You should check the BGP table on the remote router to be absolutely sure everything is OK. While that&rsquo;s a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it&rsquo;s way easier in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> if you&rsquo;re running FRR or Cumulus Linux on them, and execute the <strong>show ip bgp</strong> command:</p>
+<p>Check the BGP table on the remote router to ensure everything is okay. While that&rsquo;s a bit hard to do in real life (unless your ISP offers a <a href="https://en.wikipedia.org/wiki/Looking_Glass_server">looking glass</a>), it&rsquo;s way more manageable in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> if you&rsquo;re running FRR or Cumulus Linux on them, and execute the <strong>show ip bgp</strong> command:</p>
 <pre><code>$ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
 Use vtysh to connect to FRR daemon
@@ -446,7 +449,7 @@ Displayed  3 routes and 3 total paths
 </code></pre>
 <p><strong>Next:</strong></p>
 <ul>
-<li>If you&rsquo;re interested in BGP routing policies proceed to <a href="../../policy/1-weights/">Use BGP Weights</a> to prefer one of the upstream ISPs.</li>
+<li>If you&rsquo;re interested in BGP routing policies, proceed to <a href="../../policy/1-weights/">Use BGP Weights</a> to prefer one of the upstream ISPs.</li>
 <li>If you want to build networks with more than one BGP router, continue with <a href="../../ibgp/1-edge/">Running BGP in Larger Networks</a></li>
 </ul>
 <p>You could also do these optional exercises:</p>
