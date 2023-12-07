@@ -6,3 +6,5 @@ groups:
     device: cumulus                                    # Change to your preferred external router. Needs 1.6.4 to work
 
 devices.eos.clab.node.env.CLAB_MGMT_VRF: management    # Add management VRF to cEOS. Not needed after 1.6.4
+
+attributes.global.validate:

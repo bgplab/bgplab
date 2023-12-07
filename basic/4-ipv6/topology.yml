@@ -40,3 +40,9 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+message: |
+  The "Configure BGP for IPv6" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Have fun!

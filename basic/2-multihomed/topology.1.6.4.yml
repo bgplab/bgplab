@@ -5,7 +5,7 @@ name: multihomed
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:
-plugin: [ bgp.session ]
+plugin: [ bgp.session, check_validate ]
 
 version: 1.6.4
 
@@ -34,3 +34,11 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+message: |
+  The "Configure Multiple EBGP Sessions" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Good luck!
+
+_include: [ validate.yml ]

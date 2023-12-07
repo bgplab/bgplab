@@ -1,7 +1,7 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ bgp.session ]
+plugin: [ bgp.session, check_validate ]
 name: originate
 
 module: [ bgp ]
@@ -33,3 +33,11 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+message: |
+  The "Advertise IPv4 Prefixes to BGP Neighbors" lab is ready. Connect to
+  your router with "netlab connect rtr".
+
+  Have fun!
+
+_include: [ validate.yml ]

@@ -1,0 +1,31 @@
+# Check RTR-X1 EBGP session
+session:
+  description: Check EBGP session on ISP router
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session is in Established state
+  nodes: [ x1 ]
+  show:
+    cumulus: bgp summary json
+    frr: bgp summary json
+    eos: "ip bgp summary | json"
+  exec:
+    iosv: >
+      show ip bgp summary
+
+  valid:
+    cumulus: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
+    frr: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
+    eos: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      vrfs.default.peers["{{ n.ipv4 }}"].peerState == "Established"
+      {% endfor %}
+    iosv: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      re.search('(?m)^{{ n.ipv4|replace('.','\.') }}.*?[0-9]$',stdout)
+      {% endfor %}

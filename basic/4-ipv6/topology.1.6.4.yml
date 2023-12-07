@@ -2,7 +2,7 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 name: ipv6
-plugin: [ bgp.session ]
+plugin: [ bgp.session, check_validate ]
 
 version: 1.6.4
 
@@ -41,3 +41,11 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+message: |
+  The "Configure BGP for IPv6" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Have fun!
+
+_include: [ validate.yml ]

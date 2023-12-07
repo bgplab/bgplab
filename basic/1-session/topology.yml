@@ -25,3 +25,9 @@ links:
 - rtr:
   x1:
     bgp.default_originate: True
+
+message: |
+  The "Configure a Single EBGP Session" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Good luck!

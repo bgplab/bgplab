@@ -38,6 +38,12 @@ You can also configure neighbor description and BGP neighbor status logging to g
 
 ## Verification
 
+You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.
+
+![](basic-multihomed-validate.png)
+
+If that command fails or you're using another network operating system on the external routers, it's time to start a troubleshooting session.
+
 Check the state of the BGP session with a command similar to **show ip bgp summary**. This is a printout taken from Arista EOS:
 
 ```

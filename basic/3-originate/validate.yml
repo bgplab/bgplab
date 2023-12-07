@@ -1,0 +1,61 @@
+# Check RTR-X1 EBGP session
+session:
+  description: Check EBGP session with RTR on ISP routers
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with RTR is in Established state
+  stop_on_error: True
+  nodes: [ x1,x2 ]
+  show:
+    cumulus: bgp summary json
+    frr: bgp summary json
+    eos: "ip bgp summary | json"
+  valid:
+    cumulus: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
+    frr: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
+    eos: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      vrfs.default.peers["{{ n.ipv4 }}"].peerState == "Established"
+      {% endfor %}
+
+pfxcnt:
+  description: Check whether RTR receives and sends IPv4 prefixes
+  fail: RTR is not advertising IPv4 prefixes to ISP routers
+  pass: RTR is advertising IPv4 prefixes to ISP routers
+  nodes: [ x1,x2 ]
+  show:
+    cumulus: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      bgp ipv4 neighbors {{ n.ipv4 }} routes json
+      {% endfor %}
+    frr: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      bgp ipv4 neighbors {{ n.ipv4 }} routes json
+      {% endfor %}
+    eos: >
+      {% for n in bgp.neighbors if n.name == 'rtr' %}
+      bgp neighbor {{ n.ipv4 }} ipv4 unicast routes | json
+      {% endfor %}
+  valid:
+    cumulus: routes
+    frr: routes
+    eos: vrfs.default.bgpRouteEntries
+
+advroute:
+  description: Check whether RTR advertises 192.168.42.0/24
+  fail: RTR is not advertising 192.168.42.0/24
+  pass: RTR is advertising 192.168.42.0/24 to ISP routers
+  nodes: [ x1,x2 ]
+  show:
+    cumulus: bgp ipv4 192.168.42.0/24 json
+    frr: bgp ipv4 192.168.42.0/24 json
+    eos: bgp ipv4 unicast 192.168.42.0/24 | json
+  valid:
+    cumulus: prefix
+    frr: prefix
+    eos: vrfs.default.bgpRouteEntries

@@ -6,7 +6,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:
 
 name: session
-plugin: [ bgp.session ]
+plugin: [ bgp.session, check_validate ]
 
 version: 1.6.4
 
@@ -26,3 +26,11 @@ links:
 - rtr:
   x1:
     bgp.default_originate: True
+
+message: |
+  The "Configure a Single EBGP Session" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Good luck!
+
+_include: [ validate.yml ]

@@ -30,7 +30,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and basic BGP configuration.
 
-**Note:** *netlab* will configure IP addressing and EBGP sessions on your router. If you're not using *netlab*, just continue with the configuration you made during the [previous exercise](2-multihomed.md).
+**Note:** *netlab* will configure IP addressing and EBGP sessions on your router. If you're not using *netlab*, continue with the configuration you made during the [previous exercise](2-multihomed.md).
 
 ## Configuration Tasks
 
@@ -47,6 +47,12 @@ While the first method is usually used within enterprise networks that use BGP a
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
 
 ## Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.
+
+![](basic-originate-validate.png)
+
+If that command fails or you're using another network operating system on the external routers, it's time to start a troubleshooting session.
 
 The IPv4 prefixes you want to advertise to EBGP neighbors must be in your router's BGP table first. A command similar to **show ip bgp** is thus a good starting point. This is how Arista EOS displays the BGP table:
 
@@ -69,7 +75,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
 ```
 
-However, you probably want to know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a **show** command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:
+However, you must know if your router advertises its prefixes to its EBGP neighbors. Some network devices have a **show** command that displays prefixes advertised to a neighbor. Here's how that command works on Arista EOS:
 
 ```
 rtr#show ip bgp neighbor 10.1.0.2 advertised-routes
@@ -87,7 +93,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.101.0/24       10.1.0.1              -       -          -       -       65000 65101 i
 ```
 
-You should check the BGP table on the remote router to be absolutely sure everything is OK. While that's a bit hard to do in real life (unless your ISP offers a [looking glass](https://en.wikipedia.org/wiki/Looking_Glass_server)), it's way easier in a lab -- connect to X1 or X2 with **netlab connect** (or SSH into them if you're not using _netlab_), start `vtysh` if you're running FRR or Cumulus Linux on them, and execute the **show ip bgp** command:
+Check the BGP table on the remote router to ensure everything is okay. While that's a bit hard to do in real life (unless your ISP offers a [looking glass](https://en.wikipedia.org/wiki/Looking_Glass_server)), it's way more manageable in a lab -- connect to X1 or X2 with **netlab connect** (or SSH into them if you're not using _netlab_), start `vtysh` if you're running FRR or Cumulus Linux on them, and execute the **show ip bgp** command:
 
 ```
 $ netlab connect x1
@@ -118,7 +124,7 @@ Displayed  3 routes and 3 total paths
 
 **Next:**
 
-* If you're interested in BGP routing policies proceed to [Use BGP Weights](../policy/1-weights.md) to prefer one of the upstream ISPs.
+* If you're interested in BGP routing policies, proceed to [Use BGP Weights](../policy/1-weights.md) to prefer one of the upstream ISPs.
 * If you want to build networks with more than one BGP router, continue with [Running BGP in Larger Networks](../ibgp/1-edge.md)
 
 You could also do these optional exercises:

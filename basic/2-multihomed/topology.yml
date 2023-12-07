@@ -33,3 +33,9 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+message: |
+  The "Configure Multiple EBGP Sessions" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Good luck!

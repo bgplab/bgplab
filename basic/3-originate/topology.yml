@@ -32,3 +32,9 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+message: |
+  The "Advertise IPv4 Prefixes to BGP Neighbors" lab is ready. Connect to
+  your router with "netlab connect rtr".
+
+  Have fun!
