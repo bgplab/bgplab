@@ -4,19 +4,30 @@ from netsim import __version__
 from netsim.utils import log
 from box import Box
 
+def init(topology: Box) -> None:
+  if not topology.get('validate',None):
+    return
+
+  if __version__ >= '1.7.0':
+    return
+
+  topology.pop('validate',None)
+  if 'message' not in topology:
+    topology.message = ''
+
+  topology.message += '''
+Upgrade to netlab release 1.7.0 to use 'netlab validate' command to
+check the results of your configuration work.
+'''
+
+  return
+
 def post_transform(topology: Box) -> None:
   if not topology.get('validate',None):
     return
 
   if 'message' not in topology:
     topology.message = ''
-
-  if __version__ < '1.7.0':
-    topology.message += '''
-Upgrade to netlab release 1.7.0 to use 'netlab validate' command to
-check the results of your configuration work.
-'''
-    return
 
   x_device = topology.get('groups.external.device',None)
   if x_device is None:
