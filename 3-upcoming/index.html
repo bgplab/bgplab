@@ -147,6 +147,10 @@
 <li>
     <a href="../basic/8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
 </li>
+            
+<li>
+    <a href="../session/1-allowas_in/" class="dropdown-item">Reuse a BGP AS Number Across Multiple Sites</a>
+</li>
     </ul>
   </li>
                                 </ul>
@@ -298,14 +302,15 @@
 <dd>
 <ul>
 <li>Use session templates and BGP peer groups</li>
+<li>Use 4-byte BGP AS numbers</li>
 </ul>
 </dd>
 <dt>Advanced exercises:</dt>
 <dd>
 <ul>
 <li>Change the BGP AS number presented to the BGP neighbor (<strong>local-as</strong> functionality)</li>
-<li>Disable AS path check on incoming updates (<strong>allowas-in</strong> functionality)</li>
-<li>Remove private AS numbers from the AS path</li>
+<li>Replace customer&rsquo;s AS number with provider&rsquo;s AS number (<strong>as-override</strong> functionality)</li>
+<li>Remove private AS numbers from the AS path (<strong>remove-private-as</strong> functionality)</li>
 <li>Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses</li>
 <li>Run IPv4 and IPv6 over the same BGP session</li>
 <li>Fine-tune BGP Fast External Failover</li>
