@@ -1,0 +1,56 @@
+# The baseline topology for small (4-router) labs
+#
+defaults.sources.extra: [ ../../defaults.yml ]
+
+module: [ bgp, ospf ]
+name: allowas
+plugin: [ external_devices, check_validate ]
+
+groups:
+  external:
+    members: [ pe1, pe2 ]
+
+  provider:
+    members: [ pe1, pe2 ]
+    bgp.advertise_loopback: False
+    bgp.as: 65100
+
+  customer:
+    members: [ ce1, ce2 ]
+    bgp.as: 65000
+    bgp.sessions:
+      ipv4: [ ebgp ]
+
+nodes:
+  ce1:
+  ce2:
+  pe1:
+    id: 10
+  pe2:
+    id: 11
+links:
+- ce1:
+  pe1:
+  name: Site_A-to-ISP
+- ce1:
+  pe2:
+  pool: l2only
+  name: Unused link
+- pe1:
+  pe2:
+  name: Intra-ISP link
+- ce2:
+  pe1:
+  pool: l2only
+  name: Unused link
+- ce2:
+  pe2:
+  name: Site_B-to-ISP
+
+_include: [ validate.yml ]
+
+message: |
+  The "Reuse a BGP AS Number Across Multiple Sites" lab is ready. Use
+  "netlab connect" command to connect to your routers (ce1 and ce2).
+
+  Have fun!

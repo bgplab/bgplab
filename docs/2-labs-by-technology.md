@@ -14,12 +14,13 @@ Advertising IP prefixes
   * [Redistribute IGP Information Into BGP](basic/5-redistribute.md)
   * [BGP route aggregation](basic/8-aggregate.md)
 
+AS and AS-path manipulation
+: * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend.md)
+  * [Reuse a BGP AS Number Across Multiple Sites](session/1-allowas_in.md)
+
 AS-path filters
 : * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
-
-AS-path prepending
-: * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend.md)
 
 BFD (Bidirectional Forwarding Detection)
 : * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)

@@ -140,6 +140,10 @@ Gateway of last resort:
  C        192.168.121.0/24 is directly connected, Management0
 ```
 
+**Next:**
+
+* You might encounter service providers that will give you the same BGP AS number for all sites. You can practice that scenario in the [Reuse a BGP AS Number Across Multiple Sites](../session/1-allowas_in.md) exercise.
+
 ## Reference Information {#alt}
 
 The following information might help you if you're not using _netlab_ to build the lab:

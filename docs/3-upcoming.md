@@ -6,11 +6,12 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 
 Optional exercises:
 : * Use session templates and BGP peer groups
+  * Use 4-byte BGP AS numbers
 
 Advanced exercises:
 : * Change the BGP AS number presented to the BGP neighbor (**local-as** functionality)
-  * Disable AS path check on incoming updates (**allowas-in** functionality)
-  * Remove private AS numbers from the AS path
+  * Replace customer's AS number with provider's AS number (**as-override** functionality)
+  * Remove private AS numbers from the AS path (**remove-private-as** functionality)
   * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
   * Run IPv4 and IPv6 over the same BGP session
   * Fine-tune BGP Fast External Failover
