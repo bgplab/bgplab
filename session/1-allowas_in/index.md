@@ -35,7 +35,7 @@ PE1 and PE2 run OSPF and exchange BGP routes over an IBGP session.
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `session/1-allowas_in`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your devices (CE1, CE2) with **netlab connect** and verify that they have established EBGP sessions with the PE routers.
 
 **Note:** *netlab* will configure IP addressing, BGP sessions, and BGP prefix advertisements on all routers. It will also configure OSPF between PE1 and PE2. You must manually configure your routers if you're not using *netlab*.
@@ -152,7 +152,14 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 ## Reference Information
 
-The following information might help you if you're not using _netlab_ to build the lab:
+This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS, Cisco IOSv, Cumulus Linux, or FRR running on the external router. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* Git repository contains initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

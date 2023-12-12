@@ -62,7 +62,7 @@ If you're using *netlab, *you'll start with a preconfigured lab -- *netlab* 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/5-redistribute`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your devices with **netlab connect** and verify IP addresses, OSPF routing, and basic BGP configuration.
 
 **Note:** *netlab* will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you're not using *netlab*, you must manually configure them.
@@ -146,11 +146,16 @@ Gateway of last resort:
 
 ## Reference Information {#alt}
 
-The following information might help you if you're not using _netlab_ to build the lab:
+This lab uses a superset of the [4-router lab topology](../external/4-router.md). You can still use that topology without the S1/S2 routers and redistribute *connected* prefixes into BGP.
+
+The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer- and provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* Git repository contains provider router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a superset of the [4-router lab topology](../external/4-router.md). You can still use that topology without the S1/S2 routers and redistribute *connected* prefixes into BGP.
 
 #### Point-to-Point Links
 

@@ -27,7 +27,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md), change dir
 
 You can choose between these lab topologies:
 
-* `topology.yml`: 6-router topology with a full mesh of IBGP sessions. Start with **netlab up**.
+* `topology.yml`: 6-router topology with a full mesh of IBGP sessions. Start with **netlab up** ([device requirements](#req))
 * `hub-spoke.yml`: 6-router topology with hub-and-spoke IBGP sessions. Start with **netlab up hub-spoke.yml**.
 * `4-router.yml`: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and Cumulus Linux running on the leaf routers. Use this topology when you're low on memory; start it with **netlab up 4-router.yml**.
 
@@ -203,7 +203,13 @@ You can easily try out both solutions:
 * Start the `hub-spoke.yml` lab topology with **netlab up hub-spoke.yml**
 * Configure an aggregate prefix on both spine routers (see [BGP Route Aggregation](../basic/8-aggregate.md) exercise for more details) or configure default route advertisement on spine routers with a configuration command similar to **neighbor default-originate always**.
 
-## Run the Lab without _netlab_ {#nonetlab}
+## Reference Information
+
+### Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as leaf- or spine routers.
+
+### Run the Lab without _netlab_ {#nonetlab}
 
 You can run this lab on any [virtual lab infrastructure](../external/index.md) conforming to the [four router lab topology](../external/4-router.md) -- your devices (S1, S2) will be spine routers;  leaf routers (L1, L2) will run Cumulus Linux.
 
@@ -213,7 +219,7 @@ Use the following information if you decide to do that[^NM]:
 
 [^NM]: I wouldn't, but that's just me.
 
-### Lab Wiring
+#### Lab Wiring
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
@@ -226,7 +232,7 @@ Use the following information if you decide to do that[^NM]:
 
 **Note**: Some interfaces are not used to conform with the predefined 4-router lab topology.
 
-### Lab Addressing
+#### Lab Addressing
 
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|

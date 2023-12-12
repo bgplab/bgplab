@@ -5,14 +5,14 @@ Now that you know how to [configure EBGP sessions](2-multihomed.md) let's see ho
 * Generalized TTL Security Mechanism (GTSM) described in [RFC 5082](https://www.rfc-editor.org/rfc/rfc5082) ([more details](https://blog.ipspace.net/2023/03/advantages-bgp-gtsm.html))
 * Cryptographic protection (but not encryption) of underlying TCP sessions with MD5 checksums or TCP Authentication Option described in [RFC 5925](https://datatracker.ietf.org/doc/html/rfc5925).
 
-In this lab you'll use:
+In this lab, you'll use:
 
 * GTSM on the EBGP session with ISP-1
 * MD5 checksum on the EBGP session with ISP-2[^NOL]
 
 If you want to practice BGP session protection with TCP-AO, check out the [TCP-AO lab](9-ao.md)[^NOL].
 
-[^NOL]: I would love to add TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it's not yet (as of September 2023) implemented in the Linux kernel. That's the price you're paying for riding on top of other people's infrastructure.
+[^NOL]: I would love to add a TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it's not yet (as of September 2023) implemented in the Linux kernel. That's the price you're paying for riding on top of other people's infrastructure.
 
 ![Lab topology](topology-protect.png)
 
@@ -32,10 +32,10 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/6-protect`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
 
-If you're using *netlab*, you'll get a fully-configured lab, including BGP prefix origination on RTR and EBGP sessions between RTR and X1/X2. If you're using some other lab platform, it's best if you do this lab exercise after the [Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md) one.
+If you're using *netlab*, you'll get a fully configured lab, including BGP prefix origination on RTR and EBGP sessions between RTR and X1/X2. If you're using some other lab platform, it's best if you do this lab exercise after the [Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md) one.
 
 ## Configuration Tasks
 
@@ -74,7 +74,13 @@ Finally, use a command similar to **show ip bgp** to display the prefixes your r
 
 ## Reference Information
 
-You might find the following information useful if you're not using _netlab_ to build the lab:
+This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* _netlab_ has to configure default route origination, MD5 password, and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support).
+* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 
