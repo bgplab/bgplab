@@ -38,6 +38,7 @@ nav:
     - basic/7-bfd.md
     - basic/8-aggregate.md
     - session/1-allowas_in.md
+    - session/2-asoverride.md
 
 - "Routing Policies":
   - Overview: policy/index.md

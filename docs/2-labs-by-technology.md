@@ -17,6 +17,7 @@ Advertising IP prefixes
 AS and AS-path manipulation
 : * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend.md)
   * [Reuse a BGP AS Number Across Multiple Sites](session/1-allowas_in.md)
+  * [Fix AS-Path in Environments Reusing BGP AS Numbers](session/2-asoverride.md)
 
 AS-path filters
 : * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter

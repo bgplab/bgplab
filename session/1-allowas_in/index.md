@@ -122,7 +122,7 @@ Most BGP implementations have a nerd knob that disables the BGP AS-path-based lo
 * Disable the BGP loop prevention logic on CE1 and CE2
 * Refresh the BGP tables on CE1 and CE2. You can either clear the EBGP sessions with the PE routers or perform a route refresh with a command similar to **clear ip bgp soft in** 
 
-## Verification
+## Verification {#ver}
 
 You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on your devices. You'll get this printout if you configure **allowas-in** on CE1 but not CE2.
 
@@ -150,6 +150,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 !!! Note
     The PE routers might send the prefix advertised by a CE router back to that same CE router (the behavior is probably implementation-dependent), in which case you will see two paths to the local loopback prefix.
 
+**Next**: [Fix AS-Path in Environments Reusing BGP AS Numbers](2-asoverride.md).
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
@@ -158,12 +160,10 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 * Customer routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cisco IOSv, Cumulus Linux, or FRR running on the external router. Automated lab validation requires _netlab_ release 1.7.0 or higher.
-* Git repository contains initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer routers. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* Git repository contains initial provider routers' device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|

@@ -1,0 +1,64 @@
+# AS-override lab
+#
+defaults.sources.extra: [ ../../defaults.yml ]
+
+module: [ bgp, ospf ]
+name: asoverride
+plugin: [ external_devices, check_validate, check_extra_config ]
+
+groups:
+  provider:
+    members: [ pe1, pe2 ]
+    bgp.advertise_loopback: False
+    bgp.as: 65100
+
+  customer:
+    members: [ ce1, ce2 ]
+    bgp.as: 65000
+    bgp.sessions:
+      ipv4: [ ebgp ]
+
+  external:
+    members: [ ce1, ce2 ]
+
+nodes:
+  pe1:
+  pe2:
+  ce1:
+    id: 10
+    loopback.ipv4: 192.168.10.1/24
+    config: [ extra-config ]
+  ce2:
+    id: 11
+    loopback.ipv4: 192.168.11.1/24
+    config: [ extra-config ]
+links:
+- pe1:
+  ce1:
+  name: PE1-to-CE1
+- pe1:
+  ce2:
+  name: Unused link
+  pool: l2only
+- ce1:
+  ce2:
+  name: Unused link
+  pool: l2only
+- pe2:
+  ce1:
+  name: Unused link
+  pool: l2only
+- pe2:
+  ce2:
+  name: PE2-to-CE2
+- pe1:
+  pe2:
+  name: SP internal link
+
+_include: [ validate.yml ]
+
+message: |
+  The "Fix AS-Path In Environments Reusing BGP AS Numbers" lab is ready.
+  Use "netlab connect" command to connect to your routers (pe1 and pe2).
+
+  Have fun!

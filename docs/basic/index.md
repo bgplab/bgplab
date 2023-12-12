@@ -41,3 +41,4 @@ Willing to learn more? Challenge yourself with these advanced topics:
 * [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * [BGP route aggregation](8-aggregate.md)
 * [Reuse a BGP AS Number Across Multiple Sites](../session/1-allowas_in.md)
+* [Fix AS-Path in Environments Reusing BGP AS Numbers](../session/2-asoverride.md)

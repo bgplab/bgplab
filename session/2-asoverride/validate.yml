@@ -1,0 +1,32 @@
+# Validate the 'allowas-in' lab
+session:
+  description: Check EBGP sessions on CE1 and CE2 router
+  fail: The EBGP sessions on CE routers are not established
+  pass: The EBGP sessions on the CE routers work as expected
+  nodes: [ ce1,ce2 ]
+  show:
+    cumulus: bgp summary json
+    frr: bgp summary json
+    eos: "ip bgp summary | json"
+
+  valid:
+    cumulus: >
+      ipv4Unicast.failedPeers == 0
+    frr: >
+      ipv4Unicast.failedPeers == 0
+    eos: >
+      vrfs.default.peers["{{ bgp.neighbors[0].ipv4 }}"].peerState == "Established"
+
+updates:
+  description: Check the propagation of customer prefixes
+  fail: Remote site prefix is not visible on the CE-router
+  pass: CE-router is receiving prefixes from the PE-router
+  nodes: [ ce1, ce2 ]
+  show:
+    cumulus: bgp ipv4 regexp 65100 json
+    frr: bgp ipv4 regexp 65100 json
+    eos: bgp neighbor {{ bgp.neighbors[0].ipv4 }} ipv4 unicast received-routes | json
+  valid:
+    cumulus: routes
+    frr: routes
+    eos: vrfs.default.bgpRouteEntries
