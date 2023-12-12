@@ -297,6 +297,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#alt" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -508,7 +512,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/5-redistribute</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your devices with <strong>netlab connect</strong> and verify IP addresses, OSPF routing, and basic BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you&rsquo;re not using <em>netlab</em>, you must manually configure them.</p>
@@ -579,9 +583,14 @@ Gateway of last resort:
 <li>You might encounter service providers that will give you the same BGP AS number for all sites. You can practice that scenario in the <a href="../../session/1-allowas_in/">Reuse a BGP AS Number Across Multiple Sites</a> exercise.</li>
 </ul>
 <h2 id="alt">Reference Information</h2>
-<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
-<h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a superset of the <a href="../../external/4-router/">4-router lab topology</a>. You can still use that topology without the S1/S2 routers and redistribute <em>connected</em> prefixes into BGP.</p>
+<p>The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Customer- and provider routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>Git repository contains provider router initial device configurations for Cumulus Linux.</li>
+</ul>
+<h3 id="lab-wiring">Lab Wiring</h3>
 <h4 id="point-to-point-links">Point-to-Point Links</h4>
 <table>
 <thead>

@@ -285,6 +285,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -303,8 +307,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="use-bfd-to-speed-up-bgp-convergence">Use BFD to Speed Up BGP Convergence</h1>
-<p>Out-of-the-box EBGP is notoriously slow to converge &ndash; it can take up to three minutes to detect a failed EBGP neighbor. It&rsquo;s possible to tweak BGP timers to detect a failed neighbor in a few seconds, but it&rsquo;s <a href="https://blog.ipspace.net/2017/10/to-bfd-or-not-to-bfd.html">much better</a> to combine BGP with Bidirectional Forwarding Detection (BFD) &ndash; a lightweight protocol that can <a href="https://blog.ipspace.net/2020/11/detecting-network-failure.html">detect a link- or node failure in milliseconds</a>.</p>
-<p>In this lab you&rsquo;ll use both mechanisms:</p>
+<p>Out-of-the-box EBGP is notoriously slow to converge &ndash; it can take up to three minutes to detect a failed EBGP neighbor. It&rsquo;s possible to tweak BGP timers to detect a failed neighbor in a few seconds. Still, it&rsquo;s <a href="https://blog.ipspace.net/2017/10/to-bfd-or-not-to-bfd.html">much better</a> to combine BGP with Bidirectional Forwarding Detection (BFD) &ndash; a lightweight protocol that can <a href="https://blog.ipspace.net/2020/11/detecting-network-failure.html">detect a link- or node failure in milliseconds</a>.</p>
+<p>In this lab, you&rsquo;ll use both mechanisms:</p>
 <ul>
 <li>You&rsquo;ll tweak the BGP timers to detect a link failure within 10 seconds.</li>
 <li>You&rsquo;ll enable BFD on an EBGP neighbor to reduce the failure detection time to approximately a second.</li>
@@ -356,20 +360,20 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/7-bfd</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your devices (R1,R2) with <strong>netlab connect <em>node</em></strong> and verify their configuration.</li>
 </ul>
-<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully-configured lab, including BGP prefix origination on R1 and R2, and EBGP sessions between R1/R2 and X1. If you&rsquo;re using some other lab platform, you&rsquo;ll have to do a fair amount of prep work<sup id="fnref:PW"><a class="footnote-ref" href="#fn:PW">1</a></sup>.</p>
+<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully-configured lab, including BGP prefix origination on R1 and R2, and EBGP sessions between R1/R2 and X1. If you&rsquo;re using another lab platform, you&rsquo;ll have to do a fair amount of prep work<sup id="fnref:PW"><a class="footnote-ref" href="#fn:PW">1</a></sup>.</p>
 <h2 id="checking-the-convergence-time">Checking the Convergence Time</h2>
 <ul>
-<li>Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS), or monitoring of IP routing table (example: Arista EOS <strong>event monitor</strong>). You&rsquo;ll have to inspect the BGP table on R2 every few seconds if your platform does not have similar functionality.</li>
+<li>Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS) or monitoring of IP routing table (example: Arista EOS <strong>event monitor</strong>). You&rsquo;ll have to inspect the BGP table on R2 every few seconds if your platform does not have similar functionality.</li>
 <li>Log into R1 and remove the IP address from the R1-X1 link.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It would be easier to shut down the R1-X1 link, but that trick doesn&rsquo;t work with devices like Arista EOS that tear down the BGP session before shutting down the link.</p>
 </div>
-<p>I used Arista EOS <strong>event monitor</strong> on R2, added IP address on the R1 Ethernet1 interface, and removed it as soon as the BGP session was established. It took BGP almost exactly three minutes to detect the failed EBGP session between X1 and R1:</p>
+<p>I used Arista EOS <strong>event monitor</strong> on R2, added an IP address on the R1 Ethernet1 interface, and removed it as soon as the BGP session was established. It took BGP almost exactly three minutes to detect the failed EBGP session between X1 and R1:</p>
 <pre><code>r2#sh event-monitor route match-ip 192.168.42.0/24
 2023-09-16 16:02:25.953617|192.168.42.0/24|default|ebgp|0|200|updated|24
 2023-09-16 16:05:27.071501|192.168.42.0/24|default|ebgp|0|0|removed|25
@@ -382,11 +386,11 @@
 </ul>
 <p>Verification:</p>
 <ul>
-<li>Verify that you managed to reduce the BGP timers with a command similar to <strong>show ip bgp neighbor detail</strong>. </li>
+<li>Verify that you reduced the BGP timers with a command similar to <strong>show ip bgp neighbor detail</strong>. </li>
 <li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 within nine seconds.</li>
 </ul>
 <h2 id="configure-bfd">Configure BFD</h2>
-<p>While some BGP implementations allow you to use very small BGP timers (example: one second keep alive timer), you shouldn&rsquo;t use that approach if you care about BGP convergence speed. It&rsquo;s much better to combine BGP with BFD:</p>
+<p>While some BGP implementations allow you to use very small BGP timers (for example, a one-second keepalive timer), you should use something other than that approach if you care about BGP convergence speed. It&rsquo;s much better to combine BGP with BFD:</p>
 <ul>
 <li>Configure BFD on the EBGP neighbor session on R1</li>
 <li>Clear the BGP session if needed</li>
@@ -397,9 +401,15 @@
 <li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 almost immediately.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li><em>netlab</em> has to configure BFD and BGP timers on the external routers. The device you want to use as an external router has to be supported by the <a href="https://netlab.tools/platforms/#platform-routing-support">BFD configuration module</a> and the <a href="https://netlab.tools/plugins/bgp.session/#platform-support"><strong>bgp.session</strong> plugin</a>.</li>
+<li>You must use Cumulus Linux on the external router if you&rsquo;re using <em>netlab</em> release 1.6.3 or older.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>
@@ -486,7 +496,7 @@
 <p>I did <a href="../../1-setup/">tell you to use <em>netlab</em></a>, didn&rsquo;t I?&#160;<a class="footnote-backref" href="#fnref:PW" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:ATD">
-<p>Some BGP implementations tear down BGP session when you change the BGP timers.&#160;<a class="footnote-backref" href="#fnref:ATD" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Some BGP implementations tear down BGP sessions when you change the BGP timers.&#160;<a class="footnote-backref" href="#fnref:ATD" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

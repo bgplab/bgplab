@@ -281,6 +281,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -304,7 +308,7 @@
 <li>Generalized TTL Security Mechanism (GTSM) described in <a href="https://www.rfc-editor.org/rfc/rfc5082">RFC 5082</a> (<a href="https://blog.ipspace.net/2023/03/advantages-bgp-gtsm.html">more details</a>)</li>
 <li>Cryptographic protection (but not encryption) of underlying TCP sessions with MD5 checksums or TCP Authentication Option described in <a href="https://datatracker.ietf.org/doc/html/rfc5925">RFC 5925</a>.</li>
 </ul>
-<p>In this lab you&rsquo;ll use:</p>
+<p>In this lab, you&rsquo;ll use:</p>
 <ul>
 <li>GTSM on the EBGP session with ISP-1</li>
 <li>MD5 checksum on the EBGP session with ISP-2<sup id="fnref2:NOL"><a class="footnote-ref" href="#fn:NOL">1</a></sup></li>
@@ -357,10 +361,10 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/6-protect</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
 </ul>
-<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully-configured lab, including BGP prefix origination on RTR and EBGP sessions between RTR and X1/X2. If you&rsquo;re using some other lab platform, it&rsquo;s best if you do this lab exercise after the <a href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> one.</p>
+<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully configured lab, including BGP prefix origination on RTR and EBGP sessions between RTR and X1/X2. If you&rsquo;re using some other lab platform, it&rsquo;s best if you do this lab exercise after the <a href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> one.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>The EBGP sessions with X1 and X2 will not be established because X1 and X2 use EBGP session protection. They might be stuck in <code>Connect</code>, <code>OpenSent</code> or <code>OpenConfirm</code> state as illustrated by the following printout produced on Arista cEOS:</p>
 <pre><code>rtr&gt;show ip bgp summary
@@ -388,7 +392,13 @@ Neighbor Status Codes: m - Under maintenance
 </code></pre>
 <p>Finally, use a command similar to <strong>show ip bgp</strong> to display the prefixes your router received from its EBGP neighbors.</p>
 <h2 id="reference-information">Reference Information</h2>
-<p>You might find the following information useful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li><em>netlab</em> has to configure default route origination, MD5 password, and GTSM on the external routers. You&rsquo;ll find the supported devices in the <strong>bgp.session</strong> <a href="https://netlab.tools/plugins/bgp.session/#platform-support">platform support table</a>.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
@@ -474,7 +484,7 @@ Neighbor Status Codes: m - Under maintenance
 <hr />
 <ol>
 <li id="fn:NOL">
-<p>I would love to add TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it&rsquo;s not yet (as of September 2023) implemented in the Linux kernel. That&rsquo;s the price you&rsquo;re paying for riding on top of other people&rsquo;s infrastructure.&#160;<a class="footnote-backref" href="#fnref:NOL" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:NOL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>I would love to add a TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it&rsquo;s not yet (as of September 2023) implemented in the Linux kernel. That&rsquo;s the price you&rsquo;re paying for riding on top of other people&rsquo;s infrastructure.&#160;<a class="footnote-backref" href="#fnref:NOL" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:NOL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

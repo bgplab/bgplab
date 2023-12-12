@@ -295,13 +295,13 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#nonetlab" class="nav-link">Run the Lab without netlab</a>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+            <li class="nav-item" data-level="3"><a href="#nonetlab" class="nav-link">Run the Lab without netlab</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -332,7 +332,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>, change directory to <code>ibgp/3-rr</code></p>
 <p>You can choose between these lab topologies:</p>
 <ul>
-<li><code>topology.yml</code>: 6-router topology with a full mesh of IBGP sessions. Start with <strong>netlab up</strong>.</li>
+<li><code>topology.yml</code>: 6-router topology with a full mesh of IBGP sessions. Start with <strong>netlab up</strong> (<a href="#req">device requirements</a>)</li>
 <li><code>hub-spoke.yml</code>: 6-router topology with hub-and-spoke IBGP sessions. Start with <strong>netlab up hub-spoke.yml</strong>.</li>
 <li><code>4-router.yml</code>: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and Cumulus Linux running on the leaf routers. Use this topology when you&rsquo;re low on memory; start it with <strong>netlab up 4-router.yml</strong>.</li>
 </ul>
@@ -714,11 +714,16 @@ BGP routing table entry for 10.0.0.1/32
 <li>Start the <code>hub-spoke.yml</code> lab topology with <strong>netlab up hub-spoke.yml</strong></li>
 <li>Configure an aggregate prefix on both spine routers (see <a href="../../basic/8-aggregate/">BGP Route Aggregation</a> exercise for more details) or configure default route advertisement on spine routers with a configuration command similar to <strong>neighbor default-originate always</strong>.</li>
 </ul>
-<h2 id="nonetlab">Run the Lab without <em>netlab</em></h2>
+<h2 id="reference-information">Reference Information</h2>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> as leaf- or spine routers.</li>
+</ul>
+<h3 id="nonetlab">Run the Lab without <em>netlab</em></h3>
 <p>You can run this lab on any <a href="../../external/">virtual lab infrastructure</a> conforming to the <a href="../../external/4-router/">four router lab topology</a> &ndash; your devices (S1, S2) will be spine routers;  leaf routers (L1, L2) will run Cumulus Linux.</p>
 <p>The leaf router configurations are in the <code>ibgp/3-rr/config</code> directory. You&rsquo;ll have to configure the spine routers yourself.</p>
 <p>Use the following information if you decide to do that<sup id="fnref:NM"><a class="footnote-ref" href="#fn:NM">1</a></sup>:</p>
-<h3 id="lab-wiring">Lab Wiring</h3>
+<h4 id="lab-wiring">Lab Wiring</h4>
 <table>
 <thead>
 <tr>
@@ -775,7 +780,7 @@ BGP routing table entry for 10.0.0.1/32
 </tbody>
 </table>
 <p><strong>Note</strong>: Some interfaces are not used to conform with the predefined 4-router lab topology.</p>
-<h3 id="lab-addressing">Lab Addressing</h3>
+<h4 id="lab-addressing">Lab Addressing</h4>
 <table>
 <thead>
 <tr>
