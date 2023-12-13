@@ -137,7 +137,25 @@
   </li>
                                     
   <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Advanced Topics</a>
+    <a href="#" class="dropdown-item">Manipulate AS Path</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../session/1-allowas_in/" class="dropdown-item">Reuse a BGP AS Number Across Multiple Sites</a>
+</li>
+            
+<li>
+    <a href="../session/2-asoverride/" class="dropdown-item">Fix AS-Path in Environments Reusing BGP AS Numbers</a>
+</li>
+            
+<li>
+    <a href="../session/3-localas/" class="dropdown-item">Use Multiple AS Numbers on the Same Router</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Other Useful Topics</a>
     <ul class="dropdown-menu">
             
 <li>
@@ -146,14 +164,6 @@
             
 <li>
     <a href="8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
-</li>
-            
-<li>
-    <a href="../session/1-allowas_in/" class="dropdown-item">Reuse a BGP AS Number Across Multiple Sites</a>
-</li>
-            
-<li>
-    <a href="../session/2-asoverride/" class="dropdown-item">Fix AS-Path in Environments Reusing BGP AS Numbers</a>
 </li>
     </ul>
   </li>
@@ -283,6 +293,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#aspath" class="nav-link">BGP AS Number and AS Path Manipulations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#advanced" class="nav-link">Other Useful Topics</a>
               <ul class="nav flex-column">
               </ul>
@@ -325,13 +339,18 @@
 <li><a href="../ibgp/2-transit/">Build a Transit Network with IBGP</a></li>
 <li><a href="../ibgp/3-rr/">Use BGP Route Reflectors</a></li>
 </ul>
+<h2 id="aspath">BGP AS Number and AS Path Manipulations</h2>
+<p>Even though one should not use the same BGP AS number in multiple networks or more than one BGP AS number on a single device, you&rsquo;ll always stumble upon scenarios that violate the common-sense rules. In these lab exercises, you&rsquo;ll practice how to deal with them:</p>
+<ul>
+<li><a href="../session/1-allowas_in/">Reuse a BGP AS Number Across Multiple Sites</a></li>
+<li><a href="../session/2-asoverride/">Fix AS-Path in Environments Reusing BGP AS Numbers</a></li>
+<li><a href="../session/3-localas/">Use Multiple AS Numbers on the Same Router</a></li>
+</ul>
 <h2 id="advanced">Other Useful Topics</h2>
 <p>Willing to learn more? Challenge yourself with these advanced topics:</p>
 <ul>
 <li><a href="7-bfd/">Use BFD to Speed Up BGP Convergence</a></li>
 <li><a href="8-aggregate/">BGP route aggregation</a></li>
-<li><a href="../session/1-allowas_in/">Reuse a BGP AS Number Across Multiple Sites</a></li>
-<li><a href="../session/2-asoverride/">Fix AS-Path in Environments Reusing BGP AS Numbers</a></li>
 </ul></div>
             </div>
         </div>
