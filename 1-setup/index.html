@@ -271,11 +271,15 @@
             
             <li class="nav-item" data-level="1"><a href="#software-installation-and-lab-setup" class="nav-link">Software Installation and Lab Setup</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#selecting-the-network-devices" class="nav-link">Selecting the Network Devices</a>
+            <li class="nav-item" data-level="2"><a href="#select-the-network-devices-you-will-work-with" class="nav-link">Select the Network Devices You Will Work With</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#selecting-the-virtualization-environment" class="nav-link">Selecting the Virtualization Environment</a>
+            <li class="nav-item" data-level="2"><a href="#select-the-additional-devices-in-your-lab" class="nav-link">Select the Additional Devices in Your Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#select-the-virtualization-environment" class="nav-link">Select the Virtualization Environment</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -295,14 +299,18 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="software-installation-and-lab-setup">Software Installation and Lab Setup</h1>
-<p>It&rsquo;s easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>, but you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document we&rsquo;ll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way you might find the <a href="../external/">Manual Setup</a> document useful.</p>
+<p>It&rsquo;s easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>. Still, you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document, we&rsquo;ll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way, read the <a href="../external/">Manual Setup</a> document.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>BGP labs work best with <em>netlab</em> release 1.6.4 or later. If you&rsquo;re using an earlier <em>netlab</em> release, please upgrade with <code>pip3 install --upgrade networklab</code>.</p>
 </div>
-<h2 id="selecting-the-network-devices">Selecting the Network Devices</h2>
-<p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices that you have to connect to and exchange routing information with. Use Cumulus Linux on those devices if you&rsquo;re running a <em>netlab</em> release prior to 1.6.4.</p>
-<p>With release 1.6.4 (and later) you can choose any one of these devices for your external BGP feeds<sup id="fnref:OPL"><a class="footnote-ref" href="#fn:OPL">3</a></sup>:</p>
+<h2 id="select-the-network-devices-you-will-work-with">Select the Network Devices You Will Work With</h2>
+<p>You can run Cumulus Linux (and FRR) in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices.</p>
+<p>If you&rsquo;d like to use a more traditional networking device, use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a> as the device to practice with. I would recommend Arista cEOS or Nokia SR Linux containers &ndash; they are the easiest ones to install and use.</p>
+<h2 id="select-the-additional-devices-in-your-lab">Select the Additional Devices in Your Lab</h2>
+<p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices with which your routers exchange routing information. You won&rsquo;t configure those devices, but you might have to log into them and execute <strong>show</strong> commands.</p>
+<p>Use Cumulus Linux on those devices with <em>netlab</em> releases older than 1.6.4.</p>
+<p>With release 1.6.4 (and later), you can choose any one of these devices for your external BGP feeds<sup id="fnref:OPL"><a class="footnote-ref" href="#fn:OPL">3</a></sup>:</p>
 <table>
 <thead>
 <tr>
@@ -329,11 +337,17 @@
 </tr>
 </tbody>
 </table>
-<p>You can run Cumulus Linux (and FRR) in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt or Docker), and if you want to start practicing BGP with minimum hassle consider using it for all lab devices. Obviously you can use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a> as the device to practice with.</p>
-<h2 id="selecting-the-virtualization-environment">Selecting the Virtualization Environment</h2>
-<p>Now that you know which network device you want to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that&rsquo;s just me.</p>
-<p>There&rsquo;s a gotcha though: you can use <em>containerlab</em> and <em>libvirt</em> only on a Linux host. You can use <em>virtualbox</em> if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop, but even then I&rsquo;d prefer running them in a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM running on the laptop</a>.</p>
-<p>One more gotcha: your hardware and virtualization software (example: VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t nested virtualization to run Docker containers, unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Aruba AOS-CX, Juniper vMX or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul>
+<li>Several more complex labs require additional configuration on the external routers. That configuration is usually available for Arista EOS, Cumulus Linux, and FRR.</li>
+<li>Each lab description contains specific <em>device requirements</em> section. Consult those if you want to use less-popular devices in your labs.</li>
+</ul>
+</div>
+<h2 id="select-the-virtualization-environment">Select the Virtualization Environment</h2>
+<p>Now that you know which network device to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that&rsquo;s just me.</p>
+<p>A gotcha: You can use <em>virtualbox</em> if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop, but even then, I&rsquo;d prefer running them in a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM</a>.</p>
+<p>One more gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t need nested virtualization to run Docker containers unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Aruba AOS-CX, Juniper vMX, or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
 <h2 id="software-installation">Software Installation</h2>
 <p>Based on the choices you made, you&rsquo;ll find the installation instructions in one of these documents:</p>
 <ul>
@@ -344,7 +358,7 @@
 <li><a href="https://netlab.tools/install/cloud/">Running netlab in a Public Cloud</a></li>
 </ul>
 <p>Once you completed the software installation you have to deal with the stupidities of downloading and installing network device images (<a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/libvirt/#vagrant-boxes">libvirt</a>, <a href="https://netlab.tools/labs/clab/#container-images">containers</a>) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
-<p>I would love to make the whole process simpler, but the networking vendors refuse to play along. Even worse, it looks like<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">6</a></sup> their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you. Fortunately, you only have to go through this colossal waste of time once.</p>
+<p>I would love to simplify the process, but the networking vendors refuse to play along. Even worse,  their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">6</a></sup>. Fortunately, you only have to go through this colossal waste of time once.</p>
 <h2 id="setting-up-the-labs">Setting Up the Labs</h2>
 <p>We finally got to the fun part &ndash; setting up the labs:</p>
 <ul>
@@ -360,11 +374,11 @@ groups:
     device: frr         # Change to your preferred external router
 </code></pre>
 <ul>
-<li>In a terminal window, change current directory to one of the lab directories (for example, <code>basic/1-session</code>), and execute <strong>netlab up</strong>.</li>
+<li>In a terminal window, change the current directory to one of the lab directories (for example, <code>basic/1-session</code>), and execute <strong>netlab up</strong>.</li>
 <li>Wait for the lab to start and use <strong>netlab connect</strong> to connect to individual lab devices</li>
 <li>Have fun.</li>
 <li>When you&rsquo;re done, collect the device configurations with <strong>netlab collect</strong> (if you want to save them) and shut down the lab with <strong>netlab down</strong></li>
-<li>Change current directory to another lab directory and repeat.</li>
+<li>Change the current directory to another lab directory and repeat.</li>
 <li>Once you run out of lab exercises, create a new one and contribute it with a pull request ;)</li>
 </ul>
 <div class="footnote">
@@ -374,16 +388,16 @@ groups:
 <p>You can only use devices supported by <strong><a href="https://netlab.tools/plugins/bgp.session/">bgp.session</a></strong> and <strong><a href="https://netlab.tools/plugins/bgp.policy/">bgp.policy</a></strong> <em>netlab</em> plugins as external BGP feeds.&#160;<a class="footnote-backref" href="#fnref:XF" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:R164">
-<p>You need <em>netlab</em> release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. You will also need to <a href="https://netlab.tools/caveats/#caveats-srlinux">install additional software</a> to configure Nokia SR Linux.&#160;<a class="footnote-backref" href="#fnref:R164" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>You need <em>netlab</em> release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also <a href="https://netlab.tools/caveats/#caveats-srlinux">install additional software</a>.&#160;<a class="footnote-backref" href="#fnref:R164" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:OPL">
 <p>If you&rsquo;d like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to <strong>bgp.session</strong> and <strong>bgp.policy</strong> plugins. Thank you!&#160;<a class="footnote-backref" href="#fnref:OPL" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:FSF">
-<p>An FRR container starts slightly faster than a Cumulus Linux container. Also, the FRR containers are built by the FRR project, while the Cumulus Linux containers are a result of a hobby project of their former employee.&#160;<a class="footnote-backref" href="#fnref:FSF" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>An FRR container starts slightly faster than a Cumulus Linux container. Also, the FRR containers are built by the FRR project, while the Cumulus Linux containers came from a hobby project of their former employee.&#160;<a class="footnote-backref" href="#fnref:FSF" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:CSF">
-<p>There is no official FRR virtual machine image &ndash; <em>netlab</em> has to download and install FRR on a Ubuntu VM every time you start an <code>frr</code> node as a virtual machine. Using Cumulus Linux Vagrant box is faster and consumes way less bandwidth.&#160;<a class="footnote-backref" href="#fnref:CSF" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>There is no official FRR virtual machine image &ndash; <em>netlab</em> has to download and install FRR on a Ubuntu VM whenever you start an <code>frr</code> node as a virtual machine. Using Cumulus Linux Vagrant box is faster and consumes way less bandwidth.&#160;<a class="footnote-backref" href="#fnref:CSF" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 <li id="fn:NPAL">
 <p>I&rsquo;m not going to pay a lawyer to read their boilerplate stuff, and I&rsquo;m definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 6 in the text">&#8617;</a></p>

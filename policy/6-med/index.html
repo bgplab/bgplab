@@ -293,6 +293,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -450,7 +454,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/6-med</code></li>
-<li>Execute <strong>netlab up</strong> to start the lab using the usual external devices for X1 and X2, or <strong>netlab up single.yml</strong> to start the lab that uses only your chosen devices<sup id="fnref:WS"><a class="footnote-ref" href="#fn:WS">1</a></sup>. You can also  <a href="../../external/">run this lab without using <em>netlab</em></a></li>
+<li>Execute <strong>netlab up</strong> to start the lab using the usual external devices for X1 and X2 (<a href="#req">device requirements</a>), or <strong>netlab up single.yml</strong> to start the lab that uses only your chosen devices<sup id="fnref:WS"><a class="footnote-ref" href="#fn:WS">1</a></sup>. You can also  <a href="../../external/">run this lab without using <em>netlab</em></a></li>
 <li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
 <div class="admonition tip">
@@ -540,9 +544,16 @@ Paths: (2 available, best #1, table default)
 </div>
 <p><strong>Next:</strong> <a href="../7-prepend/">Use AS-Path Prepending to Influence Incoming Traffic Flow</a></p>
 <h2 id="reference-information">Reference Information</h2>
-<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
+<p>The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>External routers must be <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>. They also need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>.</li>
+<li>If you want to use a device that is not supported by the <strong>bgp.session</strong> plugin as an external router, remove the <strong>bgp.originate</strong> attributes from the lab topology.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>
 <thead>
 <tr>

@@ -289,6 +289,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -405,7 +409,7 @@ Displayed  4 routes and 6 total paths
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/2-stop-transit</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../1-weights/">previous exercise</a>.</p>
@@ -448,9 +452,15 @@ Displayed  3 routes and 4 total paths
 </code></pre>
 <p><strong>Next</strong>: <a href="../3-prefix/">Filter prefixes advertised to EBGP neighbors</a></p>
 <h2 id="reference-information">Reference Information</h2>
-<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> and <a href="https://netlab.tools/plugins/bgp.policy/#platform-support">change of BGP local preference</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> and <strong>bgp.locpref</strong> attributes from the lab topology.</li>
+<li>You must use Cumulus Linux on the external routers if you&rsquo;re using <em>netlab</em> release 1.6.3 or older.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>

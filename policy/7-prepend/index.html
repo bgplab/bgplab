@@ -293,6 +293,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -358,7 +362,7 @@
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
 <table>
 <thead>
 <tr>
@@ -393,7 +397,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/7-prepend</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
@@ -466,9 +470,13 @@ Paths: (2 available, best #1, table default)
       Last update: Thu Nov  9 10:06:39 2023
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
-<p>The following information might be helpful if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Customer- and external routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
 <thead>
 <tr>

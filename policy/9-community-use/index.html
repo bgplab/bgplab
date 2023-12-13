@@ -293,6 +293,10 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -390,8 +394,8 @@
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Change directory to <code>policy/9-community-use</code></li>
-<li>Execute <strong>netlab up</strong>. You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
+<li>Change directory to <code>policy/9-community-use</code>.</li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>). You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
 <li>Log into your device (ISP) with <strong>netlab connect</strong> and verify its configurations.</li>
 </ul>
 <div class="admonition warning">
@@ -458,9 +462,14 @@ BGP routing table entry for 172.17.207.0/24
       Rx SAFI: Unicast
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
-<p>The following information might help you if you&rsquo;re not using <em>netlab</em> to build the lab:</p>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for your router (ISP).</li>
+<li>While you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for other routers in the lab, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, Cumulus Linux, and FRR.</li>
+<li>Git repository contains initial device configurations for Cumulus Linux.</li>
+</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>
 <thead>
 <tr>
