@@ -79,6 +79,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 **Next:**
 
 * [Advertise your IPv4 address space](3-originate.md) to the EBGP neighbors
+* [Use multiple BGP AS numbers on the same router](../session/3-localas.md) (advanced exercise)
 
 ## Reference Information
 
@@ -92,8 +93,6 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|

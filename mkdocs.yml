@@ -1,3 +1,5 @@
+# MKDOCS navigation structure and configuration
+---
 site_name: BGP Labs
 docs_dir: docs
 site_dir: _html
@@ -34,11 +36,13 @@ nav:
     - "Establish an IBGP Session": ibgp/1-edge.md
     - "Build a Transit Network with IBGP": ibgp/2-transit.md
     - "Use BGP Route Reflectors": ibgp/3-rr.md
-  - "Advanced Topics":
-    - basic/7-bfd.md
-    - basic/8-aggregate.md
+  - "Manipulate AS Path":
     - session/1-allowas_in.md
     - session/2-asoverride.md
+    - session/3-localas.md
+  - "Other Useful Topics":
+    - basic/7-bfd.md
+    - basic/8-aggregate.md
 
 - "Routing Policies":
   - Overview: policy/index.md
@@ -57,7 +61,7 @@ nav:
     - policy/9-community-use.md
     - policy/a-locpref-route-map.md
 
-markdown_extensions: 
+markdown_extensions:
 - footnotes
 - abbr
 - def_list

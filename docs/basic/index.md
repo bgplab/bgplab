@@ -34,11 +34,17 @@ If your network has multiple BGP routers, they must exchange BGP information. Wh
 * [Build a Transit Network with IBGP](../ibgp/2-transit.md)
 * [Use BGP Route Reflectors](../ibgp/3-rr.md)
 
+## BGP AS Number and AS Path Manipulations {#aspath}
+
+Even though one should not use the same BGP AS number in multiple networks or more than one BGP AS number on a single device, you'll always stumble upon scenarios that violate the common-sense rules. In these lab exercises, you'll practice how to deal with them:
+
+* [Reuse a BGP AS Number Across Multiple Sites](../session/1-allowas_in.md)
+* [Fix AS-Path in Environments Reusing BGP AS Numbers](../session/2-asoverride.md)
+* [Use Multiple AS Numbers on the Same Router](../session/3-localas.md)
+
 ## Other Useful Topics {#advanced}
 
 Willing to learn more? Challenge yourself with these advanced topics:
 
 * [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * [BGP route aggregation](8-aggregate.md)
-* [Reuse a BGP AS Number Across Multiple Sites](../session/1-allowas_in.md)
-* [Fix AS-Path in Environments Reusing BGP AS Numbers](../session/2-asoverride.md)

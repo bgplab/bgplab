@@ -26,6 +26,7 @@ In the first set of the BGP labs, you'll master these skills:
 * [Configure BGP sessions and advertise IPv4 and IPv6 prefixes](basic/index.md#simple)
 * [Protect BGP sessions](basic/index.md#protect)
 * [Run BGP in networks with more than one BGP router](basic/index.md#ibgp)
+* [Manipulate BGP AS numbers or AS paths](basic/index.md#aspath) with nerd knobs like **as-override** and **local-as**
 * [Configure advanced BGP features](basic/index.md#advanced) like BFD or BGP route aggregation.
 
 ## BGP Routing Policies {#policy}
