@@ -254,8 +254,6 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 ### Lab Wiring
 
-This lab uses the [4-router lab topology](../external/4-router.md):
-
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
 | WAN uplink R1-to-X1 | r1 | Ethernet1 | x1 | swp1 |

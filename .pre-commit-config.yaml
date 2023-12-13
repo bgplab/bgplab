@@ -1,0 +1,10 @@
+---
+repos:
+- repo: local
+  hooks:
+  - id: yamllint
+    name: yamllint
+    description: This hook runs yamllint.
+    entry: yamllint
+    language: system
+    types: [file, yaml]

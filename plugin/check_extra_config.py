@@ -11,8 +11,13 @@ def post_transform(topology: Box) -> None:
       continue
 
     for cfg in list(ndata.config):
-      cfile = f'{ os.path.dirname(__file__) }/{ cfg }/{ ndata.device }.j2'
-      if os.path.exists(cfile):
+      cdir = f'{ os.path.dirname(__file__) }/{ cfg }'
+      if not os.path.exists(cdir):          # Hopefully the extra-config refers to the plugins
+        continue
+
+      if os.path.exists(f'{ cdir }/{ ndata.device }.j2'):
+        continue
+      if os.path.exists(f'{ cdir }/{ ndata.name }.{ ndata.device }.j2'):
         continue
 
       if not 'message' in topology:

@@ -1,5 +1,5 @@
-# Configure a BGP session with an external BGP speaker
-
+# Reduce the number of prefixes accepted from EBGP neighbors
+---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: reduce
 
@@ -33,3 +33,7 @@ links:
     bgp.default_originate: True
 - x1:
   x2:
+
+message: |
+  The "Minimize the Size of Your BGP Table" lab is ready. Connect to your
+  router with "netlab connect rtr".

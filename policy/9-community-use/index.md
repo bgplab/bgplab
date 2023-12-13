@@ -29,8 +29,8 @@ Your router has these BGP neighbors:
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
-* Change directory to `policy/9-community-use`
-* Execute **netlab up**. You can also [deploy the lab on some other lab infrastructure](../external/index.md).
+* Change directory to `policy/9-community-use`.
+* Execute **netlab up** ([device requirements](#req)). You can also [deploy the lab on some other lab infrastructure](../external/index.md).
 * Log into your device (ISP) with **netlab connect** and verify its configurations.
 
 !!! Warning
@@ -104,11 +104,15 @@ BGP routing table entry for 172.17.207.0/24
 
 ## Reference Information
 
-The following information might help you if you're not using _netlab_ to build the lab:
+This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your router (ISP).
+* While you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for other routers in the lab, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, Cumulus Linux, and FRR.
+* Git repository contains initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|

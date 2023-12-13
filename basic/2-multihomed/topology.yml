@@ -5,13 +5,12 @@ name: multihomed
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:
-plugin: [ ebgp.utils ]
+plugin: [ ebgp.utils,external_devices ]
 
 groups:
   external:
     members: [ x1, x2 ]
     module: [ bgp ]
-    device: cumulus
 
 nodes:
   rtr:

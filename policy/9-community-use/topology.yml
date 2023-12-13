@@ -1,15 +1,14 @@
-# Configure a BGP session with an external BGP speaker
-
+# Use BGP communities in a complex routing policy
+---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: use_community
-plugin: [ check_extra_config ]
+plugin: [ check_extra_config, external_devices ]
 
 module: [ bgp ]
 
 groups:
   external:
-    members: [ c,x ]
-    device: cumulus
+    members: [ c, x ]
 
 nodes:
   isp:

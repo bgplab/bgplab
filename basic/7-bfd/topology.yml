@@ -2,6 +2,7 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 name: bfd
+plugin: [ external_devices,check_extra_config ]
 
 module: [ bgp ]
 
@@ -9,7 +10,6 @@ groups:
   external:
     members: [ x1 ]
     config: [ extra-config ]
-    device: cumulus
 
 nodes:
   r1:
@@ -29,3 +29,7 @@ links:
 - x1:               # Link added to 
   pool: l2only
 - r2-x1
+
+message: |
+  The "Use BFD to Speed Up BGP Convergence" lab is ready. Use
+  "netlab connect" command to connect to your routers (r1 and r2).

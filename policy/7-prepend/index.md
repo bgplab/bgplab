@@ -21,7 +21,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
 | Node | Router ID /<br />Neighbor | Router AS/<br />Neighbor AS | Neighbor IPv4 |
 |------|---------------------------|----------------------------:|--------------:|
@@ -34,7 +34,7 @@ Your router has these EBGP neighbors. _netlab_ configures them automatically; if
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/7-prepend`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
 **Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab*, continue with the configuration you made during the [Advertise IPv4 Prefixes to BGP Neighbors](../basic/3-originate.md) or [Select Preferred EBGP Peer with Weights](1-weights.md) exercises.
@@ -118,11 +118,14 @@ Paths: (2 available, best #1, table default)
 
 ## Reference Information
 
-The following information might be helpful if you're not using _netlab_ to build the lab:
+This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer- and external routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|

@@ -1,7 +1,7 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-defaults.devices.eos.clab.node.env.CLAB_MGMT_VRF: management    # Add management VRF to cEOS. Not needed after 1.6.4
+plugin: [ external_devices ]
 
 name: ibgp
 
@@ -12,7 +12,6 @@ groups:
   external:
     members: [ x1, x2 ]
     module: [ bgp ]
-    device: cumulus
   customer:
     members: [ r1, r2 ]
     module: [ bgp, ospf ]
@@ -55,3 +54,7 @@ links:
   name: Intra-site LAN C1-C2
   prefix.ipv4: 10.0.100.0/24
   bgp.advertise: True
+
+message: |
+  The "Establish an IBGP Session Between WAN Edge Routers" lab is ready.
+  Use "netlab connect" command to connect to your routers (r1 and r2).

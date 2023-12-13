@@ -35,3 +35,7 @@ links:
 - x1:               # Link added to maintain the interface names consistent with 4-router topology
   pool: l2only
 - r2-x1
+
+message: |
+  The "Use BFD to Speed Up BGP Convergence" lab is ready. Use
+  "netlab connect" command to connect to your routers (r1 and r2).

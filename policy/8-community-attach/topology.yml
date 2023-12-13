@@ -1,6 +1,7 @@
-# Configure a BGP session with an external BGP speaker
-
+# Attach BGP communities to EBGP updates
+---
 defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ external_devices, check_extra_config ]
 name: a_community
 
 module: [ bgp ]
@@ -8,7 +9,6 @@ module: [ bgp ]
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
   customer:
     members: [ c1, c2 ]
     bgp.advertise_loopback: False
@@ -50,3 +50,7 @@ links:
 - c2:
   x2:
   name: Site 2 uplink
+
+message: |
+  The "Attach BGP Communities to Outgoing BGP Updates" lab is ready.
+  Use "netlab connect" to connect to your routers (c1 and c2).

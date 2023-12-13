@@ -1,12 +1,12 @@
-# Configure a BGP session with an external BGP speaker
-
+# Use local preference to select the primary uplink
+---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: locpref
 version: 1.6.4
 
 plugin: [ bgp.session ]
 
-module: [ bgp,ospf ]
+module: [ bgp, ospf ]
 
 groups:
   external:
@@ -35,7 +35,7 @@ links:
   name: Primary uplink
 - c1:
   x2:
-  pool: l2only              
+  pool: l2only
   name: Unused link           # Used for compliance with 4-router topology
 - x1:
   x2:
@@ -59,3 +59,7 @@ links:
   prefix:
     ipv4: 192.168.42.0/24
   bgp.advertise: True
+
+message: |
+  The "Select Preferred Uplink with BGP Local Preference" lab is ready.
+  Use "netlab connect" to connect to your routers (c1 and c2).

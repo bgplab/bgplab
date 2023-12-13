@@ -1,5 +1,5 @@
-# Configure a BGP session with an external BGP speaker
-
+# Filter advertised prefixes
+---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: pfx_filter
 version: 1.6.4
@@ -35,3 +35,7 @@ links:
     bgp.locpref: 200
 - x1:
   x2:
+
+message: |
+  The "Filter Advertised Prefixes" lab is ready. Connect to your router
+  with "netlab connect rtr".

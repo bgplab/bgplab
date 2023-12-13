@@ -1,6 +1,8 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ external_devices ]
+
 name: redistribute
 
 module: [ bgp,ospf ]
@@ -8,7 +10,6 @@ module: [ bgp,ospf ]
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
     bgp.as: 65100
 
 bgp.advertise_loopback: false
@@ -41,3 +42,9 @@ links:
 - c2-s2
 - s1
 - s2
+
+message: |
+  The "Redistribute IGP Information Into BGP" lab is ready. Connect to your
+  routers with "netlab connect".
+
+  Have fun!

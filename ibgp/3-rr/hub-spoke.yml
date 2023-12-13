@@ -25,3 +25,7 @@ nodes:
     bgp.rr: True
 
 links: [ l1-s1, l1-s2, l2-s1, l2-s2, l3-s1, l3-s2, l4-s1, l4-s2 ]
+
+message: |
+  The 4-router "Use BGP Route Reflectors" lab is ready. Use "netlab connect"
+  command to connect to lab devices.

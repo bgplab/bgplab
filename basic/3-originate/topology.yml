@@ -1,7 +1,7 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ ebgp.utils ]
+plugin: [ ebgp.utils,external_devices ]
 name: originate
 
 module: [ bgp ]
@@ -9,7 +9,6 @@ module: [ bgp ]
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
 
 nodes:
   rtr:

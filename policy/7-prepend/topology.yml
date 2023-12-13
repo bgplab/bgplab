@@ -1,6 +1,7 @@
 # Use AS-path prepending to change incoming traffic flow
-
+---
 defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ external_devices ]
 name: prepend
 
 module: [ bgp ]
@@ -8,7 +9,6 @@ module: [ bgp ]
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
 
 nodes:
   rtr:
@@ -35,3 +35,7 @@ links:
 - x1:
   x2:
   name: Inter-ISP link
+
+message: |
+  The "Use AS-Path Prepending to Influence Incoming Traffic Flow" lab is
+  ready. Use "netlab connect rtr" to connect to your router.

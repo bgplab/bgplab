@@ -2,7 +2,7 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 name: ipv6
-plugin: [ ebgp.utils ]
+plugin: [ ebgp.utils,external_devices ]
 
 module: [ bgp ]
 
@@ -12,7 +12,6 @@ addressing:
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
 
 nodes:
   rtr:

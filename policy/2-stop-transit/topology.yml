@@ -1,5 +1,5 @@
-# Configure a BGP session with an external BGP speaker
-
+# Filter transit routes
+---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: no_transit
 
@@ -36,3 +36,7 @@ links:
     bgp.default_originate: True
 - x1:
   x2:
+
+message: |
+  The "Filter Transit Routes" lab is ready. Connect to your router
+  with "netlab connect rtr".

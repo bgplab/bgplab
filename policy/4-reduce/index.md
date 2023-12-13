@@ -39,7 +39,7 @@ Your router has these EBGP neighbors. _netlab_ configures them automatically; if
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/4-reduce`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 
 **Note:** *netlab* will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you're not using *netlab*, continue with the configuration you made during the [previous exercise](3-prefix.md).
@@ -90,11 +90,16 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 ## Reference Information
 
-The following information might help you if you're not using _netlab_ to build the lab:
+This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) and [change of BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** and **bgp.locpref** attributes from the lab topology.
+* You must use Cumulus Linux on the external routers if you're using _netlab_ release 1.6.3 or older.
+* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|

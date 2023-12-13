@@ -46,7 +46,7 @@ Your network is also running OSPF in the backbone area:
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/5-local-preference`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
 **Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. You'll have to manually configure your routers if you're not using *netlab*.
@@ -119,11 +119,18 @@ BGP routing table entry for 192.168.100.0/24
 
 ## Reference Information
 
-The following information might be helpful if you're not using _netlab_ to build the lab:
+This lab uses the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
+
+The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
+* If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
+* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|

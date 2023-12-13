@@ -2,11 +2,11 @@
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 name: aggregate
+plugin: [ external_devices ]
 
 groups:
   external:
     members: [ x1, sw ]
-    device: cumulus
 
 bgp.advertise_loopback: False
 
@@ -36,3 +36,7 @@ links:
 - type: loopback
   sw:
     ipv4: 10.42.42.17/28
+
+message: |
+  The "BGP Route Aggregation" lab is ready. Use "netlab connect"
+  command to connect to your routers (ce1 and ce2).

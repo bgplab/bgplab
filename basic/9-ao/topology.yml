@@ -34,3 +34,7 @@ links:
   x2:
     bgp.tcp_ao: True
     bgp.password: GuessWhat
+
+message: |
+  The "Protect BGP Sessions with TCP Authentication Option (TCP-AO)" lab is
+  ready. Connect to your router with "netlab connect rtr".

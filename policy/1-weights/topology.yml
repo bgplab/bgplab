@@ -1,7 +1,7 @@
-# Configure a BGP session with an external BGP speaker
-
+# Configure BGP weights
+---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ ebgp.utils ]
+plugin: [ ebgp.utils, external_devices ]
 name: weights
 
 module: [ bgp ]
@@ -9,7 +9,6 @@ module: [ bgp ]
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
 
 nodes:
   rtr:
@@ -35,3 +34,7 @@ links:
     bgp.default_originate: True
 - x1:
   x2:
+
+message: |
+  The "Select Preferred EBGP Peer with Weights" lab is ready. Connect to your
+  router with "netlab connect rtr".

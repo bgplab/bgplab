@@ -1,18 +1,17 @@
-# Configure a BGP session with an external BGP speaker
-
+# Configure local preference in a complex environment
+---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ ebgp.utils ]
+plugin: [ external_devices ]
 name: a_locpref
 
 groups:
   external:
     members: [ x1, x2, uc200, uc205, uc207 ]
-    device: cumulus
     module: [ bgp ]
   customer:
     bgp.as: 65000
     members: [ c1, c2 ]
-    module: [ bgp,ospf ]
+    module: [ bgp, ospf ]
     bgp.advertise_loopback: False
 
 nodes:
@@ -40,11 +39,10 @@ nodes:
 links:
 - c1:
   x1:
-    bgp.default_originate: True
   name: Primary uplink
 - c1:
   x2:
-  pool: l2only              
+  pool: l2only
   name: Unused link           # Used for compliance with 4-router topology
 - x1:
   x2:
@@ -55,7 +53,6 @@ links:
   name: Unused link           # Used for compliance with 4-router topology
 - c2:
   x2:
-    bgp.default_originate: True
   name: Backup uplink
 - c1:
   c2:
@@ -69,3 +66,6 @@ links:
 - x2-uc205
 - x2-uc207
 
+message: |
+  The "BGP Local Preference in a Complex Routing Policy" lab is ready.
+  Use "netlab connect" to connect to your routers (c1 and c2).

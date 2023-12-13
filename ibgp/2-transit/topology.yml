@@ -1,8 +1,8 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-defaults.devices.eos.clab.node.env.CLAB_MGMT_VRF: management    # Add management VRF to cEOS. Not needed after 1.6.4
 defaults.attributes.node.bgp:           # Make BGP a valid node attribute regardless of what module is used
+plugin: [ external_devices ]
 
 name: transit
 
@@ -10,7 +10,6 @@ groups:
   external:
     members: [ ext, pe1 ]
     module: [ bgp ]
-    device: cumulus
 
 nodes:
   core:                                 # Customer router (C1) - core router in the customer network
@@ -50,3 +49,7 @@ links:
 - core:
   pe2:
   prefix.ipv4: True
+
+message: |
+  The "Build a Transit Network with IBGP" lab is ready. Use "netlab connect"
+  command to connect to your routers (core and pe2).

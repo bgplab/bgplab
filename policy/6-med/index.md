@@ -45,7 +45,7 @@ Your network is also running OSPF in the backbone area:
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/6-med`
-* Execute **netlab up** to start the lab using the usual external devices for X1 and X2, or **netlab up single.yml** to start the lab that uses only your chosen devices[^WS]. You can also  [run this lab without using _netlab_](../external/index.md)
+* Execute **netlab up** to start the lab using the usual external devices for X1 and X2 ([device requirements](#req)), or **netlab up single.yml** to start the lab that uses only your chosen devices[^WS]. You can also  [run this lab without using _netlab_](../external/index.md)
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
 [^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (Cumulus Linux and FRR are very memory-efficient).
@@ -152,11 +152,18 @@ If you get a similar printout in your lab, you accomplished your mission -- you 
 
 ## Reference Information
 
-The following information might help you if you're not using _netlab_ to build the lab:
+This lab uses the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
+
+The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
+* If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
+* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|

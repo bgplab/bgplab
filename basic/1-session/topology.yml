@@ -6,13 +6,12 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:
 
 name: session
-plugin: [ ebgp.utils ]
+plugin: [ ebgp.utils,external_devices ]
 
 groups:
   external:
     members: [ x1 ]
     module: [ bgp ]
-    device: cumulus
 
 nodes:
   rtr:

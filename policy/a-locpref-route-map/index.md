@@ -11,7 +11,7 @@ In this lab, you'll create a routing policy using BGP local preference to:
 
 ## Initial Router Configurations
 
-The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).
+The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
@@ -67,7 +67,7 @@ The virtual lab topology uses three additional devices to implement the external
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/a-locpref-route-map`
-* Execute **netlab up** if you have enough memory to start a 7-node lab or **netlab up topology.extra.yml** if you want to create a 4-node lab[^XC]. You can also [deploy the lab on your lab infrastructure](../external/index.md).
+* Execute **netlab up** if you have enough memory to start a 7-node lab ([device requirements](#req)) or **netlab up topology.4-router.yml** if you want to create a 4-node lab[^XC]. You can also [deploy the lab on your lab infrastructure](../external/index.md).
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
 [^XC]: The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.
@@ -161,11 +161,15 @@ c1>show ip bgp neighbors 10.0.0.2 routes | begin Network
     
 ## Reference Information
 
-The following information might help you if you're not using _netlab_ to build the lab:
+### Device Requirements {#req}
+
+* Customer- and external routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* The 4-router topology requires additional configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.
+* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 
-This lab uses a subset of the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
+The minimized version of this lab uses a subset of the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
