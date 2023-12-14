@@ -3,6 +3,7 @@
 While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here's what we're working on:
 
 * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
+* [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 
 We have plenty of other ideas, including:
 

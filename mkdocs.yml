@@ -63,6 +63,7 @@ nav:
 - "Upcoming":
   - Overview: 3-upcoming.md
   - session/4-removeprivate.md
+  - challenge/01-bird-rr.md
 
 markdown_extensions:
 - footnotes
