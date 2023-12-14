@@ -15,7 +15,6 @@ nav:
 - Home:
   - index.md
   - 2-labs-by-technology.md
-  - 3-upcoming.md
 - Installation:
   - 1-setup.md
   - "Custom Lab Infrastructure":
@@ -60,6 +59,10 @@ nav:
   - "More Complex Routing Policies":
     - policy/9-community-use.md
     - policy/a-locpref-route-map.md
+
+- "Upcoming":
+  - Overview: 3-upcoming.md
+  - session/4-removeprivate.md
 
 markdown_extensions:
 - footnotes

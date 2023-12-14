@@ -1,6 +1,10 @@
 # Upcoming Labs
 
-While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here are a few ideas:
+While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here's what we're working on:
+
+* [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
+
+We have plenty of other ideas, including:
 
 ## Basic BGP Setup
 
@@ -9,10 +13,7 @@ Optional exercises:
   * Use 4-byte BGP AS numbers
 
 Advanced exercises:
-: * Change the BGP AS number presented to the BGP neighbor (**local-as** functionality)
-  * Replace customer's AS number with provider's AS number (**as-override** functionality)
-  * Remove private AS numbers from the AS path (**remove-private-as** functionality)
-  * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
+: * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
   * Run IPv4 and IPv6 over the same BGP session
   * Fine-tune BGP Fast External Failover
   * Configure BGP graceful restart
@@ -20,7 +21,7 @@ Advanced exercises:
 ## Simple BGP Routing Policies
 
 * Perform simple load balancing across parallel links and upstream providers
-* Use BGP link bandwidth to influence the load-balancing weights
+* Use BGP DMZ bandwidth to influence the load-balancing weights
 
 Advanced exercises:
 : * Use BGP route refresh and soft reconfiguration
@@ -38,6 +39,7 @@ Advanced exercises:
 * Use a hierarchy of route reflectors
 * Reduce routing instabilities with BGP route flap dampening
 * Implement policy-based routing with BGP
+* Use a BGP route server
 
 ## Use MPLS with BGP 
 
