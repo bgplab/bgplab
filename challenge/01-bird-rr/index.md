@@ -4,7 +4,7 @@ In a previous lab exercise, you used BGP route reflectors on core routers to red
 
 ![Lab topology](topology-bird-rr.png)
 
-!!! Warning
+!!! Expert
     This is an expert-level challenge lab. We expect you to know what you're doing -- all you'll get from us are a few basic Bird setup tricks and the verification guidelines.
 
 !!! Tip

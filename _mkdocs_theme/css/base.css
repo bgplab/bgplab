@@ -334,11 +334,10 @@ blockquote {
 /*    border-color: #bce8f1; */
 }
 
-.admonition.tip, details.tip { /* csslint allow: adjoining-classes */
-        background-color: rgba(251,160,2,0.1);
+.admonition.tip, details.tip,.admonition.expert { /* csslint allow: adjoining-classes */
+    background-color: rgba(251,160,2,0.1);
 }
-    
-    
+
 .admonition.warning, details.warning { /* csslint allow: adjoining-classes */
     background-color: rgba(251,160,2,0.4);
     border-color: #fbeed5;
@@ -348,6 +347,23 @@ blockquote {
     color: #7f3130;
     background-color: #fde3e3;
     border-color: #eed3d7;
+}
+
+@media (min-width: 1024px) {
+    .admonition.expert {
+        padding-right: 6em;
+        min-height: 8em;
+    }
+
+    .admonition.expert .admonition-title::after {
+        content: "";
+        position: absolute;
+        height: 6em;
+        width: 4em;
+        right: 2em;
+        background: url(../images/plushy-magic.png) no-repeat right;
+        background-size: contain;
+    }
 }
 
 .admonition-title, summary {
