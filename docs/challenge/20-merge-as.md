@@ -1,0 +1,1 @@
+../../challenge/20-merge-as/index.md

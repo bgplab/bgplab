@@ -38,3 +38,9 @@ These lab exercises will help you master the basic tools you can use to build BG
 * [Influence Incoming Traffic Flow](policy/index.md#ingress)
 
 Once you mastered the basics, continue with [more complex routing policies](policy/index.md#complex).
+
+## Challenge Labs
+
+Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Try out the challenge labs:
+
+* [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)

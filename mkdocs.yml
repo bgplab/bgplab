@@ -60,6 +60,9 @@ nav:
     - policy/9-community-use.md
     - policy/a-locpref-route-map.md
 
+- Challenges:
+  - challenge/20-merge-as.md
+
 - "Upcoming":
   - Overview: 3-upcoming.md
   - session/4-removeprivate.md
