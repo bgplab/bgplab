@@ -572,7 +572,7 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *&gt; 192.168.100.0/24 0.0.0.0                  0         32768 i
 *&gt; 192.168.101.0/24 10.1.0.1                               0 65000 65107 i
 </code></pre>
-<p>The BGP table on X1 should contain four prefixes. None of the prefixes should have AS 65000 in the AS path:</p>
+<p>The BGP table on X2 should contain four prefixes. None of the prefixes should have AS 65000 in the AS path:</p>
 <pre><code>x2# show ip bgp
 BGP table version is 4, local router ID is 10.0.0.11, vrf id 0
 Default local pref 100, local AS 65107
