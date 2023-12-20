@@ -1,0 +1,33 @@
+# Configure a BGP route server
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: localas
+
+plugin: [ check_validate ]
+
+module: [ bgp ]
+
+nodes:
+  rs:
+    bgp.as: 65000
+  isp1:
+    bgp.as: 65100
+    loopback.ipv4: 192.168.100.1/24
+  isp2:
+    bgp.as: 65103
+    loopback.ipv4: 192.168.103.1/24
+  isp3:
+    bgp.as: 65107
+    loopback.ipv4: 192.168.107.1/24
+links:
+- rs:
+  isp1:
+  isp2:
+  isp3:
+  prefix.ipv4: 172.16.42.0/24
+
+#_include: [ validate.yml ]
+
+message: |
+  The "BGP Route Server in an Internet Exchange Point" lab is ready.
+  Use "netlab connect" to connect to the lab devices.

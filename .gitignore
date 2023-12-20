@@ -16,6 +16,9 @@ venv/
 # Ignore solution files ;)
 *.solution.*
 
+# Ignore boilerplate templates
+*-boilerplate.*
+
 # Ignore Ansible retry and log files
 *.retry
 ansible.log
