@@ -329,16 +329,20 @@
 <h1 id="merge-networks-using-different-bgp-as-numbers">Merge Networks Using Different BGP AS Numbers</h1>
 <p>When dealing with the networking aspects of mergers and acquisitions, you might encounter a scenario in which you&rsquo;ll have to merge two networks running BGP:</p>
 <ul>
-<li>Two organizations (ORG-1 and ORG-2) have built large BGP networks. Each one has a public AS number.</li>
+<li>Two organizations (ORG-1 and ORG-2) have built large BGP networks. Each one is using a different BGP AS number.</li>
 <li>ORG-1 is running OSPF, ORG-2 is running IS-IS as their IGP.</li>
-<li>The first physical link between the two networks (PE2-PE3) has been delivered. You assigned IP prefix 172.29.42.0/24 to that link.</li>
+<li>The first physical link between the two networks (PE2-PE3) has been delivered. You decided to use the IPv4 prefix 172.29.42.0/24 on that link.</li>
 </ul>
 <p>Now, you have to connect the two networks with a minimum disruption of existing network operations:</p>
 <ul>
-<li>The only change you can make is a new BGP session between PE2 and PE2.</li>
+<li>The only change you can make is a new BGP session between PE2 and PE3.</li>
 <li>Do not advertise the interconnect prefix (172.29.42.0/24) into either IGP.</li>
 </ul>
 <p><a href="../topology-merge-as.png"><img alt="Lab topology" src="../topology-merge-as.png" /></a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can change other aspects of device configuration on PE2 and PE3; for example, you&rsquo;ll have to assign IP addresses to the network interconnect. You cannot change configurations on other routers or redesign the routing protocols (even though that would be the best way to proceed).</p>
+</div>
 <p>At the end of the migration project:</p>
 <ul>
 <li>ORG-1 and ORG-2 must announce all BGP prefixes belonging to the merged network to the external BGP peers.</li>
@@ -547,7 +551,7 @@
 <p><strong>IGP configuration:</strong></p>
 <ul>
 <li>Routers in AS 65000 run OSPF.</li>
-<li>Routers in AS 65004 run IS-IS.</li>
+<li>Routers in AS 65003 run IS-IS.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
