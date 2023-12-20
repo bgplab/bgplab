@@ -2,16 +2,19 @@
 
 When dealing with the networking aspects of mergers and acquisitions, you might encounter a scenario in which you'll have to merge two networks running BGP:
 
-* Two organizations (ORG-1 and ORG-2) have built large BGP networks. Each one has a public AS number.
+* Two organizations (ORG-1 and ORG-2) have built large BGP networks. Each one is using a different BGP AS number.
 * ORG-1 is running OSPF, ORG-2 is running IS-IS as their IGP.
-* The first physical link between the two networks (PE2-PE3) has been delivered. You assigned IP prefix 172.29.42.0/24 to that link.
+* The first physical link between the two networks (PE2-PE3) has been delivered. You decided to use the IPv4 prefix 172.29.42.0/24 on that link.
 
 Now, you have to connect the two networks with a minimum disruption of existing network operations:
 
-* The only change you can make is a new BGP session between PE2 and PE2.
+* The only change you can make is a new BGP session between PE2 and PE3.
 * Do not advertise the interconnect prefix (172.29.42.0/24) into either IGP.
 
 [![Lab topology](topology-merge-as.png)](topology-merge-as.png)
+
+!!! Tip
+    You can change other aspects of device configuration on PE2 and PE3; for example, you'll have to assign IP addresses to the network interconnect. You cannot change configurations on other routers or redesign the routing protocols (even though that would be the best way to proceed).
 
 At the end of the migration project:
 
@@ -65,7 +68,7 @@ Your routers have these BGP neighbors:
 **IGP configuration:**
 
 * Routers in AS 65000 run OSPF.
-* Routers in AS 65004 run IS-IS.
+* Routers in AS 65003 run IS-IS.
 
 ## Start the Lab
 

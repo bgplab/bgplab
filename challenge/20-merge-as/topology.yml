@@ -25,11 +25,7 @@ nodes:
   rr1:
     bgp.rr: True
   pe2:
-    bgp.sessions:
-      ipv4: [ ibgp ]
   pe3:
-    bgp.sessions:
-      ipv4: [ ibgp ]
   rr2:
     bgp.rr: True
   pe4:
@@ -52,12 +48,10 @@ links:
 - x2-pe4
 - pe4-rr2
 - pe4-pe3
-- rr2-pe4
+- rr2-pe3
 - pe2:
   pe3:
-  prefix:
-    ipv4: 172.29.42.0/24
-    allocation: sequential
+  pool: l2only
 
 message: |
   The "Merge Networks Using Different BGP AS Numbers" lab is ready.

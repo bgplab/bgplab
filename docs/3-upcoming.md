@@ -12,6 +12,7 @@ We have plenty of other ideas, including:
 Optional exercises:
 : * Use session templates and BGP peer groups
   * Use 4-byte BGP AS numbers
+  * Run BGP on servers
 
 Advanced exercises:
 : * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
