@@ -42,6 +42,7 @@ IBGP sessions
 : * [Establish an IBGP session](ibgp/1-edge.md) between WAN edge routers
   * [Build a Transit Network with IBGP](ibgp/2-transit.md)
   * [Use BGP Route Reflectors](ibgp/3-rr.md)
+  * [Use BGP Session Templates](session/6-templates.md)
 
 LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
@@ -61,6 +62,9 @@ Prefix filters
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)
+
+Scalability
+: * [Use BGP Session Templates](session/6-templates.md)
 
 TCP-AO
 : [Use TCP Authentication Option (TCP-AO)](basic/9-ao.md)

@@ -1,0 +1,1 @@
+../../session/6-templates/index.md

@@ -68,6 +68,7 @@ nav:
   - session/4-removeprivate.md
   - challenge/01-bird-rr.md
   - session/5-routeserver.md
+  - session/6-templates.md
 
 markdown_extensions:
 - footnotes

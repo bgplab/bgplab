@@ -194,6 +194,8 @@ BGP routing table entry for 10.0.0.1/32
       Rx SAFI: Unicast
 ```
 
+**Next:** [Use BGP session templates](../session/6-templates.md) to make the BGP configuration on the BGP route reflectors scalable.
+
 ## Alternate Solutions {#alt}
 
 Your lab uses a very structured addressing scheme, so you can advertise an aggregate prefix (for example, `10.0.0.0/24`) from the spine routers to fix the routing in your lab. You could advertise the default route from the spine routers in a less structured lab.

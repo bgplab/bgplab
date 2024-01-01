@@ -2,6 +2,7 @@
 
 While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here's what we're working on:
 
+* [Use BGP Session Templates](session/6-templates.md)
 * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
@@ -11,8 +12,7 @@ We have plenty of other ideas, including:
 ## Basic BGP Setup
 
 Optional exercises:
-: * Use session templates and BGP peer groups
-  * Use 4-byte BGP AS numbers
+: * Use 4-byte BGP AS numbers
   * Run BGP on servers
 
 Advanced exercises:
