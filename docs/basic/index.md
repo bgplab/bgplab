@@ -51,4 +51,5 @@ Willing to learn more? Challenge yourself with these advanced topics:
 
 * [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * [BGP route aggregation](8-aggregate.md)
-* [Use BGP Session Templates](../session/6-templates.md)
+* [Use BGP Session Templates](../session/6-templates.md) (coming soon)
+* [Use BGP Policy Templates](../session/7-policy.md) (coming soon)

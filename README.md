@@ -21,6 +21,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Build a Transit Network with IBGP](ibgp/2-transit)
 * [Use BGP Route Reflectors](ibgp/3-rr)
 * [Use BGP Session Templates](session/6-templates)
+* [Use BGP Policy Templates](session/7-policy)
 
 **Simple BGP Routing Policies**
 
