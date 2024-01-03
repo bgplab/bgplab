@@ -7,7 +7,7 @@ repo_url: https://github.com/bgplab/bgplab
 site_url: https://bgplabs.net/
 site_description: Hands-on BGP labs using virtual devices
 site_author: Ivan Pepelnjak, ipSpace.net AG
-copyright: (C) 2023 Ivan Pepelnjak (ipSpace.net AG)
+copyright: (C) 2023–2024 Ivan Pepelnjak (ipSpace.net AG)
 plugins:
 - search
 - include_dir_to_nav
@@ -16,6 +16,7 @@ nav:
   - index.md
   - 2-labs-by-technology.md
   - "Upcoming Labs": 3-upcoming.md
+  - 99-about.md
 - Installation:
   - 1-setup.md
   - "Custom Lab Infrastructure":
