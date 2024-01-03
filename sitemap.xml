@@ -21,6 +21,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://bgplabs.net/99-about/</loc>
+         <lastmod>2024-01-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://bgplabs.net/basic/</loc>
          <lastmod>2024-01-03</lastmod>
          <changefreq>daily</changefreq>

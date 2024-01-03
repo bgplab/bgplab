@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/2-labs-by-technology/">
+        <link rel="canonical" href="https://bgplabs.net/99-about/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Labs by BGP Attributes and Technologies - BGP Labs</title>
+        <title>About the Project - BGP Labs</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -39,7 +39,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Labs by BGP Attributes and Technologies</a>
+    <a href="../2-labs-by-technology/" class="dropdown-item">Labs by BGP Attributes and Technologies</a>
 </li>
                                     
 <li>
@@ -47,7 +47,7 @@
 </li>
                                     
 <li>
-    <a href="../99-about/" class="dropdown-item">About the Project</a>
+    <a href="./" class="dropdown-item active">About the Project</a>
 </li>
                                 </ul>
                             </li>
@@ -293,12 +293,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../3-upcoming/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../3-upcoming/" class="nav-link">
+                                <a rel="next" href="../1-setup/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -321,7 +321,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#labs-sorted-by-bgp-attributes-and-technologies" class="nav-link">Labs Sorted by BGP Attributes and Technologies</a>
+            <li class="nav-item" data-level="1"><a href="#about-the-project" class="nav-link">About the Project</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -330,131 +330,35 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="labs-sorted-by-bgp-attributes-and-technologies">Labs Sorted by BGP Attributes and Technologies</h1>
-<p>This page contains the alphabetical list of BGP attributes and technologies, and the labs you can use to practice them:</p>
-<dl>
-<dt>Address families</dt>
-<dd>
-<ul>
-<li><a href="../basic/4-ipv6/">Configure BGP for IPv6</a></li>
-</ul>
-</dd>
-<dt>Advertising IP prefixes</dt>
-<dd>
-<ul>
-<li><a href="../basic/3-originate/">Advertise your IPv4 address space</a></li>
-<li><a href="../basic/4-ipv6/">Configure BGP for IPv6</a></li>
-<li><a href="../basic/5-redistribute/">Redistribute IGP Information Into BGP</a></li>
-<li><a href="../basic/8-aggregate/">BGP route aggregation</a></li>
-</ul>
-</dd>
-<dt>AS and AS-path manipulation</dt>
-<dd>
-<ul>
-<li><a href="../policy/7-prepend/">Use AS-Path Prepending to Influence Incoming Traffic Flow</a></li>
-<li><a href="../session/1-allowas_in/">Reuse a BGP AS Number Across Multiple Sites</a> (<strong>allowas-in</strong>)</li>
-<li><a href="../session/2-asoverride/">Fix AS-Path in Environments Reusing BGP AS Numbers</a> (<strong>as-override</strong>)</li>
-<li><a href="../session/3-localas/">Use Multiple AS Numbers on the Same Router</a> (<strong>local-as</strong>)</li>
-</ul>
-</dd>
-<dt>AS-path filters</dt>
-<dd>
-<ul>
-<li><a href="../policy/2-stop-transit/">Prevent route leaking between upstream providers</a> with an AS-path filter</li>
-<li><a href="../policy/a-locpref-route-map/">Use the backup link to reach the adjacent autonomous system</a>.</li>
-</ul>
-</dd>
-<dt>BFD (Bidirectional Forwarding Detection)</dt>
-<dd>
-<ul>
-<li><a href="../basic/7-bfd/">Use BFD to Speed Up BGP Convergence</a></li>
-</ul>
-</dd>
-<dt>Communities</dt>
-<dd>
-<ul>
-<li><a href="../policy/8-community-attach/">Attach BGP Communities to Outgoing BGP Updates</a></li>
-<li><a href="../policy/9-community-use/">Use BGP Communities in Routing Policies</a></li>
-</ul>
-</dd>
-<dt>EBGP sessions</dt>
-<dd>
-<ul>
-<li><a href="../basic/1-session/">Establish an EBGP session</a> with an ISP</li>
-<li><a href="../basic/2-multihomed/">Connect to two upstream providers</a></li>
-</ul>
-</dd>
-<dt>GTSM (Generic TTL Security Mechanism)</dt>
-<dd>
-<ul>
-<li><a href="../basic/6-protect/">Use MD5 passwords and TTL-based session protection</a></li>
-</ul>
-</dd>
-<dt>IBGP sessions</dt>
-<dd>
-<ul>
-<li><a href="../ibgp/1-edge/">Establish an IBGP session</a> between WAN edge routers</li>
-<li><a href="../ibgp/2-transit/">Build a Transit Network with IBGP</a></li>
-<li><a href="../ibgp/3-rr/">Use BGP Route Reflectors</a></li>
-<li><a href="../session/6-templates/">Use BGP Session Templates</a></li>
-</ul>
-</dd>
-<dt>LOCAL_PREF (Local Preference)</dt>
-<dd>
-<ul>
-<li><a href="../policy/5-local-preference/">Implement a consistent AS-wide routing policy</a> with BGP local preference.</li>
-<li><a href="../policy/9-community-use/">Use BGP Communities in Routing Policies</a></li>
-<li><a href="../policy/a-locpref-route-map/">Use the backup link to reach the adjacent autonomous system</a>.</li>
-</ul>
-</dd>
-<dt>MD5 passwords</dt>
-<dd>
-<ul>
-<li><a href="../basic/6-protect/">Use MD5 passwords and TTL-based session protection</a></li>
-</ul>
-</dd>
-<dt>MULTI_EXIT_DISC (Multi-Exit Discriminator, MED)</dt>
-<dd>
-<ul>
-<li><a href="../policy/6-med/">Use MED to Influence Incoming Traffic Flow</a></li>
-</ul>
-</dd>
-<dt>Prefix filters</dt>
-<dd>
-<ul>
-<li><a href="../policy/3-prefix/">Filter prefixes advertised by your autonomous system</a> with a prefix list</li>
-<li><a href="../policy/4-reduce/">Minimize the size of your BGP table</a> with inbound filters</li>
-<li><a href="../policy/a-locpref-route-map/">Use the backup link to reach the adjacent autonomous system</a>.</li>
-</ul>
-</dd>
-<dt>Route reflectors</dt>
-<dd>
-<ul>
-<li><a href="../ibgp/3-rr/">Use BGP Route Reflectors</a></li>
-</ul>
-</dd>
-<dt>Scalability</dt>
-<dd>
-<ul>
-<li><a href="../session/6-templates/">Use BGP Session Templates</a></li>
-<li><a href="../session/7-policy/">Use BGP Policy Templates</a></li>
-</ul>
-</dd>
-<dt>TCP-AO</dt>
-<dd><a href="../basic/9-ao/">Use TCP Authentication Option (TCP-AO)</a></dd>
-<dt>TTL security</dt>
-<dd>
-<ul>
-<li><a href="../basic/6-protect/">Use MD5 passwords and TTL-based session protection</a></li>
-</ul>
-</dd>
-<dt>Weights</dt>
-<dd>
-<ul>
-<li><a href="../policy/1-weights/">Use BGP weights</a> to prefer one of the upstream providers</li>
-</ul>
-</dd>
-</dl></div>
+<h1 id="about-the-project">About the Project</h1>
+<p>In the early 1990s, I managed to persuade the powers that be within Cisco&rsquo;s European training organization that they needed a deep-dive BGP course, resulting in a three-day (later extended to five days) Advanced BGP Configuration and Troubleshooting (ABCT) course<sup id="fnref:CD"><a class="footnote-ref" href="#fn:CD">3</a></sup>. I was delivering that course for close to a decade, allowing me to gradually build a decent story explaining the reasoning and use cases behind most of (then available) BGP features, from simple EBGP sessions to BGP route reflectors and communities<sup id="fnref:EC"><a class="footnote-ref" href="#fn:EC">2</a></sup>.</p>
+<p>Now imagine having more than a dozen hands-on labs following the &ldquo;<em>BGP from rookie to hero</em>&rdquo; story available for any platform of your choice<sup id="fnref:NL"><a class="footnote-ref" href="#fn:NL">4</a></sup>. Welcome to the <a href="https://bgplabs.net/">Open-Source BGP Configuration Labs</a> project.</p>
+<p>The project uses <em><a href="https://netlab.tools">netlab</a></em><sup id="fnref:HT"><a class="footnote-ref" href="#fn:HT">5</a></sup> to set up the labs and FRRouting containers or a <a href="../1-setup/#select-the-additional-devices-in-your-lab">few other devices</a> as external BGP routers. You can use <a href="../1-setup/#select-the-network-devices-you-will-work-with">whatever networking devices</a> you wish to work on<sup id="fnref:XP"><a class="footnote-ref" href="#fn:XP">1</a></sup>, and if they happen to be supported by <em>netlab</em>, you&rsquo;ll get lab topology and basic device configuration for each lab set up in seconds<sup id="fnref:XR"><a class="footnote-ref" href="#fn:XR">6</a></sup>. Most lab exercises include device configurations for the external BGP routers for people who love wasting time with GUI.</p>
+<p>You&rsquo;ll find the lab topology files and initial device configurations in a <a href="https://github.com/ipspace/bgplab">GitHub repository</a>, but you might <a href="https://bgplabs.net/">explore the lab exercises first</a>.</p>
+<p>I also created a long list of <a href="https://bgplabs.net/3-upcoming/">labs that would be nice to have</a>. I probably missed something important &ndash; please <a href="https://github.com/bgplab/bgplab/issues">open an issue</a> or a <a href="https://github.com/bgplab/bgplab/discussions">discussion</a>, or (even better) become a contributor and submit a PR.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:XP">
+<p>Including physical hardware if you have a few extra Cumulus switches and are willing to do some crazy stuff to set things up.&#160;<a class="footnote-backref" href="#fnref:XP" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:EC">
+<p>The echoes of those ideas are still visible (if you know where to look) in the Configuring BGP on Cisco Routers course &ndash;  ABCT eventually morphed into CBCR and became part of the original CCIP curriculum in the early 2000s, but that&rsquo;s another story.&#160;<a class="footnote-backref" href="#fnref:EC" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:CD">
+<p>If you happen to have the original ABCT course description, please send it over. I tried to find it in Web Archive, but it&rsquo;s been way too long&hellip;&#160;<a class="footnote-backref" href="#fnref:CD" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:NL">
+<p>As long as it&rsquo;s supported by <em>netlab</em>.&#160;<a class="footnote-backref" href="#fnref:NL" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:HT">
+<p>When you happen to have a Hammer of Thor handy, everything looks like a nail waiting to be hit ;)&#160;<a class="footnote-backref" href="#fnref:HT" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:XR">
+<p>Unless you love using resource hogs like Nexus OS, IOS XR, or some Junos variants.&#160;<a class="footnote-backref" href="#fnref:XR" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
