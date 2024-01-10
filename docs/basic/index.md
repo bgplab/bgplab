@@ -28,11 +28,16 @@ You should always protect the control plane of your router and the routing proto
 
 ## Running BGP in Larger Networks {#ibgp}
 
-If your network has multiple BGP routers, they must exchange BGP information. While it's possible to build a network where each BGP router uses a different autonomous system number (hint: don't), running *Internal BGP* (IBGP) between routers in your network is more common.
+If your network has multiple BGP routers, they must exchange BGP information. While it's possible to build a network where each BGP router uses a different autonomous system number (hint: don't), running *Internal BGP* (IBGP) between routers in your network is more common. You can practice IBGP in these lab exercises:
 
 * [Establish an IBGP session](../ibgp/1-edge.md) between WAN edge routers
 * [Build a Transit Network with IBGP](../ibgp/2-transit.md)
 * [Use BGP Route Reflectors](../ibgp/3-rr.md)
+
+Other important aspects of large-scale BGP deployments are scalability and consistency. The following lab exercises will help you grasp those concepts:
+
+* [Use BGP Session Templates](../session/6-templates.md)
+* [Use BGP Policy Templates](../session/7-policy.md) (coming soon)
 
 ## BGP AS Number and AS Path Manipulations {#aspath}
 
@@ -51,5 +56,3 @@ Willing to learn more? Challenge yourself with these advanced topics:
 
 * [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * [BGP route aggregation](8-aggregate.md)
-* [Use BGP Session Templates](../session/6-templates.md) (coming soon)
-* [Use BGP Policy Templates](../session/7-policy.md) (coming soon)

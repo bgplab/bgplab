@@ -37,6 +37,7 @@ nav:
     - "Establish an IBGP Session": ibgp/1-edge.md
     - "Build a Transit Network with IBGP": ibgp/2-transit.md
     - "Use BGP Route Reflectors": ibgp/3-rr.md
+    - session/6-templates.md
   - "Manipulate AS Path":
     - session/1-allowas_in.md
     - session/2-asoverride.md
@@ -70,7 +71,6 @@ nav:
   - session/4-removeprivate.md
   - challenge/01-bird-rr.md
   - session/5-routeserver.md
-  - session/6-templates.md
   - session/7-policy.md
 
 markdown_extensions:

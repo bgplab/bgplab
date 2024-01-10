@@ -65,7 +65,7 @@ Route reflectors
 
 Scalability
 : * [Use BGP Session Templates](session/6-templates.md)
-  * [Use BGP Policy Templates](session/7-policy.md)
+  * [Use BGP Policy Templates](session/7-policy.md) (coming soon)
 
 TCP-AO
 : [Use TCP Authentication Option (TCP-AO)](basic/9-ao.md)

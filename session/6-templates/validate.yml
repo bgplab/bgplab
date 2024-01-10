@@ -1,49 +1,61 @@
-# Validate local-as lab
+# Validate the BGP Session Templates lab solution
 ---
-session:
-  description: Check EBGP session with RTR on ISP routers
-  fail: The EBGP session with your router is not established
-  pass: The EBGP session with RTR is in Established state
-  nodes: [ x1, x2 ]
-  stop_on_error: True
+ibgp_s1:
+  description: Check IBGP session with S1 on L1/L2
+  fail: The IBGP session with the router reflector S1 is not established
+  pass: The IBGP session with the router reflector S1 is established
+  nodes: [ l1, l2 ]
   show:
     cumulus: bgp summary json
     frr: bgp summary json
     eos: "ip bgp summary | json"
-
   valid:
     cumulus: >
-      ipv4Unicast.failedPeers == 0
+      {% for n in bgp.neighbors if n.name == 's1' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
     frr: >
-      ipv4Unicast.failedPeers == 0
+      {% for n in bgp.neighbors if n.name == 's1' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
     eos: >
-      vrfs.default.peers["{{ bgp.neighbors[0].ipv4 }}"].peerState == "Established"
+      {% for n in bgp.neighbors if n.name == 's1' %}
+      vrfs.default.peers["{{ n.ipv4 }}"].peerState == "Established"
+      {% endfor %}
 
-updates:
-  description: Check the propagation of IPv4 prefixes from RTR
-  fail: RTR is not sending routes to ISP router
-  pass: RTR is sending routing updates
-  nodes: [ x1, x2 ]
-  stop_on_error: True
+ibgp_s2:
+  description: Check IBGP session with S2 on L1/L2
+  fail: The IBGP session with the router reflector S2 is not established
+  pass: The IBGP session with the router reflector S2 is established
+  nodes: [ l1, l2 ]
   show:
-    cumulus: bgp ipv4 neighbor {{ bgp.neighbors[0].ipv4 }} routes json
-    frr: bgp ipv4 neighbor {{ bgp.neighbors[0].ipv4 }} routes json
-    eos: bgp neighbor {{ bgp.neighbors[0].ipv4 }} ipv4 unicast received-routes | json
+    cumulus: bgp summary json
+    frr: bgp summary json
+    eos: "ip bgp summary | json"
   valid:
-    cumulus: routes
-    frr: routes
-    eos: vrfs.default.bgpRouteEntries
+    cumulus: >
+      {% for n in bgp.neighbors if n.name == 's2' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
+    frr: >
+      {% for n in bgp.neighbors if n.name == 's2' %}
+      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
+      {% endfor %}
+    eos: >
+      {% for n in bgp.neighbors if n.name == 's2' %}
+      vrfs.default.peers["{{ n.ipv4 }}"].peerState == "Established"
+      {% endfor %}
 
-aspath:
-  description: Check whether AS 65000 is in the AS path on X2
-  fail: RTR added AS 65000 to the AS path
-  pass: The AS path received from RTR does not contain AS 65000
-  nodes: [ x2 ]
+lb_pfx:
+  description: Check whether L1 receives loopback prefix from L2
+  fail: L2 loopback prefix is not propagated to L1 by S1 or S2
+  pass: L2 loopback prefix is propagated to L1 by S1 and S2
+  nodes: [ l1 ]
   show:
-    cumulus: bgp ipv4 regexp 65000 json
-    frr:  bgp ipv4 regexp 65000 json
-    eos: ip bgp regex 65000 | json
+    cumulus: bgp ipv4 10.0.0.4 json
+    frr: bgp ipv4  10.0.0.4 json
+    eos: bgp ipv4 unicast 10.0.0.4 | json
   valid:
-    cumulus: not routes
-    frr: not routes
-    eos: not vrfs.default.bgpRouteEntries
+    cumulus: prefix and paths[1]
+    frr:  prefix and paths[1]
+    eos: vrfs.default.bgpRouteEntries["10.0.0.4/32"].totalPaths == 2
