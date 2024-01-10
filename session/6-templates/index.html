@@ -74,7 +74,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -136,6 +136,10 @@
             
 <li>
     <a href="../../ibgp/3-rr/" class="dropdown-item">Use BGP Route Reflectors</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">BGP Session Templates</a>
 </li>
     </ul>
   </li>
@@ -255,7 +259,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Upcoming <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -276,10 +280,6 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">BGP Session Templates</a>
-</li>
-                                    
-<li>
     <a href="../7-policy/" class="dropdown-item">BGP Policy Templates</a>
 </li>
                                 </ul>
@@ -293,12 +293,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../5-routeserver/" class="nav-link">
+                                <a rel="prev" href="../../ibgp/3-rr/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../7-policy/" class="nav-link">
+                                <a rel="next" href="../1-allowas_in/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -323,6 +323,42 @@
             
             <li class="nav-item" data-level="1"><a href="#bgp-session-templates" class="nav-link">BGP Session Templates</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -337,12 +373,428 @@
 <li>Set the remote AS number to be equal to the local AS number;</li>
 <li>Configure the neighbor as a route reflector client.</li>
 </ul>
-<p>Wouldn&rsquo;t it be great if you could configure all those parameters in another configuration object and then apply them to the IBGP neighbors? Most BGP implementations have something along those lines and call that feature <em>BGP groups</em> or <em>BGP session templates</em>. That&rsquo;s what you&rsquo;ll practice in this lab exercise.</p>
+<p>Wouldn&rsquo;t it be great if you could configure all those parameters in another configuration object and then apply them to the IBGP neighbors? Most BGP implementations have something along those lines and call that feature <em>BGP groups</em>, <em>BGP peer groups</em>, or <em>BGP session templates</em>. That&rsquo;s what you&rsquo;ll practice in this lab exercise.</p>
 <p><img alt="Lab topology" src="../topology-session-templates.png" /></p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>All routers in your lab are in AS 65000. The spine routers (S1 and S2) are route reflectors; the leaf routers (L1 and L2) advertise one IPv4 prefix each.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th>BGP RR</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>l1</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+</tr>
+<tr>
+<td>l2</td>
+<td style="text-align: right;">10.0.0.4</td>
+<td></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+</tr>
+<tr>
+<td>s1</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td>✅</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>s2</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td>✅</td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+<p>The routers in your lab have these IBGP neighbors:</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Neighbor</th>
+<th style="text-align: right;">Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>l1</strong></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td><strong>l2</strong></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td>s2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td>s1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>l1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>l2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+</tbody>
+</table>
+<p>All four routers are running OSPF in area 0:</p>
+<table>
+<thead>
+<tr>
+<th>Router</th>
+<th>Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th>Neighbor(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l1</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td>s1</td>
+</tr>
+<tr>
+<td></td>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td>s2</td>
+</tr>
+<tr>
+<td>l2</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td>s1</td>
+</tr>
+<tr>
+<td></td>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.13/30</td>
+<td>s2</td>
+</tr>
+<tr>
+<td>s1</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td>l1</td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td>l2</td>
+</tr>
+<tr>
+<td>s2</td>
+<td>Loopback</td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td>l1</td>
+</tr>
+<tr>
+<td></td>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td>l2</td>
+</tr>
+</tbody>
+</table>
+<p>When starting the lab, <em>netlab</em> configures IP addresses, OSPF, BGP, IBGP neighbors, and the advertised prefixes. If you&rsquo;re using another lab infrastructure, you&rsquo;ll have to configure all that manually.</p>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>session/6-templates</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Log into the lab routers with <strong>netlab connect</strong> and verify that the IP addresses, OSPF routing, and the IBGP sessions are properly configured.</li>
+</ul>
+<h2 id="the-problem">The Problem</h2>
+<p>Log into one of the spine routers and check its BGP configuration. You&rsquo;ll notice that it has the same set of parameters specified on most IBGP sessions. For example, this is the configuration you would get on Arista EOS:</p>
+<pre><code>router bgp 65000
+   router-id 10.0.0.1
+   no bgp default ipv4-unicast
+   bgp cluster-id 10.0.0.1
+   bgp advertise-inactive
+   neighbor 10.0.0.2 remote-as 65000
+   neighbor 10.0.0.2 update-source Loopback0
+   neighbor 10.0.0.2 description s2
+   neighbor 10.0.0.2 send-community standard extended
+   neighbor 10.0.0.3 remote-as 65000
+   neighbor 10.0.0.3 update-source Loopback0
+   neighbor 10.0.0.3 description l1
+   neighbor 10.0.0.3 route-reflector-client
+   neighbor 10.0.0.3 send-community standard extended
+   neighbor 10.0.0.4 remote-as 65000
+   neighbor 10.0.0.4 update-source Loopback0
+   neighbor 10.0.0.4 description l2
+   neighbor 10.0.0.4 route-reflector-client
+   neighbor 10.0.0.4 send-community standard extended
+</code></pre>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>Most BGP implementations can group BGP neighbor parameters into <em>groups</em>, <em>peer groups</em>, or <em>templates</em> that can then be applied en-masse to the BGP neighbors. Define two session templates on S1 and S2:</p>
+<ul>
+<li><strong>ibgp</strong>: Regular IBGP peers (other route reflectors). They share the update source, the AS number, and the BGP community propagation settings.</li>
+<li><strong>rr-client</strong>: Route reflector clients. They share the <strong>ibgp</strong> parameters and the <strong>route-reflector-client</strong> settings.</li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This lab is still under development. Follow <a href="https://blog.ipspace.net/">blog.ipspace.net</a> or <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak on LinkedIn</a> to find out when it will be ready.</p>
-</div></div>
+<ul>
+<li>Some BGP implementations support hierarchical templates with inheritance. If you&rsquo;re using such an implementation, define the <strong>‌rr-client</strong> template as a child template of the <strong>ibgp‌</strong> template.</li>
+<li>Some BGP implementations have <em>‌session</em> templates that specify the parameters of the BGP TCP session (update source, remote AS) and <em>‌policy</em> templates that specify all parameters that can be applied to an address family (BGP community propagation, route reflector clients). You might have to create both templates to get the job done.</li>
+</ul>
+</div>
+<p>After creating the BGP templates, change the BGP configuration on S1 and S2 to use the BGP templates:</p>
+<ul>
+<li>Remove all neighbor parameters from the IBGP neighbors</li>
+<li>Apply appropriate BGP templates or peer groups to the IBGP neighbors.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It might be easier to remove the IBGP neighbors and recreate them. If you do this, remember to activate the IPv4 address family (if needed) for the recreated neighbors.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the leaf routers. The validation tests check:</p>
+<ul>
+<li>The state of the IBGP session between L1/L2 and S1/S2</li>
+<li>Whether L1 receives the loopback prefix advertised by L2.</li>
+</ul>
+<p>If the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on the leaf routers:</p>
+<ul>
+<li>Log into the leaf routers</li>
+<li>Check the state of the IBGP sessions with a command similar to <strong>show ip bgp summary</strong>. All sessions should be in the established state. For example, this is the printout you should get on Arista EOS:</li>
+</ul>
+<pre><code>l1&gt;show ip bgp summary
+BGP summary information for VRF default
+Router identifier 10.0.0.3, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  s1                       10.0.0.1 4 65000              5         5    0    0 00:00:06 Estab   1      1
+  s2                       10.0.0.2 4 65000              6         6    0    0 00:00:06 Estab   1      1
+</code></pre>
+<ul>
+<li>Check the BGP table with a command similar to <strong>show ip bgp</strong>. It should contain the local loopback prefix and two paths to the remote loopback prefix, resulting in a printout similar to the one you&rsquo;d get on Arista EOS:</li>
+</ul>
+<pre><code>l1&gt;show ip bgp
+BGP routing table information for VRF default
+Router identifier 10.0.0.3, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
+                    % - Pending BGP convergence
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.3/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.4/32            10.0.0.4              0       -          100     0       i Or-ID: 10.0.0.4 C-LST: 10.0.0.1
+ *        10.0.0.4/32            10.0.0.4              0       -          100     0       i Or-ID: 10.0.0.4 C-LST: 10.0.0.1
+</code></pre>
+<h2 id="reference-information">Reference Information</h2>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the leaf- and spine routers.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1 and S2. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
+<li>Git repository contains leaf router initial device configurations for Cumulus Linux.</li>
+</ul>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Destination Device</th>
+<th>Destination Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l1</td>
+<td>swp1</td>
+<td>s1</td>
+<td>Ethernet1</td>
+</tr>
+<tr>
+<td>l1</td>
+<td>swp2</td>
+<td>s2</td>
+<td>Ethernet1</td>
+</tr>
+<tr>
+<td>l2</td>
+<td>swp1</td>
+<td>s1</td>
+<td>Ethernet2</td>
+</tr>
+<tr>
+<td>l2</td>
+<td>swp2</td>
+<td>s2</td>
+<td>Ethernet2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>l1</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>l1 -&gt; s1</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>l1 -&gt; s2</td>
+</tr>
+<tr>
+<td><strong>l2</strong></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>l2 -&gt; s1</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.13/30</td>
+<td style="text-align: right;"></td>
+<td>l2 -&gt; s2</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td style="text-align: right;"></td>
+<td>s1 -&gt; l1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>s1 -&gt; l2</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>s2 -&gt; l1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td style="text-align: right;"></td>
+<td>s2 -&gt; l2</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 

@@ -137,6 +137,10 @@
 <li>
     <a href="../ibgp/3-rr/" class="dropdown-item">Use BGP Route Reflectors</a>
 </li>
+            
+<li>
+    <a href="../session/6-templates/" class="dropdown-item">BGP Session Templates</a>
+</li>
     </ul>
   </li>
                                     
@@ -276,10 +280,6 @@
 </li>
                                     
 <li>
-    <a href="../session/6-templates/" class="dropdown-item">BGP Session Templates</a>
-</li>
-                                    
-<li>
     <a href="../session/7-policy/" class="dropdown-item">BGP Policy Templates</a>
 </li>
                                 </ul>
@@ -375,11 +375,16 @@
 <li><a href="9-ao/">Use TCP Authentication Option (TCP-AO)</a></li>
 </ul>
 <h2 id="ibgp">Running BGP in Larger Networks</h2>
-<p>If your network has multiple BGP routers, they must exchange BGP information. While it&rsquo;s possible to build a network where each BGP router uses a different autonomous system number (hint: don&rsquo;t), running <em>Internal BGP</em> (IBGP) between routers in your network is more common.</p>
+<p>If your network has multiple BGP routers, they must exchange BGP information. While it&rsquo;s possible to build a network where each BGP router uses a different autonomous system number (hint: don&rsquo;t), running <em>Internal BGP</em> (IBGP) between routers in your network is more common. You can practice IBGP in these lab exercises:</p>
 <ul>
 <li><a href="../ibgp/1-edge/">Establish an IBGP session</a> between WAN edge routers</li>
 <li><a href="../ibgp/2-transit/">Build a Transit Network with IBGP</a></li>
 <li><a href="../ibgp/3-rr/">Use BGP Route Reflectors</a></li>
+</ul>
+<p>Other important aspects of large-scale BGP deployments are scalability and consistency. The following lab exercises will help you grasp those concepts:</p>
+<ul>
+<li><a href="../session/6-templates/">Use BGP Session Templates</a></li>
+<li><a href="../session/7-policy/">Use BGP Policy Templates</a> (coming soon)</li>
 </ul>
 <h2 id="aspath">BGP AS Number and AS Path Manipulations</h2>
 <p>Even though one should not use the same BGP AS number in multiple networks or more than one BGP AS number on a single device, you&rsquo;ll always stumble upon scenarios that violate the common-sense rules. In these lab exercises, you&rsquo;ll practice how to deal with them:</p>
@@ -395,8 +400,6 @@
 <ul>
 <li><a href="7-bfd/">Use BFD to Speed Up BGP Convergence</a></li>
 <li><a href="8-aggregate/">BGP route aggregation</a></li>
-<li><a href="../session/6-templates/">Use BGP Session Templates</a> (coming soon)</li>
-<li><a href="../session/7-policy/">Use BGP Policy Templates</a> (coming soon)</li>
 </ul></div>
             </div>
         </div>
