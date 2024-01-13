@@ -6,7 +6,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:
 
 name: session
-plugin: [ ebgp.utils,external_devices ]
+plugin: [ ebgp.utils, external_devices, check_validate, fix_frr ]
 
 groups:
   external:
