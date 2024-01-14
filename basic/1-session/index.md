@@ -23,6 +23,9 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 |--------------------:|-------------------:|
 | 10.1.0.2            | 65100              |
 
+!!! Tip
+    If you're using Cumulus Linux or FRR on RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring Cumulus Linux and FRRouting](0-frrouting.md) lab.
+
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on the EBGP session or your device won't accept updates from its EBGP neighbor(s).
 

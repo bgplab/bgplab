@@ -30,7 +30,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and basic BGP configuration.
 
-**Note:** *netlab* will configure IP addressing and EBGP sessions on your router. If you're not using *netlab*, continue with the configuration you made during the [previous exercise](2-multihomed.md).
+**Note:** *netlab* will configure IP addresses, start the BGP routing daemon, and configure EBGP sessions on your router. If you're not using *netlab*, continue with the configuration you made during the [previous exercise](2-multihomed.md).
 
 ## Configuration Tasks
 

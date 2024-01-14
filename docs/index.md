@@ -23,6 +23,7 @@ More than a dozen labs are already waiting for you (with more [coming in the nea
 
 In the first set of the BGP labs, you'll master these skills:
 
+* [Configure and monitor routing daemons on Cumulus Linux and FRRouting](basic/0-frrouting.md)
 * [Configure BGP sessions and advertise IPv4 and IPv6 prefixes](basic/index.md#simple)
 * [Protect BGP sessions](basic/index.md#protect)
 * [Run BGP in networks with more than one BGP router](basic/index.md#ibgp)

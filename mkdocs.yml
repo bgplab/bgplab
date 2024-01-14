@@ -25,6 +25,7 @@ nav:
 - "Deploy BGP":
   - Overview: basic/index.md
   - "Setting Up BGP":
+    - basic/0-frrouting.md
     - basic/1-session.md
     - basic/2-multihomed.md
     - basic/3-originate.md
