@@ -87,6 +87,10 @@
     <ul class="dropdown-menu">
             
 <li>
+    <a href="../0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
+</li>
+            
+<li>
     <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
             
@@ -429,6 +433,10 @@
 </tr>
 </tbody>
 </table>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you&rsquo;re using Cumulus Linux or FRR on RTR, you might have to enable the BGP daemon first. You&rsquo;ll find more details in the <a href="../0-frrouting/">Configuring Cumulus Linux and FRRouting</a> lab.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
@@ -475,7 +483,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the external router. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
+<li>You can do automated lab validation when running Arista EOS, Cumulus Linux, or FRR on the external router. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

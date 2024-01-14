@@ -87,6 +87,10 @@
     <ul class="dropdown-menu">
             
 <li>
+    <a href="../0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
+</li>
+            
+<li>
     <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
             
@@ -435,7 +439,7 @@
 <li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing and EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
+<p><strong>Note:</strong> <em>netlab</em> will configure IP addresses, start the BGP routing daemon, and configure EBGP sessions on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../2-multihomed/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
 <p>You have to advertise <code>192.168.42.0/24</code> &ndash; the IP address space belonging to your organization &ndash; to the upstream providers.</p>
 <p>BGP never originates IP prefixes without being told to do so. The usual ways to do that are:</p>
