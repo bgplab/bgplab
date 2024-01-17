@@ -448,6 +448,12 @@
 <li>Origination of configured prefixes, often using <strong>network</strong> router configuration command. This approach assumes <em>there&rsquo;s an exact match in the IP routing table</em></li>
 </ol>
 <p>While the first method is usually used within enterprise networks that use BGP as an internal routing protocol or to connect to an MPLS/VPN service, you should have tight control over the prefixes advertised to the public Internet. Please use the second method in this lab exercise.</p>
+<p>Yet again, there are several ways to add an IP prefix that exactly matches the prefix specified in the <strong>network</strong> command to the IP routing table:</p>
+<ul>
+<li>Create a new loopback interface and configure an IP address from the desired prefix on the loopback interface. For example, configure the IP address <code>192.168.42.1/24</code> on the <code>Loopback1</code> interface.</li>
+<li>Add an IP address from the desired prefix as a secondary IP address on an existing loopback interface<sup id="fnref:NPE"><a class="footnote-ref" href="#fn:NPE">1</a></sup>. For example, configure the IP address <code>192.168.42.1/24</code> as a secondary IP address on the <code>Loopback0</code> interface.</li>
+<li>Add a static route pointing to nowhere for the desired IP prefix. For example, add the static route for <code>192.168.42.0/24</code> pointing to the <code>null0</code> interface. Try using this approach in this lab exercise.</li>
+</ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won&rsquo;t send them anything.</p>
@@ -616,7 +622,15 @@ Displayed  3 routes and 3 total paths
 <td>x2 -&gt; rtr</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:NPE">
+<p>It&rsquo;s a bad idea to add the secondary IP address to a physical interface just to have it in the IP routing table. A physical interface failure would remove the IP prefix from the IP routing table and cause the BGP router to revoke the BGP advertisement.&#160;<a class="footnote-backref" href="#fnref:NPE" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
