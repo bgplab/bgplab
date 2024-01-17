@@ -43,6 +43,14 @@ BGP never originates IP prefixes without being told to do so. The usual ways to 
 
 While the first method is usually used within enterprise networks that use BGP as an internal routing protocol or to connect to an MPLS/VPN service, you should have tight control over the prefixes advertised to the public Internet. Please use the second method in this lab exercise.
 
+Yet again, there are several ways to add an IP prefix that exactly matches the prefix specified in the **network** command to the IP routing table:
+
+* Create a new loopback interface and configure an IP address from the desired prefix on the loopback interface. For example, configure the IP address `192.168.42.1/24` on the `Loopback1` interface.
+* Add an IP address from the desired prefix as a secondary IP address on an existing loopback interface[^NPE]. For example, configure the IP address `192.168.42.1/24` as a secondary IP address on the `Loopback0` interface.
+* Add a static route pointing to nowhere for the desired IP prefix. For example, add the static route for `192.168.42.0/24` pointing to the `null0` interface. Try using this approach in this lab exercise.
+ 
+[^NPE]: It's a bad idea to add the secondary IP address to a physical interface just to have it in the IP routing table. A physical interface failure would remove the IP prefix from the IP routing table and cause the BGP router to revoke the BGP advertisement.
+
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
 
