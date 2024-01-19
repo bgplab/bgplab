@@ -70,6 +70,8 @@ nav:
 - "Upcoming":
   - Overview: 3-upcoming.md
   - session/4-removeprivate.md
+  - challenge/02-no-export.md
+  - challenge/03-graceful-shutdown.md
   - challenge/01-bird-rr.md
   - session/5-routeserver.md
   - session/7-policy.md

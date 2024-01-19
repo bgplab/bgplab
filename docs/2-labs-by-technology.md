@@ -30,6 +30,8 @@ BFD (Bidirectional Forwarding Detection)
 Communities
 : * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach.md)
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
+  * [Using No-Export Community to Filter Transit Routes](challenge/02-no-export.md) (coming soon)
+  * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (coming soon)
 
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
@@ -48,6 +50,7 @@ LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
+  * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (coming soon)
 
 MD5 passwords
 : * [Use MD5 passwords and TTL-based session protection](basic/6-protect.md)
