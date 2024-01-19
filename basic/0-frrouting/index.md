@@ -14,6 +14,14 @@ The Linux interfaces and IP addresses will be configured automatically if you st
 
 ![Lab topology](topology-session.png)
 
+## Start the Lab
+
+Assuming you already [set up your lab infrastructure](../1-setup.md):
+
+* Change directory to `basic/0-frrouting`
+* Execute **netlab up** to start a lab with two Cumulus Linux virtual machines or containers (depending on your lab setup).
+* Log into the devices (`rtr` and `x1`) with the **netlab connect** command.
+
 ## Start the BGP Daemon {#daemon}
 
 Most network devices start routing daemons when you configure them through the configuration CLI or API. FRRouting (the routing daemons used in Cumulus Linux) is different: you have to enable the desired routing daemons in a configuration file and restart the top-level FRRouting process.
