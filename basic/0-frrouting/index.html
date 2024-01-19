@@ -327,6 +327,10 @@
             
             <li class="nav-item" data-level="1"><a href="#configuring-cumulus-linux-and-frrouting" class="nav-link">Configuring Cumulus Linux and FRRouting</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#daemon" class="nav-link">Start the BGP Daemon</a>
               <ul class="nav flex-column">
               </ul>
@@ -356,6 +360,13 @@
 </ul>
 <p>The Linux interfaces and IP addresses will be configured automatically if you start the BGP labs with the <strong>netlab up</strong> command. You will have to start the routing protocol daemons if you plan to use Cumulus Linux or FRRouting as the user routers, and you might have to execute <strong>show</strong> commands on Cumulus Linux or FRRouting acting as the external routers. You&rsquo;ll practice both in this lab exercise.</p>
 <p><img alt="Lab topology" src="../topology-session.png" /></p>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>basic/0-frrouting</code></li>
+<li>Execute <strong>netlab up</strong> to start a lab with two Cumulus Linux virtual machines or containers (depending on your lab setup).</li>
+<li>Log into the devices (<code>rtr</code> and <code>x1</code>) with the <strong>netlab connect</strong> command.</li>
+</ul>
 <h2 id="daemon">Start the BGP Daemon</h2>
 <p>Most network devices start routing daemons when you configure them through the configuration CLI or API. FRRouting (the routing daemons used in Cumulus Linux) is different: you have to enable the desired routing daemons in a configuration file and restart the top-level FRRouting process.</p>
 <div class="admonition tip">
