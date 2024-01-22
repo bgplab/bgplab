@@ -1,6 +1,6 @@
 # Filter Advertised Prefixes
 
-In the previous lab exercise, you [filtered prefixes advertised by your router based on the AS-path contents](2-stop-transit.md). That's the absolute minimum you should do, but it's not always enough -- every other blue moon a network operator manages to mess up two-way redistribution, and advertises hundreds of thousands of prefixes as belonging to their autonomous system. You should therefore filter the prefixes advertised to EBGP neighbors to ensure you advertise only the address space assigned to you.
+In the previous lab exercise, you [filtered prefixes advertised by your router based on the AS-path contents](2-stop-transit.md). That's the absolute minimum you should do, but it's not always enough -- every other blue moon a network operator manages to mess up two-way redistribution, and advertises hundreds of thousands of prefixes as belonging to their autonomous system. You should, therefore, filter the prefixes advertised to EBGP neighbors to ensure you advertise only the address space assigned to you.
 
 In our simple lab topology, your device advertises a /24 prefix (that we'll assume is assigned to you) and a loopback (/32) prefix that should not be visible elsewhere.
 
@@ -60,7 +60,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-You must filter BGP prefixes sent to X1 and X2, and advertise only the 192.168.101.0/24 prefix. Most BGP implementations support *prefix lists* that can match IP prefixes and subnet masks; you should match both to ensure you're not advertising more specific prefixes to your EBGP neighbors.
+You must filter BGP prefixes sent to X1 and X2, and advertise only the 192.168.42.0/24 prefix. Most BGP implementations support *prefix lists* that can match IP prefixes and subnet masks; you should match both to ensure you're not advertising more specific prefixes to your EBGP neighbors.
 
 On some BGP implementations (for example, Cisco IOS and IOS XE, Cumulus Linux, FRR, Arista EOS), you can apply a *prefix list* as an inbound or outbound filter on a BGP neighbor. 
 
