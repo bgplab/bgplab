@@ -74,7 +74,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -162,6 +162,10 @@
             
 <li>
     <a href="../3-localas/" class="dropdown-item">Use Multiple AS Numbers on the Same Router</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">Remove Private BGP AS Numbers from the AS Path</a>
 </li>
     </ul>
   </li>
@@ -263,16 +267,12 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Upcoming <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
     <a href="../../3-upcoming/" class="dropdown-item">Overview</a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active">Remove Private BGP AS Numbers from the AS Path</a>
 </li>
                                     
 <li>
@@ -305,12 +305,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../3-upcoming/" class="nav-link">
+                                <a rel="prev" href="../3-localas/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../challenge/02-no-export/" class="nav-link">
+                                <a rel="next" href="../../basic/7-bfd/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -335,6 +335,42 @@
             
             <li class="nav-item" data-level="1"><a href="#remove-private-bgp-as-numbers-from-the-as-path" class="nav-link">Remove Private BGP AS Numbers from the AS Path</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -346,9 +382,222 @@
 <p>Some end customers use private BGP AS numbers when running BGP with their Internet Service Providers (ISPs). Those AS numbers should not appear in the BGP AS path when the ISP advertises those prefixes to its peers and upstream providers.</p>
 <p><img alt="Lab topology" src="../topology-removeprivate.png" /></p>
 <p>In this lab exercise, you&rsquo;ll use the <em>remove private AS</em> feature available in many BGP implementations to remove the customer&rsquo;s private BGP AS number from the BGP AS path sent in EBGP updates.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>This lab is still under development. Follow <a href="https://blog.ipspace.net/">blog.ipspace.net</a> or <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak on LinkedIn</a> to find out when it will be ready.</p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each router advertises an IPv4 prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS64500</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>rtr</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+</tr>
+<tr>
+<td><strong>AS64507</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.0.0.11</td>
+<td style="text-align: right;">10.0.0.11/32</td>
+</tr>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td style="text-align: right;">192.168.42.0/24</td>
+</tr>
+</tbody>
+</table>
+<p>Your router has these EBGP neighbors.  <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Neighbor</th>
+<th style="text-align: right;">Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td>x1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.1.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>x2</td>
+<td style="text-align: right;">64507</td>
+<td style="text-align: right;">10.1.0.6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>session/4-removeprivate</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Log into your router (RTR) with the <strong>netlab connect rtr</strong> command and verify that the IP addresses and the EBGP sessions are properly configured.</li>
+</ul>
+<h2 id="the-problem">The Problem</h2>
+<p>Log into X2 and check its BGP table. You&rsquo;ll notice that the AS path for the prefix <code>192.168.42.0/24</code> contains a private AS number<sup id="fnref:PAN"><a class="footnote-ref" href="#fn:PAN">1</a></sup> 65000 that should not be visible outside your autonomous system. For example, you would get the following printout when running Cumulus Linux on X2:<sup id="fnref:NLS"><a class="footnote-ref" href="#fn:NLS">2</a></sup></p>
+<pre><code>$ netlab connect x2 -q --show ip bgp
+BGP table version is 3, local router ID is 10.0.0.11, vrf id 0
+Default local pref 100, local AS 64507
+Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*&gt; 10.0.0.1/32      10.1.0.5                               0 64500 i
+*&gt; 10.0.0.11/32     0.0.0.0                  0         32768 i
+*&gt; 192.168.42.0/24  10.1.0.5                               0 64500 65000 i
+
+Displayed  3 routes and 3 total paths
+</code></pre>
+<p>You must change your router&rsquo;s configuration to make AS 65000 disappear from the AS path.</p>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>Most BGP implementations have a nerd knob that removes private AS numbers from the AS path. It&rsquo;s usually configured with a command similar to <strong>neighbor remove-private-as</strong>.</p>
+<ul>
+<li>Configure removal of private AS numbers on the EBGP session between <strong>rtr</strong> and <strong>x2</strong>.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>After changing the BGP configuration, you might have to do a soft reset of the EBGP session to force your router to resend the routing updates with modified AS paths.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<p>Check the BGP table on X2. None of the AS paths should contain private AS numbers. This is the printout you should get on Cumulus Linux:</p>
+<pre><code>$ netlab connect x2 -q --show ip bgp
+BGP table version is 4, local router ID is 10.0.0.11, vrf id 0
+Default local pref 100, local AS 64507
+Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*&gt; 10.0.0.1/32      10.1.0.5                               0 64500 i
+*&gt; 10.0.0.11/32     0.0.0.0                  0         32768 i
+*&gt; 192.168.42.0/24  10.1.0.5                               0 64500 i
+
+Displayed  3 routes and 3 total paths
+</code></pre>
+<h2 id="reference-information">Reference Information</h2>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
+<li>Git repository contains initial Cumulus Linux device configurations for X1 and X2.</li>
+</ul>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Destination Device</th>
+<th>Destination Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rtr</td>
+<td>Ethernet1</td>
+<td>x1</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>rtr</td>
+<td>Ethernet2</td>
+<td>x2</td>
+<td>swp1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x2</td>
+</tr>
+<tr>
+<td><strong>x1</strong></td>
+<td style="text-align: right;">192.168.42.1/24</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; rtr</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; rtr</td>
+</tr>
+</tbody>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:PAN">
+<p>AS numbers 64496-64511 are not private AS numbers. <a href="https://www.rfc-editor.org/rfc/rfc5398.html">RFC 5398</a> reserved them for documentation. Private AS numbers start with AS 64512.&#160;<a class="footnote-backref" href="#fnref:PAN" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:NLS">
+<p>You need <em>netlab</em> release 1.7.0 or later to use the <strong>netlab connect &ndash;show</strong> command. Read <a href="../../basic/0-frrouting/">this document</a> if you use an older <em>netlab</em> release and use Cumulus Linux or FRR as the external routers.&#160;<a class="footnote-backref" href="#fnref:NLS" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
 </div></div>
             </div>
         </div>
