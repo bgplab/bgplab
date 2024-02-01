@@ -129,6 +129,8 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  3 routes and 3 total paths
 ```
 
+**Next:** [Remove private AS numbers from the AS path](4-removeprivate.md).
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

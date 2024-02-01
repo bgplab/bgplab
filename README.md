@@ -47,6 +47,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Reuse a BGP AS Number Across Multiple Sites](session/1-allowas_in)
 * [Fix AS-Path in Environments Reusing BGP AS Numbers](session/2-asoverride)
 * [Use Multiple AS Numbers on the Same Router](session/3-localas)
+* [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate)
 
 See [lab documentation](https://bgplab.github.io/bgplab/) for more details and the complete list of planned labs.
 

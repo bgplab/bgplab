@@ -131,31 +131,3 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  3 routes and 3 total paths
 ```
 
-## Reference Information
-
-This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
-
-### Lab Wiring
-
-| Origin Device | Origin Port | Destination Device | Destination Port |
-|---------------|-------------|--------------------|------------------|
-| rtr | Ethernet1 | x1 | swp1 |
-| rtr | Ethernet2 | x2 | swp1 |
-
-### Lab Addressing
-
-| Node/Interface | IPv4 Address | IPv6 Address | Description |
-|----------------|-------------:|-------------:|-------------|
-| **rtr** |  10.0.0.1/32 |  | Loopback |
-| Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
-| Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
-| **x1** |  192.168.100.1/24 |  | Loopback |
-| eth1 | 10.1.0.2/30 |  | x1 -> rtr |
-| **x2** |  192.168.101.1/24 |  | Loopback |
-| eth1 | 10.1.0.6/30 |  | x2 -> rtr |
