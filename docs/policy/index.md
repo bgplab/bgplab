@@ -42,3 +42,5 @@ You use these labs to practice how to use a combination of BGP attributes and ro
 This exercise combines BGP community lists, route maps, and the BGP local preference.
 * [Use the backup link to reach the adjacent autonomous system](a-locpref-route-map.md).
 This exercise combines AS-path filters, prefix lists, route maps, and the BGP local preference.
+* [BGP Policy Templates](../session/7-policy.md)
+In this exercise, you'll learn how to create scalable BGP policy deployments using a combination of AS-path filters, prefix lists, and BGP communities.

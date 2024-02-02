@@ -2,9 +2,6 @@
 
 While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here's what we're working on:
 
-* [Use BGP Session Templates](session/6-templates.md)
-* [Use BGP Policy Templates](session/7-policy.md)
-* [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
 * [Using No-Export Community to Filter Transit Routes](challenge/02-no-export.md)
 * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)

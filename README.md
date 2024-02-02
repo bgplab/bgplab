@@ -39,6 +39,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 
 * [Use BGP Communities in Routing Policies](policy/9-community-use)
 * [Using BGP Local Preference in a Complex Routing Policy](policy/a-locpref-route-map)
+* [Use BGP Policy Templates](session/7-policy)
 
 **Advanced Topics**
 

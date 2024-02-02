@@ -64,6 +64,7 @@ nav:
   - "More Complex Routing Policies":
     - policy/9-community-use.md
     - policy/a-locpref-route-map.md
+    - session/7-policy.md
 
 - Challenges:
   - challenge/20-merge-as.md
@@ -74,7 +75,6 @@ nav:
   - challenge/03-graceful-shutdown.md
   - challenge/01-bird-rr.md
   - session/5-routeserver.md
-  - session/7-policy.md
 
 markdown_extensions:
 - footnotes
