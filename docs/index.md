@@ -17,7 +17,7 @@ This series of BGP hands-on labs will help you master numerous aspects of EBGP, 
 
 [^PC]: Some assembly required: the virtual machines or containers that we recommend to use as external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See [installation and setup](1-setup.md) for details.
 
-More than a dozen labs are already waiting for you (with more [coming in the near future](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation.
+More than a dozen labs are already waiting for you (with more [coming soon](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation.
 
 ## Deploy BGP in Your Network
 
@@ -45,3 +45,13 @@ Once you mastered the basics, continue with [more complex routing policies](poli
 Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Try out the challenge labs:
 
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)
+
+## Recent Labs
+
+These are the most recent labs added to the BGP Labs project:
+
+* [BGP Policy Templates](session/7-policy.md)
+* [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
+* [Configuring Cumulus Linux and FRRouting](basic/0-frrouting.md)
+* [BGP Session Templates](session/6-templates.md)
+* [Use Multiple AS Numbers on the Same Router](session/3-localas.md)

@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{%- block htmltitle %}
+  <title>{% if page and page.title and not page.is_homepage %}{{ page.title }} &#171; {% endif %}{{ config.site_name }}</title>
+{%- endblock %}
+
 {%- block footer %}
 <hr>
 {%- if config.copyright %}

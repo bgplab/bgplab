@@ -39,6 +39,7 @@ nav:
     - "Build a Transit Network with IBGP": ibgp/2-transit.md
     - "Use BGP Route Reflectors": ibgp/3-rr.md
     - session/6-templates.md
+    - "BGP Policy Templates": session/7-policy.md
   - "Manipulate AS Path":
     - session/1-allowas_in.md
     - session/2-asoverride.md
