@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/session/7-policy/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>BGP Policy Templates - BGP Labs</title>
+  <title>BGP Policy Templates &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -145,6 +145,10 @@
 <li>
     <a href="../6-templates/" class="dropdown-item">BGP Session Templates</a>
 </li>
+            
+<li>
+    <a href="./" class="dropdown-item">BGP Policy Templates</a>
+</li>
     </ul>
   </li>
                                     
@@ -185,7 +189,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Routing Policies <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -254,6 +258,10 @@
 <li>
     <a href="../../policy/a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
 </li>
+            
+<li>
+    <a href="./" class="dropdown-item active">BGP Policy Templates</a>
+</li>
     </ul>
   </li>
                                 </ul>
@@ -267,7 +275,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Upcoming <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -290,10 +298,6 @@
 <li>
     <a href="../5-routeserver/" class="dropdown-item">BGP Route Server in an Internet Exchange Point</a>
 </li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active">BGP Policy Templates</a>
-</li>
                                 </ul>
                             </li>
                         </ul>
@@ -305,12 +309,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../5-routeserver/" class="nav-link">
+                                <a rel="prev" href="../../policy/a-locpref-route-map/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../../challenge/20-merge-as/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -335,6 +339,42 @@
             
             <li class="nav-item" data-level="1"><a href="#bgp-policy-templates" class="nav-link">BGP Policy Templates</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-steps" class="nav-link">Configuration Steps</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -344,11 +384,288 @@
 
 <h1 id="bgp-policy-templates">BGP Policy Templates</h1>
 <p>Finishing at least some of the <a href="../../policy/">BGP routing policies</a> exercises probably made you realize how many nerd knobs one can attach to a BGP neighbor. Now imagine applying that set of settings to dozens of neighbors you have at an Internet Exchange Point (or to hundreds of customer connections) while making sure the changes in your policy are consistently applied to every neighbor.</p>
-<p>While network automation is the obvious answer to the above challenge, you might find <em>BGP policy templates</em> (or <em>BGP groups</em>) helpful. They allow you to group all relevant BGP settings into a single object and apply them as a group to a BGP neighbor. That&rsquo;s what you&rsquo;ll practice in this lab exercise.</p>
+<p>While network automation is the obvious answer to the above challenge, you might find <em>BGP policy templates</em> (or <em>BGP peer groups</em>) helpful. They allow you to group all relevant BGP settings into a single object and apply them as a group to a BGP neighbor. That&rsquo;s what you&rsquo;ll practice in this lab exercise.</p>
 <p><img alt="Lab topology" src="../topology-policy-template.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This lab is still under development. Follow <a href="https://blog.ipspace.net/">blog.ipspace.net</a> or <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak on LinkedIn</a> to find out when it will be ready.</p>
+<p>This lab exercise uses AS-path filters, prefix filters, and BGP communities. Before starting this one, complete the <a href="../../policy/">routing policies</a> lab exercises.</p>
+</div>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each router advertises one or more IPv4 prefixes.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>rtr</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">192.168.42.0/24<br>10.0.0.1/32</td>
+</tr>
+<tr>
+<td><strong>AS65100</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td style="text-align: right;">192.168.100.1/24<br>10.0.0.10/32</td>
+</tr>
+<tr>
+<td><strong>AS65101</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.0.0.11</td>
+<td style="text-align: right;">192.168.101.1/24<br>10.0.0.11/32</td>
+</tr>
+</tbody>
+</table>
+<p>Your router has these EBGP neighbors.  <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Neighbor</th>
+<th style="text-align: right;">Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td>x1</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>x2</td>
+<td style="text-align: right;">65101</td>
+<td style="text-align: right;">10.1.0.6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>session/7-policy</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Log into your router (RTR) with the <strong>netlab connect rtr</strong> command and verify that the IP addresses and the EBGP sessions are properly configured.</li>
+</ul>
+<h2 id="the-problem">The Problem</h2>
+<p>The neighboring autonomous systems advertise too specific prefixes to your router, and your current configuration is no better. This is the current BGP table of your router as displayed on an Arista cEOS container:</p>
+<pre><code>rtr&gt;show ip bgp | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.10/32           10.1.0.2              0       -          100     0       65100 i
+ * &gt;      10.0.0.11/32           10.1.0.6              0       -          100     0       65101 i
+ * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
+ * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
+ * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
+</code></pre>
+<p>You&rsquo;ll have to deploy input and output filters to remove the unwanted prefixes, and you&rsquo;ll have to apply them to all misbehaving neighbors &ndash; an ideal use case for BGP policy templates.</p>
+<h2 id="configuration-steps">Configuration Steps</h2>
+<p>You&rsquo;ll have to configure the BGP route filters before getting to the crux of this exercise. That shouldn&rsquo;t be a problem: you already did that in the <a href="../../policy/3-prefix/">Filter Advertised Prefixes</a> and <a href="../../policy/4-reduce/">Minimize the Size of Your BGP Table</a> lab exercises.</p>
+<p>To make things more interesting:</p>
+<ul>
+<li>Attach BGP community 65000:200 to BGP prefixes received from X1 and X2</li>
+<li>Attach BGP community 65000:300 to local prefixes.<sup id="fnref:TRM"><a class="footnote-ref" href="#fn:TRM">1</a></sup></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You did something similar in the <a href="../../policy/8-community-attach/">Attach BGP Communities to Outgoing BGP Updates</a> lab exercise.</p>
+</div>
+<p>Once you have configured the necessary route filters:</p>
+<ul>
+<li>Create a BGP <em>policy template</em> (some implementations might call them <em>peer groups</em>).</li>
+<li>Attach the route filters to the policy template.</li>
+<li>Attach the policy template to all EBGP neighbors.</li>
+<li>Resend the BGP updates to the EBGP neighbors with soft inbound and outbound resets of the EBGP sessions.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Some BGP implementations (for example, Cisco IOS) have <em>session templates</em> that control the parameters of a BGP session (source interface, MD5 password) and <em>policy templates</em> that control the processing of inbound- and outbound BGP updates. You usually apply <em>session templates</em> to BGP neighbors at the routing protocol level and <em>policy templates</em> at the address family level.</p>
+<p>Other BGP implementations (for example, Arista EOS) have just the BGP <em>‌peer groups</em>. You can use them to apply <em>‌session</em> and <em>‌policy</em> parameters to BGP neighbors, often at the routing protocol level. Sometimes, you must apply the same peer groups at the address family level to attach the routing filters to BGP neighbors.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<ul>
+<li>Inspect the BGP table on your router. You should see the /24 prefixes from X1 and X2 but not their /32 prefixes.</li>
+</ul>
+<pre><code>rtr&gt;show ip bgp | begin Network
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
+ * &gt;      192.168.42.0/24        -                     -       -          -       0       ?
+ * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
+ * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
+</code></pre>
+<ul>
+<li>Inspect an individual prefix received from X1 or X2. It should have the BGP community 65000:200.</li>
+</ul>
+<pre><code>rtr&gt;show ip bgp 192.168.100.0
+BGP routing table information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+BGP routing table entry for 192.168.100.0/24
+ Paths: 1 available
+  65100
+    10.1.0.2 from 10.1.0.2 (10.0.0.10)
+      Origin IGP, metric 0, localpref 100, IGP metric 0, weight 0, tag 0
+      Received 00:27:02 ago, valid, external, best
+      Community: 65000:200
+      Rx SAFI: Unicast
+</code></pre>
+<ul>
+<li>Inspect the BGP table on X1. You should see the /24 prefixes from RTR and X2 but not their /32 prefixes.</li>
+</ul>
+<pre><code>$ netlab connect x1 -q --show ip bgp | grep Network -A 100
+   Network          Next Hop            Metric LocPrf Weight Path
+*&gt; 10.0.0.10/32     0.0.0.0                  0         32768 i
+*&gt; 192.168.42.0/24  10.1.0.1                               0 65000 ?
+*&gt; 192.168.100.0/24 0.0.0.0                  0         32768 i
+*&gt; 192.168.101.0/24 10.1.0.1                               0 65000 65101 i
+
+Displayed  4 routes and 4 total paths
+</code></pre>
+<ul>
+<li>Inspect the prefix <code>192.168.101.0/24</code> (advertised by X2) on X1. It should have the BGP community 65000:200.</li>
+</ul>
+<pre><code>BGP routing table entry for 192.168.101.0/24
+Paths: (1 available, best #1, table default)
+  Advertised to non peer-group peers:
+  10.1.0.1
+  65000 65101
+    10.1.0.1 from 10.1.0.1 (10.0.0.1)
+      Origin IGP, valid, external, bestpath-from-AS 65000, best (First path received)
+      Community: 65000:200
+      Last update: Fri Feb  2 09:17:58 2024
+</code></pre>
+<ul>
+<li>Inspect the prefix <code>192.168.42.0/24</code> (advertised by RTR) on X1. It should have the BGP community 65000:300.</li>
+</ul>
+<pre><code>$ netlab connect x1 -q --show ip bgp 192.168.42.0/24
+BGP routing table entry for 192.168.42.0/24
+Paths: (1 available, best #1, table default)
+  Advertised to non peer-group peers:
+  10.1.0.1
+  65000
+    10.1.0.1 from 10.1.0.1 (10.0.0.1)
+      Origin incomplete, valid, external, bestpath-from-AS 65000, best (First path received)
+      Community: 65000:300
+      Last update: Fri Feb  2 09:17:58 2024
+</code></pre>
+<ul>
+<li>On X2, repeat the tests you did on X1.</li>
+</ul>
+<h2 id="reference-information">Reference Information</h2>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
+<!--
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+-->
+
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Destination Device</th>
+<th>Destination Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rtr</td>
+<td>Ethernet1</td>
+<td>x1</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>rtr</td>
+<td>Ethernet2</td>
+<td>x2</td>
+<td>swp1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x2</td>
+</tr>
+<tr>
+<td><strong>x1</strong></td>
+<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; rtr</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; rtr</td>
+</tr>
+</tbody>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:TRM">
+<p>Those communities could be used in other autonomous systems to separate <em>peer</em> routes from <em>transit</em> routes.&#160;<a class="footnote-backref" href="#fnref:TRM" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
 </div></div>
             </div>
         </div>
