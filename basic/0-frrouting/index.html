@@ -355,6 +355,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#using-output-filters" class="nav-link">Using Output Filters</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -471,6 +475,57 @@ x1(config-router)#
 <li>Use <code>sudo vtysh</code> whenever possible to burn it into your muscle memory.</li>
 <li>Use <code>vtysh</code> if you use FRRouting containers as the lab devices.</li>
 </ul>
+<h2 id="using-output-filters">Using Output Filters</h2>
+<p>Unlike many other network operating systems, FRR <code>vtysh</code> does not have output filters. You probably don&rsquo;t need them as you&rsquo;ll be running FRR on top of a Unix-like operating system that supports pipes, but it might be a bit convoluted to use <code>vtysh</code> in a pipe.</p>
+<p>To use the <code>vtysh</code> output in a pipe, you have to execute <code>vtysh</code> and get the results of a <strong>show</strong> command in a single command:</p>
+<ul>
+<li>You could use <code>sudo vtysh -c 'show command'</code> when you&rsquo;re in the <strong>bash</strong> shell of a lab device, for example:</li>
+</ul>
+<pre><code>$ sudo vtysh -c 'show ip bgp' | grep 32768
+*&gt; 192.168.100.0/24 0.0.0.0                  0         32768 i
+</code></pre>
+<ul>
+<li>Alternatively, you could use the <code>netlab connect --show</code> command to execute a <code>vtysh</code> <strong>show</strong> command on a lab device:</li>
+</ul>
+<pre><code>$ netlab connect x1 --show ip bgp | grep 32768
+Connecting to container clab-originate-x1, executing sudo vtysh -c &quot;show ip bgp&quot;
+*&gt; 192.168.100.0/24 0.0.0.0                  0         32768 i
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Use <code>netlab connect --quiet --show</code> to omit the <code>Connecting to...</code> message.</p>
+</div>
+<p>The following table contains a mapping between common network operating system filters and Linux CLI commands:</p>
+<table>
+<thead>
+<tr>
+<th>NOS filter</th>
+<th>Linux CLI command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>include</code></td>
+<td><code>grep</code></td>
+</tr>
+<tr>
+<td><code>exclude</code></td>
+<td><code>grep -v</code></td>
+</tr>
+<tr>
+<td><code>begin</code></td>
+<td><code>grep -A 10000</code><sup id="fnref:SLN"><a class="footnote-ref" href="#fn:SLN">3</a></sup></td>
+</tr>
+<tr>
+<td><code>end</code></td>
+<td><code>grep -B 10000</code></td>
+</tr>
+<tr>
+<td><code>section</code></td>
+<td><em>no equivalent</em></td>
+</tr>
+</tbody>
+</table>
 <div class="footnote">
 <hr />
 <ol>
@@ -479,6 +534,9 @@ x1(config-router)#
 </li>
 <li id="fn:ISC">
 <p>An euphemism for <em>Cisco IOS CLI</em> that is used when you try to avoid nasty encounters with Cisco&rsquo;s legal team.&#160;<a class="footnote-backref" href="#fnref:ISC" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:SLN">
+<p>The &lsquo;10000&rsquo; parameter specifies the number of lines after the match. Increase it for very long printouts ;)&#160;<a class="footnote-backref" href="#fnref:SLN" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
