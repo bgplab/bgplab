@@ -133,3 +133,39 @@ The _vtysh_ usually has to run as the **root** user, so you should start it with
 
 * Use `sudo vtysh` whenever possible to burn it into your muscle memory.
 * Use `vtysh` if you use FRRouting containers as the lab devices.
+
+## Using Output Filters
+
+Unlike many other network operating systems, FRR `vtysh` does not have output filters. You probably don't need them as you'll be running FRR on top of a Unix-like operating system that supports pipes, but it might be a bit convoluted to use `vtysh` in a pipe.
+
+To use the `vtysh` output in a pipe, you have to execute `vtysh` and get the results of a **show** command in a single command:
+
+* You could use `sudo vtysh -c 'show command'` when you're in the **bash** shell of a lab device, for example:
+
+```
+$ sudo vtysh -c 'show ip bgp' | grep 32768
+*> 192.168.100.0/24 0.0.0.0                  0         32768 i
+```
+
+* Alternatively, you could use the `netlab connect --show` command to execute a `vtysh` **show** command on a lab device:
+
+```
+$ netlab connect x1 --show ip bgp | grep 32768
+Connecting to container clab-originate-x1, executing sudo vtysh -c "show ip bgp"
+*> 192.168.100.0/24 0.0.0.0                  0         32768 i
+```
+
+!!! tip
+    Use `netlab connect --quiet --show` to omit the `Connecting to...` message.
+
+The following table contains a mapping between common network operating system filters and Linux CLI commands:
+
+| NOS filter | Linux CLI command |
+|------------|-------------------|
+| `include`  | `grep`            |
+| `exclude`  | `grep -v`         |
+| `begin`    | `grep -A 10000`[^SLN]   |
+| `end`      | `grep -B 10000`   |
+| `section`  | *no equivalent*   |
+
+[^SLN]: The '10000' parameter specifies the number of lines after the match. Increase it for very long printouts ;)
