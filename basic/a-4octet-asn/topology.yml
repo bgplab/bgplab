@@ -1,0 +1,43 @@
+# Use 4-octet BGP AS numbers
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: fouroctet
+
+# Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
+defaults.attributes.node.bgp:
+
+plugin: [ external_devices, check_validate, fix_frr ]
+
+version: 1.8.0
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    module: [ bgp ]
+
+nodes:
+  rtr:
+    bgp.as: 4200857607
+  x1:
+    bgp.as: 65548
+    bgp.router_id: 10.0.0.10
+    id: 10
+    loopback.ipv4: 192.168.100.1/24
+  x2:
+    bgp.as: 64500
+    bgp.router_id: 10.0.0.11
+    id: 11
+    loopback.ipv4: 192.168.101.1/24
+links:
+- rtr:
+  x1:
+- rtr:
+  x2:
+
+message: |
+  The "Use 4-octet BGP AS Numbers" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Good luck!
+
+_include: [ validate.yml ]
