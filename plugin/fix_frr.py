@@ -28,8 +28,11 @@ def post_node_transform(topology: Box) -> None:
   if not uses_clab or not uses_frr:
     return
 
-  topology.nodes.rtr.clab.binds = []
-  topology.nodes.rtr.clab.binds.append('frr-daemons.j2:/etc/frr/daemons')
+  rtr = topology.nodes.rtr
+
+  rtr.clab.pop('config_templates',None)
+  rtr.clab.binds = []
+  rtr.clab.binds.append('frr-daemons.j2:/etc/frr/daemons')
 
   if 'message' not in topology:
     topology.message = ''
