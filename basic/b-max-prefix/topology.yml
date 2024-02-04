@@ -1,0 +1,31 @@
+# Limit the Number of Accepted BGP Prefixes
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: maxprefix
+
+plugin: [ external_devices ]
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ customer ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+  customer:
+    id: 10
+    bgp.as: 65100
+    loopback.ipv4: 192.168.100.1/24
+
+links:
+- rtr:
+  customer:
+- customer:
+  prefix.ipv4: 10.42.1.0/24
+  bgp.advertise: False
+
+message: |
+  The "Limit the Number of Accepted BGP Prefixes" lab is ready. Connect to your
+  router with "netlab connect rtr".

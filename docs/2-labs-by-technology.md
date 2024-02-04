@@ -63,6 +63,7 @@ Prefix filters
 : * [Filter prefixes advertised by your autonomous system](policy/3-prefix.md) with a prefix list
   * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
+  * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)

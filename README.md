@@ -15,6 +15,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 
 * [Protect EBGP sessions](basic/6-protect) with MD5 passwords and TTL protection (GTSM)
 * Protect BGP sessions with [TCP Authentication Option (TCP-AO)](basic/9-ao)
+* [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix)
 
 **Running BGP in Larger Networks**
 

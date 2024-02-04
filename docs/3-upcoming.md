@@ -12,8 +12,7 @@ We have plenty of other ideas, including:
 ## Basic BGP Setup
 
 Optional exercises:
-: * Use 4-byte BGP AS numbers
-  * Run BGP on servers
+: * Run BGP on servers
 
 Advanced exercises:
 : * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses

@@ -1,0 +1,8 @@
+#!/bin/bash
+#
+# Get the relevant parts of router configuration, changing "network" to "no network"
+#
+vtysh -c 'show run'|grep -E 'router|address-family|network 10.42'|sed -e 's/network/no network/g' >/tmp/config
+#
+# Deploy new configuration
+vtysh -f /tmp/config

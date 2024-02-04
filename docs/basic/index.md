@@ -25,6 +25,7 @@ You should always protect the control plane of your router and the routing proto
 
 * [Use MD5 passwords and TTL-based session protection](6-protect.md)
 * [Use TCP Authentication Option (TCP-AO)](9-ao.md)
+* [Limit the Number of Accepted BGP Prefixes](b-max-prefix.md)
 
 ## Running BGP in Larger Networks {#ibgp}
 

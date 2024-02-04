@@ -34,6 +34,7 @@ nav:
   - "Protecting BGP Sessions":
     - "MD5 Passwords and GTSM": basic/6-protect.md
     - "TCP Autentication Option (TCP-AO)": basic/9-ao.md
+    - basic/b-max-prefix.md
   - "BGP in Larger Networks":
     - "Establish an IBGP Session": ibgp/1-edge.md
     - "Build a Transit Network with IBGP": ibgp/2-transit.md
@@ -55,6 +56,7 @@ nav:
     - policy/2-stop-transit.md
     - policy/3-prefix.md
     - policy/4-reduce.md
+    - basic/b-max-prefix.md
   - "Outgoing (Egress) Traffic":
     - policy/1-weights.md
     - policy/5-local-preference.md

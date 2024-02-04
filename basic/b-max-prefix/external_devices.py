@@ -1,0 +1,1 @@
+../../plugin/external_devices.py

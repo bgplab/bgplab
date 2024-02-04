@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+echo "Stop advertising extra BGP prefixes"
+ANSIBLE_HOST_PATTERN_MISMATCH=ignore \
+ANSIBLE_STDOUT_CALLBACK=dense \
+netlab config removeprefixes --limit customer
+#
+echo "Done"

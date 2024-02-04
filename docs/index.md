@@ -50,6 +50,7 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
 * [BGP Policy Templates](session/7-policy.md)
 * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
 * [Configuring Cumulus Linux and FRRouting](basic/0-frrouting.md)

@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+echo "Generating ${1:-50} prefixes on the customer router"
+ANSIBLE_HOST_PATTERN_MISMATCH=ignore \
+ANSIBLE_STDOUT_CALLBACK=dense \
+netlab config addprefixes --limit customer -e pfx=${1:-50}
+#
+echo "Done"

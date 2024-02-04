@@ -157,6 +157,8 @@ ce2>show ip bgp|begin Network
 * Verify that the OSPF routes advertised by SW disappear from the BGP table on R1
 * Verify that R1 advertises no BGP prefixes to X1/R2.
 
+**Next:** [Limit the Number of Accepted BGP Prefixes](b-max-prefix.md)
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

@@ -1,0 +1,10 @@
+interface {{ interfaces[1].ifname }}
+{% for i in range(1,51) %}
+  ip address 10.42.{{ i }}.1/24 {{ 'secondary' if i != 1 else '' }}
+{% endfor %}
+!
+router bgp {{ bgp.as }}
+  address-family ipv4
+{% for i in range(1,[ pfx|default(50)|int,50 ] | min + 1) %}
+  network 10.42.{{ i }}.0/24
+{% endfor %}
