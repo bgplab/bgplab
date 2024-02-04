@@ -81,6 +81,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://bgplabs.net/basic/b-max-prefix/</loc>
+         <lastmod>2024-02-04</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://bgplabs.net/challenge/01-bird-rr/</loc>
          <lastmod>2024-02-04</lastmod>
          <changefreq>daily</changefreq>
