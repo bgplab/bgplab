@@ -1,0 +1,50 @@
+# Stop the Propagation of Configuration Errors
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: localas
+
+plugin: [ external_devices, check_extra_config ]
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ c1, c2, peer ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    bgp.advertise_loopback: False
+  c1:
+    bgp.as: 65100
+    bgp.originate:
+    - 192.168.1.0/24
+    - 172.16.1.0/24
+    - 100.73.16.0/22
+    - 0.0.0.0/0
+    - 100.75.42.0/23
+    config: [ extra ]
+  c2:
+    bgp.as: 65101
+    bgp.originate:
+    - 172.30.30.0/24
+    - 169.254.7.0/24
+    - 100.64.1.1/32
+    - 100.68.0.0/15
+    - 100.78.43.0/24
+    - 100.75.142.0/24
+    config: [ extra ]
+  peer:
+    bgp.as: 65107
+    loopback.ipv4: 198.51.100.1/24
+
+links:
+- c1-rtr
+- c2-rtr
+- peer-rtr
+
+#_include: [ validate.yml ]
+
+message: |
+  The "Stop the Propagation of Configuration Errors" lab is ready.
+  Use "netlab connect rtr" to connect to your router.

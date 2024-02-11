@@ -45,11 +45,13 @@ Once you mastered the basics, continue with [more complex routing policies](poli
 Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Try out the challenge labs:
 
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)
+* [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
 
 ## Recent Labs
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
 * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
 * [BGP Policy Templates](session/7-policy.md)
 * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)

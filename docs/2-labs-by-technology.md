@@ -24,6 +24,7 @@ AS and AS-path manipulation
 AS-path filters
 : * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
+  * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md) (challenge lab)
 
 BFD (Bidirectional Forwarding Detection)
 : * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)
@@ -64,6 +65,7 @@ Prefix filters
   * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
   * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
+  * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md) (challenge lab)
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)

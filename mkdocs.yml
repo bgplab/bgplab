@@ -34,7 +34,7 @@ nav:
   - "Protecting BGP Sessions":
     - "MD5 Passwords and GTSM": basic/6-protect.md
     - "TCP Autentication Option (TCP-AO)": basic/9-ao.md
-    - basic/b-max-prefix.md
+    - "Limit the Number of Accepted BGP Prefixes": basic/b-max-prefix.md
   - "BGP in Larger Networks":
     - "Establish an IBGP Session": ibgp/1-edge.md
     - "Build a Transit Network with IBGP": ibgp/2-transit.md
@@ -71,6 +71,7 @@ nav:
 
 - Challenges:
   - challenge/20-merge-as.md
+  - challenge/04-block-fat-fingers.md
 
 - "Upcoming":
   - Overview: 3-upcoming.md

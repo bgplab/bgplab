@@ -1,0 +1,13 @@
+router bgp 65101
+ !
+ address-family ipv4 unicast
+  neighbor 10.1.0.6 route-map prepend out
+ exit-address-family
+!
+ip prefix-list prepend seq 5 permit 100.75.142.0/24
+!
+route-map prepend permit 10
+ match ip address prefix-list prepend
+ set as-path prepend 65101 65101 65101 65101 65101 65101 65101 65101 65101 65101
+!
+route-map prepend permit 20

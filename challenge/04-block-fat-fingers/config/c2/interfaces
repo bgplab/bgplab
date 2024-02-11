@@ -1,0 +1,23 @@
+auto lo
+iface lo inet loopback
+
+auto lo
+iface lo inet loopback
+	address 10.0.0.3/32
+
+auto mgmt
+iface mgmt
+	vrf-table auto
+
+auto eth0
+iface eth0 inet static
+	address 192.168.121.103
+	vrf mgmt
+
+auto swp1
+iface swp1 inet static
+	address 10.1.0.5/30
+
+auto swp1
+iface swp1
+	mtu 1500

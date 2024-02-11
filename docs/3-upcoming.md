@@ -13,17 +13,25 @@ We have plenty of other ideas, including:
 
 Optional exercises:
 : * Run BGP on servers
+  * Multihop EBGP sessions
+  * Dynamic BGP neighbors
+  * Passive BGP peers
 
 Advanced exercises:
 : * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
   * Run IPv4 and IPv6 over the same BGP session
   * Fine-tune BGP Fast External Failover
   * Configure BGP graceful restart
+  * Multihop EBGP sessions with servers
 
-## Simple BGP Routing Policies
+## Load Balancing
 
 * Perform simple load balancing across parallel links and upstream providers
+* Use IGP load balancing toward a shared external subnet
 * Use BGP DMZ bandwidth to influence the load-balancing weights
+* Use BGP Add-Path for IBGP load balancing with route reflectors
+
+## BGP Routing Policies
 
 Advanced exercises:
 : * Use BGP route refresh and soft reconfiguration
