@@ -125,7 +125,7 @@
 </li>
             
 <li>
-    <a href="../basic/b-max-prefix/" class="dropdown-item">None</a>
+    <a href="../basic/b-max-prefix/" class="dropdown-item">Limit the Number of Accepted BGP Prefixes</a>
 </li>
     </ul>
   </li>
@@ -281,6 +281,10 @@
 <li>
     <a href="../challenge/20-merge-as/" class="dropdown-item">Merge Networks Using Different BGP AS Numbers</a>
 </li>
+                                    
+<li>
+    <a href="../challenge/04-block-fat-fingers/" class="dropdown-item">Stop the Propagation of Configuration Errors</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown active">
@@ -317,7 +321,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../challenge/20-merge-as/" class="nav-link">
+                                <a rel="prev" href="../challenge/04-block-fat-fingers/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -351,7 +355,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#simple-bgp-routing-policies" class="nav-link">Simple BGP Routing Policies</a>
+            <li class="nav-item" data-level="2"><a href="#load-balancing" class="nav-link">Load Balancing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#bgp-routing-policies" class="nav-link">BGP Routing Policies</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -389,6 +397,9 @@
 <dd>
 <ul>
 <li>Run BGP on servers</li>
+<li>Multihop EBGP sessions</li>
+<li>Dynamic BGP neighbors</li>
+<li>Passive BGP peers</li>
 </ul>
 </dd>
 <dt>Advanced exercises:</dt>
@@ -398,14 +409,18 @@
 <li>Run IPv4 and IPv6 over the same BGP session</li>
 <li>Fine-tune BGP Fast External Failover</li>
 <li>Configure BGP graceful restart</li>
+<li>Multihop EBGP sessions with servers</li>
 </ul>
 </dd>
 </dl>
-<h2 id="simple-bgp-routing-policies">Simple BGP Routing Policies</h2>
+<h2 id="load-balancing">Load Balancing</h2>
 <ul>
 <li>Perform simple load balancing across parallel links and upstream providers</li>
+<li>Use IGP load balancing toward a shared external subnet</li>
 <li>Use BGP DMZ bandwidth to influence the load-balancing weights</li>
+<li>Use BGP Add-Path for IBGP load balancing with route reflectors</li>
 </ul>
+<h2 id="bgp-routing-policies">BGP Routing Policies</h2>
 <dl>
 <dt>Advanced exercises:</dt>
 <dd>
