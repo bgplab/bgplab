@@ -49,6 +49,7 @@ nav:
   - "Other Useful Topics":
     - basic/7-bfd.md
     - basic/8-aggregate.md
+    - basic/c-default-route.md
 
 - "Routing Policies":
   - Overview: policy/index.md

@@ -51,6 +51,7 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Advertise Default Route in BGP](basic/c-default-route.md)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
 * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
 * [BGP Policy Templates](session/7-policy.md)

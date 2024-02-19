@@ -1,0 +1,1 @@
+../../basic/c-default-route/index.md

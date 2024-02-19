@@ -13,6 +13,7 @@ Advertising IP prefixes
   * [Configure BGP for IPv6](basic/4-ipv6.md)
   * [Redistribute IGP Information Into BGP](basic/5-redistribute.md)
   * [BGP route aggregation](basic/8-aggregate.md)
+  * [Advertise Default Route in BGP](basic/c-default-route.md)
 
 AS and AS-path manipulation
 : * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend.md)
@@ -34,6 +35,9 @@ Communities
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
   * [Using No-Export Community to Filter Transit Routes](challenge/02-no-export.md) (coming soon)
   * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (coming soon)
+
+Default route
+: * [Advertise Default Route in BGP](basic/c-default-route.md)
 
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
