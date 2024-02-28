@@ -16,13 +16,13 @@ When starting the lab with _netlab_, you'll get a preconfigured lab:
 * There will be an EBGP session between PE1 and EXT routers.
 
 !!! Warning
-    To simplify the verification process, the lab uses an unnumbered IPv4 link between PE2 and CORE routers. If your devices don't [support unnumbered IPv4 links](https://netlab.tools/platforms/#platform-initial-addresses) or cannot [run OSPF over unnumbered IPv4 links](https://netlab.tools/module/ospf/#ospf-interfaces), remove the `prefix.ipv4: True` line from the lab topology file.
+    To simplify the verification process, the lab topology uses an unnumbered IPv4 link between PE2 and CORE routers. That link will be changed to a regular IPv4 subnet if your devices don't [support unnumbered IPv4 links](https://netlab.tools/platforms/#platform-initial-addresses) or cannot [run OSPF over unnumbered IPv4 links](https://netlab.tools/module/ospf/#ospf-interfaces), resulting in a slight change in IP routing tables and printouts.
 
 The following tables summarize the existing lab configuration.
     
 ### BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix; your PE-routers advertise their loopback IPv4 addresses.
+The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix; your PE routers advertise their loopback IPv4 addresses.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
