@@ -416,11 +416,11 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>To simplify the verification process, the lab uses an unnumbered IPv4 link between PE2 and CORE routers. If your devices don&rsquo;t <a href="https://netlab.tools/platforms/#platform-initial-addresses">support unnumbered IPv4 links</a> or cannot <a href="https://netlab.tools/module/ospf/#ospf-interfaces">run OSPF over unnumbered IPv4 links</a>, remove the <code>prefix.ipv4: True</code> line from the lab topology file.</p>
+<p>To simplify the verification process, the lab topology uses an unnumbered IPv4 link between PE2 and CORE routers. That link will be changed to a regular IPv4 subnet if your devices don&rsquo;t <a href="https://netlab.tools/platforms/#platform-initial-addresses">support unnumbered IPv4 links</a> or cannot <a href="https://netlab.tools/module/ospf/#ospf-interfaces">run OSPF over unnumbered IPv4 links</a>, resulting in a slight change in IP routing tables and printouts.</p>
 </div>
 <p>The following tables summarize the existing lab configuration.</p>
 <h3 id="bgp-configuration">BGP Configuration</h3>
-<p>The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix; your PE-routers advertise their loopback IPv4 addresses.</p>
+<p>The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix; your PE routers advertise their loopback IPv4 addresses.</p>
 <table>
 <thead>
 <tr>
