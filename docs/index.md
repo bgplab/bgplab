@@ -51,11 +51,8 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
 * [Advertise Default Route in BGP](basic/c-default-route.md)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
 * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
 * [BGP Policy Templates](session/7-policy.md)
-* [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md)
-* [Configuring Cumulus Linux and FRRouting](basic/0-frrouting.md)
-* [BGP Session Templates](session/6-templates.md)
-* [Use Multiple AS Numbers on the Same Router](session/3-localas.md)

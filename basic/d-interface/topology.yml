@@ -1,0 +1,44 @@
+# Configure EBGP sessions over IPv6 LLA
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: ebgp_intf
+
+# Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
+plugin: [ external_devices, check_validate, fix_unnumbered ]
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ x1, x2 ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    bgp.sessions:
+      ipv4: []
+  x1:
+    bgp.as: 65100
+    bgp.router_id: 10.0.0.10
+    id: 10
+    loopback.ipv4: 192.168.100.1/24
+  x2:
+    bgp.as: 65101
+    bgp.router_id: 10.0.0.11
+    id: 11
+    loopback.ipv4: 192.168.101.1/24
+links:
+- rtr:
+  x1:
+    ipv4: True
+- prefix.ipv4: True
+  rtr:
+  x2:
+
+_include: [ validate.yml ]
+
+message: |
+  The "Configure Interface EBGP Sessions" lab is ready. Connect to your router
+  with "netlab connect rtr".
+
+  Good luck!

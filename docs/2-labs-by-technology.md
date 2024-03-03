@@ -3,10 +3,11 @@ title: Labs by BGP Attributes and Technologies
 ---
 # Labs Sorted by BGP Attributes and Technologies
 
-This page contains the alphabetical list of BGP attributes and technologies, and the labs you can use to practice them:
+This page contains the alphabetical list of BGP attributes and technologies and the labs you can use to practice them:
 
 Address families
 : * [Configure BGP for IPv6](basic/4-ipv6.md)
+  * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
 
 Advertising IP prefixes
 : * [Advertise your IPv4 address space](basic/3-originate.md)
@@ -42,6 +43,7 @@ Default route
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
   * [Connect to two upstream providers](basic/2-multihomed.md)
+  * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
 
 GTSM (Generic TTL Security Mechanism)
 : * [Use MD5 passwords and TTL-based session protection](basic/6-protect.md)

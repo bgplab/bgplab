@@ -58,3 +58,4 @@ Willing to learn more? Challenge yourself with these advanced topics:
 * [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * [BGP route aggregation](8-aggregate.md)
 * [Advertise Default Route in BGP](c-default-route.md)
+* [EBGP Sessions over IPv6 LLA Interfaces](d-interface.md)

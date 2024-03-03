@@ -18,8 +18,7 @@ Optional exercises:
   * Passive BGP peers
 
 Advanced exercises:
-: * Run EBGP over unnumbered IPv4 interfaces or over IPv6 link-local addresses
-  * Run IPv4 and IPv6 over the same BGP session
+: * Run IPv4 and IPv6 over the same BGP session
   * Fine-tune BGP Fast External Failover
   * Configure BGP graceful restart
   * Multihop EBGP sessions with servers

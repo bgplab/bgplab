@@ -51,7 +51,8 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Use Multiple AS Numbers on the Same Router](session/3-localas)
 * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate)
 * [Advertise Default Route in BGP](basic/c-default-route)
+* [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface)
 
-See [lab documentation](https://bgplab.github.io/bgplab/) for more details and the complete list of planned labs.
+See [lab documentation](https://bgplabs.net/) for more details and the complete list of planned labs.
 
 [^PC]: Some assembly required: while the Cumulus Linux VMs/containers used for external BGP speakers are easy to download, you'll have to build a Vagrant box or install a Docker container image for your platform.
