@@ -31,7 +31,7 @@ nav:
     - basic/3-originate.md
     - basic/4-ipv6.md
     - basic/5-redistribute.md
-    - basic/d-interface.md
+    - "EBGP Sessions over IPv6 LLA Interfaces": basic/d-interface.md
   - "Protecting BGP Sessions":
     - "MD5 Passwords and GTSM": basic/6-protect.md
     - "TCP Autentication Option (TCP-AO)": basic/9-ao.md
@@ -51,7 +51,7 @@ nav:
     - basic/7-bfd.md
     - basic/8-aggregate.md
     - basic/c-default-route.md
-    - basic/d-interface.md
+    - "EBGP Sessions over IPv6 LLA Interfaces": basic/d-interface.md
 
 - "Routing Policies":
   - Overview: policy/index.md
