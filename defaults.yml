@@ -7,3 +7,4 @@ groups:
 
 devices.eos.clab.node.env.CLAB_MGMT_VRF: management   # Add management VRF to cEOS. Not needed after 1.6.4
 devices.frr.features.ospf.unnumbered: true            # OSPF unnumbered works on FRR. Not needed after 1.7.0
+devices.frr.clab.image: quay.io/frrouting/frr:7.5.0   # The last image that handles loopbacks correctly
