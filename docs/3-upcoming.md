@@ -6,6 +6,7 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
+* [Use controlled disaggregation to influence inbound traffic flow](policy/b-disaggregate.md)
 
 We have plenty of other ideas, including:
 
@@ -38,7 +39,6 @@ Advanced exercises:
 ## Controlling Inbound Traffic
 
 * Use AS-path prepending together with BGP communities to prevent BGP wedgies
-* Use controlled disaggregation to influence inbound traffic flow
 * Use conditional route advertisements to select primary/backup links for the inbound traffic
 
 ## BGP in Service Provider Networks
