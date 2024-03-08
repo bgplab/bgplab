@@ -50,6 +50,16 @@ Even though one should not use the same BGP AS number in multiple networks or mo
 * [Remove Private BGP AS Numbers from the AS Path](../session/4-removeprivate.md)
 * [BGP Route Server in an Internet Exchange Point](../session/5-routeserver.md) (coming soon)
 
+## BGP Load Balancing {#lb}
+
+Modern BGP implementations perform simple EBGP and IBGP equal-cost multipathing[^ECMP] (ECMP) without additional configuration. Still, you might have to fine-tune it to adapt its behavior to your environment. These lab exercises cover the typical scenarios:
+
+* [Load Balancing across External BGP Paths](../lb/1-ebgp.md) (coming soon)
+* [EBGP Load Balancing with DMZ Bandwidth](../lb/2-dmz-bw.md) (coming soon)
+* [IBGP Load Balancing with DMZ Bandwidth](../lb/3-ibgp.md) (coming soon)
+* [IBGP Load Balancing with BGP Additional Paths](../lb/4-ibgp-add-path.md)
+
+[^ECMP]: Sending traffic toward a single destination across multiple equal-cost paths. Packet distribution across paths (load balancing) depends on the device configuration and the implementation details, and might be done per-packet, per-session, or per-destination.
 
 ## Other Useful Topics {#advanced}
 

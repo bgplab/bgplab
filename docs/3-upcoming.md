@@ -7,6 +7,10 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
 * [Use controlled disaggregation to influence inbound traffic flow](policy/b-disaggregate.md)
+* [Load Balancing across External BGP Paths](lb/1-ebgp.md)
+* [EBGP Load Balancing with DMZ Bandwidth](lb/2-dmz-bw.md)
+* [IBGP Load Balancing with DMZ Bandwidth](lb/3-ibgp.md)
+* [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
 
 We have plenty of other ideas, including:
 
@@ -22,13 +26,6 @@ Advanced exercises:
 : * Fine-tune BGP Fast External Failover
   * Configure BGP graceful restart
   * Multihop EBGP sessions with servers
-
-## Load Balancing
-
-* Perform simple load balancing across parallel links and upstream providers
-* Use IGP load balancing toward a shared external subnet
-* Use BGP DMZ bandwidth to influence the load-balancing weights
-* Use BGP Add-Path for IBGP load balancing with route reflectors
 
 ## BGP Routing Policies
 
@@ -47,7 +44,6 @@ Advanced exercises:
 * Use a hierarchy of route reflectors
 * Reduce routing instabilities with BGP route flap dampening
 * Implement policy-based routing with BGP
-* Use a BGP route server
 
 ## Use MPLS with BGP 
 

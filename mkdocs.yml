@@ -83,6 +83,10 @@ nav:
   - challenge/01-bird-rr.md
   - session/5-routeserver.md
   - policy/b-disaggregate.md
+  - lb/1-ebgp.md
+  - lb/2-dmz-bw.md
+  - lb/3-ibgp.md
+  - lb/4-ibgp-add-path.md
 
 markdown_extensions:
 - footnotes
