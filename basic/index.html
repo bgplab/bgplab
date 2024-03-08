@@ -326,6 +326,22 @@
 <li>
     <a href="../policy/b-disaggregate/" class="dropdown-item">Use Disaggregated Prefixes to Select the Primary Link</a>
 </li>
+                                    
+<li>
+    <a href="../lb/1-ebgp/" class="dropdown-item">Load Balancing across External BGP Paths</a>
+</li>
+                                    
+<li>
+    <a href="../lb/2-dmz-bw/" class="dropdown-item">EBGP Load Balancing with DMZ Bandwidth</a>
+</li>
+                                    
+<li>
+    <a href="../lb/3-ibgp/" class="dropdown-item">IBGP Load Balancing with DMZ Bandwidth</a>
+</li>
+                                    
+<li>
+    <a href="../lb/4-ibgp-add-path/" class="dropdown-item">IBGP Load Balancing with BGP Additional Paths</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -380,6 +396,10 @@
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#aspath" class="nav-link">BGP AS Number and AS Path Manipulations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#lb" class="nav-link">BGP Load Balancing</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -440,6 +460,14 @@
 <li><a href="../session/4-removeprivate/">Remove Private BGP AS Numbers from the AS Path</a></li>
 <li><a href="../session/5-routeserver/">BGP Route Server in an Internet Exchange Point</a> (coming soon)</li>
 </ul>
+<h2 id="lb">BGP Load Balancing</h2>
+<p>Modern BGP implementations perform simple EBGP and IBGP equal-cost multipathing<sup id="fnref:ECMP"><a class="footnote-ref" href="#fn:ECMP">1</a></sup> (ECMP) without additional configuration. Still, you might have to fine-tune it to adapt its behavior to your environment. These lab exercises cover the typical scenarios:</p>
+<ul>
+<li><a href="../lb/1-ebgp/">Load Balancing across External BGP Paths</a> (coming soon)</li>
+<li><a href="../lb/2-dmz-bw/">EBGP Load Balancing with DMZ Bandwidth</a> (coming soon)</li>
+<li><a href="../lb/3-ibgp/">IBGP Load Balancing with DMZ Bandwidth</a> (coming soon)</li>
+<li><a href="../lb/4-ibgp-add-path/">IBGP Load Balancing with BGP Additional Paths</a></li>
+</ul>
 <h2 id="advanced">Other Useful Topics</h2>
 <p>Willing to learn more? Challenge yourself with these advanced topics:</p>
 <ul>
@@ -447,7 +475,15 @@
 <li><a href="8-aggregate/">BGP route aggregation</a></li>
 <li><a href="c-default-route/">Advertise Default Route in BGP</a></li>
 <li><a href="d-interface/">EBGP Sessions over IPv6 LLA Interfaces</a></li>
-</ul></div>
+</ul>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:ECMP">
+<p>Sending traffic toward a single destination across multiple equal-cost paths. Packet distribution across paths (load balancing) depends on the device configuration and the implementation details, and might be done per-packet, per-session, or per-destination.&#160;<a class="footnote-backref" href="#fnref:ECMP" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
