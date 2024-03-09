@@ -75,6 +75,7 @@ nav:
 - Challenges:
   - challenge/20-merge-as.md
   - challenge/04-block-fat-fingers.md
+  - challenge/30-reduce-fib.md
 
 - "Upcoming":
   - Overview: 3-upcoming.md

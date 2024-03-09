@@ -53,6 +53,12 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Advertise Default Route in BGP](basic/c-default-route)
 * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface)
 
+**Challenge Labs**
+
+* [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as)
+* [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers/)
+* [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib)
+
 See [lab documentation](https://bgplabs.net/) for more details and the complete list of planned labs.
 
 [^PC]: Some assembly required: while the Cumulus Linux VMs/containers used for external BGP speakers are easy to download, you'll have to build a Vagrant box or install a Docker container image for your platform.

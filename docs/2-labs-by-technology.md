@@ -39,11 +39,15 @@ Communities
 
 Default route
 : * [Advertise Default Route in BGP](basic/c-default-route.md)
+  * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
   * [Connect to two upstream providers](basic/2-multihomed.md)
   * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
+
+Forwarding Table
+: * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 
 GTSM (Generic TTL Security Mechanism)
 : * [Use MD5 passwords and TTL-based session protection](basic/6-protect.md)

@@ -1,0 +1,1 @@
+../../challenge/30-reduce-fib/index.md
