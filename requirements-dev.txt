@@ -2,3 +2,4 @@
 # Python library requirements for BGP labs content development
 #
 mkdocs-material
+mkdocs-include-dir-to-nav
