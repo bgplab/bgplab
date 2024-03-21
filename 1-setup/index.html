@@ -421,35 +421,40 @@
 <p>BGP labs work best with <em>netlab</em> release 1.6.4 or later. If you&rsquo;re using an earlier <em>netlab</em> release, please upgrade with <code>pip3 install --upgrade networklab</code>.</p>
 </div>
 <h2 id="select-the-network-devices-you-will-work-with">Select the Network Devices You Will Work With</h2>
-<p>You can run Cumulus Linux (and FRR) in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices.</p>
-<p>If you&rsquo;d like to use a more traditional networking device, use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a> as the device to practice with. I would recommend Arista cEOS or Nokia SR Linux containers &ndash; they are the easiest ones to install and use.</p>
+<p>You can run Cumulus Linux (and FRR) in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks with Apple silicon</a>).</p>
+<p>If you&rsquo;d like to use a more traditional networking device, use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a> as the device to practice with<sup id="fnref:x86"><a class="footnote-ref" href="#fn:x86">1</a></sup>. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.</p>
 <h2 id="select-the-additional-devices-in-your-lab">Select the Additional Devices in Your Lab</h2>
 <p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices with which your routers exchange routing information. You won&rsquo;t configure those devices, but you might have to log into them and execute <strong>show</strong> commands.</p>
 <p>Use Cumulus Linux on those devices with <em>netlab</em> releases older than 1.6.4.</p>
-<p>With release 1.6.4 (and later), you can choose any one of these devices for your external BGP feeds<sup id="fnref:OPL"><a class="footnote-ref" href="#fn:OPL">3</a></sup>:</p>
+<p>With release 1.6.4 (and later), you can choose any one of these devices for your external BGP feeds<sup id="fnref:OPL"><a class="footnote-ref" href="#fn:OPL">4</a></sup>:</p>
 <table>
 <thead>
 <tr>
 <th>Environment</th>
-<th>Devices that can be used<br>as external BGP feeds<sup id="fnref:XF"><a class="footnote-ref" href="#fn:XF">1</a></sup></th>
+<th>Devices that can be used<br>as external BGP feeds<sup id="fnref:XF"><a class="footnote-ref" href="#fn:XF">2</a></sup></th>
 <th>Recommended</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Containers (clab)</td>
-<td>Arista EOS, Aruba AOS-CX, Cumulus Linux, FRR, Nokia SR Linux<sup id="fnref:R164"><a class="footnote-ref" href="#fn:R164">2</a></sup></td>
-<td>FRR (<code>frr</code>)<sup id="fnref:FSF"><a class="footnote-ref" href="#fn:FSF">4</a></sup></td>
+<td>Arista EOS, Aruba AOS-CX, Cumulus Linux, FRR, Nokia SR Linux<sup id="fnref:R164"><a class="footnote-ref" href="#fn:R164">3</a></sup></td>
+<td>FRR (<code>frr</code>)<sup id="fnref:FSF"><a class="footnote-ref" href="#fn:FSF">5</a></sup></td>
 </tr>
 <tr>
 <td>Virtual machines (libvirt)</td>
 <td>Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR</td>
-<td>Cumulus Linux (<code>cumulus</code>)<sup id="fnref:CSF"><a class="footnote-ref" href="#fn:CSF">5</a></sup></td>
+<td>Cumulus Linux (<code>cumulus</code>)<sup id="fnref:CSF"><a class="footnote-ref" href="#fn:CSF">6</a></sup></td>
 </tr>
 <tr>
 <td>Virtual machines (Virtualbox)</td>
 <td>Arista EOS, Cisco IOSv, Cisco IOS-XE, Cumulus Linux, FRR</td>
 <td>Cumulus Linux (<code>cumulus</code>)</td>
+</tr>
+<tr>
+<td><a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">ARM (Apple) CPU</a></td>
+<td>FRR containers</td>
+<td>FRR (<code>frr</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -462,7 +467,7 @@
 </div>
 <h2 id="select-the-virtualization-environment">Select the Virtualization Environment</h2>
 <p>Now that you know which network device to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that&rsquo;s just me.</p>
-<p>A gotcha: You can use <em>virtualbox</em> if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop, but even then, I&rsquo;d prefer running them in a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM</a>.</p>
+<p>A gotcha: You can use <em>virtualbox</em> if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop with Intel CPU, but even then, I&rsquo;d prefer running them in a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM</a>.</p>
 <p>One more gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t need nested virtualization to run Docker containers unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Aruba AOS-CX, Juniper vMX, or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
 <h2 id="software-installation">Software Installation</h2>
 <p>Based on the choices you made, you&rsquo;ll find the installation instructions in one of these documents:</p>
@@ -472,15 +477,16 @@
 <li><a href="https://netlab.tools/install/ubuntu/">Ubuntu Server Installation</a></li>
 <li><a href="https://netlab.tools/install/linux/">Running netlab on any other Linux Server</a></li>
 <li><a href="https://netlab.tools/install/cloud/">Running netlab in a Public Cloud</a></li>
+<li><a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Running netlab on Apple silicon</a></li>
 </ul>
-<p>Once you completed the software installation you have to deal with the stupidities of downloading and installing network device images (<a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/libvirt/#vagrant-boxes">libvirt</a>, <a href="https://netlab.tools/labs/clab/#container-images">containers</a>) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
-<p>I would love to simplify the process, but the networking vendors refuse to play along. Even worse,  their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">6</a></sup>. Fortunately, you only have to go through this colossal waste of time once.</p>
+<p>Once you have completed the software installation you have to deal with the stupidities of downloading and installing network device images (<a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/libvirt/#vagrant-boxes">libvirt</a>, <a href="https://netlab.tools/labs/clab/#container-images">containers</a>) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
+<p>I would love to simplify the process, but the networking vendors refuse to play along. Even worse,  their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">7</a></sup>. Fortunately, you only have to go through this colossal waste of time once.</p>
 <h2 id="setting-up-the-labs">Setting Up the Labs</h2>
 <p>We finally got to the fun part &ndash; setting up the labs:</p>
 <ul>
 <li>Select a directory where you want to have the BGP labs</li>
 <li>Clone the <code>bgplab</code> <a href="https://github.com/bgplab/bgplab">GitHub repository</a> with <code>git clone https://github.com/bgplab/bgplab.git</code>. <a href="https://github.com/bgplab/bgplab">GitHub UI</a> gives you other options in the green <code>Code</code> button, including <em>Download ZIP</em></li>
-<li>Open the <code>defaults.yml</code> file in the main directory and edit it to set your preferred network device and virtualization environment. For example, I&rsquo;m using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:</li>
+<li>Open the <code>defaults.yml</code> file in the top directory and edit it to set your preferred network device and virtualization environment. For example, I&rsquo;m using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:</li>
 </ul>
 <pre><code>device: eos             # Change to your preferred network device
 provider: clab          # Change to virtualbox or libvirt if needed
@@ -500,23 +506,26 @@ groups:
 <div class="footnote">
 <hr />
 <ol>
+<li id="fn:x86">
+<p>You will have to run the labs on a device with an x86 CPU (Intel or AMD).&#160;<a class="footnote-backref" href="#fnref:x86" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
 <li id="fn:XF">
-<p>You can only use devices supported by <strong><a href="https://netlab.tools/plugins/bgp.session/">bgp.session</a></strong> and <strong><a href="https://netlab.tools/plugins/bgp.policy/">bgp.policy</a></strong> <em>netlab</em> plugins as external BGP feeds.&#160;<a class="footnote-backref" href="#fnref:XF" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>You can only use devices supported by <strong><a href="https://netlab.tools/plugins/bgp.session/">bgp.session</a></strong> and <strong><a href="https://netlab.tools/plugins/bgp.policy/">bgp.policy</a></strong> <em>netlab</em> plugins as external BGP feeds.&#160;<a class="footnote-backref" href="#fnref:XF" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:R164">
-<p>You need <em>netlab</em> release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also <a href="https://netlab.tools/caveats/#caveats-srlinux">install additional software</a>.&#160;<a class="footnote-backref" href="#fnref:R164" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>You need <em>netlab</em> release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also <a href="https://netlab.tools/caveats/#caveats-srlinux">install additional software</a>.&#160;<a class="footnote-backref" href="#fnref:R164" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:OPL">
-<p>If you&rsquo;d like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to <strong>bgp.session</strong> and <strong>bgp.policy</strong> plugins. Thank you!&#160;<a class="footnote-backref" href="#fnref:OPL" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>If you&rsquo;d like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to <strong>bgp.session</strong> and <strong>bgp.policy</strong> plugins. Thank you!&#160;<a class="footnote-backref" href="#fnref:OPL" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:FSF">
-<p>An FRR container starts slightly faster than a Cumulus Linux container. Also, the FRR containers are built by the FRR project, while the Cumulus Linux containers came from a hobby project of their former employee.&#160;<a class="footnote-backref" href="#fnref:FSF" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>An FRR container starts slightly faster than a Cumulus Linux container. Also, the FRR containers are built by the FRR project, while the Cumulus Linux containers came from a hobby project of their former employee.&#160;<a class="footnote-backref" href="#fnref:FSF" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 <li id="fn:CSF">
-<p>There is no official FRR virtual machine image &ndash; <em>netlab</em> has to download and install FRR on a Ubuntu VM whenever you start an <code>frr</code> node as a virtual machine. Using Cumulus Linux Vagrant box is faster and consumes way less bandwidth.&#160;<a class="footnote-backref" href="#fnref:CSF" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>There is no official FRR virtual machine image &ndash; <em>netlab</em> has to download and install FRR on a Ubuntu VM whenever you start an <code>frr</code> node as a virtual machine. Using Cumulus Linux Vagrant box is faster and consumes way less bandwidth.&#160;<a class="footnote-backref" href="#fnref:CSF" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 <li id="fn:NPAL">
-<p>I&rsquo;m not going to pay a lawyer to read their boilerplate stuff, and I&rsquo;m definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+<p>I&rsquo;m not going to pay a lawyer to read their boilerplate stuff, and I&rsquo;m definitely not going to rely on my amateur understanding of US copyright law.&#160;<a class="footnote-backref" href="#fnref:NPAL" title="Jump back to footnote 7 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
