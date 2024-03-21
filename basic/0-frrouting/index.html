@@ -428,7 +428,13 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/0-frrouting</code></li>
-<li>Execute <strong>netlab up</strong> to start a lab with two Cumulus Linux virtual machines or containers (depending on your lab setup).</li>
+<li>Execute <strong>netlab up</strong> to start a lab with two Cumulus Linux or FRR virtual machines or containers (depending on your lab setup).</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The lab topology uses Cumulus Linux virtual machines or containers but switches to FRR containers if you&rsquo;re running the labs on an ARM CPU (for example, on <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks using Apple silicon</a>).</p>
+</div>
+<ul>
 <li>Log into the devices (<code>rtr</code> and <code>x1</code>) with the <strong>netlab connect</strong> command.</li>
 </ul>
 <h2 id="daemon">Start the BGP Daemon</h2>
