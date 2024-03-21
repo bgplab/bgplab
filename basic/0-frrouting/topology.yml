@@ -1,6 +1,7 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ fix_arm ]
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:

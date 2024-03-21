@@ -19,7 +19,11 @@ The Linux interfaces and IP addresses will be configured automatically if you st
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/0-frrouting`
-* Execute **netlab up** to start a lab with two Cumulus Linux virtual machines or containers (depending on your lab setup).
+* Execute **netlab up** to start a lab with two Cumulus Linux or FRR virtual machines or containers (depending on your lab setup).
+
+!!! tip
+    The lab topology uses Cumulus Linux virtual machines or containers but switches to FRR containers if you're running the labs on an ARM CPU (for example, on [Macbooks using Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)).
+
 * Log into the devices (`rtr` and `x1`) with the **netlab connect** command.
 
 ## Start the BGP Daemon {#daemon}
