@@ -28,6 +28,7 @@ In the first set of the BGP labs, you'll master these skills:
 * [Protect BGP sessions](basic/index.md#protect)
 * [Run BGP in networks with more than one BGP router](basic/index.md#ibgp)
 * [Manipulate BGP AS numbers or AS paths](basic/index.md#aspath) with nerd knobs like **as-override** and **local-as**
+* [Implement load balancing](basic/index.md#lb) within an autonomous system and across EBGP neighbors
 * [Configure advanced BGP features](basic/index.md#advanced) like BFD or BGP route aggregation.
 
 ## BGP Routing Policies {#policy}
@@ -52,6 +53,7 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Load Balancing across External BGP Paths](lb/1-ebgp.md)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
 * [Advertise Default Route in BGP](basic/c-default-route.md)

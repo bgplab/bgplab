@@ -45,6 +45,7 @@ EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
   * [Connect to two upstream providers](basic/2-multihomed.md)
   * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
+  * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
 
 Forwarding Table
 : * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
@@ -57,6 +58,9 @@ IBGP sessions
   * [Build a Transit Network with IBGP](ibgp/2-transit.md)
   * [Use BGP Route Reflectors](ibgp/3-rr.md)
   * [Use BGP Session Templates](session/6-templates.md)
+
+Load balancing
+: * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
 
 LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
