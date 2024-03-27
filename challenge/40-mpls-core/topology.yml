@@ -1,0 +1,35 @@
+# Configure a BGP route server
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: mplscore
+
+groups:
+  external:
+    members: [ e1, e2 ]
+    module: [ bgp ]
+  pe:
+    members: [ pe1, pe2 ]
+    module: [ bgp, ospf ]
+    bgp.as: 65000
+  p:
+    members: [ core ]
+    module: [ ospf ]
+
+nodes:
+  pe1:
+  pe2:
+  core:
+  e1:
+    id: 11
+    bgp.as: 65101
+    loopback.ipv4: 192.168.101.1/24
+  e2:
+    id: 12
+    bgp.as: 65102
+    loopback.ipv4: 192.168.102.1/24
+
+links: [ e1-pe1, pe1-core, core-pe2, pe2-e2 ]
+
+message: |
+  The "BGP-Free Network Core" lab is ready.
+  Use "netlab connect" to connect to the lab devices.

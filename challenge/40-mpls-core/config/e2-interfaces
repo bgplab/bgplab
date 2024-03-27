@@ -1,0 +1,21 @@
+auto swp1
+iface swp1 inet static
+	mtu 1500
+	address 10.1.0.13/30
+
+auto lo
+iface lo inet loopback
+	address 192.168.102.1/24
+
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+	vrf mgmt
+
+auto mgmt
+iface mgmt
+	address 127.0.0.1/8
+	address ::1/128
+	vrf-table auto

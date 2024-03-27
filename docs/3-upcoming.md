@@ -47,6 +47,4 @@ Advanced exercises:
 
 ## Use MPLS with BGP 
 
-* Use MPLS to build a BGP-free core
-* Use SR-MPLS to minimize the number of control-plane protocols
 * Use BGP Labeled Unicast to extend MPLS paths across multiple autonomous systems

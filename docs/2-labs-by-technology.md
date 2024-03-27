@@ -71,6 +71,9 @@ LOCAL_PREF (Local Preference)
 MD5 passwords
 : * [Use MD5 passwords and TTL-based session protection](basic/6-protect.md)
 
+MPLS
+: * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
+
 MULTI_EXIT_DISC (Multi-Exit Discriminator, MED)
 : * [Use MED to Influence Incoming Traffic Flow](policy/6-med.md)
 

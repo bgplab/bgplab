@@ -48,11 +48,13 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
+* [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
 
 ## Recent Labs
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
 * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
