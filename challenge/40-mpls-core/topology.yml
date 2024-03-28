@@ -1,6 +1,7 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ fix_frr ]
 name: mplscore
 
 groups:
