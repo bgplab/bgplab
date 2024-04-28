@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/lb/3-ibgp/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>IBGP Load Balancing with DMZ Bandwidth &#171; BGP Labs</title>
+  <title>IBGP Load Balancing with BGP Link Bandwidth &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -350,7 +350,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">IBGP Load Balancing with DMZ Bandwidth</a>
+    <a href="./" class="dropdown-item active">IBGP Load Balancing with BGP Link Bandwidth</a>
 </li>
                                     
 <li>
@@ -395,7 +395,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#ibgp-load-balancing-with-dmz-bandwidth" class="nav-link">IBGP Load Balancing with DMZ Bandwidth</a>
+            <li class="nav-item" data-level="1"><a href="#ibgp-load-balancing-with-bgp-link-bandwidth" class="nav-link">IBGP Load Balancing with BGP Link Bandwidth</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -404,8 +404,8 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="ibgp-load-balancing-with-dmz-bandwidth">IBGP Load Balancing with DMZ Bandwidth</h1>
-<p>In the <a href="../2-dmz-bw/">previous lab exercise</a>, you used the DMZ Bandwidth BGP attribute to implement unequal-cost load balancing across multiple links connected to the same router. In this exercise, you&rsquo;ll use the same approach but extend it across your autonomous system — routers receiving external routes over IBGP should perform load balancing toward external destinations based on the DMZ bandwidth attached to them.</p>
+<h1 id="ibgp-load-balancing-with-bgp-link-bandwidth">IBGP Load Balancing with BGP Link Bandwidth</h1>
+<p>In the <a href="../2-dmz-bw/">previous lab exercise</a>, you used the BGP Link Bandwidth extended community to implement unequal-cost load balancing across multiple links connected to the same router. In this exercise, you&rsquo;ll use the same approach but extend it across your autonomous system — routers receiving external routes over IBGP should perform unequal-cost multipathing (UCMP) toward external destinations based on the BGP Link Bandwidth extended community attached to BGP paths.</p>
 <p><img alt="Lab topology" src="../topology-lb-ibgp-dmz-bw.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
