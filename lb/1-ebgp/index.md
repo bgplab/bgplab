@@ -94,6 +94,8 @@ B>* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
   *                    via 10.1.0.9, swp3, weight 1, 00:00:08
 ```
 
+**Next:** [EBGP Load Balancing with BGP Link Bandwidth](2-dmz-bw.md)
+
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:

@@ -54,9 +54,9 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
-* [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
+* [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
+* [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)<!--adv-->
 * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
-* [Advertise Default Route in BGP](basic/c-default-route.md)
-* [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
+* [Advertise Default Route in BGP](basic/c-default-route.md)<!--adv-->

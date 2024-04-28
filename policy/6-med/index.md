@@ -95,9 +95,7 @@ X1 and X2 prefer the EBGP path to the customer prefix (`192.168.42.0/24`) over t
 
 ## Using BGP Multi-Exit Discriminator (MED)
 
-The [Border Gateway Protocol 4 (BGP-4)](https://datatracker.ietf.org/doc/html/rfc4271) RFC (RFC 4271) [defines the MULTI_EXIT_DISC attribute](https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4) as an optional attribute that is
-intended to be used on external (inter-AS) links to discriminate
-among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.
+The [Border Gateway Protocol 4 (BGP-4)](https://datatracker.ietf.org/doc/html/rfc4271) RFC (RFC 4271) [defines the MULTI_EXIT_DISC attribute](https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4) as an optional attribute that is intended to be used on external (inter-AS) links to discriminate among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.
 
 RFC 4271 also defines how to use MED: "_All other factors being equal, the exit point with the lower metric SHOULD be preferred._" MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.
 

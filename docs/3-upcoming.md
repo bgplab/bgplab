@@ -7,8 +7,7 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
 * [Use controlled disaggregation to influence inbound traffic flow](policy/b-disaggregate.md)
-* [EBGP Load Balancing with DMZ Bandwidth](lb/2-dmz-bw.md)
-* [IBGP Load Balancing with DMZ Bandwidth](lb/3-ibgp.md)
+* [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
 * [Minimize the Forwarding Table on Provider Edge Routers](challenge/30-reduce-fib.md)
 

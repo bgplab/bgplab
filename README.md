@@ -42,6 +42,11 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Using BGP Local Preference in a Complex Routing Policy](policy/a-locpref-route-map)
 * [Use BGP Policy Templates](session/7-policy)
 
+**Load Balancing**
+
+* [Load Balancing across External BGP Paths](lb/1-ebgp)
+* [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw)
+
 **Advanced Topics**
 
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
