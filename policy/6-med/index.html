@@ -189,6 +189,10 @@
 <li>
     <a href="../../lb/1-ebgp/" class="dropdown-item">Load Balancing across External BGP Paths</a>
 </li>
+            
+<li>
+    <a href="../../lb/2-dmz-bw/" class="dropdown-item">EBGP Load Balancing with BGP Link Bandwidth</a>
+</li>
     </ul>
   </li>
                                     
@@ -343,10 +347,6 @@
                                     
 <li>
     <a href="../b-disaggregate/" class="dropdown-item">Use Disaggregated Prefixes to Select the Primary Link</a>
-</li>
-                                    
-<li>
-    <a href="../../lb/2-dmz-bw/" class="dropdown-item">EBGP Load Balancing with DMZ Bandwidth</a>
 </li>
                                     
 <li>
@@ -621,9 +621,7 @@ Paths: (2 available, best #2, table default)
 </code></pre>
 <p>X1 and X2 prefer the EBGP path to the customer prefix (<code>192.168.42.0/24</code>) over the IBGP path. The distinction between the two paths is small enough for MED to work.</p>
 <h2 id="using-bgp-multi-exit-discriminator-med">Using BGP Multi-Exit Discriminator (MED)</h2>
-<p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is<br />
-intended to be used on external (inter-AS) links to discriminate<br />
-among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.</p>
+<p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is intended to be used on external (inter-AS) links to discriminate among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.</p>
 <p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
 <p>Finally, RFC 4271 defines MED propagation rules:</p>
 <ul>

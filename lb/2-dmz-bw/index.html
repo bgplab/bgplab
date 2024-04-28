@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/lb/2-dmz-bw/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>EBGP Load Balancing with DMZ Bandwidth &#171; BGP Labs</title>
+  <title>EBGP Load Balancing with BGP Link Bandwidth &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -74,7 +74,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -188,6 +188,10 @@
             
 <li>
     <a href="../1-ebgp/" class="dropdown-item">Load Balancing across External BGP Paths</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">EBGP Load Balancing with BGP Link Bandwidth</a>
 </li>
     </ul>
   </li>
@@ -317,7 +321,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Upcoming <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -346,10 +350,6 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">EBGP Load Balancing with DMZ Bandwidth</a>
-</li>
-                                    
-<li>
     <a href="../3-ibgp/" class="dropdown-item">IBGP Load Balancing with DMZ Bandwidth</a>
 </li>
                                     
@@ -367,12 +367,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../policy/b-disaggregate/" class="nav-link">
+                                <a rel="prev" href="../1-ebgp/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../3-ibgp/" class="nav-link">
+                                <a rel="next" href="../../basic/7-bfd/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -395,8 +395,44 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#ebgp-load-balancing-with-dmz-bandwidth" class="nav-link">EBGP Load Balancing with DMZ Bandwidth</a>
+            <li class="nav-item" data-level="1"><a href="#ebgp-load-balancing-with-bgp-link-bandwidth" class="nav-link">EBGP Load Balancing with BGP Link Bandwidth</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -404,15 +440,283 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="ebgp-load-balancing-with-dmz-bandwidth">EBGP Load Balancing with DMZ Bandwidth</h1>
-<p>In the previous exercise, you configured Equal-Cost Multipathing (ECMP) between EBGP paths. ECMP results in your router sending approximately the same amount of traffic across all equal-cost links. That approach does not work well when you use paths with different bandwidths, in which case you need <em>Unequal-Cost Multipathing</em> (UCMP).</p>
-<p>Most BGP implementations support the <em>DMZ Bandwidth</em> extended BGP community, which can influence the load balancing ratios across links with unequal bandwidth.</p>
+<h1 id="ebgp-load-balancing-with-bgp-link-bandwidth">EBGP Load Balancing with BGP Link Bandwidth</h1>
+<p>In <a href="../1-ebgp/">the previous exercise</a>, you configured Equal-Cost Multipathing (ECMP) between EBGP paths. ECMP results in your router sending approximately the same amount of traffic across all equal-cost links. That approach results in suboptimal performance if the links have different bandwidths, in which case you need <em>Unequal-Cost Multipathing</em> (UCMP).</p>
+<p>Most BGP implementations support the <em><a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-link-bandwidth-07">BGP Link Bandwidth Extended Community</a></em>, which can influence the load balancing ratios across links with unequal bandwidth.</p>
 <p><img alt="Lab topology" src="../topology-lb-dmz-bw.png" /></p>
-<p>In this lab exercise, you&rsquo;ll ignore the Multi-Exit Discriminator metric the adjacent autonomous system uses to tell you to avoid the slower link and configure DMZ bandwidth to send less traffic over it than over the faster link.</p>
+<p>In this lab exercise, you&rsquo;ll ignore the Multi-Exit Discriminator metric the adjacent autonomous system uses to tell you to avoid the slower link and configure the BGP link bandwidth community to send less traffic over it than over the faster link.</p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>rtr</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+</tr>
+<tr>
+<td><strong>AS65100</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">10.1.3.0/24</td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td style="text-align: right;">10.1.3.0/24</td>
+</tr>
+</tbody>
+</table>
+<p>Your router has these EBGP neighbors.  <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td>10.0.0.1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>x1</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>x2</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">10.1.0.6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>lb/2-dmz-bw</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Log into your router (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses and the EBGP sessions are properly configured.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This lab exercise requires <em>netlab</em> release 1.6.4 or later.</p>
+</div>
+<h2 id="the-problem">The Problem</h2>
+<p>Log into your router and check its BGP table. It should have two paths for the prefix 10.1.3.0/24, but only one of them is used due to its lower MED value:</p>
+<pre><code>rtr&gt;show ip bgp
+BGP routing table information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
+                    % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
+ * &gt;      10.1.3.0/24            10.1.0.6              100     -          100     0       65100 i
+ *        10.1.3.0/24            10.1.0.2              200     -          100     0       65100 i
+</code></pre>
+<p>You would like to use both links toward AS 65100, preferably in a 2:1 ratio.</p>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>To implement unequal-cost multipathing, you have to:</p>
+<ul>
+<li>Configure ECMP load balancing for EBGP paths (see the <a href="../1-ebgp/">Load Balancing across External BGP Paths</a> exercise for more details).</li>
+<li>Make both paths toward 10.1.3.0/24 equal from the BGP path selection perspective. Use an inbound route map to remove the MED attribute from incoming updates or set MED in all incoming updates to the same value. Alternatively, some platforms allow you to tweak the BGP route selection algorithm to ignore MED values.</li>
+<li>Set the BGP link bandwidth extended community on incoming BGP updates received from AS 65100 to influence the unequal-cost multipathing load-balancing ratio. That community is usually set in an inbound route map; some platforms allow you to set the default value per BGP neighbor.</li>
+<li>Enable BGP UCMP and configure your router to use the BGP link bandwidth community to calculate the relative amount of traffic sent over each link.</li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This lab is still under development. Follow <a href="https://blog.ipspace.net/">blog.ipspace.net</a> or <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak on LinkedIn</a> to find out when it will be ready.</p>
-</div></div>
+<p>If you&rsquo;re not familiar with BGP route maps, do the <a href="../../policy/6-med/">Use MED to Influence Incoming Traffic Flow</a> and <a href="../../policy/8-community-attach/">Attach BGP Communities to Outgoing BGP Updates</a> exercises first.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates after changing the inbound route maps.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<p>Check the BGP table to verify that:</p>
+<ul>
+<li>All paths to the 10.1.3.0/24 prefix have the same MED value</li>
+<li>Your router uses all those paths as ECMP/UCMP paths.</li>
+</ul>
+<p>This is the printout you should get on Arista EOS:</p>
+<pre><code>rtr#show ip bgp
+BGP routing table information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
+                    % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
+ * &gt;Ec    10.1.3.0/24            10.1.0.2              100     -          100     0       65100 i
+ *  ec    10.1.3.0/24            10.1.0.6              100     -          100     0       65100 i
+</code></pre>
+<p>Inspect the BGP information for the 10.1.3.0/24 prefix to verify that the BGP link bandwidth community is attached to individual paths. This is how Arista EOS displays that information:</p>
+<pre><code>rtr#show ip bgp 10.1.3.0/24
+BGP routing table information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+BGP routing table entry for 10.1.3.0/24
+ Paths: 2 available
+  65100
+    10.1.0.2 from 10.1.0.2 (10.0.0.2)
+      Origin IGP, metric 100, localpref 100, IGP metric 0, weight 0, tag 0
+      Received 00:33:58 ago, valid, external, ECMP head, ECMP, UCMP, best, ECMP contributor
+      Extended Community: Link-Bandwidth-AS:65100:250.0 MBps
+      Rx SAFI: Unicast
+  65100
+    10.1.0.6 from 10.1.0.6 (10.0.0.3)
+      Origin IGP, metric 100, localpref 100, IGP metric 0, weight 0, tag 0
+      Received 00:33:58 ago, valid, external, ECMP, UCMP, ECMP contributor
+      Extended Community: Link-Bandwidth-AS:65100:125.0 MBps
+      Rx SAFI: Unicast
+</code></pre>
+<p>Check the UCMP weights in the IP routing table. While this information might be hard to get on some platforms, Arista EOS makes it very explicit:</p>
+<pre><code>rtr#show ip route 10.1.3.0/24
+...
+ B E      10.1.3.0/24 [200/100]
+           via 10.1.0.2, Ethernet1, weight 2/3
+           via 10.1.0.6, Ethernet2, weight 1/3
+</code></pre>
+<h2 id="reference-information">Reference Information</h2>
+<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<h3 id="req">Device Requirements</h3>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer router.</li>
+<li>This lab does not include automated validation.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Destination Device</th>
+<th>Destination Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rtr</td>
+<td>Ethernet1</td>
+<td>x1</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>rtr</td>
+<td>Ethernet2</td>
+<td>x2</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>x1</td>
+<td>swp2</td>
+<td>x2</td>
+<td>swp2</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You don&rsquo;t have to use the X1-X2 link, but you&rsquo;ll have to adjust the initial device configurations for X1 and X2 if you decide not to use it.</p>
+</div>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>rtr</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>rtr -&gt; x2</td>
+</tr>
+<tr>
+<td><strong>x1</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; rtr</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; x2</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; rtr</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; x1</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 
