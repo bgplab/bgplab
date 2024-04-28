@@ -31,5 +31,5 @@ links:
 - x1-x2
 
 message: |
-  The "EBGP Load Balancing with DMZ Bandwidth" lab is ready.
+  The "EBGP Load Balancing with BGP Link Bandwidth" lab is ready.
   Use "netlab connect rtr" to connect to your router.

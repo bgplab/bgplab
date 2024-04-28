@@ -1,6 +1,6 @@
-# IBGP Load Balancing with DMZ Bandwidth
+# IBGP Load Balancing with BGP Link Bandwidth
 
-In the [previous lab exercise](2-dmz-bw.md), you used the DMZ Bandwidth BGP attribute to implement unequal-cost load balancing across multiple links connected to the same router. In this exercise, you'll use the same approach but extend it across your autonomous system — routers receiving external routes over IBGP should perform load balancing toward external destinations based on the DMZ bandwidth attached to them.
+In the [previous lab exercise](2-dmz-bw.md), you used the BGP Link Bandwidth extended community to implement unequal-cost load balancing across multiple links connected to the same router. In this exercise, you'll use the same approach but extend it across your autonomous system — routers receiving external routes over IBGP should perform unequal-cost multipathing (UCMP) toward external destinations based on the BGP Link Bandwidth extended community attached to BGP paths.
 
 ![Lab topology](topology-lb-ibgp-dmz-bw.png)
 
