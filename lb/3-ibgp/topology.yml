@@ -1,0 +1,38 @@
+# Configure a BGP route server
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: lb_ibgp
+
+module: [ bgp, ospf ]
+
+bgp.as: 65000
+bgp.advertise_loopback: False
+bgp.community: []
+
+version: 1.6.4
+
+groups:
+  external:
+    members: [ x1, x2 ]
+    bgp:
+      as: 65100
+      originate: 10.1.3.0/24
+
+nodes:
+  core:
+  we1:
+  we2:
+  x1:
+  x2:
+
+links:
+- core-we1
+- core-we2
+- we1-x1
+- we1-x1
+- we2-x2
+- x1-x2
+
+message: |
+  The "IBGP Load Balancing with BGP Link Bandwidth" lab is ready.
+  Use "netlab connect" to connect to the lab devices.

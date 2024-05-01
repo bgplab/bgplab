@@ -134,6 +134,9 @@ rtr#show ip route 10.1.3.0/24
            via 10.1.0.2, Ethernet1, weight 2/3
            via 10.1.0.6, Ethernet2, weight 1/3
 ```
+
+**Next:** [IBGP Load Balancing with BGP Link Bandwidth](3-ibgp.md)
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

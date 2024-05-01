@@ -3,9 +3,10 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 name: dmz_bw
 
-plugin: [ external_devices, bgp.policy ]
+plugin: [ bgp.policy ]
 
 version: 1.6.4
+
 groups:
   external:
     module: [ bgp, ospf ]

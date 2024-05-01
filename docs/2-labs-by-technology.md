@@ -62,6 +62,7 @@ IBGP sessions
 Load balancing
 : * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
   * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
+	* [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 
 LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
