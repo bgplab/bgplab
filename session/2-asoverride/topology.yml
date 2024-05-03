@@ -2,17 +2,18 @@
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 
-module: [ bgp, ospf ]
 name: asoverride
 plugin: [ external_devices, check_validate, check_extra_config ]
 
 groups:
   provider:
+    module: [ bgp, ospf ]
     members: [ pe1, pe2 ]
     bgp.advertise_loopback: False
     bgp.as: 65100
 
   customer:
+    module: [ bgp ]
     members: [ ce1, ce2 ]
     bgp.as: 65000
     bgp.sessions:

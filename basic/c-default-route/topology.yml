@@ -19,6 +19,7 @@ nodes:
     id: 10
     bgp.as: 65100
     loopback.ipv4: 172.16.37.1/24
+    module: [ bgp ]
   r2:
     loopback.ipv4: 192.168.42.1/24
 

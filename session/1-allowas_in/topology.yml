@@ -2,7 +2,6 @@
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 
-module: [ bgp, ospf ]
 name: allowas
 plugin: [ external_devices, check_validate ]
 
@@ -14,9 +13,11 @@ groups:
     members: [ pe1, pe2 ]
     bgp.advertise_loopback: False
     bgp.as: 65100
+    module: [ bgp, ospf ]
 
   customer:
     members: [ ce1, ce2 ]
+    module: [ bgp ]
     bgp.as: 65000
     bgp.sessions:
       ipv4: [ ebgp ]

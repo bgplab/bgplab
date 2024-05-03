@@ -5,11 +5,15 @@ name: reducefib
 
 plugin: [ check_validate, external_devices ]
 
-module: [ bgp, ospf ]
+module: [ bgp ]
 bgp.as: 65100
+
 groups:
   external:
     members: [ xa, xb, ce1, ce2, ce3 ]
+  core:
+    members: [ c1, pe1 ]
+    module: [ bgp, ospf ]
 
 nodes:
   c1:
