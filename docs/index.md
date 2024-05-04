@@ -54,6 +54,7 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
 * [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
 * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)<!--adv-->

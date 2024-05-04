@@ -34,7 +34,7 @@ BFD (Bidirectional Forwarding Detection)
 Communities
 : * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach.md)
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
-  * [Using No-Export Community to Filter Transit Routes](challenge/02-no-export.md) (coming soon)
+  * [Using No-Export Community to Filter Transit Routes](policy/d-no-export.md)
   * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (coming soon)
 
 Default route

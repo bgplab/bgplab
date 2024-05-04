@@ -2,7 +2,6 @@
 
 While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here's what we're working on:
 
-* [Using No-Export Community to Filter Transit Routes](challenge/02-no-export.md)
 * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)

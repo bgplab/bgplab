@@ -1,0 +1,58 @@
+# Use local preference to select the primary uplink
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: noexport
+version: 1.6.4
+
+bgp.community: []
+
+groups:
+  external:
+    module: [ bgp ]
+    members: [ x1, x2 ]
+    device: cumulus
+  customer:
+    module: [ bgp, ospf ]
+    bgp.as: 65000
+    members: [ c1, c2 ]
+
+nodes:
+  c1:
+  c2:
+  x1:
+    loopback.ipv4: 10.42.100.1/24
+    bgp.router_id: 10.0.0.10
+    id: 10
+    bgp.as: 65100
+  x2:
+    loopback.ipv4: 10.43.101.1/24
+    bgp.router_id: 10.0.0.11
+    id: 11
+    bgp.as: 65101
+links:
+- c1:
+  x1:
+  name: Link to AS 65100
+- c1:
+  x2:
+  pool: l2only
+  name: Unused link           # Used for compliance with 4-router topology
+- x1:
+  x2:
+  pool: l2only
+  name: Unused link           # Used for compliance with 4-router topology
+- c2:
+  x1:
+  pool: l2only
+  name: Unused link           # Used for compliance with 4-router topology
+- c2:
+  x2:
+  name: Link to AS 65101
+- c1:
+  c2:
+  type: lan
+  name: Customer internal link
+
+message: |
+  The "Using No-Export Community to Filter Transit Routes" lab is ready.
+  Use "netlab connect" to connect to your routers (c1 and c2).

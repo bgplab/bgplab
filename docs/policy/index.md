@@ -15,6 +15,7 @@ The first thing you should do when you use BGP to connect to the public Internet
 * [Prevent route leaking between upstream providers](2-stop-transit.md) with an AS-path filter
 * [Filter prefixes advertised by your autonomous system](3-prefix.md) with a prefix list
 * [Minimize the size of your BGP table](4-reduce.md) with inbound filters
+* [Use No-Export Community to Filter Transit Routes](d-no-export.md)
 
 ## Adjusting Outgoing (Egress) Traffic Flow {#egress}
 
