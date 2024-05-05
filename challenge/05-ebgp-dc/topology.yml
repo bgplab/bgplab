@@ -1,0 +1,21 @@
+# Configure a BGP route server
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: ebgp_dc
+
+plugin: [ frr_bgp ]
+
+groups:
+  external:
+    members: [ h1, h2, h3, h4 ]
+    device: frr
+
+nodes: [ l1, l2, l3, l4, s1, s2, h1, h2, h3, h4 ]
+
+links: [
+  l1-s1, l1-s2, l2-s1, l2-s2, l3-s1, l3-s2, l4-s1, l4-s2,
+  h1-l1, h1-s2, h2-s1, h2-s2, h3-s3, h3-s4, h4-s3, h4-s4 ]
+
+message: |
+  The "EBGP-Only Data Center Design" lab is ready.
+  Use "netlab connect" to connect to the lab devices.

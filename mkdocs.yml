@@ -90,6 +90,8 @@ nav:
   - session/5-routeserver.md
   - policy/b-disaggregate.md
   - lb/4-ibgp-add-path.md
+  - challenge/02-anycast.md
+  - challenge/05-ebgp-dc.md
 
 markdown_extensions:
 - footnotes

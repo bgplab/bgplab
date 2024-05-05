@@ -8,15 +8,15 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 * [Use controlled disaggregation to influence inbound traffic flow](policy/b-disaggregate.md)
 * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
 * [Minimize the Forwarding Table on Provider Edge Routers](challenge/30-reduce-fib.md)
+* [Implement Anycast Services with BGP](challenge/02-anycast.md) 
+* [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md)
 
 We have plenty of other ideas, including:
 
 ## Basic BGP Setup
 
 Optional exercises:
-: * Run BGP on servers
-  * Multihop EBGP sessions
-  * Dynamic BGP neighbors
+: * Multihop EBGP sessions
   * Passive BGP peers
 
 Advanced exercises:

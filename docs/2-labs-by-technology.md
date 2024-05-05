@@ -40,12 +40,17 @@ Communities
 Default route
 : * [Advertise Default Route in BGP](basic/c-default-route.md)
   * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
+  * [Implement Anycast Services with BGP](challenge/02-anycast.md) (coming soon)
+
+Dynamic BGP neighbors
+: * [Implement Anycast Services with BGP](challenge/02-anycast.md) (coming soon)
 
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
   * [Connect to two upstream providers](basic/2-multihomed.md)
   * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
   * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
+	* [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md) (coming soon)
 
 Forwarding Table
 : * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)

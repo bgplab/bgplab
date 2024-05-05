@@ -1,0 +1,40 @@
+# Configure a BGP route server
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: anycast
+version: 1.6.4
+
+plugin: [ frr_bgp ]
+
+groups:
+  external:
+    members: [ s1, s2, s3, c ]
+    device: frr
+    role: host
+
+module: [ bgp ]
+
+nodes:
+  sw:
+    bgp.as: 65000
+  s1:
+    id: 16
+  s2:
+    id: 17
+  s3:
+    id: 18
+  c:
+    id: 2
+    bgp.as: 65100
+
+links:
+- sw:
+  s1:
+  s2:
+  s3:
+  c:
+  prefix.ipv4: 172.16.42.0/24
+
+message: |
+  The "Implement Anycast Services with BGP" lab is ready.
+  Use "netlab connect" to connect to the lab devices.
