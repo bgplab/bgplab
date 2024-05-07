@@ -65,7 +65,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## The Problem
 
-Log into PE1 and inspect its BGP table and routing table. All BGP prefixes received from the upstream ISPs are in its routing table.
+Log into PE1 and inspect its BGP table and routing table. Its routing table contains all BGP prefixes received from the upstream ISPs.
 
 ```
 pe1# show ip route bgp
@@ -101,7 +101,7 @@ B>  192.168.200.0/22 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
 ## Configuration Guidelines
 
 * On the PE router, use the filter between the BGP table and the main routing table to remove routes advertised by AS 65200 and AS 65201 (the upstream providers) from the forwarding table. Alternatively, you could remove all BGP routes with C1 as the next hop from the forwarding table.
-* After you remove those routes from the forwarding table, your customers can no longer reach upstream destinations. Use [BGP default routing](../basic/c-default-route.md) to give the PE router a default exit point through C1. However, you should not advertise that default to the customers.
+* After you remove those routes from the forwarding table, your customers can no longer reach upstream destinations (because they are not in the PE router FIB) even though the PE router is still advertising them. Use [BGP default routing](../basic/c-default-route.md) to give the PE router a default exit point through C1. However, you should not advertise that default to the customers.
 
 ## Verification
 
