@@ -356,6 +356,14 @@
 <li>
     <a href="../../lb/4-ibgp-add-path/" class="dropdown-item">IBGP Load Balancing with BGP Additional Paths</a>
 </li>
+                                    
+<li>
+    <a href="../02-anycast/" class="dropdown-item">Implement Anycast Services with BGP</a>
+</li>
+                                    
+<li>
+    <a href="../05-ebgp-dc/" class="dropdown-item">EBGP-Only Data Center Design</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -600,7 +608,7 @@
 <p>The Git repository contains external router initial device configurations for Cumulus Linux.</p>
 </div>
 <h2 id="the-problem">The Problem</h2>
-<p>Log into PE1 and inspect its BGP table and routing table. All BGP prefixes received from the upstream ISPs are in its routing table.</p>
+<p>Log into PE1 and inspect its BGP table and routing table. Its routing table contains all BGP prefixes received from the upstream ISPs.</p>
 <pre><code>pe1# show ip route bgp
 Codes: K - kernel route, C - connected, S - static, R - RIP,
        O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
@@ -633,7 +641,7 @@ B&gt;  192.168.200.0/22 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
 <h2 id="configuration-guidelines">Configuration Guidelines</h2>
 <ul>
 <li>On the PE router, use the filter between the BGP table and the main routing table to remove routes advertised by AS 65200 and AS 65201 (the upstream providers) from the forwarding table. Alternatively, you could remove all BGP routes with C1 as the next hop from the forwarding table.</li>
-<li>After you remove those routes from the forwarding table, your customers can no longer reach upstream destinations. Use <a href="../../basic/c-default-route/">BGP default routing</a> to give the PE router a default exit point through C1. However, you should not advertise that default to the customers.</li>
+<li>After you remove those routes from the forwarding table, your customers can no longer reach upstream destinations (because they are not in the PE router FIB) even though the PE router is still advertising them. Use <a href="../../basic/c-default-route/">BGP default routing</a> to give the PE router a default exit point through C1. However, you should not advertise that default to the customers.</li>
 </ul>
 <h2 id="verification">Verification</h2>
 <p>Log into the lab routers and verify that:</p>
