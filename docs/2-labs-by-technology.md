@@ -22,6 +22,7 @@ AS and AS-path manipulation
   * [Fix AS-Path in Environments Reusing BGP AS Numbers](session/2-asoverride.md) (**as-override**)
   * [Use Multiple AS Numbers on the Same Router](session/3-localas.md) (**local-as**)
   * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md) (**remove-private-as**)
+  * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
 
 AS-path filters
 : * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
@@ -51,7 +52,8 @@ EBGP sessions
   * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
   * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
   * [Use BGP Timers and BFD to Speed Up BGP Convergence](basic/7-bfd.md)
-	* [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md) (coming soon)
+  * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
+  * [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md) (coming soon)
 
 Forwarding Table
 : * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
@@ -94,6 +96,9 @@ Prefix filters
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)
+
+Route servers
+: * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
 
 Scalability
 : * [Use BGP Session Templates](session/6-templates.md)

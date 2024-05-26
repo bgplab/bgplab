@@ -1,23 +1,35 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: localas
+name: rs
 
-plugin: [ check_validate ]
+version: 1.6.4
+_validate_version: 1.8.2
+
+plugin: [ check_extra_config, check_validate, prune_ebgp ]
 
 module: [ bgp ]
+
+groups:
+  external:
+    members: [ isp2, isp3 ]
+    config: [ rs_client ]
 
 nodes:
   rs:
     bgp.as: 65000
+    bgp.advertise_loopback: False
   isp1:
     bgp.as: 65100
+    bgp.router_id: 10.0.1.1
     loopback.ipv4: 192.168.100.1/24
   isp2:
     bgp.as: 65103
+    bgp.router_id: 10.0.1.2
     loopback.ipv4: 192.168.103.1/24
   isp3:
     bgp.as: 65107
+    bgp.router_id: 10.0.1.3
     loopback.ipv4: 192.168.107.1/24
 links:
 - rs:
@@ -25,8 +37,9 @@ links:
   isp2:
   isp3:
   prefix.ipv4: 172.16.42.0/24
+  name: IXP LAN
 
-#_include: [ validate.yml ]
+_include: [ validate.yml ]
 
 message: |
   The "BGP Route Server in an Internet Exchange Point" lab is ready.

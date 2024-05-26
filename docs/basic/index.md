@@ -48,7 +48,7 @@ Even though one should not use the same BGP AS number in multiple networks or mo
 * [Fix AS-Path in Environments Reusing BGP AS Numbers](../session/2-asoverride.md)
 * [Use Multiple AS Numbers on the Same Router](../session/3-localas.md)
 * [Remove Private BGP AS Numbers from the AS Path](../session/4-removeprivate.md)
-* [BGP Route Server in an Internet Exchange Point](../session/5-routeserver.md) (coming soon)
+* [BGP Route Server in an Internet Exchange Point](../session/5-routeserver.md)
 
 ## BGP Load Balancing {#lb}
 

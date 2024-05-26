@@ -8,15 +8,16 @@ def init(topology: Box) -> None:
   if not topology.get('validate',None):
     return
 
-  if __version__ >= '1.7.0':
+  v_version = topology.get('_validate_version','1.7.0')
+  if __version__ >= v_version:
     return
 
   topology.pop('validate',None)
   if 'message' not in topology:
     topology.message = ''
 
-  topology.message += '''
-Upgrade to netlab release 1.7.0 to use 'netlab validate' command to
+  topology.message += f'''
+Upgrade to netlab release {v_version} to use 'netlab validate' command to
 check the results of your configuration work.
 '''
 

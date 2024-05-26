@@ -1,0 +1,9 @@
+router bgp {{ bgp.as }}
+{% for af in ['ipv4','ipv6'] if af in bgp %}
+{%   for n in bgp.neighbors if n[af] is defined %}
+{%     if loop.first %}
+ address-family {{ af }}
+{%     endif %}
+  neighbor {{ n[af] }} route-server-client
+{%   endfor %}
+{% endfor %}

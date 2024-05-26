@@ -194,7 +194,10 @@ BGP routing table entry for 10.0.0.1/32
       Rx SAFI: Unicast
 ```
 
-**Next:** [Use BGP session templates](../session/6-templates.md) to make the BGP configuration on the BGP route reflectors scalable.
+**Next:** 
+
+* [Use BGP session templates](../session/6-templates.md) to make the BGP configuration on the BGP route reflectors scalable.
+* Configure a [BGP Route Server](../session/5-routeserver.md) -- functionality similar to BGP Route Reflectors, but for EBGP sessions.
 
 ## Alternate Solutions {#alt}
 

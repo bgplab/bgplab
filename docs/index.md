@@ -55,7 +55,8 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
-* [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
+* [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
+* [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)<!--adv-->
 * [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
 * [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
