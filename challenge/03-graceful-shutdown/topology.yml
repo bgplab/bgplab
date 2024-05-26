@@ -1,0 +1,49 @@
+# The baseline topology for small (4-router) labs
+#
+defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ bgp.policy ]
+
+name: gshut
+module: [ bgp, ospf ]
+
+groups:
+  external:
+    members: [ c2, x2 ]
+  customer:
+    members: [ c1, c2 ]
+    bgp.as: 65000
+  isp:
+    members: [ x1, x2 ]
+    bgp.as: 65100
+
+nodes:
+  c1:
+  c2:
+  x1:
+    id: 10
+  x2:
+    id: 11
+
+links:
+- c1:
+  c2:
+  name: Intra-customer link
+- c1:
+  x2:
+  pool: l2only
+  name: Unused link
+- c2:
+    bgp.locpref: 50
+  x2:
+    bgp.locpref: 50
+  name: C2 uplink
+- x1:
+  c2:
+  pool: l2only
+  name: Unused link
+- x1:
+  x2:
+  name: Intra-ISP link
+- c1:
+  x1:
+  name: C1 uplink

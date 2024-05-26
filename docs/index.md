@@ -45,8 +45,9 @@ Once you mastered the basics, continue with [more complex routing policies](poli
 
 Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Try out the challenge labs:
 
-* [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)
+* [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
+* [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
 
@@ -54,9 +55,9 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
 * [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
 * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)<!--adv-->
-* [Load Balancing across External BGP Paths](lb/1-ebgp.md)
-* [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
+* [Load Balancing across External BGP Paths](lb/1-ebgp.md)<!--adv-->

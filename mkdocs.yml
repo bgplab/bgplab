@@ -78,14 +78,14 @@ nav:
     - session/7-policy.md
 
 - Challenges:
-  - challenge/20-merge-as.md
+  - challenge/03-graceful-shutdown.md
   - challenge/04-block-fat-fingers.md
+  - challenge/20-merge-as.md
   - challenge/30-reduce-fib.md
   - challenge/40-mpls-core.md
 
 - "Upcoming":
   - Overview: 3-upcoming.md
-  - challenge/03-graceful-shutdown.md
   - challenge/01-bird-rr.md
   - session/5-routeserver.md
   - policy/b-disaggregate.md

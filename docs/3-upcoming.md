@@ -2,12 +2,10 @@
 
 While we're working on new stuff, you can already enjoy [two dozen](index.md) labs. In case you're curious about what's coming next, here's what we're working on:
 
-* [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
 * [Use controlled disaggregation to influence inbound traffic flow](policy/b-disaggregate.md)
 * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
-* [Minimize the Forwarding Table on Provider Edge Routers](challenge/30-reduce-fib.md)
 * [Implement Anycast Services with BGP](challenge/02-anycast.md) 
 * [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md)
 

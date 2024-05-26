@@ -35,7 +35,7 @@ Communities
 : * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach.md)
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
   * [Using No-Export Community to Filter Transit Routes](policy/d-no-export.md)
-  * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (coming soon)
+  * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (challenge lab)
 
 Default route
 : * [Advertise Default Route in BGP](basic/c-default-route.md)
@@ -73,7 +73,7 @@ LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
-  * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (coming soon)
+  * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (challenge lab)
 
 MD5 passwords
 : * [Use MD5 passwords and TTL-based session protection](basic/6-protect.md)
