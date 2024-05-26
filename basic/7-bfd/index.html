@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/basic/7-bfd/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Use BFD to Speed Up BGP Convergence &#171; BGP Labs</title>
+  <title>Use BGP Timers and BFD to Speed Up BGP Convergence &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -205,7 +205,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="./" class="dropdown-item active">Use BFD to Speed Up BGP Convergence</a>
+    <a href="./" class="dropdown-item active">Use BGP Timers and BFD to Speed Up BGP Convergence</a>
 </li>
             
 <li>
@@ -403,7 +403,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#use-bfd-to-speed-up-bgp-convergence" class="nav-link">Use BFD to Speed Up BGP Convergence</a>
+            <li class="nav-item" data-level="1"><a href="#use-bgp-timers-and-bfd-to-speed-up-bgp-convergence" class="nav-link">Use BGP Timers and BFD to Speed Up BGP Convergence</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
@@ -444,7 +444,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="use-bfd-to-speed-up-bgp-convergence">Use BFD to Speed Up BGP Convergence</h1>
+<h1 id="use-bgp-timers-and-bfd-to-speed-up-bgp-convergence">Use BGP Timers and BFD to Speed Up BGP Convergence</h1>
 <p>Out-of-the-box EBGP is notoriously slow to converge &ndash; it can take up to three minutes to detect a failed EBGP neighbor. It&rsquo;s possible to tweak BGP timers to detect a failed neighbor in a few seconds. Still, it&rsquo;s <a href="https://blog.ipspace.net/2017/10/to-bfd-or-not-to-bfd.html">much better</a> to combine BGP with Bidirectional Forwarding Detection (BFD) &ndash; a lightweight protocol that can <a href="https://blog.ipspace.net/2020/11/detecting-network-failure.html">detect a link- or node failure in milliseconds</a>.</p>
 <p>In this lab, you&rsquo;ll use both mechanisms:</p>
 <ul>
