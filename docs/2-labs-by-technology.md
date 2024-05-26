@@ -29,7 +29,7 @@ AS-path filters
   * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md) (challenge lab)
 
 BFD (Bidirectional Forwarding Detection)
-: * [Use BFD to Speed Up BGP Convergence](basic/7-bfd.md)
+: * [Use BGP Timers and BFD to Speed Up BGP Convergence](basic/7-bfd.md)
 
 Communities
 : * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach.md)
@@ -50,6 +50,7 @@ EBGP sessions
   * [Connect to two upstream providers](basic/2-multihomed.md)
   * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface.md)
   * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
+  * [Use BGP Timers and BFD to Speed Up BGP Convergence](basic/7-bfd.md)
 	* [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md) (coming soon)
 
 Forwarding Table

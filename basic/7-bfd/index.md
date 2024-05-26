@@ -1,4 +1,4 @@
-# Use BFD to Speed Up BGP Convergence
+# Use BGP Timers and BFD to Speed Up BGP Convergence
 
 Out-of-the-box EBGP is notoriously slow to converge -- it can take up to three minutes to detect a failed EBGP neighbor. It's possible to tweak BGP timers to detect a failed neighbor in a few seconds. Still, it's [much better](https://blog.ipspace.net/2017/10/to-bfd-or-not-to-bfd.html) to combine BGP with Bidirectional Forwarding Detection (BFD) -- a lightweight protocol that can [detect a link- or node failure in milliseconds](https://blog.ipspace.net/2020/11/detecting-network-failure.html).
 
