@@ -7,6 +7,7 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
 * [Implement Anycast Services with BGP](challenge/02-anycast.md) 
 * [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md)
+* [Passive BGP Sessions](session/8-passive.md)
 
 We have plenty of other ideas, including:
 
