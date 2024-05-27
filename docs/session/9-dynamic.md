@@ -1,0 +1,1 @@
+../../session/9-dynamic/index.md

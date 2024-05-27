@@ -55,6 +55,7 @@ EBGP sessions
   * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
   * [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md) (coming soon)
   * [Passive BGP Sessions](session/8-passive.md) (coming soon)
+	* [Dynamic BGP Peers](session/9-dynamic.md) (coming soon)
 
 Forwarding Table
 : * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
@@ -67,6 +68,7 @@ IBGP sessions
   * [Build a Transit Network with IBGP](ibgp/2-transit.md)
   * [Use BGP Route Reflectors](ibgp/3-rr.md)
   * [Use BGP Session Templates](session/6-templates.md)
+	* [Dynamic BGP Peers](session/9-dynamic.md) (coming soon)
 
 Load balancing
 : * [Load Balancing across External BGP Paths](lb/1-ebgp.md)

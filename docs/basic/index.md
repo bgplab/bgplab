@@ -70,3 +70,4 @@ Willing to learn more? Challenge yourself with these advanced topics:
 * [Advertise Default Route in BGP](c-default-route.md)
 * [EBGP Sessions over IPv6 LLA Interfaces](d-interface.md)
 * [Passive BGP Sessions](../session/8-passive.md) (coming soon)
+* [Dynamic BGP Peers](../session/9-dynamic.md) (coming soon)

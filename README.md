@@ -59,6 +59,8 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Advertise Default Route in BGP](basic/c-default-route)
 * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver)
+* [Passive BGP Sessions](session/8-passive) (coming soon)
+* [Dynamic BGP Peers](session/9-dynamic) (coming soon)
 
 **Challenge Labs**
 

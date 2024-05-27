@@ -93,6 +93,7 @@ nav:
   - challenge/02-anycast.md
   - challenge/05-ebgp-dc.md
   - session/8-passive.md
+  - session/9-dynamic.md
 
 markdown_extensions:
 - footnotes
