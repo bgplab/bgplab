@@ -112,6 +112,9 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  1 routes and 1 total paths
 ```
 
+!!! tip
+    Starting with _netlab_ release 1.7.0, you can use the `--show` option of the **netlab connect** command to execute a single command on a FRR/Cumulus Linux device. For example, to inspect the BGP table, use `netlab connect --show ip bgp`.
+
 To configure FRRouting daemons, use the **configure** _vtysh_ command and enter configuration commands similar to those you'd use on Cisco IOS or Arista EOS:
 
 ```
