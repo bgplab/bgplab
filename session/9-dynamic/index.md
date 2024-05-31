@@ -80,7 +80,7 @@ Use the following IP address ranges:
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.2 or later and use Cumulus Linux, FRR, or Arista EOS on S1, S2, C1, and C2. The validation tests check:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.2 or later and use Cumulus Linux or FRR on S1, S2, C1, and C2. The validation tests check:
 
 * The state of the BGP session between those routers and the Hub router.
 * Whether those routers receive the loopback IPv4 prefix from the Hub router.
