@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/basic/2-multihomed/">
+        <link rel="canonical" href="https://bgplabs.net/session/9-dynamic/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Configure Multiple EBGP Sessions &#171; BGP Labs</title>
+  <title>Dynamic BGP Peers &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -79,7 +79,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../" class="dropdown-item">Overview</a>
+    <a href="../../basic/" class="dropdown-item">Overview</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -87,31 +87,31 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
+    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
 </li>
             
 <li>
-    <a href="../1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
+    <a href="../../basic/1-session/" class="dropdown-item">Configure a Single EBGP Session</a>
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active">Configure Multiple EBGP Sessions</a>
+    <a href="../../basic/2-multihomed/" class="dropdown-item">Configure Multiple EBGP Sessions</a>
 </li>
             
 <li>
-    <a href="../3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
+    <a href="../../basic/3-originate/" class="dropdown-item">Advertise IPv4 Prefixes to BGP Neighbors</a>
 </li>
             
 <li>
-    <a href="../4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
+    <a href="../../basic/4-ipv6/" class="dropdown-item">Configure BGP for IPv6</a>
 </li>
             
 <li>
-    <a href="../5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
+    <a href="../../basic/5-redistribute/" class="dropdown-item">Redistribute IGP Information Into BGP</a>
 </li>
             
 <li>
-    <a href="../d-interface/" class="dropdown-item">EBGP Sessions over IPv6 LLA Interfaces</a>
+    <a href="../../basic/d-interface/" class="dropdown-item">EBGP Sessions over IPv6 LLA Interfaces</a>
 </li>
     </ul>
   </li>
@@ -121,15 +121,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../6-protect/" class="dropdown-item">MD5 Passwords and GTSM</a>
+    <a href="../../basic/6-protect/" class="dropdown-item">MD5 Passwords and GTSM</a>
 </li>
             
 <li>
-    <a href="../9-ao/" class="dropdown-item">TCP Autentication Option (TCP-AO)</a>
+    <a href="../../basic/9-ao/" class="dropdown-item">TCP Autentication Option (TCP-AO)</a>
 </li>
             
 <li>
-    <a href="../b-max-prefix/" class="dropdown-item">Limit the Number of Accepted BGP Prefixes</a>
+    <a href="../../basic/b-max-prefix/" class="dropdown-item">Limit the Number of Accepted BGP Prefixes</a>
 </li>
     </ul>
   </li>
@@ -151,15 +151,15 @@
 </li>
             
 <li>
-    <a href="../../session/6-templates/" class="dropdown-item">BGP Session Templates</a>
+    <a href="../6-templates/" class="dropdown-item">BGP Session Templates</a>
 </li>
             
 <li>
-    <a href="../../session/7-policy/" class="dropdown-item">BGP Policy Templates</a>
+    <a href="../7-policy/" class="dropdown-item">BGP Policy Templates</a>
 </li>
             
 <li>
-    <a href="../../session/9-dynamic/" class="dropdown-item">Dynamic BGP Peers</a>
+    <a href="./" class="dropdown-item active">Dynamic BGP Peers</a>
 </li>
     </ul>
   </li>
@@ -169,23 +169,23 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../session/1-allowas_in/" class="dropdown-item">Reuse a BGP AS Number Across Multiple Sites</a>
+    <a href="../1-allowas_in/" class="dropdown-item">Reuse a BGP AS Number Across Multiple Sites</a>
 </li>
             
 <li>
-    <a href="../../session/2-asoverride/" class="dropdown-item">Fix AS-Path in Environments Reusing BGP AS Numbers</a>
+    <a href="../2-asoverride/" class="dropdown-item">Fix AS-Path in Environments Reusing BGP AS Numbers</a>
 </li>
             
 <li>
-    <a href="../../session/3-localas/" class="dropdown-item">Use Multiple AS Numbers on the Same Router</a>
+    <a href="../3-localas/" class="dropdown-item">Use Multiple AS Numbers on the Same Router</a>
 </li>
             
 <li>
-    <a href="../../session/4-removeprivate/" class="dropdown-item">Remove Private BGP AS Numbers from the AS Path</a>
+    <a href="../4-removeprivate/" class="dropdown-item">Remove Private BGP AS Numbers from the AS Path</a>
 </li>
             
 <li>
-    <a href="../../session/5-routeserver/" class="dropdown-item">BGP Route Server in an Internet Exchange Point</a>
+    <a href="../5-routeserver/" class="dropdown-item">BGP Route Server in an Internet Exchange Point</a>
 </li>
     </ul>
   </li>
@@ -213,19 +213,19 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../7-bfd/" class="dropdown-item">Use BGP Timers and BFD to Speed Up BGP Convergence</a>
+    <a href="../../basic/7-bfd/" class="dropdown-item">Use BGP Timers and BFD to Speed Up BGP Convergence</a>
 </li>
             
 <li>
-    <a href="../8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
+    <a href="../../basic/8-aggregate/" class="dropdown-item">BGP Route Aggregation</a>
 </li>
             
 <li>
-    <a href="../c-default-route/" class="dropdown-item">Advertise Default Route in BGP</a>
+    <a href="../../basic/c-default-route/" class="dropdown-item">Advertise Default Route in BGP</a>
 </li>
             
 <li>
-    <a href="../d-interface/" class="dropdown-item">EBGP Sessions over IPv6 LLA Interfaces</a>
+    <a href="../../basic/d-interface/" class="dropdown-item">EBGP Sessions over IPv6 LLA Interfaces</a>
 </li>
     </ul>
   </li>
@@ -256,7 +256,7 @@
 </li>
             
 <li>
-    <a href="../b-max-prefix/" class="dropdown-item">Limit the Number of Accepted BGP Prefixes</a>
+    <a href="../../basic/b-max-prefix/" class="dropdown-item">Limit the Number of Accepted BGP Prefixes</a>
 </li>
             
 <li>
@@ -310,7 +310,7 @@
 </li>
             
 <li>
-    <a href="../../session/7-policy/" class="dropdown-item">BGP Policy Templates</a>
+    <a href="../7-policy/" class="dropdown-item">BGP Policy Templates</a>
 </li>
     </ul>
   </li>
@@ -370,7 +370,7 @@
 </li>
                                     
 <li>
-    <a href="../../session/8-passive/" class="dropdown-item">Passive BGP Sessions</a>
+    <a href="../8-passive/" class="dropdown-item">Passive BGP Sessions</a>
 </li>
                                 </ul>
                             </li>
@@ -383,12 +383,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../1-session/" class="nav-link">
+                                <a rel="prev" href="../7-policy/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../3-originate/" class="nav-link">
+                                <a rel="next" href="../1-allowas_in/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -411,8 +411,12 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#configure-multiple-ebgp-sessions" class="nav-link">Configure Multiple EBGP Sessions</a>
+            <li class="nav-item" data-level="1"><a href="#dynamic-bgp-peers" class="nav-link">Dynamic BGP Peers</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-device-configuration" class="nav-link">Existing Device Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
               </ul>
@@ -422,6 +426,10 @@
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#impact-of-bgp-session-loss" class="nav-link">Impact of BGP Session Loss</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -448,10 +456,23 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="configure-multiple-ebgp-sessions">Configure Multiple EBGP Sessions</h1>
-<p>Now that you know how to <a href="../1-session/">configure an EBGP session</a>, let&rsquo;s move on to a more realistic scenario: you have a site with a WAN edge router connected to two upstream ISPs, and you&rsquo;re running EBGP with them.</p>
-<p><img alt="Lab topology" src="../topology-multihomed.png" /></p>
-<p>The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and the default route.</p>
+<h1 id="dynamic-bgp-peers">Dynamic BGP Peers</h1>
+<p>Unless you have a fully automated network provisioning system, configuring BGP neighbors on routers with hundreds or thousands of neighbors can become cumbersome. Fortunately, most BGP implementations support <em>dynamic peers</em>; when configuring them on a BGP router, it accepts any incoming TCP session on port 179 as long as it matches an IP prefix, an IP access-control list, or a prefix list.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When deployed incorrectly, dynamic BGP peers could become a huge security risk. Use BGP security mechanisms like MD5 passwords and GTSM to stop an intruder from connecting to your BGP router from outside of your network.</p>
+</div>
+<p>Dynamic BGP peers make sense in these scenarios:</p>
+<ul>
+<li>Route reflectors with many clients,</li>
+<li>Route servers,</li>
+<li>Hubs in large VPN deployments,</li>
+<li>Leaf switches running BGP with servers or virtual machines.</li>
+</ul>
+<p>In this lab exercise, you&rsquo;ll configure two types of dynamic peers on a hub router: EBGP peers (spoke sites) and IBGP peers (core routers). We&rsquo;ll use the same BGP AS number on all spoke sites (see <a href="../1-allowas_in/">Reuse a BGP AS Number Across Multiple Sites</a> for an explanation of that design decision).</p>
+<p><img alt="Lab topology" src="../topology-dynamic-peers.png" /></p>
+<h2 id="existing-device-configuration">Existing Device Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.</p>
 <table>
 <thead>
 <tr>
@@ -462,117 +483,239 @@
 </thead>
 <tbody>
 <tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>c1</td>
+<td style="text-align: right;">10.0.0.4</td>
+<td style="text-align: right;">10.0.0.4/32</td>
+</tr>
+<tr>
+<td>c2</td>
+<td style="text-align: right;">10.0.0.5</td>
+<td style="text-align: right;">10.0.0.5/32</td>
+</tr>
+<tr>
+<td>hub</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+</tr>
+<tr>
 <td><strong>AS65100</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>x1</td>
-<td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">192.168.100.0/24</td>
+<td>s1</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">10.0.0.2/32</td>
 </tr>
 <tr>
-<td><strong>AS65101</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>x2</td>
-<td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">192.168.101.0/24</td>
+<td>s2</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td style="text-align: right;">10.0.0.3/32</td>
 </tr>
 </tbody>
 </table>
-<h2 id="start-the-lab">Start the Lab</h2>
-<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
-<ul>
-<li>Change directory to <code>basic/2-multihomed</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
-<li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
-</ul>
-<h2 id="configuration-tasks">Configuration Tasks</h2>
-<ul>
-<li>Start BGP routing process with AS number 65000</li>
-<li>Configure EBGP sessions using the following parameters:</li>
-</ul>
+<p>These BGP neighbors are configured in your lab. Please note that the Hub router has no neighbors; you will use the <em>dynamic BGP neighbors</em> functionality to establish BGP sessions with all the other lab routers.</p>
 <table>
 <thead>
 <tr>
 <th>Node</th>
-<th>Neighbor</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
 <th style="text-align: right;">Neighbor IPv4</th>
-<th style="text-align: right;">Neighbor AS</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>rtr</td>
-<td>x1</td>
-<td style="text-align: right;">10.1.0.2</td>
-<td style="text-align: right;">65100</td>
+<td><strong>c1</strong></td>
+<td>10.0.0.4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>rtr</td>
-<td>x2</td>
-<td style="text-align: right;">10.1.0.6</td>
-<td style="text-align: right;">65101</td>
+<td></td>
+<td>hub</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>c2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.5</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td>10.0.0.5</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>hub</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>c1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td>10.0.0.2</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>hub</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">172.16.42.1</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td>10.0.0.3</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>hub</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">172.16.42.1</td>
 </tr>
 </tbody>
 </table>
+<p>Hub, C1, and C2 also run OSPF in the backbone area.</p>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>session/9-dynamic</code></li>
+<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>)</li>
+<li>Log into the Hub router with the <strong>netlab connect hub</strong> command and verify its IP addresses and OSPF neighbors.</li>
+</ul>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>Configuring dynamic BGP neighbors is usually a two-step process:</p>
+<ul>
+<li>Configure a peer group to define the dynamic neighbor&rsquo;s characteristics. In this lab, you&rsquo;ll have to define two peer groups, one for IBGP sessions and another one for EBGP sessions.</li>
+</ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you&rsquo;re using Cumulus Linux or FRR on RTR, you might have to enable the BGP daemon first. You&rsquo;ll find more details in the <a href="../0-frrouting/">Configuring Cumulus Linux and FRRouting</a> lab.</p>
+<p>Revisit: </p>
+<ul>
+<li><a href="../../ibgp/1-edge/">Establish an IBGP Session</a> lab if you have a problem configuring IBGP sessions.</li>
+<li><a href="../6-templates/">BGP Session Templates</a> lab if you&rsquo;re struggling with peer groups.</li>
+</ul>
+<p>Also, you might have to activate the peer groups for the IPv4 address family.</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> incoming filter on all EBGP neighbors or your device won&rsquo;t accept anything they send you.</p>
-</div>
-<p>You can also configure neighbor description and BGP neighbor status logging to get an information message when the BGP session is established.</p>
+<ul>
+<li>Configure the BGP router to accept incoming TCP sessions on port 179 from an IP address range with a configuration command similar to <strong>bgp listen</strong>. You&rsquo;ll have to tie the allowed IP address range to a peer group to tell your router which parameters to use for a dynamic BGP neighbor.</li>
+</ul>
+<p>Use the following IP address ranges:</p>
+<table>
+<thead>
+<tr>
+<th>Address range</th>
+<th>Peer group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.0.0.0/24</td>
+<td>IBGP sessions</td>
+</tr>
+<tr>
+<td>172.16.42.0/24</td>
+<td>EBGP sessions with AS 65100</td>
+</tr>
+</tbody>
+</table>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
-<p><img alt="" src="../basic-multihomed-validate.png" /></p>
-<p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
-<p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
-<pre><code>rtr#show ip bgp summary
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.2 or later and use Cumulus Linux, FRR, or Arista EOS on S1, S2, C1, and C2. The validation tests check:</p>
+<ul>
+<li>The state of the BGP session between those routers and the Hub router.</li>
+<li>Whether those routers receive the loopback IPv4 prefix from the Hub router.</li>
+</ul>
+<p><img alt="" src="../session-dynamic-validate.png" /></p>
+<p>You can also validate your work on the Hub router:</p>
+<ul>
+<li>Check the state of the BGP sessions with a command similar to <strong>show ip bgp summary</strong>. You should see four BGP neighbors, two from AS 65000 and two from AS 65100.</li>
+</ul>
+<pre><code>hub#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
-  Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.1.0.2 4 65100              9         8    0    0 00:00:10 Estab   2      2
-  10.1.0.6 4 65101              7         6    0    0 00:00:06 Estab   2      2
+  Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.0.0.4    4 65000            995      1171    0    0 00:49:36 Estab   1      1
+  10.0.0.5    4 65000           1678      1971    0    0 01:23:43 Estab   1      1
+  172.16.42.2 4 65100           1627      1908    0    0 01:21:03 Estab   1      1
+  172.16.42.3 4 65100           1627      1910    0    0 01:21:03 Estab   1      1
 </code></pre>
-<p>Finally, use a command similar to <strong>show ip bgp</strong> to verify that your router received three prefixes from each EBGP neighbor: the  IPv4 prefix configured on the remote loopback interface, another IPv4 prefix, and the default route. This is what the printout looks like on Arista EOS:</p>
-<pre><code>rtr#show ip bgp
+<ul>
+<li>Check the BGP table on the Hub router with a command similar to <strong>show ip bgp</strong>. You should see five IPv4 prefixes in the BGP table:</li>
+</ul>
+<pre><code>hub#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
 Route status codes: s - suppressed contributor, * - valid, &gt; - active, E - ECMP head, e - ECMP
                     S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending BGP convergence
+                    % - Pending best path selection
 Origin codes: i - IGP, e - EGP, ? - incomplete
 RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
 AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
 
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * &gt;      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
- *        0.0.0.0/0              10.1.0.6              0       -          100     0       65101 i
- * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
- * &gt;      192.168.101.0/24       10.1.0.6              0       -          100     0       65101 i
+ * &gt;      10.0.0.1/32            -                     -       -          -       0       i
+ * &gt;      10.0.0.2/32            172.16.42.2           0       -          100     0       65100 i
+ * &gt;      10.0.0.3/32            172.16.42.3           0       -          100     0       65100 i
+ * &gt;      10.0.0.4/32            10.0.0.4              0       -          100     0       i
+ * &gt;      10.0.0.5/32            10.0.0.5              0       -          100     0       i
 </code></pre>
-<p><strong>Next:</strong></p>
+<h2 id="impact-of-bgp-session-loss">Impact of BGP Session Loss</h2>
+<p>A router using dynamic BGP neighbors usually removes all neighbor-related information once a BGP session with the neighbor is lost. You can shut down a BGP neighbor on one of the other routers to explore how the hub router reacts to the BGP session loss.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use the <strong>netlab config</strong> command to shut down the BGP session with the Hub router if you&rsquo;re running Cumulus Linux, FRR, or Arista EOS on the other routers:</p>
 <ul>
-<li><a href="../3-originate/">Advertise your IPv4 address space</a> to the EBGP neighbors</li>
-<li><a href="../../session/3-localas/">Use multiple BGP AS numbers on the same router</a> (advanced exercise)</li>
+<li>Use <code>netlab config disable --limit C1</code><sup id="fnref:RC1"><a class="footnote-ref" href="#fn:RC1">1</a></sup> to shut down the BGP session</li>
+<li>Use <code>netlab config enable --limit C1</code> to reenable it.</li>
 </ul>
+</div>
+<p>For example, after shutting down the BGP session with the Hub router on C1, you could observe the following BGP logging messages on the Hub router running Arista EOS:</p>
+<pre><code>Bgp: %BGP-3-NOTIFICATION: received from neighbor 10.0.0.4 (VRF default AS 65000) 6/2 (Cease/administrative shutdown) reason:
+Bgp: %BGP-5-ADJCHANGE: peer 10.0.0.4 (VRF default AS 65000) old state Established event RecvNotify new state Idle
+</code></pre>
+<p>However, even though the BGP log message claims the BGP neighbor is now in the <em>Idle</em> state, the neighbor is no longer visible in the list of BGP neighbors:</p>
+<pre><code>hub#show ip bgp summary
+BGP summary information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  10.0.0.5    4 65000           1881      2210    0    0 01:33:54 Estab   1      1
+  172.16.42.2 4 65100           1832      2146    0    0 01:31:15 Estab   1      1
+  172.16.42.3 4 65100           1832      2147    0    0 01:31:15 Estab   1      1
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not use dynamic BGP neighbors if you want to use BGP operational data (for example, <strong>show</strong> command printouts or SNMP information) to find failed BGP sessions.</p>
+</div>
 <h2 id="reference-information">Reference Information</h2>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
+<p>The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="req">Device Requirements</h3>
 <ul>
-<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
-<li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
-<li>You can do automated lab validation when running Arista EOS, Cumulus Linux, or FRR on the external router. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> for the lab routers.</li>
+<li>If you run Arista EOS, Cumulus Linux, or FRR on S1, S2, C1, and C2, you can use the <strong>netlab config</strong> command to turn BGP sessions on or off. You will have to do that manually on other devices.</li>
+<li>You can do automated lab validation with Cumulus Linux or FRR running on S1, S2, C1, and C2. Automated lab validation requires <em>netlab</em> release 1.8.2 or higher.</li>
+<li>Git repository contains initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
+<p><strong>Point-to-Point Links</strong></p>
 <table>
 <thead>
 <tr>
@@ -584,16 +727,53 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td>rtr</td>
-<td>Ethernet1</td>
-<td>x1</td>
+<td>hub</td>
+<td>Ethernet2</td>
+<td>c1</td>
 <td>swp1</td>
 </tr>
 <tr>
-<td>rtr</td>
-<td>Ethernet2</td>
-<td>x2</td>
+<td>hub</td>
+<td>Ethernet3</td>
+<td>c2</td>
 <td>swp1</td>
+</tr>
+<tr>
+<td>c1</td>
+<td>swp2</td>
+<td>c2</td>
+<td>swp2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LAN Links</strong></p>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Link Name (NET)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub</td>
+<td>Ethernet1</td>
+<td>rs_1</td>
+<td>Carrier Ethernet</td>
+</tr>
+<tr>
+<td>s1</td>
+<td>swp1</td>
+<td>rs_1</td>
+<td>Carrier Ethernet</td>
+</tr>
+<tr>
+<td>s2</td>
+<td>swp1</td>
+<td>rs_1</td>
+<td>Carrier Ethernet</td>
 </tr>
 </tbody>
 </table>
@@ -609,49 +789,99 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 </thead>
 <tbody>
 <tr>
-<td><strong>rtr</strong></td>
+<td><strong>c1</strong></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>c1 -&gt; hub</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>c1 -&gt; c2</td>
+</tr>
+<tr>
+<td><strong>c2</strong></td>
+<td style="text-align: right;">10.0.0.5/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>c2 -&gt; hub</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>c2 -&gt; c1</td>
+</tr>
+<tr>
+<td><strong>hub</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
 <td>Ethernet1</td>
-<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;">172.16.42.1/24</td>
 <td style="text-align: right;"></td>
-<td>rtr -&gt; x1</td>
+<td>Carrier Ethernet</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.5/30</td>
-<td style="text-align: right;"></td>
-<td>rtr -&gt; x2</td>
-</tr>
-<tr>
-<td><strong>x1</strong></td>
-<td style="text-align: right;">192.168.100.1/24</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>eth1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>x1 -&gt; rtr</td>
+<td>hub -&gt; c1</td>
 </tr>
 <tr>
-<td><strong>x2</strong></td>
-<td style="text-align: right;">192.168.101.1/24</td>
+<td>Ethernet3</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>hub -&gt; c2</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>eth1</td>
-<td style="text-align: right;">10.1.0.6/30</td>
+<td>swp1</td>
+<td style="text-align: right;">172.16.42.2/24</td>
 <td style="text-align: right;"></td>
-<td>x2 -&gt; rtr</td>
+<td>Carrier Ethernet</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">172.16.42.3/24</td>
+<td style="text-align: right;"></td>
+<td>Carrier Ethernet</td>
 </tr>
 </tbody>
-</table></div>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:RC1">
+<p>Replace <strong>C1</strong> with any other node name if needed&#160;<a class="footnote-backref" href="#fnref:RC1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
