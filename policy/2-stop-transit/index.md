@@ -6,10 +6,10 @@ In the previous lab exercises, you [configured EBGP sessions](../basic/2-multiho
 
 With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101[^EF]. That wouldn't be so bad if the ISP-2 wouldn't prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.
 
-You don't have to trust me. After starting the lab, log into X2. If you're running Cumulus Linux, execute `sudo vtysh -c 'show ip bgp'` command[^VT] or an equivalent command for the device you use as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
+You don't have to trust me. After starting the lab, log into X2. If you're running Cumulus Linux, execute `netlab connect x2 --show ip bgp` ([more details](../basic/0-frrouting.md#vtysh)) or an equivalent command for the device you use as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
 
 ```
-$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+$ netlab connect x2 --show ip bgp
 Connecting to container clab-no_transit-x2, executing sudo vtysh -c "show ip bgp"
 Use vtysh to connect to FRR daemon
 
@@ -35,8 +35,6 @@ Displayed  4 routes and 6 total paths
     Did you notice that the Internet Service Provider (X2) accepted the default route from its customer? That's a serious security breach and should never happen in a real-life network, but I wouldn't be too sure about that...
 
 [^EF]: Devices [strictly compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) are an exception -- they won't advertise anything to their EBGP neighbors unless you configured an outbound filter.
-
-[^VT]: **sudo** to make sure you're an admin user, **vtysh** is the name of the FRR CLI shell, and the `-c` argument passes the following argument to **vtysh** so you don't have to type another line. You don't need the **sudo** part of the command on Cumulus Linux and FRR running in containers.
 
 ## Existing BGP Configuration
 
@@ -91,10 +89,18 @@ Some other implementations (for example, Arista EOS) might require a more convol
 
 ## Verification
 
-Examine the BGP table on X1 and X2 to verify that your router advertises only routes from AS 65000. This is the printout you should get on X2:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+
+* The state of the EBGP session between RTR and X1/X2.
+* Whether RTR advertises the expected IPv4 prefix (192.168.42.0).
+* Whether RTR propagates BGP prefixes between X1 and X2 (it should not). This is the printout you could get when trying to validate an incomplete solution:
+
+![](policy-stop-transit-validate.png)
+
+You can also examine the BGP table on X1 and X2 to verify that RTR advertises only routes from AS 65000. This is the printout you should get on X2:
 
 ```
-$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+$ netlab connect x2 --show ip bgp
 Connecting to container clab-no_transit-x2, executing sudo vtysh -c "show ip bgp"
 Use vtysh to connect to FRR daemon
 
