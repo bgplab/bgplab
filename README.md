@@ -24,6 +24,7 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [Use BGP Route Reflectors](ibgp/3-rr)
 * [Use BGP Session Templates](session/6-templates)
 * [Use BGP Policy Templates](session/7-policy)
+* [Dynamic BGP Peers](session/9-dynamic)
 
 **Simple BGP Routing Policies**
 
@@ -60,7 +61,6 @@ This repository contains _netlab_ topology files for a series of hands-on labs t
 * [EBGP Sessions over IPv6 LLA Interfaces](basic/d-interface)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver)
 * [Passive BGP Sessions](session/8-passive) (coming soon)
-* [Dynamic BGP Peers](session/9-dynamic) (coming soon)
 
 **Challenge Labs**
 

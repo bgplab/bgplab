@@ -6,41 +6,39 @@ name: rs
 version: 1.6.4
 _validate_version: 1.8.2
 
-plugin: [ check_extra_config, check_validate, prune_ebgp ]
+plugin: [ check_validate, prune_bgp ]
 
 module: [ bgp ]
 
 groups:
+  _auto_create: True
   external:
-    members: [ isp2, isp3 ]
-    config: [ rs_client ]
+    members: [ s1, s2, c1, c2 ]
+  core:
+    members: [ hub, c1, c2 ]
+    bgp.as: 65000
+    module: [ bgp, ospf ]
+  site:
+    members: [ s1, s2 ]
+    bgp.sessions.ipv4: [ ebgp ]
+    bgp.as: 65100
 
 nodes:
-  rs:
-    bgp.as: 65000
-    bgp.advertise_loopback: False
-  isp1:
-    bgp.as: 65100
-    bgp.router_id: 10.0.1.1
-    loopback.ipv4: 192.168.100.1/24
-  isp2:
-    bgp.as: 65103
-    bgp.router_id: 10.0.1.2
-    loopback.ipv4: 192.168.103.1/24
-  isp3:
-    bgp.as: 65107
-    bgp.router_id: 10.0.1.3
-    loopback.ipv4: 192.168.107.1/24
+  hub:
+    id: 1
+
 links:
-- rs:
-  isp1:
-  isp2:
-  isp3:
+- hub:
+  s1:
+  s2:
   prefix.ipv4: 172.16.42.0/24
-  name: IXP LAN
+  name: Carrier Ethernet
+- hub-c1
+- hub-c2
+- c1-c2
 
 _include: [ validate.yml ]
 
 message: |
-  The "BGP Route Server in an Internet Exchange Point" lab is ready.
-  Use "netlab connect" to connect to the lab devices.
+  The "Dynamic BGP Peers" lab is ready.
+  Use "netlab connect hub" to connect to your router.

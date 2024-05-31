@@ -55,10 +55,10 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Dynamic BGP Peers](session/9-dynamic.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
 * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)<!--adv-->
 * [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
 * [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
 * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)<!--adv-->
-* [Load Balancing across External BGP Paths](lb/1-ebgp.md)<!--adv-->

@@ -38,7 +38,8 @@ If your network has multiple BGP routers, they must exchange BGP information. Wh
 Other important aspects of large-scale BGP deployments are scalability and consistency. The following lab exercises will help you grasp those concepts:
 
 * [Use BGP Session Templates](../session/6-templates.md)
-* [Use BGP Policy Templates](../session/7-policy.md) (coming soon)
+* [Use BGP Policy Templates](../session/7-policy.md)
+* [Dynamic BGP Peers](../session/9-dynamic.md)
 
 ## BGP AS Number and AS Path Manipulations {#aspath}
 
@@ -70,4 +71,3 @@ Willing to learn more? Challenge yourself with these advanced topics:
 * [Advertise Default Route in BGP](c-default-route.md)
 * [EBGP Sessions over IPv6 LLA Interfaces](d-interface.md)
 * [Passive BGP Sessions](../session/8-passive.md) (coming soon)
-* [Dynamic BGP Peers](../session/9-dynamic.md) (coming soon)

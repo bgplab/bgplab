@@ -1,0 +1,6 @@
+router bgp {{ bgp.as }}
+{% for ngb in bgp.neighbors|default([]) if ngb.name == 'hub' %}
+{%   for af in ['ipv4','ipv6'] if af in ngb %}
+  no neighbor {{ ngb[af] }} shutdown
+{%   endfor %}
+{% endfor %}

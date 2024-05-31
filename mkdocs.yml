@@ -42,6 +42,7 @@ nav:
     - "Use BGP Route Reflectors": ibgp/3-rr.md
     - session/6-templates.md
     - "BGP Policy Templates": session/7-policy.md
+    - session/9-dynamic.md
   - "Manipulate AS Path":
     - session/1-allowas_in.md
     - session/2-asoverride.md
@@ -93,7 +94,6 @@ nav:
   - challenge/02-anycast.md
   - challenge/05-ebgp-dc.md
   - session/8-passive.md
-  - session/9-dynamic.md
 
 markdown_extensions:
 - footnotes

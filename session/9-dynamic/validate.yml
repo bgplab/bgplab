@@ -1,0 +1,17 @@
+# Validate local-as lab
+---
+session:
+  description: Check the BGP session with the Hub router
+  fail: The BGP session with the Hub router is not established
+  pass: All BGP sessions with the Hub router are established
+  nodes: [ s1, s2, c1, c2 ]
+  devices: [ cumulus, frr ]
+  stop_on_error: True
+  plugin: bgp_neighbor(node.bgp.neighbors,'hub')
+
+pfx:
+  description: Check the propagation of the Hub IPv4 prefix
+  fail: The Hub IPv4 prefix is not propagated to other routers
+  pass: All lab devices has the Hub IPv4 prefix in the BGP table
+  nodes: [ s1, s2, c1, c2 ]
+  plugin: bgp_prefix(nodes.hub.loopback.ipv4)

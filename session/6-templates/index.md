@@ -150,7 +150,10 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *        10.0.0.4/32            10.0.0.4              0       -          100     0       i Or-ID: 10.0.0.4 C-LST: 10.0.0.1
 ```
 
-**Next:** If you already completed the [basic routing policy lab exercises](../policy/index.md), try out [BGP policy templates](../session/7-policy.md).
+**Next:**
+
+* If you already completed the [basic routing policy lab exercises](../policy/index.md), try out [BGP policy templates](../session/7-policy.md).
+* Use BGP peer groups to set up [dynamic BGP neighbors](../session/9-dynamic.md).
 
 ## Reference Information
 

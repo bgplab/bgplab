@@ -44,7 +44,8 @@ Default route
   * [Implement Anycast Services with BGP](challenge/02-anycast.md) (coming soon)
 
 Dynamic BGP neighbors
-: * [Implement Anycast Services with BGP](challenge/02-anycast.md) (coming soon)
+: * [Dynamic BGP Peers](session/9-dynamic.md)
+  * [Implement Anycast Services with BGP](challenge/02-anycast.md) (coming soon)
 
 EBGP sessions
 : * [Establish an EBGP session](basic/1-session.md) with an ISP
@@ -106,6 +107,7 @@ Route servers
 Scalability
 : * [Use BGP Session Templates](session/6-templates.md)
   * [Use BGP Policy Templates](session/7-policy.md)
+  * [Dynamic BGP Peers](session/9-dynamic.md)
 
 TCP-AO
 : [Use TCP Authentication Option (TCP-AO)](basic/9-ao.md)
