@@ -42,5 +42,5 @@ links:
 _include: [ validate.yml ]
 
 message: |
-  The "BGP Route Server in an Internet Exchange Point" lab is ready.
+  The "Passive BGP Sessions" lab is ready.
   Use "netlab connect" to connect to the lab devices.

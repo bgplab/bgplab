@@ -48,3 +48,7 @@ links:
 - c1:
   x1:
   name: C1 uplink
+
+message: |
+  The "BGP Graceful Shutdown" lab is ready.
+  Use "netlab connect" to connect to lab devices.
