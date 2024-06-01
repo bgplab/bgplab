@@ -49,7 +49,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes. You can also use the configuration you made in the [previous exercise](1-weights.md).
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually. You can also use the configuration you made in the [previous exercise](1-weights.md).
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -92,7 +92,7 @@ Some other implementations (for example, Arista EOS) might require a more convol
 You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
 
 * The state of the EBGP session between RTR and X1/X2.
-* Whether RTR advertises the expected IPv4 prefix (192.168.42.0).
+* Whether RTR advertises the expected IPv4 prefix (192.168.42.0/24).
 * Whether RTR propagates BGP prefixes between X1 and X2 (it should not). This is the printout you could get when trying to validate an incomplete solution:
 
 ![](policy-stop-transit-validate.png)
