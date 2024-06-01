@@ -1,15 +1,14 @@
 # Filter Advertised Prefixes
 
-In the previous lab exercise, you [filtered prefixes advertised by your router based on the AS-path contents](2-stop-transit.md). That's the absolute minimum you should do, but it's not always enough -- every other blue moon a network operator manages to mess up two-way redistribution, and advertises hundreds of thousands of prefixes as belonging to their autonomous system. You should, therefore, filter the prefixes advertised to EBGP neighbors to ensure you advertise only the address space assigned to you.
+In the previous lab exercise, you [filtered prefixes advertised by your router based on the AS-path contents](2-stop-transit.md). That's the absolute minimum you should do, but it's not always enough. Every other blue moon, a network operator manages to mess up two-way redistribution and advertises hundreds of thousands of prefixes as belonging to their autonomous system. You should, therefore, filter the prefixes advertised to EBGP neighbors to ensure you advertise only the address space assigned to you.
 
 In our simple lab topology, your device advertises a /24 prefix (that we'll assume is assigned to you) and a loopback (/32) prefix that should not be visible elsewhere.
 
 ![Lab topology](topology-prefix-filter.png)
 
-You don't have to trust me -- after starting the lab, log into X1 and execute `sudo vtysh -c 'show ip bgp regexp 65000$'` command[^VT]. You'll see that your autonomous system advertises two prefixes; this is what I got in my lab:
+You don't have to trust me -- after starting the lab, execute the `netlab connect --show ip bgp 65000$` command ([more details](../basic/0-frrouting.md#vtysh)) or an equivalent command for the device you use as the external router. You'll see that your autonomous system advertises two prefixes; this is what I got in my lab:
 
 ```
-x1(bash)#sudo vtysh -c 'show ip bgp regexp 65000$'
 BGP table version is 6, local router ID is 10.0.0.10, vrf id 0
 Default local pref 100, local AS 65100
 Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
@@ -24,9 +23,8 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *>                  10.1.0.1                               0 65000 ?
 ```
 
-You could also use a command similar to **show ip bgp show ip bgp neighbors _neighbor-ip_ advertised-routes** if it's available on your device to check what you're advertising to an individual neighbor.
-
-[^VT]: **sudo** to make sure you're an admin user, **vtysh** is the name of the FRR CLI shell, and the `-c` argument passes the following argument to **vtysh** so you don't have to type another line. The **regexp** part of the **show** command tells the device to display BGP entries where the AS path matches the regular expression and `65000$` matches all AS paths ending with 65000 (= originating in your network).
+!!! tip
+    You could also use a command similar to **show ip bgp show ip bgp neighbors _neighbor-ip_ advertised-routes** if it's available on your device to check what you're advertising to an individual neighbor.
 
 ## Existing BGP Configuration
 
@@ -41,7 +39,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -60,7 +58,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-You must filter BGP prefixes sent to X1 and X2, and advertise only the 192.168.42.0/24 prefix. Most BGP implementations support *prefix lists* that can match IP prefixes and subnet masks; you should match both to ensure you're not advertising more specific prefixes to your EBGP neighbors.
+You must filter BGP prefixes sent to X1 and X2 and advertise only the 192.168.42.0/24 prefix. Most BGP implementations support *prefix lists* that match IP prefixes and subnet masks; you should match both to ensure you're not advertising more specific prefixes to your EBGP neighbors.
 
 On some BGP implementations (for example, Cisco IOS and IOS XE, Cumulus Linux, FRR, Arista EOS), you can apply a *prefix list* as an inbound or outbound filter on a BGP neighbor. 
 
@@ -74,10 +72,18 @@ Some other implementations (for example, Arista EOS) might require a more convol
 
 ## Verification
 
-Examine the BGP table on X1 and X2 to verify that your router advertises only a single IPv4 prefix. This is the printout you should get on X1:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+
+* The state of the EBGP session between RTR and X1/X2.
+* Whether RTR advertises the expected IPv4 prefix (192.168.42.0/24).
+* Whether RTR advertises its loopback IPv4 prefix (it should not). This is the printout you could get when trying to validate an incomplete solution:
+
+![](policy-prefix-validate.png)
+
+You can also examine the BGP table on X1 and X2 to verify that your router advertises only a single IPv4 prefix. This is the printout you should get on X1:
 
 ```
-$ sudo vtysh -c 'show ip bgp neighbor 10.1.0.1 routes'
+$ netlab connect --show ip bgp neighbor 10.1.0.1 routes
 BGP table version is 8, local router ID is 10.0.0.10, vrf id 0
 Default local pref 100, local AS 65100
 Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
