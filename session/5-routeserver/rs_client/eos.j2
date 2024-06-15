@@ -1,7 +1,6 @@
 router bgp {{ bgp.as }}
 {% for af in ['ipv4','ipv6'] %}
 {%   for n in bgp.neighbors if n[af] is defined %}
-  no neighbor {{ peer }} enforce-first-as
-{{     ebgp_session(n,af,bgp) -}}
+  no neighbor {{ n[af] }} enforce-first-as
 {%   endfor %}
 {% endfor %}

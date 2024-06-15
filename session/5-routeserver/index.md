@@ -47,7 +47,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 !!! tip
     If the device you want to work with does not support the BGP Route Server functionality, use Cumulus Linux as the route server. Start the lab with `netlab up -s nodes.rs.device=cumulus` and configure the route server with `netlab config route_server -l rs`.
 
-
 ## The Problem
 
 Log into ISP1 and check its BGP table. The routes from AS 65103 and 65107 are in the BGP table, but while the next hops point to ISP2 and ISP3, the AS path contains AS 65000 (IXP AS number):
@@ -87,7 +86,7 @@ After configuring the route server clients, the route server sends EBGP updates 
     
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.2 or later and use Cumulus Linux or FRR on ISP2 and ISP3. The validation tests check:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Arista EOS, Cumulus Linux, or FRR on ISP2 and ISP3. The validation tests check:
 
 * The state of the EBGP session between RS and ISP1/ISP2.
 * Whether RS propagates routing updates from ISP1 to ISP2/ISP3.
@@ -118,14 +117,13 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.107.0/24       172.16.42.4           0       -          100     0       65107 i
 ```
 
-
 ## Reference Information
 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for ISP1 and RS routers.
-* Use FRR, Cumulus Linux, or Arista EOS for ISP2 and ISP3.
-* You can do automated lab validation with Cumulus Linux or FRR running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.2 or higher.
+* Use Arista EOS, Cumulus Linux, or FRR for ISP2 and ISP3.
+* You can do automated lab validation with Arista, Cumulus Linux, or FRR running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains Cumulus Linux initial device configurations for RS, ISP2, and ISP3.
 
 ### Lab Wiring

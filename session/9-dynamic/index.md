@@ -80,7 +80,7 @@ Use the following IP address ranges:
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.2 or later and use Cumulus Linux or FRR on S1, S2, C1, and C2. The validation tests check:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Arista EOS, Cumulus Linux, or FRR on S1, S2, C1, and C2. The validation tests check:
 
 * The state of the BGP session between those routers and the Hub router.
 * Whether those routers receive the loopback IPv4 prefix from the Hub router.
@@ -167,7 +167,7 @@ The following information might help you if you plan to build custom lab infrast
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the lab routers.
 * If you run Arista EOS, Cumulus Linux, or FRR on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
-* You can do automated lab validation with Cumulus Linux or FRR running on S1, S2, C1, and C2. Automated lab validation requires _netlab_ release 1.8.2 or higher.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1, S2, C1, and C2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
