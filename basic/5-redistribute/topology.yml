@@ -1,15 +1,17 @@
 # Configure a BGP session with an external BGP speaker
-
+---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ external_devices ]
+plugin: [ external_devices, check_validate ]
+_validate_version: 1.8.2
+_include: [ validate.yml ]
 
 name: redistribute
 
-module: [ bgp,ospf ]
+module: [ bgp, ospf ]
 
 groups:
   external:
-    members: [ x1, x2 ]
+    members: [ x1, x2, s1, s2 ]
     bgp.as: 65100
 
 bgp.advertise_loopback: false

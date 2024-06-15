@@ -1,0 +1,54 @@
+# Validate local-as lab
+---
+bgp_x1_c1:
+  description: Check the X1-C1 EBGP session
+  nodes: [ x1 ]
+  devices: [ cumulus, frr, eos ]
+  stop_on_error: True
+  plugin: bgp_neighbor(node.bgp.neighbors,'c1')
+
+bgp_x2_c2:
+  description: Check the X2-C2 EBGP session
+  nodes: [ x2 ]
+  stop_on_error: True
+  plugin: bgp_neighbor(node.bgp.neighbors,'c2')
+
+ospf_s1_c1:
+  description: Check the S1-C1 OSPF session
+  nodes: [ s1 ]
+  plugin: ospf_neighbor(nodes.c1.ospf.router_id)
+
+ospf_s2_c2:
+  description: Check the S2-C2 OSPF session
+  nodes: [ s2 ]
+  plugin: ospf_neighbor(nodes.c2.ospf.router_id)
+
+pfx_s1_bgp:
+  description: Check for BGP prefix for S1 loopback on BGP routers
+  pass: The S1 loopback is present as a BGP prefix
+  fail: The S1 loopback is not advertised in BGP
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix(nodes.s1.loopback.ipv4)
+
+pfx_s2_bgp:
+  description: Check for BGP prefix for S2 loopback on BGP routers
+  pass: The S2 loopback is present as a BGP prefix
+  fail: The S2 loopback is not advertised in BGP
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix(nodes.s2.loopback.ipv4)
+
+pfx_s1_ospf:
+  description: Check for OSPF prefix for S1 loopback
+  pass: The S1 loopback is redistributed back into OSPF
+  fail: The S1 loopback is not redistributed back into OSPF
+  nodes: [ s2 ]
+  devices: [ cumulus, frr, eos ]
+  plugin: ospf_prefix(nodes.s1.loopback.ipv4)
+
+pfx_s2_ospf:
+  description: Check for OSPF prefix for S2 loopback
+  pass: The S2 loopback is redistributed back into OSPF
+  fail: The S2 loopback is not redistributed back into OSPF
+  nodes: [ s1 ]
+  devices: [ cumulus, frr, eos ]
+  plugin: ospf_prefix(nodes.s2.loopback.ipv4)
