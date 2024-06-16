@@ -51,7 +51,17 @@ If your device supports *BGP weights*, use them to prefer routes advertised by X
 
 ## Verification
 
-Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:
+
+* The state of the EBGP session between RTR and X1/X2.
+* Whether RTR receives the prefix from X2 (192.168.101.0/24).
+* Whether RTR uses X1 as the next hop for the prefix advertised by X2.
+
+This is the printout you could get when trying to validate an incomplete solution:
+
+![](policy-weights-validate.png)
+
+You can also examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:
 
 ```
 rtr#show ip bgp
@@ -74,7 +84,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *        192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 ```
 
-You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65101 (X2), for example, 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)
+You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65101 (X2), for example, 192.168.101.0/24. Yet again, the next hop of the best path should be X1 (10.1.0.2)
 
 ```
 rtr#show ip bgp 192.168.101.0/24
@@ -99,7 +109,6 @@ BGP routing table entry for 192.168.101.0/24
 * If you still need to learn how to use AS-path filters to [stop advertising transit routes ](2-stop-transit.md), do it now.
 * If you're more interested in building [more extensive BGP-based networks](../ibgp/1-edge.md), use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
 
-
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
@@ -108,6 +117,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** attribute from the lab topology.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring

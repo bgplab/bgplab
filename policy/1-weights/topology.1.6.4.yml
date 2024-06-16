@@ -1,9 +1,12 @@
 # Configure BGP weights
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ bgp.session ]
-name: weights
+plugin: [ bgp.session, check_validate ]
 version: 1.6.4
+name: weights
+
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 module: [ bgp ]
 

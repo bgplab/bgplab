@@ -39,7 +39,7 @@ The routers in your lab use the following BGP AS numbers. Each autonomous system
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
+Your router has these EBGP neighbors. _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
 | Neighbor | Neighbor IPv4 | Neighbor AS |
 |----------|--------------:|------------:|
@@ -122,6 +122,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) and [change of BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** and **bgp.locpref** attributes from the lab topology.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * You must use Cumulus Linux on the external routers if you're using _netlab_ release 1.6.3 or older.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
