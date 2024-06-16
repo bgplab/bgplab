@@ -4,7 +4,10 @@ defaults.sources.extra: [ ../../defaults.yml ]
 name: med
 version: 1.6.4
 
-plugin: [ bgp.session ]
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
+plugin: [ bgp.session, check_validate ]
 
 module: [ bgp, ospf ]
 

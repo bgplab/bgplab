@@ -6,7 +6,7 @@ Your lab has two sites connected to an MPLS/VPN provider. Each site has a WAN ed
 
 ![Lab topology](topology-2-sites.png)
 
-In this lab exercise, you must establish connectivity between your sites to enable the core routers to ping each other.
+In this lab exercise, you must establish connectivity between your sites so that the site routers (S1 and S2) can ping each other.
 
 ## Lab Configuration
 
@@ -79,9 +79,15 @@ You have to exchange OSPF routing information between the two sites using BGP. T
 
 [^PN]: You might have to add the OSPF process number to the command.
 
-[^AS]: Depending on your devices, you might have to add the BGP AS number to the command. Some older platforms must be told to redistribute **subnets** into OSPF.
+[^AS]: You might have to add the BGP AS number to the command, depending on your devices. Some older platforms must be told to redistribute **subnets** into OSPF.
 
 ## Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on S1, S2, X1, and X2. The following screenshot shows the validation results before the two-way redistribution was configured:
+
+![](basic-redistribute-validate.png)
+
+Do manual verification if the **netlab validate** command fails or you're using another network operating system on those routers.
 
 The local OSPF prefixes you want to advertise to the remote site must be in your router's BGP table first. A command similar to **show ip bgp** is thus a good starting point; it's even better to use a command that displays only the locally-originated prefixes, such as **show ip bgp regexp ^$**. The following printout contains the information displayed on C1 running Arista EOS:
 
@@ -129,17 +135,17 @@ Codes: C - connected, S - static, K - kernel,
        G  - gRIBI, RC - Route Cache Route
 
 Gateway of last resort:
- S        0.0.0.0/0 [1/0] via 192.168.121.1, Management0
-
  O        10.0.0.1/32 [110/20] via 10.1.0.13, Ethernet1
  C        10.0.0.3/32 is directly connected, Loopback0
  O E2     10.0.0.4/32 [110/1] via 10.1.0.13, Ethernet1
  C        10.1.0.12/30 is directly connected, Ethernet1
  C        172.16.0.0/24 is directly connected, Ethernet2
  O E2     172.16.1.0/24 [110/1] via 10.1.0.13, Ethernet1
- C        192.168.121.0/24 is directly connected, Management0
 ```
 
+!!! tip
+    Use the `netlab connect --show ip route` and `netlab connect --show ip ospf route` commands on FRR or Cumulus Linux.
+    
 **Next:**
 
 * You might encounter service providers that will give you the same BGP AS number for all sites. You can practice that scenario in the [Reuse a BGP AS Number Across Multiple Sites](../session/1-allowas_in.md) exercise.
@@ -153,6 +159,7 @@ The following information might help you if you plan to build custom lab infrast
 ### Device Requirements {#req}
 
 * Customer- and provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the S1, S2, X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains provider router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring

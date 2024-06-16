@@ -1,0 +1,23 @@
+---
+session:
+  description: Check EBGP session with RTR
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with RTR is in Established state
+  devices: [ frr, cumulus, eos ]
+  nodes: [ x1, x2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'rtr')
+  stop_on_error: True
+
+pfx:
+  description: Check for X2 prefix on RTR
+  pass: RTR has X2 prefix in its BGP table
+  fail: RTR does not have X2 prefix in its BGP table
+  nodes: [ rtr ]
+  plugin: bgp_prefix(nodes.x2.loopback.ipv4)
+
+best:
+  description: Check the next-hop for the best path to X2 prefix
+  pass: The next hop for the best path to X2 prefix is X1
+  fail: The next hop for the best path to X2 prefix is not X1
+  nodes: [ rtr ]
+  plugin: bgp_prefix(nodes.x2.loopback.ipv4,best=True,nh=nodes.x1.interfaces[0].ipv4)

@@ -1,0 +1,38 @@
+session:
+  description: Check EBGP session with the ISP router
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with RTR is in Established state
+  devices: [ frr, cumulus, eos ]
+  nodes: [ c, x ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'isp')
+  stop_on_error: True
+
+c_pfx:
+  description: Check direct customer prefix advertisement
+  pass: ISP received the customer prefix from C
+  nodes: [ isp ]
+  plugin: bgp_prefix(nodes.c.loopback.ipv4,peer=nodes.c.bgp.router_id)
+
+x_pfx:
+  description: Check customer prefix advertisement through X
+  pass: ISP received the customer prefix from C
+  nodes: [ isp ]
+  plugin: bgp_prefix(nodes.c.loopback.ipv4,peer=nodes.x.bgp.router_id)
+
+c_locpref:
+  description: Check the local preference of the prefix advertised by C
+  nodes: [ isp ]
+  plugin: >-
+    bgp_prefix(
+      nodes.c.loopback.ipv4,
+      peer=nodes.c.bgp.router_id,
+      locpref=50)
+
+x_locpref:
+  description: Check the local preference of the prefix advertised by X
+  nodes: [ isp ]
+  plugin: >-
+    bgp_prefix(
+      nodes.c.loopback.ipv4,
+      peer=nodes.x.bgp.router_id,
+      locpref=200)

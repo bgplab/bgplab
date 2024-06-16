@@ -1,0 +1,31 @@
+ebgp_c1:
+  description: Check EBGP session between C1 and X1
+  fail: EBGP session is not established
+  devices: [ frr, cumulus, eos ]
+  nodes: [ c1 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'x1')
+  stop_on_error: True
+
+ebgp_c2:
+  description: Check EBGP session between C2 and X2
+  fail: EBGP session is not established
+  nodes: [ c2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'x2')
+  stop_on_error: True
+
+ibgp:
+  description: Check IBGP session between C1 and C2
+  fail: IBGP session is not established
+  nodes: [ c1 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'c2')
+  stop_on_error: True
+
+lp_c2_x2:
+  description: Check the local preference of EBGP routes advertised to C2
+  nodes: [ c2 ]
+  plugin: bgp_prefix('192.168.100.0/24',peer=nodes.x2.bgp.router_id,locpref=50)
+
+lp_c2_c1:
+  description: Check the local preference of IBGP routes advertised to C2
+  nodes: [ c2 ]
+  plugin: bgp_prefix('192.168.100.0/24',peer=nodes.c1.bgp.router_id,locpref=200)

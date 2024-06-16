@@ -4,7 +4,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 name: rs
 
 version: 1.6.4
-_validate_version: 1.8.2
+_validate_version: 1.8.3
 
 plugin: [ check_extra_config, check_validate, prune_ebgp ]
 

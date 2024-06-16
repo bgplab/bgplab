@@ -1,0 +1,29 @@
+session:
+  description: Check EBGP session with RTR
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with RTR is in Established state
+  devices: [ frr, cumulus, eos ]
+  nodes: [ x1, x2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'rtr')
+  stop_on_error: True
+
+c_pfx:
+  description: Check customer prefix advertisement
+  pass: RTR is advertising its IPv4 prefix
+  fail: RTR is not advertising its IPv4 prefix
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix(nodes.rtr.bgp.originate[0],peer=nodes.rtr.bgp.router_id)
+
+t_pfx_x2:
+  description: Check X1 => X2 transit prefix advertisement
+  pass: RTR is not advertising prefixes from X1 to X2
+  fail: RTR is advertising X1 prefixes to X2
+  nodes: [ x2 ]
+  plugin: bgp_prefix(nodes.x1.loopback.ipv4,peer=nodes.rtr.bgp.router_id,state='missing')
+
+t_pfx_x1:
+  description: Check X2 => X1 transit prefix advertisement
+  pass: RTR is not advertising prefixes from X2 to X1
+  fail: RTR is advertising X2 prefixes to X1
+  nodes: [ x1 ]
+  plugin: bgp_prefix(nodes.x2.loopback.ipv4,peer=nodes.rtr.bgp.router_id,state='missing')

@@ -34,7 +34,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Log into your device (ISP) with **netlab connect** and verify its configurations.
 
 !!! Warning
-    * *netlab* will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on all devices in your lab. If you're not using *netlab*, use the device configurations supplied in the GitHub repository to configure C and X, and configure ISP manually.
+    * *netlab* will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on all devices in your lab. If you're not using *netlab*, use the device configurations supplied in the GitHub repository to configure C and X and configure ISP manually.
     * This lab requires additional configuration on C. That configuration is currently available for Arista EOS, Cumulus Linux, and FRR -- you have to use one of those devices as the external BGP router(s).
 
 ## Default Traffic Flow
@@ -81,7 +81,17 @@ You might have to use configuration commands similar to these to get the job don
 
 ## Verification
 
-Reexamine the BGP table on the ISP router. If you did everything right, you'd see that the ISP router reduced the local preference of the BGP route received from C and started using the BGP route received from X as the best path toward `172.17.207.0/24`:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:
+
+* The state of the EBGP session between ISP and C/X.
+* Whether RTR receives the prefix `172.17.207.1/24` from C and X.
+* Whether the prefix received from C has a BGP local preference of 50 and the prefix received from X has a BGP local preference of 200.
+
+This is the printout you should get after completing the lab exercise:
+
+[![](policy-c-use-validate.png)](policy-c-use-validate.png)
+
+You can also examine the BGP table on the ISP router. If you did everything right, you'd see that the ISP router reduced the local preference of the BGP route received from C and started using the BGP route received from X as the best path toward `172.17.207.0/24`:
 
 ```
 isp#show ip bgp 172.17.207.0
@@ -109,7 +119,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your router (ISP).
-* While you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for other routers in the lab, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, Cumulus Linux, and FRR.
+* While you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, Cumulus Linux, and FRR.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the lab routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains initial device configurations for Cumulus Linux.
 
 ### Lab Wiring

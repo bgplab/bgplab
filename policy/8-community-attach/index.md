@@ -103,7 +103,19 @@ It looks like your woes could be fixed by using community 65304:100. Here's what
 
 ## Verification
 
-Reexamine the BGP table on C2. If you did everything right, you'd see that X2 changed its mind and now advertises the path through X1 (AS 65207) as the best path:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+
+* The state of the EBGP session between RTR and X1/X2.
+* Whether C1 is advertising its IPv4 prefix
+* Whether C1 attaches the expected community to the EBGP update sent to X2
+* Whether X2 lowers the local preference of EBGP path advertised by C1
+* Whether X2 prefers the transit path (X2-X1-C1) over the direct path (X2-C1).
+
+This is the printout you should get after completing the lab exercise:
+
+[![](policy-c-attach-validate.png)](policy-c-attach-validate.png)
+
+You can also reexamine the BGP table on C2. If you did everything right, you'd see that X2 changed its mind and now advertises the path through X1 (AS 65207) as the best path:
 
 ```
 c2>show ip bgp | include 192.168.42.0
@@ -147,6 +159,7 @@ The following information might help you if you plan to build custom lab infrast
 
 * Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support).
 * External routers: while you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support), X2 requires additional configuration that is only available for Arista EOS, Cumulus Linux, and FRR.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
