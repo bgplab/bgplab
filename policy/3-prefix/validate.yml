@@ -10,7 +10,7 @@ session:
 adv_pfx:
   description: Check customer prefix advertisement
   pass: RTR is advertising its IPv4 prefix
-  fail: RTR is not advertising its loopback IPv4 prefix
+  fail: RTR is not advertising its IPv4 prefix
   nodes: [ x1, x2 ]
   plugin: bgp_prefix(nodes.rtr.bgp.originate[0],peer=nodes.rtr.bgp.router_id)
 

@@ -1,0 +1,30 @@
+session:
+  description: Check EBGP session with RTR
+  fail: Some EBGP sessions are not established
+  pass: RTR has all expected EBGP sessions
+  devices: [ frr, cumulus, eos ]
+  nodes: [ x1, x2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'rtr')
+  stop_on_error: True
+
+df_x1:
+  description: Check default route advertised by X1
+  nodes: [ rtr ]
+  plugin: bgp_prefix('0.0.0.0/0',peer=nodes.x1.bgp.router_id,best=True)
+
+df_x2:
+  description: Check default route advertised by X2
+  nodes: [ rtr ]
+  plugin: bgp_prefix('0.0.0.0/0',peer=nodes.x2.bgp.router_id,best=False)
+
+x1_p1:
+  description: Check the /24 prefix advertised by X1
+  nodes: [ rtr ]
+  fail: The prefix should not be in the BGP table on RTR
+  plugin: bgp_prefix(nodes.x1.bgp.originate[0],state='missing')
+
+x2_p1:
+  description: Check the /24 prefix advertised by X2
+  nodes: [ rtr ]
+  fail: The prefix be in the BGP table on RTR with next hop = X2
+  plugin: bgp_prefix(nodes.x2.bgp.originate[0],nh=nodes.x2.interfaces[0].ipv4)
