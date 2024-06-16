@@ -16,6 +16,7 @@ iface eth0 inet static
 
 auto swp1
 iface swp1 inet static
+	mtu 1500
 	address 10.1.0.2/30
 
 auto swp1
@@ -24,6 +25,7 @@ iface swp1
 
 auto swp2
 iface swp2 inet static
+	mtu 1500
 	address 10.1.0.9/30
 
 auto swp2
