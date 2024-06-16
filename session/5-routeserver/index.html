@@ -630,7 +630,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <p>After configuring RS and ISP1, you might have to resend the EBGP updates from RS. Use a command similar to <code>clear ip bgp * soft</code> or <code>clear ip bgp *</code>.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.2 or later and use Cumulus Linux or FRR on ISP2 and ISP3. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Arista EOS, Cumulus Linux, or FRR on ISP2 and ISP3. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between RS and ISP1/ISP2.</li>
 <li>Whether RS propagates routing updates from ISP1 to ISP2/ISP3.</li>
@@ -660,8 +660,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for ISP1 and RS routers.</li>
-<li>Use FRR, Cumulus Linux, or Arista EOS for ISP2 and ISP3.</li>
-<li>You can do automated lab validation with Cumulus Linux or FRR running on ISP2 and ISP3. Automated lab validation requires <em>netlab</em> release 1.8.2 or higher.</li>
+<li>Use Arista EOS, Cumulus Linux, or FRR for ISP2 and ISP3.</li>
+<li>You can do automated lab validation with Arista, Cumulus Linux, or FRR running on ISP2 and ISP3. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains Cumulus Linux initial device configurations for RS, ISP2, and ISP3.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

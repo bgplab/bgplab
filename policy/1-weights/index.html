@@ -539,7 +539,15 @@
 <p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:</p>
+<ul>
+<li>The state of the EBGP session between RTR and X1/X2.</li>
+<li>Whether RTR receives the prefix from X2 (192.168.101.0/24).</li>
+<li>Whether RTR uses X1 as the next hop for the prefix advertised by X2.</li>
+</ul>
+<p>This is the printout you could get when trying to validate an incomplete solution:</p>
+<p><img alt="" src="../policy-weights-validate.png" /></p>
+<p>You can also examine the BGP table on your router to verify that the routes advertised by X1 (next hop: 10.1.0.2) are the best (active) routes. This is a printout you should get on Arista EOS:</p>
 <pre><code>rtr#show ip bgp
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -559,7 +567,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      192.168.101.0/24       10.1.0.2              0       -          100     200     65100 65101 i
  *        192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 </code></pre>
-<p>You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65101 (X2), for example, 10.0.0.11. Yet again, the next hop of the best path should be X1 (10.1.0.2)</p>
+<p>You could dig deeper and examine the details of an IPv4 prefix that originated in AS 65101 (X2), for example, 192.168.101.0/24. Yet again, the next hop of the best path should be X1 (10.1.0.2)</p>
 <pre><code>rtr#show ip bgp 192.168.101.0/24
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -587,6 +595,7 @@ BGP routing table entry for 192.168.101.0/24
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer router. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

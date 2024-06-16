@@ -601,10 +601,10 @@
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you&rsquo;ll have to configure your routers manually.</p>
+<p><em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must manually configure your routers.</p>
 </div>
 <h2 id="check-the-bgp-tables-on-external-routers">Check the BGP Tables on External Routers</h2>
-<p>Log into X1 and X2 and check their BGP tables. Use <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on external routers:</p>
+<p>Log into X1 and X2 and check their BGP tables. Use the <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on external routers:</p>
 <pre><code>$ netlab connect x1 sudo vtysh -c 'show ip bgp 192.168.42.0'
 Connecting to container clab-med-x1, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
@@ -638,7 +638,7 @@ Paths: (2 available, best #2, table default)
 <p>X1 and X2 prefer the EBGP path to the customer prefix (<code>192.168.42.0/24</code>) over the IBGP path. The distinction between the two paths is small enough for MED to work.</p>
 <h2 id="using-bgp-multi-exit-discriminator-med">Using BGP Multi-Exit Discriminator (MED)</h2>
 <p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is intended to be used on external (inter-AS) links to discriminate among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.</p>
-<p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
+<p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a weak metric that is considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
 <p>Finally, RFC 4271 defines MED propagation rules:</p>
 <ul>
 <li>MED can be used on EBGP sessions.</li>
@@ -656,7 +656,16 @@ Paths: (2 available, best #2, table default)
 <p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft</code> to tell your routers to resend their BGP updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
+<ul>
+<li>The state of the EBGP sessions.</li>
+<li>Whether C1 advertises the AS 65000 IPv4 prefix (192.168.42.0/24) with BGP MED set to 50.</li>
+<li>Whether C2 advertises the same prefix with BGP MED set to 200.</li>
+<li>Whether X2 prefers the IBGP route to 192.168.42.0/24 over the EBGP route.</li>
+</ul>
+<p>This is the printout you should get after completing the lab exercise:</p>
+<p><img alt="" src="../policy-med-validate.png" /></p>
+<p>You can also examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
 Connecting to container clab-med-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
@@ -690,6 +699,7 @@ Paths: (2 available, best #1, table default)
 <ul>
 <li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
 <li>External routers must be <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>. They also need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>If you want to use a device that is not supported by the <strong>bgp.session</strong> plugin as an external router, remove the <strong>bgp.originate</strong> attributes from the lab topology.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>

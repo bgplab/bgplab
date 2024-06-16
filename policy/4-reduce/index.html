@@ -503,7 +503,7 @@
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
 <table>
 <thead>
 <tr>
@@ -538,16 +538,28 @@
 <li>Configure a <em>prefix list</em> that will accept only the default route and apply it as an inbound filter on the EBGP session with X1. You did something similar in the <em><a href="../3-prefix/">Filter Advertised Prefixes</a></em> exercise, so you should know the process.</li>
 <li>The inbound filter for X2 is a bit more complex: you have to accept a prefix if it originates in AS 65101 or is the default route. You already implemented <a href="../3-prefix/">prefix filters</a> and <a href="../2-stop-transit/">AS-path based filters</a>; now you have to combine them. Implementing such a condition often requires a more complex routing policy; many BGP implementations call it a <em>route map</em>. </li>
 </ul>
-<p><strong>Hint</strong>: You&rsquo;ll have to get fluent with regular expressions to master BGP routing policies, but let&rsquo;s do things one step at a time &ndash; the regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To master BGP routing policies, you must become fluent in regular expressions. Let&rsquo;s take things one step at a time. The regular expression <code>65101$</code> matches prefixes originating in AS 65101.</p>
+</div>
 <ul>
-<li>Finally, you must make routes received from X1 preferred over routes received from X2. If you don&rsquo;t know how to do it, first do the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise.</li>
+<li>Finally, you must make routes received from X1 preferred over routes received from X2. If you don&rsquo;t know how to do that, first, solve the <em><a href="../1-weights/">Select Preferred EBGP Peer with Weights</a></em> exercise.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table as the new parameters might be evaluated only on new incoming updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your router to ask its neighbors to resend their BGP updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Examine the BGP table on your device. It should contain:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:</p>
+<ul>
+<li>The state of the EBGP session between RTR and X1/X2.</li>
+<li>Whether RTR has two default routes and whether the one advertised by X1 is the best default route.</li>
+<li>Whether RTR has a prefix advertised by X1 in its BGP table (it should not)</li>
+<li>Whether RTR has a prefix advertised by X2 in its BGP table and whether the next hop of the prefix is X2.</li>
+</ul>
+<p>This is the printout you should get after completing the lab exercise:</p>
+<p><img alt="" src="../policy-reduce-validate.png" /></p>
+<p>You can also examine the BGP table on your device. It should contain:</p>
 <ul>
 <li>IP prefixes your device is originating;</li>
 <li>Two IP prefixes originated by X2</li>
@@ -578,6 +590,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer router. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> and <a href="https://netlab.tools/plugins/bgp.policy/#platform-support">change of BGP local preference</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> and <strong>bgp.locpref</strong> attributes from the lab topology.</li>
 <li>You must use Cumulus Linux on the external routers if you&rsquo;re using <em>netlab</em> release 1.6.3 or older.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>

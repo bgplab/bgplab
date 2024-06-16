@@ -631,7 +631,17 @@
 </ul>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Reexamine the BGP table on C2. If you did everything right, you&rsquo;d see that X2 changed its mind and now advertises the path through X1 (AS 65207) as the best path:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
+<ul>
+<li>The state of the EBGP session between RTR and X1/X2.</li>
+<li>Whether C1 is advertising its IPv4 prefix</li>
+<li>Whether C1 attaches the expected community to the EBGP update sent to X2</li>
+<li>Whether X2 lowers the local preference of EBGP path advertised by C1</li>
+<li>Whether X2 prefers the transit path (X2-X1-C1) over the direct path (X2-C1).</li>
+</ul>
+<p>This is the printout you should get after completing the lab exercise:</p>
+<p><a href="../policy-c-attach-validate.png"><img alt="" src="../policy-c-attach-validate.png" /></a></p>
+<p>You can also reexamine the BGP table on C2. If you did everything right, you&rsquo;d see that X2 changed its mind and now advertises the path through X1 (AS 65207) as the best path:</p>
 <pre><code>c2&gt;show ip bgp | include 192.168.42.0
  * &gt;      192.168.42.0/24        10.1.0.14             0       -          100     0       65304 65207 65000 ?
 </code></pre>
@@ -664,6 +674,7 @@ Paths: (2 available, best #2, table default)
 <ul>
 <li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>.</li>
 <li>External routers: while you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>, X2 requires additional configuration that is only available for Arista EOS, Cumulus Linux, and FRR.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

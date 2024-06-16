@@ -456,8 +456,8 @@
 <p>In the previous lab exercises, you <a href="../../basic/2-multihomed/">configured EBGP sessions</a> with two routers belonging to upstream ISPs.</p>
 <p><img alt="Lab topology" src="../topology-stop-transit.png" /></p>
 <p>With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101<sup id="fnref:EF"><a class="footnote-ref" href="#fn:EF">1</a></sup>. That wouldn&rsquo;t be so bad if the ISP-2 wouldn&rsquo;t prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.</p>
-<p>You don&rsquo;t have to trust me. After starting the lab, log into X2. If you&rsquo;re running Cumulus Linux, execute <code>sudo vtysh -c 'show ip bgp'</code> command<sup id="fnref:VT"><a class="footnote-ref" href="#fn:VT">2</a></sup> or an equivalent command for the device you use as the external router. You&rsquo;ll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+<p>You don&rsquo;t have to trust me. After starting the lab, log into X2. If you&rsquo;re running Cumulus Linux, execute <code>netlab connect x2 --show ip bgp</code> (<a href="../../basic/0-frrouting/#vtysh">more details</a>) or an equivalent command for the device you use as the external router. You&rsquo;ll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).</p>
+<pre><code>$ netlab connect x2 --show ip bgp
 Connecting to container clab-no_transit-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
 Use vtysh to connect to FRR daemon
 
@@ -525,7 +525,7 @@ Displayed  4 routes and 6 total paths
 </tr>
 </tbody>
 </table>
-<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes. You can also use the configuration you made in the <a href="../1-weights/">previous exercise</a>.</p>
+<p>Your router has these EBGP neighbors. <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually. You can also use the configuration you made in the <a href="../1-weights/">previous exercise</a>.</p>
 <table>
 <thead>
 <tr>
@@ -556,10 +556,10 @@ Displayed  4 routes and 6 total paths
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../1-weights/">previous exercise</a>.</p>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You must filter BGP prefixes sent to X1 and X2 and advertise only prefixes with an empty AS path &ndash; the prefixes originating in your autonomous system<sup id="fnref:FT"><a class="footnote-ref" href="#fn:FT">3</a></sup>.</p>
+<p>You must filter BGP prefixes sent to X1 and X2 and advertise only prefixes with an empty AS path &ndash; the prefixes originating in your autonomous system<sup id="fnref:FT"><a class="footnote-ref" href="#fn:FT">2</a></sup>.</p>
 <p>On some BGP implementations (for example, Cisco IOS and IOS XE, Cumulus Linux, FRR), you configure outbound AS-path filters in two steps:</p>
 <ul>
-<li>Configure an AS-path access list that matches an empty AS path<sup id="fnref:RE"><a class="footnote-ref" href="#fn:RE">4</a></sup>.</li>
+<li>Configure an AS-path access list that matches an empty AS path<sup id="fnref:RE"><a class="footnote-ref" href="#fn:RE">3</a></sup>.</li>
 <li>Apply the AS-path access list as an outbound filter to all EBGP neighbors.</li>
 </ul>
 <p>Some other implementations (for example, Arista EOS) might require a more convoluted approach using a <em>route map</em> as an intermediate step:</p>
@@ -572,8 +572,15 @@ Displayed  4 routes and 6 total paths
 <p>Applying filters to BGP neighbors doesn&rsquo;t necessarily trigger new updates &ndash; you might have to use a command similar to <code>clear ip bgp * soft out</code> to tell your router to recalculate and resend BGP prefixes from its BGP table to its neighbors.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Examine the BGP table on X1 and X2 to verify that your router advertises only routes from AS 65000. This is the printout you should get on X2:</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
+<ul>
+<li>The state of the EBGP session between RTR and X1/X2.</li>
+<li>Whether RTR advertises the expected IPv4 prefix (192.168.42.0/24).</li>
+<li>Whether RTR propagates BGP prefixes between X1 and X2 (it should not). This is the printout you could get when trying to validate an incomplete solution:</li>
+</ul>
+<p><img alt="" src="../policy-stop-transit-validate.png" /></p>
+<p>You can also examine the BGP table on X1 and X2 to verify that RTR advertises only routes from AS 65000. This is the printout you should get on X2:</p>
+<pre><code>$ netlab connect x2 --show ip bgp
 Connecting to container clab-no_transit-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
 Use vtysh to connect to FRR daemon
 
@@ -599,6 +606,7 @@ Displayed  3 routes and 4 total paths
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> and <a href="https://netlab.tools/plugins/bgp.policy/#platform-support">change of BGP local preference</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> and <strong>bgp.locpref</strong> attributes from the lab topology.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>You must use Cumulus Linux on the external routers if you&rsquo;re using <em>netlab</em> release 1.6.3 or older.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
@@ -706,14 +714,11 @@ Displayed  3 routes and 4 total paths
 <li id="fn:EF">
 <p>Devices <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">strictly compliant with RFC 8212</a> are an exception &ndash; they won&rsquo;t advertise anything to their EBGP neighbors unless you configured an outbound filter.&#160;<a class="footnote-backref" href="#fnref:EF" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:VT">
-<p><strong>sudo</strong> to make sure you&rsquo;re an admin user, <strong>vtysh</strong> is the name of the FRR CLI shell, and the <code>-c</code> argument passes the following argument to <strong>vtysh</strong> so you don&rsquo;t have to type another line. You don&rsquo;t need the <strong>sudo</strong> part of the command on Cumulus Linux and FRR running in containers.&#160;<a class="footnote-backref" href="#fnref:VT" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
 <li id="fn:FT">
-<p>Please note that all BGP implementations I&rsquo;ve seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while in your router&rsquo;s BGP table.&#160;<a class="footnote-backref" href="#fnref:FT" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Please note that all BGP implementations I&rsquo;ve seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while in your router&rsquo;s BGP table.&#160;<a class="footnote-backref" href="#fnref:FT" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:RE">
-<p>I don&rsquo;t want you to waste too much time on regular expressions, so here&rsquo;s a hint: you can usually use <code>^$</code> to match an empty AS-path.&#160;<a class="footnote-backref" href="#fnref:RE" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>I don&rsquo;t want you to waste too much time on regular expressions, so here&rsquo;s a hint: you can usually use <code>^$</code> to match an empty AS-path.&#160;<a class="footnote-backref" href="#fnref:RE" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

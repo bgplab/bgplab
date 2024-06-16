@@ -544,7 +544,7 @@
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
 <h2 id="wtf">What Do We Have to Fix?</h2>
-<p>Log into X2 and check its BGP table. Use <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on X2:</p>
+<p>Log into X2 and check its BGP table. Use the <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on X2:</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
 Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
 BGP table version is 3, local router ID is 10.0.0.11, vrf id 0
@@ -563,7 +563,7 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 
 Displayed  3 routes and 5 total paths
 </code></pre>
-<p>As expected, while X2 receives a route to <code>192.168.42.0/24</code> from X1, it prefers the one received from your router over the RTR-X2 link. Cumulus Linux explains how it selected the best BGP route in its <em>detailed BGP prefix information</em> printout &ndash; in this case, X2 chose the route with the shorter AS-path length:</p>
+<p>As expected, while X2 receives a route to <code>192.168.42.0/24</code> from X1, it prefers the one received from your router over the RTR-X2 link. Cumulus Linux explains how it selected the best BGP route in its <em>detailed BGP prefix information</em> printout &ndash; in this case, X2 chose the path with the shorter AS-path length:</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
 Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
@@ -580,7 +580,7 @@ Paths: (2 available, best #2, table default)
       Last update: Thu Nov  9 09:24:50 2023
 </code></pre>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>You want X2 to prefer routes to your autonomous system going through X1. As X2 selects the best route based on its AS-path length, you&rsquo;ll artificially increase the length of the AS-path in the updates your router sends to X2. To do that, you&rsquo;ll have to:</p>
+<p>You want X2 to prefer routes to your autonomous system going through X1. As X2 selects the best path based on its AS-path length, you&rsquo;ll artificially increase the length of the AS-path in the updates your router sends to X2. To do that, you&rsquo;ll have to:</p>
 <ul>
 <li>Create a simple routing policy (often called a <strong>route map</strong>)</li>
 <li>Configure AS-path prepending in that routing policy. The AS-path X2 receives from X1 has two AS numbers; you&rsquo;ll have to prepend your AS number at least twice to ensure the direct path is worse than the path X2-X1-RTR.</li>
@@ -595,7 +595,15 @@ Paths: (2 available, best #2, table default)
 </ul>
 </div>
 <h2 id="verification">Verification</h2>
-<p>Using the commands from the <em><a href="#wtf">What Do We Have to Fix</a></em> section, log into X2 and verify that it now prefers the route to 192.168.42.0/24 going through X1.</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
+<ul>
+<li>The state of the EBGP session between RTR and X1/X2.</li>
+<li>The AS path of IPv4 prefix 192.168.42.0/24 advertised to X2 from RTR and X1.</li>
+<li>Whether X2 prefers the transit path through X1 over the direct EBGP path to RTR.</li>
+</ul>
+<p>This is the printout you should get after completing the lab exercise:</p>
+<p><a href="../policy-prepend-validate.png"><img alt="" src="../policy-prepend-validate.png" /></a></p>
+<p>You can also use the commands from the <em><a href="#wtf">What Do We Have to Fix</a></em> section, log into X2, and verify that it now prefers the route to 192.168.42.0/24 going through X1.</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
 Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
@@ -616,6 +624,7 @@ Paths: (2 available, best #1, table default)
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Customer- and external routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
