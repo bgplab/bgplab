@@ -51,11 +51,11 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 [^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (Cumulus Linux and FRR are very memory-efficient).
 
 !!! Tip
-    *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you'll have to configure your routers manually.
+    *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must manually configure your routers.
 
 ## Check the BGP Tables on External Routers
 
-Log into X1 and X2 and check their BGP tables. Use `sudo vtysh -c 'show ip bgp'` command if you're running Cumulus Linux on external routers:
+Log into X1 and X2 and check their BGP tables. Use the `sudo vtysh -c 'show ip bgp'` command if you're running Cumulus Linux on external routers:
 
 ```
 $ netlab connect x1 sudo vtysh -c 'show ip bgp 192.168.42.0'
@@ -97,7 +97,7 @@ X1 and X2 prefer the EBGP path to the customer prefix (`192.168.42.0/24`) over t
 
 The [Border Gateway Protocol 4 (BGP-4)](https://datatracker.ietf.org/doc/html/rfc4271) RFC (RFC 4271) [defines the MULTI_EXIT_DISC attribute](https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4) as an optional attribute that is intended to be used on external (inter-AS) links to discriminate among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.
 
-RFC 4271 also defines how to use MED: "_All other factors being equal, the exit point with the lower metric SHOULD be preferred._" MED is a weak metric considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.
+RFC 4271 also defines how to use MED: "_All other factors being equal, the exit point with the lower metric SHOULD be preferred._" MED is a weak metric that is considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.
 
 Finally, RFC 4271 defines MED propagation rules:
 
@@ -117,7 +117,18 @@ You will probably have to configure a routing policy (often called a **route-ma
 
 ## Verification
 
-Examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+
+* The state of the EBGP sessions.
+* Whether C1 advertises the AS 65000 IPv4 prefix (192.168.42.0/24) with BGP MED set to 50.
+* Whether C2 advertises the same prefix with BGP MED set to 200.
+* Whether X2 prefers the IBGP route to 192.168.42.0/24 over the EBGP route.
+
+This is the printout you should get after completing the lab exercise:
+
+![](policy-med-validate.png)
+
+You can also examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:
 
 ```
 $ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
@@ -158,6 +169,7 @@ The following information might help you if you plan to build custom lab infrast
 
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
 * External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
