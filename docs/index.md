@@ -19,6 +19,11 @@ This series of BGP hands-on labs will help you master numerous aspects of EBGP, 
 
 More than a dozen labs are already waiting for you (with more [coming soon](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation.
 
+!!! tip 
+    You can run BGP labs in GitHub codespaces. [Open this link](https://github.com/codespaces/new/bgplab/bgplab) to create a new codespace (or connect to an existing [codespace](https://github.com/codespaces)) and start exploring. [containerlab documentation](https://containerlab.dev/manual/codespaces/) does a great job explaining what Codespaces are and how they work.
+    
+    The default settings use Cumulus Linux for external routers and FRR for customer routers. To change them, edit the `defaults.yml` file with `vi` or `nano`.
+
 ## Deploy BGP in Your Network
 
 In the first set of the BGP labs, you'll master these skills:
