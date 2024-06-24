@@ -2,292 +2,297 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://bgplabs.net/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/1-setup/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/2-labs-by-technology/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/3-upcoming/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/99-about/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/0-frrouting/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/1-session/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/2-multihomed/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/3-originate/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/4-ipv6/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/5-redistribute/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/6-protect/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/7-bfd/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/8-aggregate/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/9-ao/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/b-max-prefix/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/c-default-route/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/basic/d-interface/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/01-bird-rr/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/02-anycast/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/03-graceful-shutdown/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/04-block-fat-fingers/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/05-ebgp-dc/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/20-merge-as/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/30-reduce-fib/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/challenge/40-mpls-core/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/external/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/external/4-router/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/ibgp/1-edge/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/ibgp/2-transit/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/ibgp/3-rr/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/lb/1-ebgp/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/lb/2-dmz-bw/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/lb/3-ibgp/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/lb/4-ibgp-add-path/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/1-weights/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/2-stop-transit/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/3-prefix/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/4-reduce/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/5-local-preference/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/6-med/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/7-prepend/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/8-community-attach/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/9-community-use/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/a-locpref-route-map/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/b-disaggregate/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/policy/d-no-export/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://bgplabs.net/policy/e-wedgies/</loc>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/1-allowas_in/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/2-asoverride/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/3-localas/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/4-removeprivate/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/5-routeserver/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/6-templates/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/7-policy/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/8-passive/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://bgplabs.net/session/9-dynamic/</loc>
-         <lastmod>2024-06-22</lastmod>
+         <lastmod>2024-06-24</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
