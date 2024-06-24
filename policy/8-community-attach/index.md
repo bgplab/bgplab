@@ -148,6 +148,7 @@ Paths: (2 available, best #2, table default)
 
 * [Use No-Export Community to Filter Transit Routes](d-no-export.md)
 * [Use BGP Communities in Routing Policies](9-community-use.md)
+* [Resolve BGP Wedgies](e-wedgies.md)
 
 ## Reference Information
 

@@ -1,0 +1,56 @@
+# Attach BGP communities to EBGP updates
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+plugin: [ check_extra_config, check_validate ]
+name: a_community
+
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ p1, p2, u1, u2 ]
+  customer:
+    members: [ c1 ]
+
+nodes:
+  c1:
+    bgp.as: 65000
+    bgp.advertise_loopback: False
+    bgp.originate: [ 192.168.42.0/24 ]
+    bgp.community: []
+  p1:
+    bgp.as: 65207
+    loopback.ipv4: 172.17.207.1/24
+  p2:
+    bgp.as: 65304
+    loopback.ipv4: 172.23.4.1/24
+    config: [ extra-config ]
+  u1:
+    bgp.as: 65101
+    bgp.advertise_loopback: False
+  u2:
+    bgp.as: 65102
+    bgp.advertise_loopback: False
+links:
+- c1:
+  p1:
+  name: Primary uplink
+- c1:
+  p2:
+  name: Backup uplink
+- p1:
+  u1:
+  name: P1 uplink
+- p2:
+  u2:
+  name: P2 uplink
+- u1:
+  u2:
+  name: Upstream peering link
+
+message: |
+  The "Resolve BGP Wedgies" lab is ready. Use "netlab connect c1" to connect to
+  your router and "netlab connect u2 --show" to execute show commands on u2.

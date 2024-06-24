@@ -23,6 +23,7 @@ AS and AS-path manipulation
   * [Use Multiple AS Numbers on the Same Router](session/3-localas.md) (**local-as**)
   * [Remove Private BGP AS Numbers from the AS Path](session/4-removeprivate.md) (**remove-private-as**)
   * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
+  * [Resolve BGP Wedgies](policy/e-wedgies.md)
 
 AS-path filters
 : * [Prevent route leaking between upstream providers](policy/2-stop-transit.md) with an AS-path filter
@@ -37,6 +38,7 @@ Communities
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
   * [Using No-Export Community to Filter Transit Routes](policy/d-no-export.md)
   * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (challenge lab)
+  * [Resolve BGP Wedgies](policy/e-wedgies.md)
 
 Default route
 : * [Advertise Default Route in BGP](basic/c-default-route.md)
@@ -81,6 +83,7 @@ LOCAL_PREF (Local Preference)
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
   * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md) (challenge lab)
+  * [Resolve BGP Wedgies](policy/e-wedgies.md)
 
 MD5 passwords
 : * [Use MD5 passwords and TTL-based session protection](basic/6-protect.md)

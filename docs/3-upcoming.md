@@ -18,8 +18,7 @@ Optional exercises:
 : * Multihop EBGP sessions
 
 Advanced exercises:
-: * Fine-tune BGP Fast External Failover
-  * Configure BGP graceful restart
+: * Configure BGP graceful restart
   * Multihop EBGP sessions with servers
 
 ## BGP Routing Policies
@@ -30,7 +29,6 @@ Advanced exercises:
 
 ## Controlling Inbound Traffic
 
-* Use AS-path prepending together with BGP communities to prevent BGP wedgies
 * Use conditional route advertisements to select primary/backup links for the inbound traffic
 
 ## BGP in Service Provider Networks

@@ -26,7 +26,6 @@ It's relatively easy to change how traffic leaves your network (autonomous syste
 
 Once you master the basics, you'll be ready for more complex scenarios:
 
-
 ## Influencing Incoming (Ingress) Traffic Flow {#ingress}
 
 Trying to persuade neighboring autonomous systems to change how they send you the traffic is much more complicated than changing the routing in your network. While there's no definitive one-size-fits-all solution, you will find these tools indispensable:
@@ -34,6 +33,7 @@ Trying to persuade neighboring autonomous systems to change how they send you th
 * [Use MED to Influence Incoming Traffic Flow](6-med.md)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
 * [Attach BGP Communities to Outgoing BGP Updates](8-community-attach.md)
+* [Resolve BGP Wedgies](e-wedgies.md)
 
 ## More Complex Routing Policies {#complex}
 

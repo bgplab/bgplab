@@ -74,6 +74,7 @@ nav:
     - policy/6-med.md
     - policy/7-prepend.md
     - policy/8-community-attach.md
+    - policy/e-wedgies.md
   - "More Complex Routing Policies":
     - policy/9-community-use.md
     - policy/a-locpref-route-map.md
