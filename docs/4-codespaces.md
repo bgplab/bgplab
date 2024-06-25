@@ -16,7 +16,8 @@ The BGP labs repository uses Cumulus Linux 4.4 as the default device. To change 
 !!! tip
     * It's best to use network devices with free-to-download container images (Cumulus Linux, FRR, Nokia SR Linux, Vyos).
     * Use FRR to use the 2 CPU/8 GB codespaces VM with larger labs.
-    * Codespaces have persistent storage, so you can also try to download and install Arista cEOS.
+    * Codespaces have persistent storage; you can download and install other containers.
+    * To use containers that have to be downloaded from the vendors' website, download them onto your laptop, drag-and-drop them into the Folders, and install them [like you would on a local netlab instance](https://netlab.tools/labs/clab/#container-images).
     * It looks like the Codespaces environment supports nested virtualization, so it should be possible to run network device VMs. However, you're on your own.
 
 ## Start a Lab
@@ -27,10 +28,12 @@ Once you have the codespaces up and running:
 * Right-click on the exercise folder and select "*Open in Integrated Terminal*" to launch a **bash** session in the desired directory.
 * Execute **netlab up** to start the lab.
 * Open the exercise folder in the Explorer tab.
-* Right-click on the `index.md` file and select "_Open Preview_" to get the exercise description in the preview pane.
+* Right-click on the `index.md` file and select "_Open Preview_" to get the exercise description in the preview pane[^BL].
 * Connect to your devices with the **netlab connect** command executed in the Terminal pane.
 
 [![](img/codespaces-lab.png)](img/codespaces-lab.png)
+
+[^BL]: Due to how we use **mkdocs** to generate the HTML version of the lab documentation, the links in the **index.md** Markdown files residing in the exercise directories do not work (one of the side effects of "organic growth"). To get a version with working links, open the corresponding file in the **docs** directory (or start with **docs/index.md**).
 
 ## Cleanup and Shutdown
 
