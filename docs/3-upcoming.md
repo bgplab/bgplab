@@ -21,18 +21,12 @@ Advanced exercises:
 : * Configure BGP graceful restart
   * Multihop EBGP sessions with servers
 
-## BGP Routing Policies
-
-Advanced exercises:
-: * Use BGP route refresh and soft reconfiguration
-
 ## Controlling Inbound Traffic
 
 * Use conditional route advertisements to select primary/backup links for the inbound traffic
 
 ## BGP in Service Provider Networks
 
-* Build a simple service provider network with IBGP
 * Use a hierarchy of route reflectors
 * Reduce routing instabilities with BGP route flap dampening
 * Implement policy-based routing with BGP
