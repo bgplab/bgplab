@@ -17,12 +17,7 @@ This series of BGP hands-on labs will help you master numerous aspects of EBGP, 
 
 [^PC]: Some assembly required: the virtual machines or containers that we recommend to use as external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See [installation and setup](1-setup.md) for details.
 
-More than a dozen labs are already waiting for you (with more [coming soon](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation.
-
-!!! tip 
-    You can run BGP labs in GitHub codespaces. [Open this link](https://github.com/codespaces/new/bgplab/bgplab) to create a new codespace (or connect to an existing [codespace](https://github.com/codespaces)) and start exploring. [containerlab documentation](https://containerlab.dev/manual/codespaces/) does a great job explaining what Codespaces are and how they work.
-    
-    The default settings use Cumulus Linux for external routers and FRR for customer routers. To change them, edit the `defaults.yml` file with `vi` or `nano`.
+Dozens of labs are already waiting for you (with more [coming soon](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation or [run BGP labs in GitHub codespaces](4-codespaces.md).
 
 ## Deploy BGP in Your Network
 
@@ -67,4 +62,3 @@ These are the most recent labs added to the BGP Labs project:
 * [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
 * [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
 * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
-* [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)<!--adv-->

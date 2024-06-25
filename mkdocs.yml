@@ -19,6 +19,7 @@ nav:
   - 99-about.md
 - Installation:
   - 1-setup.md
+  - 4-codespaces.md
   - "Custom Lab Infrastructure":
     - external/index.md
     - external/4-router.md

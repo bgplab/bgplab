@@ -1,4 +1,4 @@
-device: frr             # Change to your preferred network device
+device: cumulus         # Change to your preferred network device
 provider: clab          # Change to virtualbox or libvirt if needed
 
 groups:
