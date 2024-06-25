@@ -25,7 +25,6 @@ Advanced exercises:
 
 Advanced exercises:
 : * Use BGP route refresh and soft reconfiguration
-  * Use outbound route filters (ORF)
 
 ## Controlling Inbound Traffic
 

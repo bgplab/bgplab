@@ -98,7 +98,10 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.101.0/24       10.1.0.6              0       -          100     100     65101 i
 ```
 
-**Next**: Use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
+**Next**:
+
+* Use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
+* [Use Outbound Route Filters (ORF) for IP Prefixes](f-orf.md)
 
 ## Reference Information
 

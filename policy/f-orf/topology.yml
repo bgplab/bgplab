@@ -1,0 +1,24 @@
+# Configure a BGP route server
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: orf
+
+module: [ bgp ]
+plugin: [ bgp.session ]
+
+version: 1.6.4
+
+nodes:
+  rtr:
+    bgp.as: 65000
+  x1:
+    bgp.as: 65100
+    bgp.originate: [ 192.168.100.1/24, 172.16.8.0/22 ]
+links:
+- rtr:
+  x1:
+    bgp.default_originate: True
+
+message: |
+  The "Use Outbound Route Filters (ORF) for IP Prefixes" lab is ready.
+  Use "netlab connect" to connect to the lab devices.

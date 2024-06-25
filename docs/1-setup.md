@@ -70,7 +70,7 @@ I would love to simplify the process, but the networking vendors refuse to play 
 
 [^NPAL]: I'm not going to pay a lawyer to read their boilerplate stuff, and I'm definitely not going to rely on my amateur understanding of US copyright law.
 
-## Setting Up the Labs
+## Setting Up the Labs {#defaults}
 
 We finally got to the fun part -- setting up the labs:
 

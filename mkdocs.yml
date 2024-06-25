@@ -68,6 +68,7 @@ nav:
     - policy/4-reduce.md
     - basic/b-max-prefix.md
     - policy/d-no-export.md
+    - policy/f-orf.md
   - "Outgoing (Egress) Traffic":
     - policy/1-weights.md
     - policy/5-local-preference.md

@@ -55,6 +55,7 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
 * [Resolve BGP Wedgies](policy/e-wedgies.md)<!--adv-->
 * [Dynamic BGP Peers](session/9-dynamic.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)

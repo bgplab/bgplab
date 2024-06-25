@@ -94,12 +94,16 @@ MPLS
 MULTI_EXIT_DISC (Multi-Exit Discriminator, MED)
 : * [Use MED to Influence Incoming Traffic Flow](policy/6-med.md)
 
+Outbound Route Filters (ORF)
+: * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
+
 Prefix filters
 : * [Filter prefixes advertised by your autonomous system](policy/3-prefix.md) with a prefix list
   * [Minimize the size of your BGP table](policy/4-reduce.md) with inbound filters
   * [Use the backup link to reach the adjacent autonomous system](policy/a-locpref-route-map.md).
   * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
   * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md) (challenge lab)
+  * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)
