@@ -2,16 +2,16 @@
 
 We'll start with the simplest possible scenario: configure an EBGP session between your device and an upstream router (X1).
 
-**Note:** If you're [creating your lab infrastructure manually](../external/index.md), it might be better to skip this exercise and go straight to *[configuring two uplinks](2-multihomed.md)*.
+**Note:** If you're [creating your lab infrastructure manually](../../docs/external/index.md), it might be better to skip this exercise and go straight to *[configuring two uplinks](../2-multihomed/index.md)*.
 
 ![Lab topology](topology-session.png)
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+Assuming you already [set up your lab infrastructure](../../docs/1-setup.md):
 
 * Change directory to `basic/1-session`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up** ([device requirements](#req), [other options](../../docs/external/index.md))
 * Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
 
 ## Configuration Tasks
@@ -24,7 +24,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 | 10.1.0.2            | 65100              |
 
 !!! Tip
-    If you're using Cumulus Linux or FRR on RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring Cumulus Linux and FRRouting](0-frrouting.md) lab.
+    If you're using Cumulus Linux or FRR on RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring Cumulus Linux and FRRouting](../0-frrouting/index.md) lab.
 
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on the EBGP session or your device won't accept updates from its EBGP neighbor(s).
@@ -75,11 +75,11 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 **Next:**
 
-* [Connect with the second upstream provider](2-multihomed.md) and advertise your address space.
+* [Connect with the second upstream provider](../2-multihomed/index.md) and advertise your address space.
 
 ## Reference Information
 
-This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+This lab uses a subset of the [4-router lab topology](../../docs/external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
 
 ### Device Requirements {#req}
 

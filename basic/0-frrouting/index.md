@@ -16,7 +16,7 @@ The Linux interfaces and IP addresses will be configured automatically if you st
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+Assuming you already [set up your lab infrastructure](../../docs/1-setup.md):
 
 * Change directory to `basic/0-frrouting`
 * Execute **netlab up** to start a lab with two Cumulus Linux or FRR virtual machines or containers (depending on your lab setup).
@@ -36,19 +36,38 @@ Most network devices start routing daemons when you configure them through the c
 !!! warning
     You cannot restart the top-level FRRouting process in an FRR container. When you use FRRouting containers in your labs, _netlab_ always enables the BGP daemon.
 
-You can check the FRR daemons running on your device with the `ps -ef|grep frr` command. This is the printout you could get before enabling the BGP daemon:
+You can check the FRR daemons running on your device with the `sudo systemctl status frr.service` command. This is the printout you could get before enabling the BGP daemon:
 
-```
-rtr(bash)#ps -ef|grep frr
-frr       1827     1  0 10:46 ?        00:00:00 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
-frr       1841     1  0 10:46 ?        00:00:00 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
-root      2291     1  0 10:46 ?        00:00:00 /usr/lib/frr/watchfrr -d -F datacenter zebra staticd
-root      2340  2325  0 10:47 pts/1    00:00:00 grep frr
+```bash
+rtr(bash)#sudo systemctl status frr.service 
+* frr.service - FRRouting
+   Loaded: loaded (/lib/systemd/system/frr.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2024-06-25 15:23:32 UTC; 7s ago
+     Docs: https://frrouting.readthedocs.io/en/latest/setup.html
+  Process: 2635 ExecStart=/usr/lib/frr/frrinit.sh start (code=exited, status=0/SUCCESS)
+   Status: "FRR Operational"
+    Tasks: 17 (limit: 9508)
+   Memory: 20.5M
+      CPU: 265ms
+   CGroup: /system.slice/frr.service
+           |-2644 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
+           |-2667 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
+           `-2687 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
+
+Jun 25 15:23:31 rtr watchfrr.sh[2654]: Cannot stop staticd: pid file not found
+Jun 25 15:23:32 rtr zebra[2667]: Configuration Read in Took: 00:00:00
+Jun 25 15:23:32 rtr bgpd[2681]: Configuration Read in Took: 00:00:00
+Jun 25 15:23:32 rtr staticd[2687]: Configuration Read in Took: 00:00:00
+Jun 25 15:23:32 rtr watchfrr[2644]: zebra state -> up : connect succeeded
+Jun 25 15:23:32 rtr watchfrr[2644]: bgpd state -> up : connect succeeded
+Jun 25 15:23:32 rtr watchfrr[2644]: staticd state -> up : connect succeeded
+Jun 25 15:23:32 rtr watchfrr[2644]: all daemons up, doing startup-complete notify
+Jun 25 15:23:32 rtr frrinit.sh[2635]: Started watchfrr
 ```
 
 To enable the FRRouting BGP daemon, you have to:
 
-* Add the `bgpd=yes` line to the `/etc/frrouting/daemons` file.
+* Add the `bgpd=yes` line to the `/etc/frr/daemons` file.
 * Restart FRRouting with the `sudo systemctl restart frr.service` command (see also: [using sudo](#sudo))
 
 !!! tip
@@ -57,22 +76,43 @@ To enable the FRRouting BGP daemon, you have to:
 You could add the required line to the FRRouting daemons file with any text editor or use the following trick:
 
 * Use **sudo bash** to start another Linux shell as the root user
-* Use the **echo** command with output redirection to add a line to the `/etc/frrrouting/daemons` file.
+* Use the **echo** command with output redirection to add a line to the `/etc/frr/daemons` file.
 
-```
-rtr(bash)#sudo bash
+```bash
+rtr(bash)# sudo bash
 root@rtr:/# echo 'bgpd=yes' >>/etc/frr/daemons
 root@rtr:/# exit
+rtr(bash)# sudo systemctl restart frr.service
 ```
 
-After enabling the BGP daemon and restarting FRR, you should see the `bgpd` process in the `ps -ef` printout:
+After enabling the BGP daemon and restarting FRR, you should see the `bgpd` process in the `sudo systemctl status frr.service` printout:
 
-```
-root      2543     1  0 10:52 ?        00:00:00 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
-frr       2566     1  0 10:52 ?        00:00:00 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
-frr       2580     1  0 10:52 ?        00:00:00 /usr/lib/frr/bgpd -d -F datacenter -M snmp -A 127.0.0.1
-frr       2586     1  0 10:52 ?        00:00:00 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
-root      2594  2325  0 10:52 pts/1    00:00:00 grep frr
+```bash
+rtr(bash)#sudo systemctl status frr.service 
+* frr.service - FRRouting
+   Loaded: loaded (/lib/systemd/system/frr.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2024-06-25 15:23:32 UTC; 7s ago
+     Docs: https://frrouting.readthedocs.io/en/latest/setup.html
+  Process: 2635 ExecStart=/usr/lib/frr/frrinit.sh start (code=exited, status=0/SUCCESS)
+   Status: "FRR Operational"
+    Tasks: 17 (limit: 9508)
+   Memory: 20.5M
+      CPU: 265ms
+   CGroup: /system.slice/frr.service
+           |-2644 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
+           |-2667 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
+           |-2681 /usr/lib/frr/bgpd -d -F datacenter -M snmp -A 127.0.0.1
+           `-2687 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
+
+Jun 25 15:23:31 rtr watchfrr.sh[2654]: Cannot stop staticd: pid file not found
+Jun 25 15:23:32 rtr zebra[2667]: Configuration Read in Took: 00:00:00
+Jun 25 15:23:32 rtr bgpd[2681]: Configuration Read in Took: 00:00:00
+Jun 25 15:23:32 rtr staticd[2687]: Configuration Read in Took: 00:00:00
+Jun 25 15:23:32 rtr watchfrr[2644]: zebra state -> up : connect succeeded
+Jun 25 15:23:32 rtr watchfrr[2644]: bgpd state -> up : connect succeeded
+Jun 25 15:23:32 rtr watchfrr[2644]: staticd state -> up : connect succeeded
+Jun 25 15:23:32 rtr watchfrr[2644]: all daemons up, doing startup-complete notify
+Jun 25 15:23:32 rtr frrinit.sh[2635]: Started watchfrr
 ```
 
 ## Work with the FRRouting CLI {#vtysh}
@@ -81,7 +121,7 @@ FRRouting suite includes a virtual shell (*vtysh*) closely resembling industry-s
 
 [^ISC]: An euphemism for *Cisco IOS CLI* that is used when you try to avoid nasty encounters with Cisco's legal team.
 
-```
+```bash
 rtr(bash)#sudo vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
@@ -92,7 +132,7 @@ rtr#
 
 Once you started _vtysh_, you can execute **show** commands to inspect the device state, for example:
 
-```
+```bash
 x1(bash)#sudo vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
@@ -117,7 +157,7 @@ Displayed  1 routes and 1 total paths
 
 To configure FRRouting daemons, use the **configure** _vtysh_ command and enter configuration commands similar to those you'd use on Cisco IOS or Arista EOS:
 
-```
+```bash
 x1(bash)#sudo vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
@@ -149,14 +189,14 @@ To use the `vtysh` output in a pipe, you have to execute `vtysh` and get the res
 
 * You could use `sudo vtysh -c 'show command'` when you're in the **bash** shell of a lab device, for example:
 
-```
+```bash
 $ sudo vtysh -c 'show ip bgp' | grep 32768
 *> 192.168.100.0/24 0.0.0.0                  0         32768 i
 ```
 
 * Alternatively, you could use the `netlab connect --show` command to execute a `vtysh` **show** command on a lab device:
 
-```
+```bash
 $ netlab connect x1 --show ip bgp | grep 32768
 Connecting to container clab-originate-x1, executing sudo vtysh -c "show ip bgp"
 *> 192.168.100.0/24 0.0.0.0                  0         32768 i
