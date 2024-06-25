@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/policy/6-med/">
+        <link rel="canonical" href="https://bgplabs.net/policy/f-orf/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Use MED to Influence Incoming Traffic Flow &#171; BGP Labs</title>
+  <title>Use Outbound Route Filters (ORF) for IP Prefixes &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -268,7 +268,7 @@
 </li>
             
 <li>
-    <a href="../f-orf/" class="dropdown-item">Use Outbound Route Filters (ORF) for IP Prefixes</a>
+    <a href="./" class="dropdown-item active">Use Outbound Route Filters (ORF) for IP Prefixes</a>
 </li>
     </ul>
   </li>
@@ -292,7 +292,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="./" class="dropdown-item active">Use MED to Influence Incoming Traffic Flow</a>
+    <a href="../6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
             
 <li>
@@ -395,12 +395,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../5-local-preference/" class="nav-link">
+                                <a rel="prev" href="../d-no-export/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../7-prepend/" class="nav-link">
+                                <a rel="next" href="../1-weights/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -423,9 +423,9 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#use-med-to-influence-incoming-traffic-flow" class="nav-link">Use MED to Influence Incoming Traffic Flow</a>
+            <li class="nav-item" data-level="1"><a href="#use-outbound-route-filters-orf-for-ip-prefixes" class="nav-link">Use Outbound Route Filters (ORF) for IP Prefixes</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#existing-router-configuration" class="nav-link">Existing Router Configuration</a>
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -433,15 +433,15 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#check-the-bgp-tables-on-external-routers" class="nav-link">Check the BGP Tables on External Routers</a>
+            <li class="nav-item" data-level="2"><a href="#configure-an-inbound-prefix-list" class="nav-link">Configure an Inbound Prefix List</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#using-bgp-multi-exit-discriminator-med" class="nav-link">Using BGP Multi-Exit Discriminator (MED)</a>
+            <li class="nav-item" data-level="2"><a href="#enable-outbound-route-filters" class="nav-link">Enable Outbound Route Filters</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+            <li class="nav-item" data-level="2"><a href="#dynamic-changes-in-orf-prefix-filters" class="nav-link">Dynamic Changes in ORF Prefix Filters</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -468,15 +468,20 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="use-med-to-influence-incoming-traffic-flow">Use MED to Influence Incoming Traffic Flow</h1>
-<p>In previous lab exercises, you used <a href="../1-weights/">BGP weights</a> and <a href="../5-local-preference/">BGP local preference</a> to change the BGP tables on your routers, thus changing the <em>outgoing traffic flow</em>. In this exercise, we&rsquo;ll change the <em>incoming traffic flow</em> with the BGP Multi-Exit Discriminator (MED) attribute.</p>
-<p><img alt="Lab topology" src="../topology-med.png" /></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Changing incoming traffic flow is more critical for networks that are not content providers. It&rsquo;s also much more challenging than changing the outgoing traffic flow, as you must try to influence the BGP tables on other people&rsquo;s routers.</p>
+<h1 id="use-outbound-route-filters-orf-for-ip-prefixes">Use Outbound Route Filters (ORF) for IP Prefixes</h1>
+<p>In the <a href="../4-reduce/">Minimize the Size of Your BGP Table</a> lab exercise, you learned how to configure an inbound prefix list that filters incoming BGP updates. However, filtering incoming updates seems like a waste of CPU cycles and bandwidth:</p>
+<ul>
+<li>The upstream router has to build BGP update messages containing all the prefixes it wants to advertise.</li>
+<li>The receiving router has to process all those prefixes and filter many of them.</li>
+</ul>
+<p>Wouldn&rsquo;t it be better if an inbound prefix list would automatically install an outbound prefix filter in the adjacent router? Welcome to the <em>Outbound Route Filters</em> (ORF), defined in <a href="https://datatracker.ietf.org/doc/html/rfc5292">RFC 5292</a> (prefix-based ORF) and <a href="https://datatracker.ietf.org/doc/html/rfc5291">RFC 5291</a> (ORF BGP capability).</p>
+<p><img alt="Lab topology" src="../topology-orf.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Outbound route filters make sense only when (A) the bandwidth is expensive and (B) the receiving router has significantly fewer CPU resources than the sending router. They also move the CPU load to the sending router, so you probably won&rsquo;t see them deployed between ISPs and their customers.</p>
 </div>
-<h2 id="existing-router-configuration">Existing Router Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each autonomous system advertises an IPv4 prefix. Upstream routers (x1, x2) also advertise the default route to your router (rtr).</p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. X1 advertises several IPv4 prefixes plus the default route:</p>
 <table>
 <thead>
 <tr>
@@ -487,38 +492,28 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>AS65000</strong> (customer)</td>
+<td><strong>AS65000</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td>c1</td>
+<td>rtr</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">192.168.42.0/24</td>
+<td style="text-align: right;">10.0.0.1/32</td>
 </tr>
 <tr>
-<td>c2</td>
-<td style="text-align: right;">10.0.0.2</td>
-<td style="text-align: right;">192.168.42.0/24</td>
-</tr>
-<tr>
-<td><strong>AS65100</strong> (ISP)</td>
+<td><strong>AS65100</strong></td>
 <td style="text-align: right;"></td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>x1</td>
-<td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">192.168.100.0/24</td>
-</tr>
-<tr>
-<td>x2</td>
-<td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">192.168.100.0/24</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">192.168.100.1/24<br>172.16.8.0/22<br>172.16.1.0/24<br>10.0.0.2/32</td>
 </tr>
 </tbody>
 </table>
-<p>Your routers have these BGP neighbors:</p>
+<p>There is a single EBGP session between RTR and X2. <em>netlab</em> configures it automatically; if you&rsquo;re using another lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
 <table>
 <thead>
 <tr>
@@ -530,16 +525,10 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>c1</strong></td>
+<td><strong>rtr</strong></td>
 <td>10.0.0.1</td>
 <td style="text-align: right;">65000</td>
 <td style="text-align: right;"></td>
-</tr>
-<tr>
-<td></td>
-<td>c2</td>
-<td style="text-align: right;">65000</td>
-<td style="text-align: right;">10.0.0.2</td>
 </tr>
 <tr>
 <td></td>
@@ -548,178 +537,106 @@
 <td style="text-align: right;">10.1.0.2</td>
 </tr>
 <tr>
-<td><strong>c2</strong></td>
+<td><strong>x1</strong></td>
 <td>10.0.0.2</td>
-<td style="text-align: right;">65000</td>
+<td style="text-align: right;">65100</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
 <td></td>
-<td>c1</td>
+<td>rtr</td>
 <td style="text-align: right;">65000</td>
-<td style="text-align: right;">10.0.0.1</td>
-</tr>
-<tr>
-<td></td>
-<td>x2</td>
-<td style="text-align: right;">65100</td>
-<td style="text-align: right;">10.1.0.6</td>
-</tr>
-</tbody>
-</table>
-<p>Your network is also running OSPF in the backbone area:</p>
-<table>
-<thead>
-<tr>
-<th>Router</th>
-<th>Interface</th>
-<th style="text-align: right;">IPv4 Address</th>
-<th>Neighbor(s)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>c1</td>
-<td>Loopback</td>
-<td style="text-align: right;">10.0.0.1/32</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Ethernet3</td>
-<td style="text-align: right;">192.168.42.1/24</td>
-<td>c2</td>
-</tr>
-<tr>
-<td>c2</td>
-<td>Loopback</td>
-<td style="text-align: right;">10.0.0.2/32</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Ethernet3</td>
-<td style="text-align: right;">192.168.42.2/24</td>
-<td>c1</td>
+<td style="text-align: right;">10.1.0.1</td>
 </tr>
 </tbody>
 </table>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Change directory to <code>policy/6-med</code></li>
-<li>Execute <strong>netlab up</strong> to start the lab using the usual external devices for X1 and X2 (<a href="#req">device requirements</a>), or <strong>netlab up single.yml</strong> to start the lab that uses only your chosen devices<sup id="fnref:WS"><a class="footnote-ref" href="#fn:WS">1</a></sup>. You can also  <a href="../../external/">run this lab without using <em>netlab</em></a></li>
-<li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
+<li>Find a <a href="#req">device that supports prefix-based ORF</a> (for example, Cumulus Linux or FRR)</li>
+<li>If needed, temporarily change the lab device type with the <code>NETLAB_DEVICE</code> environment variable, for example:</li>
 </ul>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must manually configure your routers.</p>
-</div>
-<h2 id="check-the-bgp-tables-on-external-routers">Check the BGP Tables on External Routers</h2>
-<p>Log into X1 and X2 and check their BGP tables. Use the <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on external routers:</p>
-<pre><code>$ netlab connect x1 sudo vtysh -c 'show ip bgp 192.168.42.0'
-Connecting to container clab-med-x1, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
-BGP routing table entry for 192.168.42.0/24
-Paths: (2 available, best #2, table default)
-  Advertised to non peer-group peers:
-  x2(10.0.0.11) 10.1.0.1
-  65000
-    10.0.0.11 (metric 10) from x2(10.0.0.11) (10.0.0.11)
-      Origin IGP, localpref 100, valid, internal
-      Last update: Mon Nov  6 07:08:30 2023
-  65000
-    10.1.0.1 from 10.1.0.1 (10.0.0.1)
-      Origin IGP, valid, external, bestpath-from-AS 65000, best (Peer Type)
-      Last update: Mon Nov  6 07:08:12 2023
+<pre><code>$ export NETLAB_DEVICE=cumulus
 </code></pre>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
-Connecting to container clab-med-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
-BGP routing table entry for 192.168.42.0/24
-Paths: (2 available, best #2, table default)
-  Advertised to non peer-group peers:
-  x1(10.0.0.10) 10.1.0.5
-  65000
-    10.0.0.10 (metric 10) from x1(10.0.0.10) (10.0.0.10)
-      Origin IGP, localpref 100, valid, internal
-      Last update: Mon Nov  6 07:08:29 2023
-  65000
-    10.1.0.5 from 10.1.0.5 (10.0.0.2)
-      Origin IGP, valid, external, bestpath-from-AS 65000, best (Peer Type)
-      Last update: Mon Nov  6 07:08:11 2023
+<ul>
+<li>Change directory to <code>policy/f-orf</code></li>
+<li>Execute <strong>netlab up</strong></li>
+<li>Log into the lab devices with the <strong>netlab connect</strong> command and verify that the IP addresses and the EBGP sessions are properly configured.</li>
+</ul>
+<h2 id="configure-an-inbound-prefix-list">Configure an Inbound Prefix List</h2>
+<ul>
+<li>Using the configuration commands you mastered in the <a href="../4-reduce/">Minimize the Size of Your BGP Table</a> lab exercise, create an inbound prefix list on RTR that will permit the default route and prefixes in the 172.16.0.0/16 address space with prefix length lower than /24.</li>
+<li>Apply that prefix list to inbound EBGP updates received from X1.</li>
+<li>Inspect the BGP table on RTR to verify the proper operation of the prefix list. You should get a printout similar to this one:</li>
+</ul>
+<pre><code>rtr# show ip bgp
+BGP table version is 17, local router ID is 10.0.0.1, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+    Network          Next Hop            Metric LocPrf Weight Path
+ *&gt; 0.0.0.0/0        10.1.0.2(x1)             0             0 65100 i
+ *&gt; 10.0.0.1/32      0.0.0.0(rtr)             0         32768 i
+ *&gt; 172.16.8.0/22    10.1.0.2(x1)             0             0 65100 i
+
+Displayed 3 routes and 3 total paths
 </code></pre>
-<p>X1 and X2 prefer the EBGP path to the customer prefix (<code>192.168.42.0/24</code>) over the IBGP path. The distinction between the two paths is small enough for MED to work.</p>
-<h2 id="using-bgp-multi-exit-discriminator-med">Using BGP Multi-Exit Discriminator (MED)</h2>
-<p>The <a href="https://datatracker.ietf.org/doc/html/rfc4271">Border Gateway Protocol 4 (BGP-4)</a> RFC (RFC 4271) <a href="https://datatracker.ietf.org/doc/html/rfc4271#section-5.1.4">defines the MULTI_EXIT_DISC attribute</a> as an optional attribute that is intended to be used on external (inter-AS) links to discriminate among multiple exit or entry points to the same neighboring AS. The first limitation of MED is that it can only influence incoming traffic flow if your network connects to a single upstream network.</p>
-<p>RFC 4271 also defines how to use MED: &ldquo;<em>All other factors being equal, the exit point with the lower metric SHOULD be preferred.</em>&rdquo; MED is a weak metric that is considered at the end of the BGP path selection process. You can use it to influence incoming traffic only if the upstream network uses no other routing policy.</p>
-<p>Finally, RFC 4271 defines MED propagation rules:</p>
 <ul>
-<li>MED can be used on EBGP sessions.</li>
-<li>If received over EBGP, the MED attribute MAY be propagated over IBGP to other BGP speakers within the same AS.</li>
-<li>The MED attribute received from a neighboring AS MUST NOT be propagated to other neighboring ASes.</li>
+<li>Turn on BGP update debugging and clear the BGP session between RTR and X1 (use <strong>terminal monitor</strong>, followed by <strong>debug bgp updates in</strong> and <strong>clear ip bgp *</strong> on recent FRR releases). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:</li>
 </ul>
-<p>We&rsquo;ll use the above behavior to implement a straightforward routing policy:</p>
-<ul>
-<li>Set the MED on routes advertised from C1 to X1 to 50</li>
-<li>Set the MED on routes advertised from C2 to X2 to 100 (remember: higher MED is worse).</li>
-</ul>
-<p>You will probably have to configure a routing policy (often called a <strong>route-map</strong>) on C1 and C2 to change the MED and then apply the routing policy as the outbound policy on the EBGP neighbors.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft</code> to tell your routers to resend their BGP updates.</p>
-</div>
-<h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
-<ul>
-<li>The state of the EBGP sessions.</li>
-<li>Whether C1 advertises the AS 65000 IPv4 prefix (192.168.42.0/24) with BGP MED set to 50.</li>
-<li>Whether C2 advertises the same prefix with BGP MED set to 200.</li>
-<li>Whether X2 prefers the IBGP route to 192.168.42.0/24 over the EBGP route.</li>
-</ul>
-<p>This is the printout you should get after completing the lab exercise:</p>
-<p><img alt="" src="../policy-med-validate.png" /></p>
-<p>You can also examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:</p>
-<pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
-Connecting to container clab-med-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
-BGP routing table entry for 192.168.42.0/24
-Paths: (2 available, best #1, table default)
-  Advertised to non peer-group peers:
-  10.1.0.5
-  65000
-    10.0.0.10 (metric 10) from x1(10.0.0.10) (10.0.0.10)
-      Origin IGP, metric 50, localpref 100, valid, internal, bestpath-from-AS 65000, best (MED)
-      Last update: Mon Nov  6 07:36:36 2023
-  65000
-    10.1.0.5 from 10.1.0.5 (10.0.0.2)
-      Origin IGP, metric 100, valid, external
-      Last update: Mon Nov  6 07:36:36 2023
+<p><a href="../policy-orf-printout-prefix-list.png"><img alt="" src="../policy-orf-printout-prefix-list.png" /></a></p>
+<h2 id="enable-outbound-route-filters">Enable Outbound Route Filters</h2>
+<p>With the inbound prefix list configured on RTR, it&rsquo;s time to get ORF working on X1. ORF is a negotiated BGP capability that is usually not enabled by default. You must enable it on both ends of a BGP session with a configuration command similar to <strong>neighbor capability</strong> within the BGP routing process configuration or the BGP address family configuration.</p>
+<p>Use a command similar to <strong>show bgp neighbors</strong> to verify that the routers in your lab agreed to use ORF. You should get a printout like this one on FRR (ORF capability is negotiated within a BGP address family):</p>
+<pre><code>rtr# show bgp neighbors 10.1.0.2
+BGP neighbor is 10.1.0.2, remote AS 65100, local AS 65000, external link
+...
+ For address family: IPv4 Unicast
+  Update group 8, subgroup 8
+  Packet Queue length 0
+  AF-dependant capabilities:
+    Outbound Route Filter (ORF) type (64) Prefix-list:
+      Send-mode: advertised, received
+      Receive-mode: advertised, received
+  Outbound Route Filter (ORF): sent;
+  Community attribute sent to this neighbor(large)
+  Inbound path policy configured
+  Incoming update prefix filter list is *inbound
+  2 accepted prefixes
 </code></pre>
-<p>X2 has two paths toward <code>192.168.42.0</code>:</p>
-<ul>
-<li>IBGP path received from 10.0.0.10 (X1) with metric 50. This is the best path due to MED value.</li>
-<li>EBGP path received from 10.1.0.5 (C2) with metric 100. This is a valid path, but there are better.</li>
-</ul>
-<p>If you get a similar printout in your lab, you accomplished your mission &ndash; you managed to change the incoming traffic flow to avoid the C2-X2 link.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>In real life, you cannot log into other people&rsquo;s routers. In most cases, you&rsquo;re limited to observing the incoming traffic counters on your uplinks and hoping for the best. You might be able to use <em>looking glasses</em> (if available) in adjacent networks to inspect their BGP tables or use the <em>traceroute</em> tool from a remote vantage point (for example, your laptop tethered to a mobile Internet connection) to check the traffic flow into your network. </p>
+<p>Once you have verified your routers agreed to use ORF, clear the EBGP session and observe the reduced number of inbound updates on RTR:</p>
+<p><a href="../policy-orf-printout-orf.png"><img alt="" src="../policy-orf-printout-orf.png" /></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The BGP daemon in FRR release 10.0.1 resends the BGP prefixes permitted by the ORF filter three times. That&rsquo;s probably a bug that might be fixed when you do this lab exercise.</p>
 </div>
-<p><strong>Next:</strong> <a href="../7-prepend/">Use AS-Path Prepending to Influence Incoming Traffic Flow</a></p>
+<p>Some devices have <strong>show</strong> commands that display installed ORF entries. For example, you can use the <strong>show bgp <em>af</em> neighbor <em>address</em> received prefix-filter</strong> command on FRR to display them:</p>
+<pre><code>x1# show bgp ipv4 nei 10.1.0.1 received prefix-filter
+Address Family: IPv4 Unicast
+ip prefix-list 10.1.0.1.1.1: 2 entries
+   seq 5 permit 0.0.0.0/0
+   seq 10 permit 172.0.0.0/8 le 23
+</code></pre>
+<h2 id="dynamic-changes-in-orf-prefix-filters">Dynamic Changes in ORF Prefix Filters</h2>
+<p>Finally, add another entry to the inbound prefix list on RTR and use the <strong>debug bgp updates</strong> together with <strong>debug bgp neighbor-events</strong> on FRR (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.</p>
 <h2 id="reference-information">Reference Information</h2>
-<p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
-<p>The following information might help you if you plan to build custom lab infrastructure:</p>
+<p>This lab can run on a subset of the <a href="../../external/4-router/">4-router lab topology</a>.</p>
 <h3 id="req">Device Requirements</h3>
 <ul>
-<li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
-<li>External routers must be <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>. They also need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>If you want to use a device that is not supported by the <strong>bgp.session</strong> plugin as an external router, remove the <strong>bgp.originate</strong> attributes from the lab topology.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> that implements prefix-based ORF (for example, Cumulus Linux or FRR)</li>
+<li>Git repository contains initial device configurations for Cumulus Linux.</li>
+<li>If you want to use the <strong>terminal monitor</strong> command on FRR, you must use a newer image<sup id="fnref:FIL"><a class="footnote-ref" href="#fn:FIL">1</a></sup> than the one used by other BGP labs<sup id="fnref:FRO"><a class="footnote-ref" href="#fn:FRO">2</a></sup>. You can <a href="../../1-setup/#defaults">change the lab defaults</a> or change the FRR image with an environment variable before executing <strong>netlab up</strong>, for example:</li>
 </ul>
+<pre><code>export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
+</code></pre>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
 <tr>
-<th>Link Name</th>
 <th>Origin Device</th>
 <th>Origin Port</th>
 <th>Destination Device</th>
@@ -728,46 +645,10 @@ Paths: (2 available, best #1, table default)
 </thead>
 <tbody>
 <tr>
-<td>Primary uplink</td>
-<td>c1</td>
-<td>Ethernet1</td>
+<td>rtr</td>
+<td>swp1</td>
 <td>x1</td>
 <td>swp1</td>
-</tr>
-<tr>
-<td>Unused link</td>
-<td>c1</td>
-<td>Ethernet2</td>
-<td>x2</td>
-<td>swp1</td>
-</tr>
-<tr>
-<td>ISP internal link</td>
-<td>x1</td>
-<td>swp2</td>
-<td>x2</td>
-<td>swp2</td>
-</tr>
-<tr>
-<td>Unused link</td>
-<td>c2</td>
-<td>Ethernet1</td>
-<td>x1</td>
-<td>swp3</td>
-</tr>
-<tr>
-<td>Backup uplink</td>
-<td>c2</td>
-<td>Ethernet2</td>
-<td>x2</td>
-<td>swp3</td>
-</tr>
-<tr>
-<td>Customer internal link</td>
-<td>c1</td>
-<td>Ethernet3</td>
-<td>c2</td>
-<td>Ethernet3</td>
 </tr>
 </tbody>
 </table>
@@ -783,7 +664,7 @@ Paths: (2 available, best #1, table default)
 </thead>
 <tbody>
 <tr>
-<td><strong>c1</strong></td>
+<td><strong>rtr</strong></td>
 <td style="text-align: right;">10.0.0.1/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
@@ -792,99 +673,48 @@ Paths: (2 available, best #1, table default)
 <td>Ethernet1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
-<td>Primary uplink</td>
-</tr>
-<tr>
-<td>Ethernet2</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td>Unused link</td>
-</tr>
-<tr>
-<td>Ethernet3</td>
-<td style="text-align: right;">192.168.42.1/24</td>
-<td style="text-align: right;"></td>
-<td>Customer internal link</td>
-</tr>
-<tr>
-<td><strong>c2</strong></td>
-<td style="text-align: right;">10.0.0.2/32</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>Ethernet1</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td>Unused link</td>
+<td>rtr -&gt; x1</td>
 </tr>
 <tr>
 <td>Ethernet2</td>
 <td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
-<td>Backup uplink</td>
-</tr>
-<tr>
-<td>Ethernet3</td>
-<td style="text-align: right;">192.168.42.2/24</td>
-<td style="text-align: right;"></td>
-<td>Customer internal link</td>
+<td>rtr -&gt; x2</td>
 </tr>
 <tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;">192.168.100.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
-<td>Primary uplink</td>
-</tr>
-<tr>
-<td>swp2</td>
-<td style="text-align: right;">192.168.100.10/24</td>
-<td style="text-align: right;"></td>
-<td>ISP internal link</td>
-</tr>
-<tr>
-<td>swp3</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td>Unused link</td>
+<td>x1 -&gt; rtr</td>
 </tr>
 <tr>
 <td><strong>x2</strong></td>
-<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;">192.168.101.1/24</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-<td>Unused link</td>
-</tr>
-<tr>
-<td>swp2</td>
-<td style="text-align: right;">192.168.100.11/24</td>
-<td style="text-align: right;"></td>
-<td>ISP internal link</td>
-</tr>
-<tr>
-<td>swp3</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
-<td>Backup uplink</td>
+<td>x2 -&gt; rtr</td>
 </tr>
 </tbody>
 </table>
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:WS">
-<p>Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (Cumulus Linux and FRR are very memory-efficient).&#160;<a class="footnote-backref" href="#fnref:WS" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:FIL">
+<p>Inspect the <a href="https://quay.io/repository/frrouting/frr?tab=tags&amp;tag=latest">list of available FRR containers</a> to select a recent image.&#160;<a class="footnote-backref" href="#fnref:FIL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:FRO">
+<p>We have to use an older version of FRR due to the <a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">undesired OSPF/BGP interaction behavior in recent FRR versions</a>.&#160;<a class="footnote-backref" href="#fnref:FRO" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
