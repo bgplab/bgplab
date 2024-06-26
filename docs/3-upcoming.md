@@ -13,11 +13,10 @@ We have plenty of other ideas, including:
 ## Basic BGP Setup
 
 Optional exercises:
-: * Multihop EBGP sessions
+: * Multihop EBGP peering across a firewall
 
 Advanced exercises:
 : * Configure BGP graceful restart
-  * Multihop EBGP sessions with servers
 
 ## Controlling Inbound Traffic
 
@@ -28,6 +27,22 @@ Advanced exercises:
 * Use a hierarchy of route reflectors
 * Reduce routing instabilities with BGP route flap dampening
 * Implement policy-based routing with BGP
+* Remote-triggered black hole
+* External bogon feed
+* Centralized route collection service (like bgp.tools)
+* Using RPKI for route validation (with Routinator as the source of RPKI information)
+
+See [this LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7211620163396263936/) for more details.
+
+## Advanced Scenarios
+
+* Multihop EBGP sessions with servers
+* BGP as a firewall high availability protocol
+* Multihop EBGP peering in a high-availability firewall scenario
+* Peering across a hidden router (example: Azure vWan)
+* Firewall-on-a-stick scenario with two VRFs in the directly attached router.
+
+See [this blog post](https://blog.ipspace.net/2024/06/ebgp-multihop-use-cases.html) for more details.
 
 ## Use MPLS with BGP 
 
