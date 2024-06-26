@@ -454,13 +454,13 @@
 
 <h1 id="configuring-cumulus-linux-and-frrouting">Configuring Cumulus Linux and FRRouting</h1>
 <p>Most networking devices<sup id="fnref:CL"><a class="footnote-ref" href="#fn:CL">1</a></sup> use a configuration command line interface (CLI) to interact with the end-user. The CLI usually provides <strong>show</strong> commands to inspect the state of the device and a configuration mode that allows the user to configure the device.</p>
-<p>Cumulus Linux and FRRouting are different. They are implemented as an application/management layer on top of Linux and use Linux shell as the initial CLI. To configure them, you have to:</p>
+<p>Cumulus Linux and FRRouting are different. They are implemented as an application/management layer on top of Linux, and Linux shell is used as the initial CLI. To configure them, you have to:</p>
 <ul>
 <li>Use standard Linux tools like <em>ifupdown</em> to configure the interfaces;</li>
 <li><a href="#daemon">Edit FRRouting configuration files</a> to start routing protocol daemons</li>
 <li><a href="#vtysh">Start FRRouting configuration shell</a> from the Linux CLI.</li>
 </ul>
-<p>The Linux interfaces and IP addresses will be configured automatically if you start the BGP labs with the <strong>netlab up</strong> command. You will have to start the routing protocol daemons if you plan to use Cumulus Linux or FRRouting as the user routers, and you might have to execute <strong>show</strong> commands on Cumulus Linux or FRRouting acting as the external routers. You&rsquo;ll practice both in this lab exercise.</p>
+<p>The Linux interfaces and IP addresses will be configured automatically if you start the BGP labs with the <strong>netlab up</strong> command. You will have to start the routing protocol daemons in the initial lab exercises if you plan to use Cumulus Linux or FRRouting as the user routers, and you might have to execute <strong>show</strong> commands on Cumulus Linux or FRRouting acting as the external routers. You&rsquo;ll practice both in this lab exercise.</p>
 <p><img alt="Lab topology" src="../topology-session.png" /></p>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
@@ -470,7 +470,7 @@
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The lab topology uses Cumulus Linux virtual machines or containers but switches to FRR containers if you&rsquo;re running the labs on an ARM CPU (for example, on <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks using Apple silicon</a>).</p>
+<p>The lab topology uses Cumulus Linux virtual machines or containers. It switches to FRR containers if you&rsquo;re running the labs on an ARM CPU (for example, on <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks using Apple silicon</a>).</p>
 </div>
 <ul>
 <li>Log into the devices (<code>rtr</code> and <code>x1</code>) with the <strong>netlab connect</strong> command.</li>
@@ -481,45 +481,58 @@
 <p class="admonition-title">Tip</p>
 <p>You can skip this step if you use NVUE CLI to configure routing on Cumulus Linux 5.x &ndash; it automatically enables FRR daemons before configuring them.</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You cannot restart the top-level FRRouting process in an FRR container. When you use FRRouting containers in your labs, <em>netlab</em> always enables the BGP daemon.</p>
-</div>
-<p>You can check the FRR daemons running on your device with the <code>ps -ef|grep frr</code> command. This is the printout you could get before enabling the BGP daemon:</p>
-<pre><code>rtr(bash)#ps -ef|grep frr
-frr       1827     1  0 10:46 ?        00:00:00 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
-frr       1841     1  0 10:46 ?        00:00:00 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
-root      2291     1  0 10:46 ?        00:00:00 /usr/lib/frr/watchfrr -d -F datacenter zebra staticd
-root      2340  2325  0 10:47 pts/1    00:00:00 grep frr
+<p>You can check the FRR daemons running on your Cumulus Linux devices or FRR running in a Linux virtual machine with the <code>sudo systemctl status frr.service</code> command. It displays the running FRR daemons and the recent FRR logging messages, for example<sup id="fnref:DEV"><a class="footnote-ref" href="#fn:DEV">2</a></sup>:</p>
+<pre><code class="language-bash">rtr(bash)#sudo systemctl status frr.service
+* frr.service - FRRouting
+   Loaded: loaded (/lib/systemd/system/frr.service; enabled; vendor preset: enabled)
+   Active: active (running) since Wed 2024-06-26 17:09:37 UTC; 2min 27s ago
+     Docs: https://frrouting.readthedocs.io/en/latest/setup.html
+  Process: 2230 ExecReload=/usr/lib/frr/frrinit.sh reload (code=exited, status=0/SUCCESS)
+   Status: &quot;FRR Operational&quot;
+    Tasks: 17 (limit: 737)
+   Memory: 19.2M
+      CPU: 690ms
+   CGroup: /system.slice/frr.service
+           |-1875 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
+           |-1889 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
+           |-2246 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
+           `-2255 /usr/lib/frr/bgpd -d -F datacenter -M snmp -A 127.0.0.1
+
+Jun 26 17:10:01 cc bgpd[2255]: Configuration Read in Took: 00:00:00
+Jun 26 17:10:01 cc staticd[1889]: Configuration Read in Took: 00:00:00
+Jun 26 17:10:03 cc bgpd[2255]: %ADJCHANGE: neighbor 172.16.1.4(fc) in vrf default Up
 </code></pre>
-<p>To enable the FRRouting BGP daemon, you have to:</p>
+<p>You cannot use the same command in FRR containers as they don&rsquo;t use <code>systemd</code>. The easiest way to find FRR daemons in FRR containers is to use the <code>ps -ef|grep frr</code> command<sup id="fnref:UE"><a class="footnote-ref" href="#fn:UE">3</a></sup>. This is the printout you could get when the BGP daemon is already running:</p>
+<pre><code class="language-bash">rtr(bash)#ps -ef|grep frr
+    1 root      0:00 /sbin/tini -- /usr/lib/frr/docker-start
+   26 root      0:00 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
+   41 frr       0:00 /usr/lib/frr/zebra -d -F datacenter -A 127.0.0.1 -s 90000000
+   46 frr       0:00 /usr/lib/frr/bgpd -d -F datacenter -A 127.0.0.1
+   53 frr       0:00 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
+  342 root      0:00 grep frr
+</code></pre>
+<p>The list of FRRouting daemons you want to enable is stored in the <code>/etc/frr/daemons</code> file. To enable the FRRouting BGP daemon, you have to:</p>
 <ul>
-<li>Add the <code>bgpd=yes</code> line to the <code>/etc/frrouting/daemons</code> file.</li>
+<li>Add the <code>bgpd=yes</code> line to the <code>/etc/frr/daemons</code> file<sup id="fnref:FRMD"><a class="footnote-ref" href="#fn:FRMD">4</a></sup>.</li>
 <li>Restart FRRouting with the <code>sudo systemctl restart frr.service</code> command (see also: <a href="#sudo">using sudo</a>)</li>
 </ul>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>See <a href="https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-41/Layer-3/Configuring-FRRouting/">Configuring FRRouting</a> Cumulus Linux documentation for more details.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. <em>netlab</em> takes care of that and enables all the daemons necessary to complete the lab exercises.</p>
 </div>
-<p>You could add the required line to the FRRouting daemons file with any text editor or use the following trick:</p>
+<p>You could add the required line to the FRRouting daemons file with any text editor<sup id="fnref:TE"><a class="footnote-ref" href="#fn:TE">5</a></sup> or use the following trick:</p>
 <ul>
 <li>Use <strong>sudo bash</strong> to start another Linux shell as the root user</li>
-<li>Use the <strong>echo</strong> command with output redirection to add a line to the <code>/etc/frrrouting/daemons</code> file.</li>
+<li>Use the <strong>echo</strong> command with output redirection to add a line to the <code>/etc/frr/daemons</code> file.</li>
 </ul>
-<pre><code>rtr(bash)#sudo bash
+<pre><code class="language-bash">rtr(bash)#sudo bash
 root@rtr:/# echo 'bgpd=yes' &gt;&gt;/etc/frr/daemons
 root@rtr:/# exit
 </code></pre>
-<p>After enabling the BGP daemon and restarting FRR, you should see the <code>bgpd</code> process in the <code>ps -ef</code> printout:</p>
-<pre><code>root      2543     1  0 10:52 ?        00:00:00 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
-frr       2566     1  0 10:52 ?        00:00:00 /usr/lib/frr/zebra -d -F datacenter -M cumulus_mlag -M snmp -A 127.0.0.1 -s 90000000
-frr       2580     1  0 10:52 ?        00:00:00 /usr/lib/frr/bgpd -d -F datacenter -M snmp -A 127.0.0.1
-frr       2586     1  0 10:52 ?        00:00:00 /usr/lib/frr/staticd -d -F datacenter -A 127.0.0.1
-root      2594  2325  0 10:52 pts/1    00:00:00 grep frr
-</code></pre>
+<p>After enabling the BGP daemon and restarting FRR, you should see the <code>bgpd</code> process in the <code>ps -ef</code> printout or the BGP daemon mentioned in the <code>sudo systemctl status frr.service</code> printout.</p>
 <h2 id="vtysh">Work with the FRRouting CLI</h2>
-<p>FRRouting suite includes a virtual shell (<em>vtysh</em>) closely resembling industry-standard CLI<sup id="fnref:ISC"><a class="footnote-ref" href="#fn:ISC">2</a></sup>. It has to be started from the Linux command line with the vtysh command. The <code>vtysh</code> CLI has to run as the root user unless you change the FRR-related permissions to allow a regular user to use it. The usual command to start the <em>vtysh</em> is thus <code>sudo vtysh</code> (but see also <a href="#sudo">To Sudo Or Not to Sudo</a>).</p>
-<pre><code>rtr(bash)#sudo vtysh
+<p>FRRouting suite includes a virtual shell (<em>vtysh</em>) closely resembling industry-standard CLI<sup id="fnref:ISC"><a class="footnote-ref" href="#fn:ISC">6</a></sup>. It has to be started from the Linux command line with the vtysh command. The <code>vtysh</code> CLI has to run as the root user unless you change the FRR-related permissions to allow a regular user to use it. The usual command to start the <em>vtysh</em> is thus <code>sudo vtysh</code> (but see also <a href="#sudo">To Sudo Or Not to Sudo</a>).</p>
+<pre><code class="language-bash">rtr(bash)#sudo vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
@@ -527,7 +540,7 @@ Copyright 1996-2005 Kunihiro Ishiguro, et al.
 rtr#
 </code></pre>
 <p>Once you started <em>vtysh</em>, you can execute <strong>show</strong> commands to inspect the device state, for example:</p>
-<pre><code>x1(bash)#sudo vtysh
+<pre><code class="language-bash">x1(bash)#sudo vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
@@ -548,6 +561,7 @@ Displayed  1 routes and 1 total paths
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Starting with <em>netlab</em> release 1.7.0, you can use the <code>--show</code> option of the <strong>netlab connect</strong> command to execute a single command on a FRR/Cumulus Linux device. For example, to inspect the BGP table, use <code>netlab connect --show ip bgp</code>.</p>
+<p>You can quote the <strong>show</strong> commands when they include characters that would confuse <strong>‌bash</strong>, for example <code>netlab connect --show 'ip bgp regexp 65000$'</code></p>
 </div>
 <p>To configure FRRouting daemons, use the <strong>configure</strong> <em>vtysh</em> command and enter configuration commands similar to those you&rsquo;d use on Cisco IOS or Arista EOS:</p>
 <pre><code>x1(bash)#sudo vtysh
@@ -563,7 +577,7 @@ x1(config-router)#
 <p>The <em>vtysh</em> usually has to run as the <strong>root</strong> user, so you should start it with the <code>sudo vtysh</code> command. Unfortunately, things are never as simple as they look:</p>
 <ul>
 <li>When using SSH, you log into Cumulus Linux or FRRouting virtual machines as a regular user (user <em>vagrant</em> in <em>netlab</em>-created labs) and have to use the <code>sudo</code> command to start <em>vtysh</em>.</li>
-<li>Cumulus Linux and FRR containers run as the <strong>root</strong> user, and you connect to them as the <strong>root</strong> user with the <code>docker exec</code> or <code>netlab connect</code> commands. When working with containers, you can start <em>vtysh</em> without using the <code>sudo</code> command.</li>
+<li>Cumulus Linux and FRR containers run as the <strong>root</strong> user, and you connect to them as the <strong>root</strong> user with the <code>docker exec</code> or <code>netlab connect</code> commands<sup id="fnref:WIDUW"><a class="footnote-ref" href="#fn:WIDUW">7</a></sup>. When working with containers, you can start <em>vtysh</em> without using the <code>sudo</code> command.</li>
 <li>You can execute <code>sudo vtysh</code> as a root user on Cumulus Linux, but not within an FRR container &ndash; the FRR container does not include the <strong>sudo</strong> command.</li>
 </ul>
 <p><strong>Long story short:</strong></p>
@@ -610,7 +624,7 @@ Connecting to container clab-originate-x1, executing sudo vtysh -c &quot;show ip
 </tr>
 <tr>
 <td><code>begin</code></td>
-<td><code>grep -A 10000</code><sup id="fnref:SLN"><a class="footnote-ref" href="#fn:SLN">3</a></sup></td>
+<td><code>grep -A 10000</code><sup id="fnref:SLN"><a class="footnote-ref" href="#fn:SLN">8</a></sup></td>
 </tr>
 <tr>
 <td><code>end</code></td>
@@ -628,11 +642,26 @@ Connecting to container clab-originate-x1, executing sudo vtysh -c &quot;show ip
 <li id="fn:CL">
 <p>Including devices based on Linux like Arista EOS, Cisco Nexus OS, or Nokia SR Linux&#160;<a class="footnote-backref" href="#fnref:CL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
+<li id="fn:DEV">
+<p>The printout details depend on the Linux and FRR versions, but you&rsquo;ll always be able to determine whether the BGP process is running.&#160;<a class="footnote-backref" href="#fnref:DEV" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:UE">
+<p>You can use the same command with Cumulus Linux or FRR running in a virtual machine.&#160;<a class="footnote-backref" href="#fnref:UE" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:FRMD">
+<p>See <a href="https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-41/Layer-3/Configuring-FRRouting/">Configuring FRRouting</a> Cumulus Linux documentation for more details.&#160;<a class="footnote-backref" href="#fnref:FRMD" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:TE">
+<p><code>vi</code> is available in Cumulus Linux containers. <code>vi</code> and <code>nano</code> are available in Cumulus Linux and FRR virtual machines.&#160;<a class="footnote-backref" href="#fnref:TE" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
 <li id="fn:ISC">
-<p>An euphemism for <em>Cisco IOS CLI</em> that is used when you try to avoid nasty encounters with Cisco&rsquo;s legal team.&#160;<a class="footnote-backref" href="#fnref:ISC" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>An euphemism for <em>Cisco IOS CLI</em> that is used when you try to avoid nasty encounters with Cisco&rsquo;s legal team.&#160;<a class="footnote-backref" href="#fnref:ISC" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
+<li id="fn:WIDUW">
+<p>When in doubt, use the <strong>whoami</strong> command.&#160;<a class="footnote-backref" href="#fnref:WIDUW" title="Jump back to footnote 7 in the text">&#8617;</a></p>
 </li>
 <li id="fn:SLN">
-<p>The &lsquo;10000&rsquo; parameter specifies the number of lines after the match. Increase it for very long printouts ;)&#160;<a class="footnote-backref" href="#fnref:SLN" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>The &lsquo;10000&rsquo; parameter specifies the number of lines after the match. Increase it for very long printouts ;)&#160;<a class="footnote-backref" href="#fnref:SLN" title="Jump back to footnote 8 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

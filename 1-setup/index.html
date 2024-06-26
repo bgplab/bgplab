@@ -456,11 +456,15 @@
 <p>It&rsquo;s easiest to use the BGP labs with <em><a href="https://netlab.tools/">netlab</a></em>. Still, you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document, we&rsquo;ll assume you decided to use <em>netlab</em>; if you want to set up your lab in some other way, read the <a href="../external/">Manual Setup</a> document.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>BGP labs work best with <em>netlab</em> release 1.6.4 or later. If you&rsquo;re using an earlier <em>netlab</em> release, please upgrade with <code>pip3 install --upgrade networklab</code>.</p>
+<p>BGP labs work best with <em>netlab</em> release 1.8.3 or later. If you&rsquo;re using an earlier <em>netlab</em> release, please upgrade with <code>pip3 install --upgrade networklab</code>.</p>
 </div>
 <h2 id="select-the-network-devices-you-will-work-with">Select the Network Devices You Will Work With</h2>
 <p>You can run Cumulus Linux (and FRR) in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks with Apple silicon</a>).</p>
 <p>If you&rsquo;d like to use a more traditional networking device, use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a> as the device to practice with<sup id="fnref:x86"><a class="footnote-ref" href="#fn:x86">1</a></sup>. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you plan to run the BGP labs in <a href="../4-codespaces/">free GitHub Codespaces</a>, I&rsquo;d recommend using container-based network devices like Arista cEOS, Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
+</div>
 <h2 id="select-the-additional-devices-in-your-lab">Select the Additional Devices in Your Lab</h2>
 <p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices with which your routers exchange routing information. You won&rsquo;t configure those devices, but you might have to log into them and execute <strong>show</strong> commands.</p>
 <p>Use Cumulus Linux on those devices with <em>netlab</em> releases older than 1.6.4.</p>
@@ -505,6 +509,10 @@
 </div>
 <h2 id="select-the-virtualization-environment">Select the Virtualization Environment</h2>
 <p>Now that you know which network device to use, check <a href="https://netlab.tools/platforms/#supported-virtualization-providers">which virtualization environment</a> you can use. I would prefer <em>containerlab</em> over <em>libvirt</em> with <em>virtualbox</em> being a distant third, but that&rsquo;s just me.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also run the BGP labs in a <a href="../4-codespaces/">free GitHub Codespace</a>.</p>
+</div>
 <p>A gotcha: You can use <em>virtualbox</em> if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop with Intel CPU, but even then, I&rsquo;d prefer running them in a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM</a>.</p>
 <p>One more gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t need nested virtualization to run Docker containers unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Aruba AOS-CX, Juniper vMX, or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
 <h2 id="software-installation">Software Installation</h2>
@@ -551,7 +559,7 @@ groups:
 <p>You can only use devices supported by <strong><a href="https://netlab.tools/plugins/bgp.session/">bgp.session</a></strong> and <strong><a href="https://netlab.tools/plugins/bgp.policy/">bgp.policy</a></strong> <em>netlab</em> plugins as external BGP feeds.&#160;<a class="footnote-backref" href="#fnref:XF" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:R164">
-<p>You need <em>netlab</em> release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also <a href="https://netlab.tools/caveats/#caveats-srlinux">install additional software</a>.&#160;<a class="footnote-backref" href="#fnref:R164" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>You need <em>netlab</em> release 1.6.4-post2 or later to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also <a href="https://netlab.tools/caveats/#caveats-srlinux">install additional software</a>.&#160;<a class="footnote-backref" href="#fnref:R164" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:OPL">
 <p>If you&rsquo;d like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to <strong>bgp.session</strong> and <strong>bgp.policy</strong> plugins. Thank you!&#160;<a class="footnote-backref" href="#fnref:OPL" title="Jump back to footnote 4 in the text">&#8617;</a></p>
