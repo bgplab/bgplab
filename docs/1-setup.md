@@ -6,13 +6,16 @@ title: Installation and Setup
 It's easiest to use the BGP labs with _[netlab](https://netlab.tools/)_. Still, you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document, we'll assume you decided to use _netlab_; if you want to set up your lab in some other way, read the [Manual Setup](external/index.md) document.
 
 !!! Warning
-    BGP labs work best with _netlab_ release 1.6.4 or later. If you're using an earlier _netlab_ release, please upgrade with `pip3 install --upgrade networklab`.
+    BGP labs work best with _netlab_ release 1.8.3 or later. If you're using an earlier _netlab_ release, please upgrade with `pip3 install --upgrade networklab`.
 
 ## Select the Network Devices You Will Work With
 
 You can run Cumulus Linux (and FRR) in all [_netlab_-supported virtualization environments](https://netlab.tools/providers/) (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, [Macbooks with Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)).
 
 If you'd like to use a more traditional networking device, use any other [_netlab_-supported device](https://netlab.tools/platforms/) for which we implemented [basic BGP configuration](https://netlab.tools/module/bgp/#platform-support) as the device to practice with[^x86]. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.
+
+!!! tip
+    If you plan to run the BGP labs in [free GitHub Codespaces](4-codespaces.md), I'd recommend using container-based network devices like Arista cEOS, Cumulus Linux, FRR, Nokia SR Linux, or Vyos.
 
 [^x86]: You will have to run the labs on a device with an x86 CPU (Intel or AMD).
 
@@ -37,7 +40,7 @@ With release 1.6.4 (and later), you can choose any one of these devices for your
 
 [^XF]: You can only use devices supported by **[bgp.session](https://netlab.tools/plugins/bgp.session/)** and **[bgp.policy](https://netlab.tools/plugins/bgp.policy/)** _netlab_ plugins as external BGP feeds.
 
-[^R164]: You need _netlab_ release 1.6.4-post2 to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also [install additional software](https://netlab.tools/caveats/#caveats-srlinux).
+[^R164]: You need _netlab_ release 1.6.4-post2 or later to use Nokia SR Linux as additional routers in more complex labs. To configure Nokia SR Linux, you must also [install additional software](https://netlab.tools/caveats/#caveats-srlinux).
 
 [^OPL]: If you'd like to use other devices as external BGP feeds and are willing to contribute your changes, please add the support for your devices to **bgp.session** and **bgp.policy** plugins. Thank you!
 
@@ -48,6 +51,9 @@ With release 1.6.4 (and later), you can choose any one of these devices for your
 ## Select the Virtualization Environment
 
 Now that you know which network device to use, check [which virtualization environment](https://netlab.tools/platforms/#supported-virtualization-providers) you can use. I would prefer _containerlab_ over _libvirt_ with _virtualbox_ being a distant third, but that's just me.
+
+!!! tip
+    You can also run the BGP labs in a [free GitHub Codespace](4-codespaces.md).
 
 A gotcha: You can use _virtualbox_ if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop with Intel CPU, but even then, I'd prefer running them in a [Ubuntu VM](https://netlab.tools/install/ubuntu-vm/).
 
