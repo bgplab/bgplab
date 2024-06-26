@@ -24,16 +24,15 @@ The BGP labs repository uses Cumulus Linux 4.4 as the default device. To change 
 
 Once you have the codespaces up and running:
 
-* Click on the desired lab exercise in the README preview window to select the exercise folder.
+* Click on the desired lab exercise in the README.md preview window to select the exercise folder.
 * Right-click on the exercise folder and select "*Open in Integrated Terminal*" to launch a **bash** session in the desired directory.
 * Execute **netlab up** to start the lab.
-* Open the exercise folder in the Explorer tab.
-* Right-click on the `index.md` file and select "_Open Preview_" to get the exercise description in the preview pane[^BL].
+* Expand the exercise folder in the Explorer tab.
+* Right-click on the `README.md` file and select "_Open Preview_" to open the rendered version of the file.
+* Click the link in the README.md file to get the exercise description in the preview pane.
 * Connect to your devices with the **netlab connect** command executed in the Terminal pane.
 
 [![](img/codespaces-lab.png)](img/codespaces-lab.png)
-
-[^BL]: Due to how we use **mkdocs** to generate the HTML version of the lab documentation, the links in the **index.md** Markdown files residing in the exercise directories do not work (one of the side effects of "organic growth"). To get a version with working links, open the corresponding file in the **docs** directory (or start with **docs/index.md**).
 
 ## Cleanup and Shutdown
 
