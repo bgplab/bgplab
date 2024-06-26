@@ -55,6 +55,7 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 
 These are the most recent labs added to the BGP Labs project:
 
+* [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)
 * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
 * [Resolve BGP Wedgies](policy/e-wedgies.md)<!--adv-->
 * [Dynamic BGP Peers](session/9-dynamic.md)

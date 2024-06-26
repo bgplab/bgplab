@@ -35,6 +35,7 @@ Trying to persuade neighboring autonomous systems to change how they send you th
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
 * [Attach BGP Communities to Outgoing BGP Updates](8-community-attach.md)
 * [Resolve BGP Wedgies](e-wedgies.md)
+* [Use Disaggregated Prefixes to Select the Primary Link](b-disaggregate.md)
 
 ## More Complex Routing Policies {#complex}
 

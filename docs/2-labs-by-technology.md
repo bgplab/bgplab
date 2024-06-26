@@ -15,6 +15,7 @@ Advertising IP prefixes
   * [Redistribute IGP Information Into BGP](basic/5-redistribute.md)
   * [BGP route aggregation](basic/8-aggregate.md)
   * [Advertise Default Route in BGP](basic/c-default-route.md)
+  * [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)
 
 AS and AS-path manipulation
 : * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend.md)
@@ -104,6 +105,7 @@ Prefix filters
   * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix.md)
   * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md) (challenge lab)
   * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
+  * [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)

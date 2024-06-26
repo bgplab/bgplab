@@ -1,0 +1,46 @@
+# Validate local-as lab
+---
+session:
+  description: Check EBGP session with RTR on ISP routers
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with RTR is in Established state
+  nodes: [ x1, x2 ]
+  stop_on_error: True
+  devices: [ frr, cumulus, eos ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'rtr')
+
+pfx_agg:
+  description: Check the aggregate prefix on ISP routers
+  fail: RTR is not sending the aggregate prefix
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix('172.16.4.0/22')
+
+pfx_s1:
+  description: Check the first more-specific prefix on ISP routers
+  fail: RTR is not sending the more-specific prefix 172.16.4.0/23
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix('172.16.4.0/23')
+
+pfx_s2:
+  description: Check the second more-specific prefix on ISP routers
+  fail: RTR is not sending the more-specific prefix 172.16.6.0/23
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix('172.16.4.0/23')
+
+pfx_agg_x1:
+  description: Is the aggregate prefix reachable via X2?
+  fail: RTR is sending the aggregate prefix to X1
+  nodes: [ x1 ]
+  plugin: bgp_prefix('172.16.4.0/22',peer=nodes.x2.bgp.router_id,best=True)
+
+pfx_s1_x2:
+  description: Is the more-specific prefix reachable via X1?
+  fail: RTR is sending the more-specific prefix to X2
+  nodes: [ x2 ]
+  plugin: bgp_prefix('172.16.4.0/23',peer=nodes.x1.bgp.router_id,best=True)
+
+pfx_s2_x2:
+  description: Is the more-specific prefix reachable via X1?
+  fail: RTR is sending the more-specific prefix to X2
+  nodes: [ x2 ]
+  plugin: bgp_prefix('172.16.6.0/23',peer=nodes.x1.bgp.router_id,best=True)

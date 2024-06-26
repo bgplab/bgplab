@@ -167,6 +167,10 @@ Paths: (1 available, best #1, table default)
       Last update: Mon Jun 24 11:35:00 2024
 ```
 
+**Next:** 
+
+* [Use Disaggregated Prefixes to Select the Primary Link](../policy/b-disaggregate.md)
+
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:

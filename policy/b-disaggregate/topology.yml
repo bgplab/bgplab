@@ -1,0 +1,44 @@
+# Configure BGP weights
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: disaggregate
+plugin: [ bgp.policy, check_validate ]
+
+version: 1.6.4
+
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
+module: [ bgp ]
+
+groups:
+  external:
+    members: [ x1, x2 ]
+
+nodes:
+  rtr:
+    bgp.as: 65000
+    bgp.originate: [ 172.16.4.0/22 ]
+    bgp.advertise_loopback: False
+  x1:
+    bgp.as: 65100
+    bgp.router_id: 10.0.0.10
+    id: 10
+    loopback.ipv4: 192.168.100.1/24
+  x2:
+    bgp.as: 65101
+    bgp.router_id: 10.0.0.11
+    id: 11
+    loopback.ipv4: 192.168.101.1/24
+links:
+- rtr:
+  x1:
+- rtr:
+  x2:
+    bgp.locpref: 200
+- x1:
+  x2:
+
+message: |
+  The "Use Disaggregated Prefixes to Select the Primary Link" lab is ready.
+  Connect to your router with "netlab connect rtr".

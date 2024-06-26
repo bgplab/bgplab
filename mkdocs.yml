@@ -77,6 +77,7 @@ nav:
     - policy/7-prepend.md
     - policy/8-community-attach.md
     - policy/e-wedgies.md
+    - policy/b-disaggregate.md
   - "More Complex Routing Policies":
     - policy/9-community-use.md
     - policy/a-locpref-route-map.md
@@ -92,7 +93,6 @@ nav:
 - "Upcoming":
   - Overview: 3-upcoming.md
   - challenge/01-bird-rr.md
-  - policy/b-disaggregate.md
   - lb/4-ibgp-add-path.md
   - challenge/02-anycast.md
   - challenge/05-ebgp-dc.md
