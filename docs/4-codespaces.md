@@ -18,7 +18,7 @@ The BGP labs repository uses Cumulus Linux 4.4 as the default device. To change 
     * Use FRR to use the 2 CPU/8 GB codespaces VM with larger labs.
     * Codespaces have persistent storage; you can download and install other containers.
     * To use containers that have to be downloaded from the vendors' website, download them onto your laptop, drag-and-drop them into the Folders, and install them [like you would on a local netlab instance](https://netlab.tools/labs/clab/#container-images).
-    * It looks like the Codespaces environment supports nested virtualization, so it should be possible to run network device VMs. However, you're on your own.
+    * While it looks like the Codespaces environment supports nested virtualization, the environment does not include the `kvm` kernel module, so we cannot get virtual machines to work (yet). That also precludes running VMs in virtual machines (the *vrnetlab* approach).
 
 ## Start a Lab
 
