@@ -460,7 +460,7 @@
 <li>Use FRR to use the 2 CPU/8 GB codespaces VM with larger labs.</li>
 <li>Codespaces have persistent storage; you can download and install other containers.</li>
 <li>To use containers that have to be downloaded from the vendors&rsquo; website, download them onto your laptop, drag-and-drop them into the Folders, and install them <a href="https://netlab.tools/labs/clab/#container-images">like you would on a local netlab instance</a>.</li>
-<li>It looks like the Codespaces environment supports nested virtualization, so it should be possible to run network device VMs. However, you&rsquo;re on your own.</li>
+<li>While it looks like the Codespaces environment supports nested virtualization, the environment does not include the <code>kvm</code> kernel module, so we cannot get virtual machines to work (yet). That also precludes running VMs in virtual machines (the <em>vrnetlab</em> approach).</li>
 </ul>
 </div>
 <h2 id="start-a-lab">Start a Lab</h2>
