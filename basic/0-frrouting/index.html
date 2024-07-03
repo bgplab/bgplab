@@ -518,9 +518,13 @@ Jun 26 17:10:03 cc bgpd[2255]: %ADJCHANGE: neighbor 172.16.1.4(fc) in vrf defaul
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. <em>netlab</em> takes care of that and enables all the daemons necessary to complete the lab exercises.</p>
+<ul>
+<li>You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. <em>netlab</em> takes care of that and enables all the daemons necessary to complete the lab exercises.</li>
+<li>Restarting FRR daemons wipes out the current (running) configuration. If you want to retain it, save it to the startup configuration with the <em>vtysh</em> <strong>write</strong> command.</li>
+<li>The <strong>write</strong> command saves the running configuration (that you can inspect with <strong>show running-config</strong>) into the <code>/etc/frr/frr.conf</code> file. However, the <strong>show startup-config</strong><sup id="fnref:CLSC"><a class="footnote-ref" href="#fn:CLSC">5</a></sup> does not display the content of that file. Exit <em>vtysh</em> and use the <strong>more /etc/frr/frr.conf</strong> command<sup id="fnref:MNS"><a class="footnote-ref" href="#fn:MNS">6</a></sup> to inspect it.</li>
+</ul>
 </div>
-<p>You could add the required line to the FRRouting daemons file with any text editor<sup id="fnref:TE"><a class="footnote-ref" href="#fn:TE">5</a></sup> or use the following trick:</p>
+<p>You could add the required line to the FRRouting daemons file with any text editor<sup id="fnref:TE"><a class="footnote-ref" href="#fn:TE">7</a></sup> or use the following trick:</p>
 <ul>
 <li>Use <strong>sudo bash</strong> to start another Linux shell as the root user</li>
 <li>Use the <strong>echo</strong> command with output redirection to add a line to the <code>/etc/frr/daemons</code> file.</li>
@@ -531,7 +535,7 @@ root@rtr:/# exit
 </code></pre>
 <p>After enabling the BGP daemon and restarting FRR, you should see the <code>bgpd</code> process in the <code>ps -ef</code> printout or the BGP daemon mentioned in the <code>sudo systemctl status frr.service</code> printout.</p>
 <h2 id="vtysh">Work with the FRRouting CLI</h2>
-<p>FRRouting suite includes a virtual shell (<em>vtysh</em>) closely resembling industry-standard CLI<sup id="fnref:ISC"><a class="footnote-ref" href="#fn:ISC">6</a></sup>. It has to be started from the Linux command line with the vtysh command. The <code>vtysh</code> CLI has to run as the root user unless you change the FRR-related permissions to allow a regular user to use it. The usual command to start the <em>vtysh</em> is thus <code>sudo vtysh</code> (but see also <a href="#sudo">To Sudo Or Not to Sudo</a>).</p>
+<p>FRRouting suite includes a virtual shell (<em>vtysh</em>) closely resembling industry-standard CLI<sup id="fnref:ISC"><a class="footnote-ref" href="#fn:ISC">8</a></sup>. It has to be started from the Linux command line with the vtysh command. The <code>vtysh</code> CLI has to run as the root user unless you change the FRR-related permissions to allow a regular user to use it. The usual command to start the <em>vtysh</em> is thus <code>sudo vtysh</code> (but see also <a href="#sudo">To Sudo Or Not to Sudo</a>).</p>
 <pre><code class="language-bash">rtr(bash)#sudo vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
@@ -577,8 +581,8 @@ x1(config-router)#
 <p>The <em>vtysh</em> usually has to run as the <strong>root</strong> user, so you should start it with the <code>sudo vtysh</code> command. Unfortunately, things are never as simple as they look:</p>
 <ul>
 <li>When using SSH, you log into Cumulus Linux or FRRouting virtual machines as a regular user (user <em>vagrant</em> in <em>netlab</em>-created labs) and have to use the <code>sudo</code> command to start <em>vtysh</em>.</li>
-<li>Cumulus Linux and FRR containers run as the <strong>root</strong> user, and you connect to them as the <strong>root</strong> user with the <code>docker exec</code> or <code>netlab connect</code> commands<sup id="fnref:WIDUW"><a class="footnote-ref" href="#fn:WIDUW">7</a></sup>. When working with containers, you can start <em>vtysh</em> without using the <code>sudo</code> command.</li>
-<li>You can execute <code>sudo vtysh</code> as a root user on Cumulus Linux, but not within an FRR container &ndash; the FRR container does not include the <strong>sudo</strong> command.</li>
+<li>Cumulus Linux and FRR containers run as the <strong>root</strong> user, and you connect to them as the <strong>root</strong> user with the <code>docker exec</code> or <code>netlab connect</code> commands<sup id="fnref:WIDUW"><a class="footnote-ref" href="#fn:WIDUW">9</a></sup>. When working with containers, you can start <em>vtysh</em> without using the <code>sudo</code> command.</li>
+<li>You can execute <code>sudo vtysh</code> as a root user on Cumulus Linux containers but not within an FRR container. The FRR container does not include the <code>sudo</code> command.</li>
 </ul>
 <p><strong>Long story short:</strong></p>
 <ul>
@@ -624,7 +628,7 @@ Connecting to container clab-originate-x1, executing sudo vtysh -c &quot;show ip
 </tr>
 <tr>
 <td><code>begin</code></td>
-<td><code>grep -A 10000</code><sup id="fnref:SLN"><a class="footnote-ref" href="#fn:SLN">8</a></sup></td>
+<td><code>grep -A 10000</code><sup id="fnref:SLN"><a class="footnote-ref" href="#fn:SLN">10</a></sup></td>
 </tr>
 <tr>
 <td><code>end</code></td>
@@ -651,17 +655,23 @@ Connecting to container clab-originate-x1, executing sudo vtysh -c &quot;show ip
 <li id="fn:FRMD">
 <p>See <a href="https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-41/Layer-3/Configuring-FRRouting/">Configuring FRRouting</a> Cumulus Linux documentation for more details.&#160;<a class="footnote-backref" href="#fnref:FRMD" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
+<li id="fn:CLSC">
+<p>At least on Cumulus Linux 4.4 used in the BGP labs&#160;<a class="footnote-backref" href="#fnref:CLSC" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:MNS">
+<p>You <a href="#sudo">might</a> have to prefix it with <strong>sudo</strong>&#160;<a class="footnote-backref" href="#fnref:MNS" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+</li>
 <li id="fn:TE">
-<p><code>vi</code> is available in Cumulus Linux containers. <code>vi</code> and <code>nano</code> are available in Cumulus Linux and FRR virtual machines.&#160;<a class="footnote-backref" href="#fnref:TE" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p><code>vi</code> is available in Cumulus Linux containers. <code>vi</code> and <code>nano</code> are available in Cumulus Linux and FRR virtual machines.&#160;<a class="footnote-backref" href="#fnref:TE" title="Jump back to footnote 7 in the text">&#8617;</a></p>
 </li>
 <li id="fn:ISC">
-<p>An euphemism for <em>Cisco IOS CLI</em> that is used when you try to avoid nasty encounters with Cisco&rsquo;s legal team.&#160;<a class="footnote-backref" href="#fnref:ISC" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+<p>An euphemism for <em>Cisco IOS CLI</em> that is used when you try to avoid nasty encounters with Cisco&rsquo;s legal team.&#160;<a class="footnote-backref" href="#fnref:ISC" title="Jump back to footnote 8 in the text">&#8617;</a></p>
 </li>
 <li id="fn:WIDUW">
-<p>When in doubt, use the <strong>whoami</strong> command.&#160;<a class="footnote-backref" href="#fnref:WIDUW" title="Jump back to footnote 7 in the text">&#8617;</a></p>
+<p>When in doubt, use the <strong>whoami</strong> command.&#160;<a class="footnote-backref" href="#fnref:WIDUW" title="Jump back to footnote 9 in the text">&#8617;</a></p>
 </li>
 <li id="fn:SLN">
-<p>The &lsquo;10000&rsquo; parameter specifies the number of lines after the match. Increase it for very long printouts ;)&#160;<a class="footnote-backref" href="#fnref:SLN" title="Jump back to footnote 8 in the text">&#8617;</a></p>
+<p>The &lsquo;10000&rsquo; parameter specifies the number of lines after the match. Increase it for very long printouts ;)&#160;<a class="footnote-backref" href="#fnref:SLN" title="Jump back to footnote 10 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

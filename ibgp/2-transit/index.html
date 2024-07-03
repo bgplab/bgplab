@@ -617,14 +617,17 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>If you&rsquo;re not using <em>netlab</em>, you must configure CORE and PE2 routers yourself. Configurations for PE1 and EXT routers are in the <code>config</code> subdirectory.</p>
+<ul>
+<li>This lab requires <em>netlab</em> release 1.7.0 or higher.</li>
+<li>If you&rsquo;re not using <em>netlab</em>, you must configure CORE and PE2 routers yourself. Configurations for PE1 and EXT routers are in the <code>config</code> subdirectory.</li>
+</ul>
 </div>
 <h2 id="propagate-external-bgp-routes-to-pe2">Propagate External BGP Routes to PE2</h2>
 <p>Try to ping the external router (<code>172.16.42.42</code>) from PE2. You have to check the connectivity between the loopback addresses, so you should use a version of the <strong>ping</strong> command that specifies the source interface or the source IP address. For example, you must use <code>ping 172.16.42.42 source loop 0</code> on Arista EOS.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <ul>
-<li>You don&rsquo;t have to worry about the source IP address of the ICMP Echo packets on devices that support unnumbered IPv4 interfaces &ndash; these devices will automatically set the packet&rsquo;s source IP address to the device&rsquo;s loopback IP address.</li>
+<li>You don&rsquo;t have to worry about the source IP address of the ICMP Echo packets on devices that support unnumbered IPv4 interfaces. These devices will automatically set the packet&rsquo;s source IP address to the device&rsquo;s loopback IP address.</li>
 <li>The extended <strong>ping</strong> command is often available only in privileged (<strong>enable</strong>) CLI mode.</li>
 </ul>
 </div>
@@ -653,10 +656,6 @@ pe2#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      10.0.0.3/32            -                     -       -          -       0       i
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You might not have the 10.0.0.3/32 prefix in the BGP table on PE2 due to a bug in <em>netlab</em> releases older than 1.6.4-post2. If that&rsquo;s the case, configure BGP on PE2 to advertise the PE2 loopback interface (see <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> for more details). Even better: stop the lab, upgrade <em>netlab</em>, and restart the lab.</p>
-</div>
 <p>The lack of BGP routes on PE2 shouldn&rsquo;t surprise you if you completed the <em><a href="../1-edge/">Establish an IBGP Session Between WAN Edge Routers</a></em> lab exercise &ndash; you already know you need an IBGP session between PE1 and PE2.</p>
 <p><strong>Configuration task:</strong></p>
 <ul>
@@ -717,6 +716,7 @@ Gateway of last resort is not set
 <ul>
 <li>Due to the IBGP loop avoidance mechanism (never advertise IBGP routes to other IBGP neighbors), you must configure a full mesh of IBGP sessions, adding PE1-CORE and PE2-CORE IBGP sessions. Your lab might work without the PE2-CORE IBGP session but would probably stop working when you connect an EBGP neighbor to PE2<sup id="fnref:DLER"><a class="footnote-ref" href="#fn:DLER">5</a></sup>.</li>
 <li>The IBGP session between PE1 and CORE routers is preconfigured on PE1 and should be established as soon as you configure it on the CORE router. You&rsquo;ll have to configure the PE2-CORE IBGP session on both ends.</li>
+<li>If you&rsquo;re working with FRR or Cumulus Linux, save the CORE router&rsquo;s current configuration before enabling the BGP daemon and restarting FRR.</li>
 </ul>
 </div>
 <p><strong>Verification:</strong></p>
