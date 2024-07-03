@@ -1,7 +1,7 @@
 ! Drop AS paths that have a single AS number in them (potentially multiple times)
 !
-bgp as-path access-list transit-path seq 10 deny ^([0-9]+)(_\1)*$
-bgp as-path access-list transit-path seq 20 permit .*
+bgp as-path access-list transit-path deny ^([0-9]+)(_\1)*$
+bgp as-path access-list transit-path permit .*
 !
 bgp community-list standard locpref-low seq 5 permit 65304:100
 !
