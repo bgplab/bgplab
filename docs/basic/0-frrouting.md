@@ -81,7 +81,13 @@ The list of FRRouting daemons you want to enable is stored in the `/etc/frr/daem
 [^FRMD]: See [Configuring FRRouting](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-41/Layer-3/Configuring-FRRouting/) Cumulus Linux documentation for more details.
     
 !!! warning
-    You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. _netlab_ takes care of that and enables all the daemons necessary to complete the lab exercises.
+    * You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. _netlab_ takes care of that and enables all the daemons necessary to complete the lab exercises.
+    * Restarting FRR daemons wipes out the current (running) configuration. If you want to retain it, save it to the startup configuration with the _vtysh_ **write** command.
+    * The **write** command saves the running configuration (that you can inspect with **show running-config**) into the `/etc/frr/frr.conf` file. However, the **show startup-config**[^CLSC] does not display the content of that file. Exit _vtysh_ and use the **more /etc/frr/frr.conf** command[^MNS] to inspect it.
+
+[^CLSC]: At least on Cumulus Linux 4.4 used in the BGP labs
+
+[^MNS]: You [might](#sudo) have to prefix it with **sudo**
 
 You could add the required line to the FRRouting daemons file with any text editor[^TE] or use the following trick:
 
@@ -160,7 +166,7 @@ The _vtysh_ usually has to run as the **root** user, so you should start it with
 
 * When using SSH, you log into Cumulus Linux or FRRouting virtual machines as a regular user (user *vagrant* in _netlab_-created labs) and have to use the `sudo` command to start _vtysh_.
 * Cumulus Linux and FRR containers run as the **root** user, and you connect to them as the **root** user with the `docker exec` or `netlab connect` commands[^WIDUW]. When working with containers, you can start _vtysh_ without using the `sudo` command.
-* You can execute `sudo vtysh` as a root user on Cumulus Linux, but not within an FRR container -- the FRR container does not include the **sudo** command.
+* You can execute `sudo vtysh` as a root user on Cumulus Linux containers but not within an FRR container. The FRR container does not include the `sudo` command.
 
 [^WIDUW]: When in doubt, use the **whoami** command.
 

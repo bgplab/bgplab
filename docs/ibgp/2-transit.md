@@ -62,14 +62,15 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Log into your devices (R1, R2) with **netlab connect** and verify that _netlab_ correctly configured their IP addresses, OSPF routing, and EBGP sessions.
 
 !!! Warning
-    If you're not using _netlab_, you must configure CORE and PE2 routers yourself. Configurations for PE1 and EXT routers are in the `config` subdirectory.
+    * This lab requires _netlab_ release 1.7.0 or higher.
+    * If you're not using _netlab_, you must configure CORE and PE2 routers yourself. Configurations for PE1 and EXT routers are in the `config` subdirectory.
 
 ## Propagate External BGP Routes to PE2
 
 Try to ping the external router (`172.16.42.42`) from PE2. You have to check the connectivity between the loopback addresses, so you should use a version of the **ping** command that specifies the source interface or the source IP address. For example, you must use `ping 172.16.42.42 source loop 0` on Arista EOS.
 
 !!! Tip
-    * You don't have to worry about the source IP address of the ICMP Echo packets on devices that support unnumbered IPv4 interfaces -- these devices will automatically set the packet's source IP address to the device's loopback IP address.
+    * You don't have to worry about the source IP address of the ICMP Echo packets on devices that support unnumbered IPv4 interfaces. These devices will automatically set the packet's source IP address to the device's loopback IP address.
     * The extended **ping** command is often available only in privileged (**enable**) CLI mode.
 
 The **ping** command will most likely fail[^DP]. Arista EOS displays the root cause of the failure: the destination network is not in the IP routing table:
@@ -106,9 +107,6 @@ pe2#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * >      10.0.0.3/32            -                     -       -          -       0       i
 ```
-
-!!! Warning
-    You might not have the 10.0.0.3/32 prefix in the BGP table on PE2 due to a bug in _netlab_ releases older than 1.6.4-post2. If that's the case, configure BGP on PE2 to advertise the PE2 loopback interface (see [Advertise IPv4 Prefixes to BGP Neighbors](../basic/3-originate.md) for more details). Even better: stop the lab, upgrade _netlab_, and restart the lab.
 
 The lack of BGP routes on PE2 shouldn't surprise you if you completed the *[Establish an IBGP Session Between WAN Edge Routers](1-edge.md)* lab exercise -- you already know you need an IBGP session between PE1 and PE2.
 
@@ -185,6 +183,7 @@ There are at least four ways to fix the routing in the core of your autonomous s
 !!! Tip
     * Due to the IBGP loop avoidance mechanism (never advertise IBGP routes to other IBGP neighbors), you must configure a full mesh of IBGP sessions, adding PE1-CORE and PE2-CORE IBGP sessions. Your lab might work without the PE2-CORE IBGP session but would probably stop working when you connect an EBGP neighbor to PE2[^DLER].
     * The IBGP session between PE1 and CORE routers is preconfigured on PE1 and should be established as soon as you configure it on the CORE router. You'll have to configure the PE2-CORE IBGP session on both ends.
+    * If you're working with FRR or Cumulus Linux, save the CORE router's current configuration before enabling the BGP daemon and restarting FRR.
 
 [^DLER]: Proving that is left as an exercise for the reader
 

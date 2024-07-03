@@ -5,6 +5,7 @@ defaults.attributes.node.bgp:           # Make BGP a valid node attribute regard
 plugin: [ external_devices, fix_unnumbered ]
 
 name: transit
+version: 1.7.0
 
 groups:
   external:
