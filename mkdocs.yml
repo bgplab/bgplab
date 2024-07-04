@@ -59,6 +59,7 @@ nav:
     - basic/8-aggregate.md
     - basic/c-default-route.md
     - "EBGP Sessions over IPv6 LLA Interfaces": basic/d-interface.md
+    - basic/e-ebgp-multihop.md
 
 - "Routing Policies":
   - Overview: policy/index.md

@@ -1,0 +1,35 @@
+# Running EBGP Across a Firewall
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: ebgp_mh
+
+plugin: [ check_validate ]
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
+module: [ bgp ]
+bgp.advertise_loopback: False
+
+nodes:
+  int:
+    bgp.as: 65000
+  ext:
+    bgp.as: 64501
+  fw:
+    device: linux
+    config: [ ip_routing ]
+    id: 1
+
+links:
+- ext:
+  fw:
+  bgp.advertise: False
+
+- int:
+  fw:
+  bgp.advertise: True
+  prefix.ipv4: 192.168.42.0/24
+
+message: |
+  The "Running EBGP Across a Firewall" lab is ready. Use "netlab connect" to
+  connect to lab devices.

@@ -58,6 +58,7 @@ The labs cover:
 
 * [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
 * [BGP route aggregation](basic/8-aggregate)
+* [Running EBGP Across a Firewall](basic/e-ebgp-multihop)
 * [Reuse a BGP AS Number Across Multiple Sites](session/1-allowas_in)
 * [Fix AS-Path in Environments Reusing BGP AS Numbers](session/2-asoverride)
 * [Use Multiple AS Numbers on the Same Router](session/3-localas)

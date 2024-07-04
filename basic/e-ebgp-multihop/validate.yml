@@ -1,0 +1,32 @@
+session:
+  description: Check INT-EXT EBGP session
+  fail: The INT-EXT EBGP session is not established
+  pass: The EBGP session is in Established state
+  nodes: [ int ]
+  stop_on_error: True
+  show:
+    cumulus: bgp summary json
+    frr: bgp summary json
+    eos: "ip bgp summary | json"
+
+  valid:
+    cumulus: >
+      ipv4Unicast.peers["172.16.0.3"].state == "Established"
+    frr: >
+      ipv4Unicast.peers["172.16.0.3"].state == "Established"
+    eos: >
+      vrfs.default.peers["172.16.0.3"].peerState == "Established"
+
+int_pfx:
+  description: Check the inside prefix advertisement
+  pass: INT is advertising its IPv4 prefix
+  fail: INT is not advertising its IPv4 prefix
+  nodes: [ ext ]
+  plugin: bgp_prefix(nodes.int.interfaces[0].ipv4)
+
+ext_def:
+  description: Check the default route advertisement
+  pass: EXT is advertising a default route
+  fail: EXT is not advertising a default route
+  nodes: [ int ]
+  plugin: bgp_prefix('0.0.0.0/0')

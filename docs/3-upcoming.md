@@ -12,9 +12,6 @@ We have plenty of other ideas, including:
 
 ## Basic BGP Setup
 
-Optional exercises:
-: * Multihop EBGP peering across a firewall
-
 Advanced exercises:
 : * Configure BGP graceful restart
 
