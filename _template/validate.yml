@@ -1,49 +1,33 @@
-# Validate local-as lab
----
 session:
-  description: Check EBGP session with RTR on ISP routers
+  description: Check EBGP session with C1
   fail: The EBGP session with your router is not established
   pass: The EBGP session with RTR is in Established state
-  nodes: [ x1, x2 ]
+  devices: [ frr, cumulus, eos ]
+  nodes: [ p1, p2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'c1')
   stop_on_error: True
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-    eos: "ip bgp summary | json"
 
-  valid:
-    cumulus: >
-      ipv4Unicast.failedPeers == 0
-    frr: >
-      ipv4Unicast.failedPeers == 0
-    eos: >
-      vrfs.default.peers["{{ bgp.neighbors[0].ipv4 }}"].peerState == "Established"
+c_pfx:
+  description: Check customer prefix advertisement
+  pass: C1 is advertising its IPv4 prefix
+  fail: C1 is not advertising its IPv4 prefix
+  nodes: [ u1, u2 ]
+  plugin: bgp_prefix(nodes.c1.bgp.originate[0])
 
-updates:
-  description: Check the propagation of IPv4 prefixes from RTR
-  fail: RTR is not sending routes to ISP router
-  pass: RTR is sending routing updates
-  nodes: [ x1, x2 ]
-  stop_on_error: True
-  show:
-    cumulus: bgp ipv4 neighbor {{ bgp.neighbors[0].ipv4 }} routes json
-    frr: bgp ipv4 neighbor {{ bgp.neighbors[0].ipv4 }} routes json
-    eos: bgp neighbor {{ bgp.neighbors[0].ipv4 }} ipv4 unicast received-routes | json
-  valid:
-    cumulus: routes
-    frr: routes
-    eos: vrfs.default.bgpRouteEntries
+community:
+  description: Check the community attached to EBGP update sent from C1
+  nodes: [ p2 ]
+  plugin: >-
+    bgp_prefix(
+      nodes.c1.bgp.originate[0],
+      peer=nodes.c1.bgp.router_id,
+      community={'community': '65304:100'})
 
-aspath:
-  description: Check whether AS 65000 is in the AS path on X2
-  fail: RTR added AS 65000 to the AS path
-  pass: The AS path received from RTR does not contain AS 65000
-  nodes: [ x2 ]
-  show:
-    cumulus: bgp ipv4 regexp 65000 json
-    frr:  bgp ipv4 regexp 65000 json
-    eos: ip bgp regex 65000 | json
-  valid:
-    cumulus: not routes
-    frr: not routes
-    eos: not vrfs.default.bgpRouteEntries
+best:
+  description: Check that U2 prefers the path going through U1
+  nodes: [ u2 ]
+  plugin: >-
+    bgp_prefix(
+      nodes.c1.bgp.originate[0],
+      peer=nodes.u1.bgp.router_id,
+      best=True)
