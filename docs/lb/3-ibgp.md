@@ -37,6 +37,11 @@ Your routers are running OSPF in the backbone area. They have these BGP neighbor
 
  _netlab_ automatically configures IP addresses and routing protocols; if you're using some other lab infrastructure, you'll have to configure your devices manually.
  
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
+* Git repository contains external router initial device configurations for Cumulus Linux.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
@@ -125,12 +130,9 @@ core#show ip route 10.1.3.0
            via 10.1.0.6, Ethernet2, weight 1/4
 ```
 
+**Next:** [IBGP Load Balancing with BGP Additional Paths](4-ibgp-add-path.md)
+
 ## Reference Information
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

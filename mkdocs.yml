@@ -54,6 +54,7 @@ nav:
     - lb/1-ebgp.md
     - lb/2-dmz-bw.md
     - lb/3-ibgp.md
+    - lb/4-ibgp-add-path.md
   - "Other Useful Topics":
     - basic/7-bfd.md
     - basic/8-aggregate.md
@@ -94,7 +95,6 @@ nav:
 - "Upcoming":
   - Overview: 3-upcoming.md
   - challenge/01-bird-rr.md
-  - lb/4-ibgp-add-path.md
   - challenge/02-anycast.md
   - challenge/05-ebgp-dc.md
   - session/8-passive.md

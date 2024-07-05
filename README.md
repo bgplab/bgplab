@@ -53,6 +53,7 @@ The labs cover:
 * [Load Balancing across External BGP Paths](lb/1-ebgp)
 * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw)
 * [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp)
+* [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path)
 
 **Advanced Topics**
 

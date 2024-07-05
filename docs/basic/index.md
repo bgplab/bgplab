@@ -58,7 +58,7 @@ Modern BGP implementations perform simple EBGP and IBGP equal-cost multipathing[
 * [Load Balancing across External BGP Paths](../lb/1-ebgp.md)
 * [EBGP Load Balancing with BGP Link Bandwidth](../lb/2-dmz-bw.md)
 * [IBGP Load Balancing with BGP Link Bandwidth](../lb/3-ibgp.md) 
-* [IBGP Load Balancing with BGP Additional Paths](../lb/4-ibgp-add-path.md) (coming soon)
+* [IBGP Load Balancing with BGP Additional Paths](../lb/4-ibgp-add-path.md)
 
 [^ECMP]: Sending traffic toward a single destination across multiple equal-cost paths. Packet distribution across paths (load balancing) depends on the device configuration and the implementation details, and might be done per-packet, per-session, or per-destination.
 

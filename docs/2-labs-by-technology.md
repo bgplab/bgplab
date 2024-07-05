@@ -34,6 +34,13 @@ AS-path filters
 BFD (Bidirectional Forwarding Detection)
 : * [Use BGP Timers and BFD to Speed Up BGP Convergence](basic/7-bfd.md)
 
+BGP Additional Paths
+: * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
+
+BGP Link Bandwidth
+: * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
+	* [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
+
 Communities
 : * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach.md)
   * [Use BGP Communities in Routing Policies](policy/9-community-use.md)
@@ -79,6 +86,7 @@ Load balancing
 : * [Load Balancing across External BGP Paths](lb/1-ebgp.md)
   * [EBGP Load Balancing with BGP Link Bandwidth](lb/2-dmz-bw.md)
 	* [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
+  * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
 
 LOCAL_PREF (Local Preference)
 : * [Implement a consistent AS-wide routing policy](policy/5-local-preference.md) with BGP local preference.

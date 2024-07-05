@@ -1,0 +1,51 @@
+# IBGP Load Balancing with BGP Additional Paths
+---
+defaults.sources.extra: [ ../../defaults.yml ]
+name: add_path
+version: 1.8.3
+
+plugin: [ bgp.policy ]
+
+groups:
+  external:
+    members: [ x1, x2, we1, we2 ]
+  isp:
+    members: [ x1, x2 ]
+    bgp.as: 65100
+    bgp.advertise_loopback: false
+  customer:
+    members: [ we1, we2, rr, ac1 ]
+    bgp.as: 65000
+
+module: [ bgp, ospf ]
+
+nodes:
+  we1:
+  we2:
+  rr:
+    bgp.rr: True
+  ac1:
+  x1:
+    id: 10
+  x2:
+    id: 11
+links:
+- we1:
+    bgp.bandwidth: 1000
+  x1:
+- we2:
+    bgp.bandwidth: 2000
+  x2:
+- ac1-we1
+- ac1-we2
+- rr-we1
+- rr-we2
+- x1:
+  x2:
+  prefix:
+    ipv4: 192.168.42.0/24
+  bgp.advertise: True
+
+message: |
+  The "IBGP Load Balancing with BGP Additional Paths" lab is ready. Use "netlab
+  connect" to connect to lab devices.
