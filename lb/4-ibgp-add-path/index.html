@@ -78,7 +78,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -208,6 +208,10 @@
             
 <li>
     <a href="../3-ibgp/" class="dropdown-item">IBGP Load Balancing with BGP Link Bandwidth</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">IBGP Load Balancing with BGP Additional Paths</a>
 </li>
     </ul>
   </li>
@@ -361,7 +365,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Upcoming <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -371,10 +375,6 @@
                                     
 <li>
     <a href="../../challenge/01-bird-rr/" class="dropdown-item">Using Bird BGP Daemon as a BGP Route Reflector</a>
-</li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active">IBGP Load Balancing with BGP Additional Paths</a>
 </li>
                                     
 <li>
@@ -399,12 +399,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../challenge/01-bird-rr/" class="nav-link">
+                                <a rel="prev" href="../3-ibgp/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../challenge/02-anycast/" class="nav-link">
+                                <a rel="next" href="../../basic/7-bfd/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -429,6 +429,42 @@
             
             <li class="nav-item" data-level="1"><a href="#ibgp-load-balancing-with-bgp-additional-paths" class="nav-link">IBGP Load Balancing with BGP Additional Paths</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-device-configuration" class="nav-link">Existing Device Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#device-requirements" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -439,11 +475,439 @@
 <h1 id="ibgp-load-balancing-with-bgp-additional-paths">IBGP Load Balancing with BGP Additional Paths</h1>
 <p>In the <a href="../3-ibgp/">previous lab exercise</a>, you implemented IBGP load balancing across prefixes received by two WAN edge routers. The load balancing worked because you did not use BGP route reflectors in your autonomous system. Like any other BGP router, BGP route reflectors send <em>their best routes</em> to their clients; in your network, the IBGP clients of the BGP route reflector receive a single path to the external prefix.</p>
 <p><img alt="Lab topology" src="../topology-ibgp-add-path.png" /></p>
-<p>You can use the <em>BGP Additional Paths</em> functionality to make the BGP route reflector send more than one best path to its clients, resulting in IBGP load balancing on BGP route reflector clients. You&rsquo;ll practice that in this lab exercise.</p>
+<p>You can use the <em>BGP Additional Paths</em> functionality to make the BGP route reflector send more than one BGP path for the same IP prefix to its clients, resulting in IBGP load balancing on BGP route reflector clients. You&rsquo;ll practice that in this lab exercise.</p>
+<h2 id="existing-device-configuration">Existing Device Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th>BGP RR</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>ac1</td>
+<td style="text-align: right;">10.0.0.4</td>
+<td></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+</tr>
+<tr>
+<td>rr</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td>✅</td>
+<td style="text-align: right;">10.0.0.3/32</td>
+</tr>
+<tr>
+<td>we1</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+</tr>
+<tr>
+<td>we2</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+</tr>
+<tr>
+<td><strong>AS65100</strong></td>
+<td style="text-align: right;"></td>
+<td></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>x1</td>
+<td style="text-align: right;">10.0.0.10</td>
+<td></td>
+<td style="text-align: right;">192.168.42.0/24</td>
+</tr>
+<tr>
+<td>x2</td>
+<td style="text-align: right;">10.0.0.11</td>
+<td></td>
+<td style="text-align: right;">192.168.42.0/24</td>
+</tr>
+</tbody>
+</table>
+<p>Your routers (RR and AC1) have these EBGP neighbors.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ac1</strong></td>
+<td>10.0.0.4</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>rr</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.3</td>
+</tr>
+<tr>
+<td><strong>rr</strong></td>
+<td>10.0.0.3</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>we1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.1</td>
+</tr>
+<tr>
+<td></td>
+<td>we2</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>ac1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">10.0.0.4</td>
+</tr>
+</tbody>
+</table>
+<p>All routers run OSPF in the backbone area on intra-AS interfaces.</p>
+<p><em>netlab</em> automatically configures device interfaces, OSPF, and BGP; if you&rsquo;re using another lab infrastructure, you&rsquo;ll have to configure lab devices manually.</p>
+<h2 id="device-requirements">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for AC1 and RR.</li>
+<li>Use a device on which <a href="https://netlab.tools/plugins/bgp.policy/#platform-support"><em>netlab</em> supports BGP link bandwidth attribute</a> (for example, FRR, Cumulus Linux, or Arista EOS) for external devices (X1, X2, WE1, WE2)</li>
+<li>Git repository contains Cumulus Linux configurations for X1, X2, WE1, and WE2.</li>
+</ul>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>lb/4-ibgp-add-path</code></li>
+<li>Execute <strong>netlab up</strong></li>
+<li>Log into your devices with <strong>netlab connect</strong> and verify that the IP addresses, OSPF, and EBGP sessions are properly configured.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This lab exercise requires <em>netlab</em> release 1.8.3 or later.</p>
+</div>
+<h2 id="the-problem">The Problem</h2>
+<p>The BGP route reflector (RR) receives a path toward <code>192.168.42.0/24</code> (with BGP link bandwidth) from WE1 and WE2 and could do weighted load balancing across the two paths if configured to do so (see <a href="../3-ibgp/">IBGP Load Balancing with BGP Link Bandwidth</a> for more details):</p>
+<pre><code>rr&gt;show ip bgp 192.168.42.0
+BGP routing table information for VRF default
+Router identifier 10.0.0.3, local AS number 65000
+BGP routing table entry for 192.168.42.0/24
+ Paths: 2 available
+  65100 (Received from a RR-client)
+    10.0.0.1 from 10.0.0.1 (10.0.0.1)
+      Origin IGP, metric 0, localpref 100, IGP metric 10, weight 0, tag 0
+      Received 00:48:45 ago, valid, internal, best
+      Extended Community: 0004-AS:65000:125000000
+      Rx SAFI: Unicast
+  65100 (Received from a RR-client)
+    10.0.0.2 from 10.0.0.2 (10.0.0.2)
+      Origin IGP, metric 0, localpref 100, IGP metric 10, weight 0, tag 0
+      Received 00:48:40 ago, valid, internal
+      Extended Community: 0004-AS:65000:250000000
+      Rx SAFI: Unicast
+</code></pre>
+<p>The BGP routing process in the BGP route reflector selects a single <em>best path</em> and advertises it to its clients. AC1, therefore, receives one of the paths advertised by WE1 and WE2 and never uses more than one exit point from AS 65000. Even worse, all route reflector clients use the same exit point.</p>
+<pre><code>ac1&gt;show ip bgp 192.168.42.0
+BGP routing table information for VRF default
+Router identifier 10.0.0.4, local AS number 65000
+BGP routing table entry for 192.168.42.0/24
+ Paths: 1 available
+  65100
+    10.0.0.1 from 10.0.0.3 (10.0.0.3)
+      Origin IGP, metric 0, localpref 100, IGP metric 10, weight 0, tag 0
+      Received 00:50:18 ago, valid, internal, best
+      Originator: 10.0.0.1, Cluster list: 10.0.0.3
+      Extended Community: 0004-AS:65000:125000000
+      Rx SAFI: Unicast
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Most BGP implementations do not consider the BGP link bandwidth attribute when selecting the best path. The path advertised to the route reflector clients could be the worst path toward an external destination.</p>
+</div>
+<p>To enable load balancing in our network, we need the capability to advertise more than just the best BGP path to route reflector clients &ndash; the BGP Additional Paths functionality.</p>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>BGP Additional Paths is an optional functionality that must turned on with a configuration command and negotiated between BGP neighbors. Some BGP implementations have granular control over the sending and receiving of additional paths and the ability to select which paths to send. We&rsquo;ll use the most straightforward approach: </p>
+<ul>
+<li>Configure RR to send additional paths to all route reflector clients using a configuration command similar to <strong>neighbor additional-paths</strong>. RR does not have to receive additional paths; we expect all edge routers to send a single best path.</li>
+<li>If needed, configure AC1 to accept additional paths.</li>
+<li>(Optional) Configure IBGP load balancing on RR and AC1 using commands you mastered in the <a href="../3-ibgp/">IBGP Load Balancing with BGP Link Bandwidth</a> exercise.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Configuring BGP Additional Paths on a BGP neighbor tears down the BGP session as the additional capability has to be negotiated. Schedule a maintenance window before introducing BGP Additional Paths into a production network.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<p>After configuring BGP Additional Paths on AC1 and RR, you should see two paths for the prefix <code>192.168.42.0/24</code> in the BGP table on AC1:</p>
+<pre><code>ac1#show ip bgp 192.168.42.0
+BGP routing table information for VRF default
+Router identifier 10.0.0.4, local AS number 65000
+BGP routing table entry for 192.168.42.0/24
+ Paths: 2 available
+  65100
+    10.0.0.1 from 10.0.0.3 (10.0.0.3)
+      Origin IGP, metric 0, localpref 100, IGP metric 10, weight 0, tag 0
+      Received 00:05:12 ago, valid, internal, ECMP head, ECMP, best, ECMP contributor
+      Originator: 10.0.0.1, Cluster list: 10.0.0.3
+      Extended Community: 0004-AS:65000:125000000
+      Rx path id: 0x2
+      Rx SAFI: Unicast
+  65100
+    10.0.0.2 from 10.0.0.3 (10.0.0.3)
+      Origin IGP, metric 0, localpref 100, IGP metric 10, weight 0, tag 0
+      Received 00:05:12 ago, valid, internal, ECMP, ECMP contributor
+      Originator: 10.0.0.2, Cluster list: 10.0.0.3
+      Extended Community: 0004-AS:65000:250000000
+      Rx path id: 0x3
+      Rx SAFI: Unicast
+</code></pre>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This lab is still under development. Follow <a href="https://blog.ipspace.net/">blog.ipspace.net</a> or <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak on LinkedIn</a> to find out when it will be ready.</p>
-</div></div>
+<p>A new BGP attribute (<code>Rx path id</code>) is attached to the BGP paths in the AC1 BGP table. The BGP Additional Paths functionality extends the IP prefixes with a unique path ID to make them distinct.</p>
+</div>
+<p>You can also inspect the capabilities negotiated with the BGP neighbors on RR:</p>
+<ul>
+<li>BGP Additional Paths <em>receive</em> capability should be <em>advertised</em> to all neighbors but not negotiated with any of them (because they are not expected to send additional paths)</li>
+<li>BGP Additional Paths <em>send</em> capability should be <em>negotiated</em> with AC1 and might be negotiated with WE1 and WE2 based on their default settings.</li>
+</ul>
+<p>This is the printout you would get on Arista EOS when using Cumulus Linux on WE1 and WE2 (the printout was significantly shortened and includes only the relevant information):</p>
+<pre><code>rr#show ip bgp neighbors
+BGP neighbor is 10.0.0.1, remote AS 65000, internal link
+ Description: we1
+...
+  Neighbor Capabilities:
+    Multiprotocol IPv4 Unicast: advertised and received and negotiated
+    Four Octet ASN: advertised and received and negotiated
+    Route Refresh: advertised and received and negotiated
+    Enhanced route refresh: advertised
+    Send End-of-RIB messages: advertised and received and negotiated
+    Additional-paths recv capability:
+      IPv4 Unicast: advertised
+    Additional-paths send capability:
+      IPv4 Unicast: negotiated
+...
+BGP neighbor is 10.0.0.4, remote AS 65000, internal link
+ Description: ac1
+...
+  Neighbor Capabilities:
+    Multiprotocol IPv4 Unicast: advertised and received and negotiated
+    Four Octet ASN: advertised and received and negotiated
+    Route Refresh: advertised and received and negotiated
+    Enhanced route refresh: advertised and received and negotiated
+    Send End-of-RIB messages: advertised and received and negotiated
+    Additional-paths recv capability:
+      IPv4 Unicast: advertised
+    Additional-paths send capability:
+      IPv4 Unicast: negotiated
+</code></pre>
+<h2 id="reference-information">Reference Information</h2>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Destination Device</th>
+<th>Destination Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>we1</td>
+<td>swp1</td>
+<td>x1</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>we2</td>
+<td>swp1</td>
+<td>x2</td>
+<td>swp1</td>
+</tr>
+<tr>
+<td>ac1</td>
+<td>Ethernet1</td>
+<td>we1</td>
+<td>swp2</td>
+</tr>
+<tr>
+<td>ac1</td>
+<td>Ethernet2</td>
+<td>we2</td>
+<td>swp2</td>
+</tr>
+<tr>
+<td>rr</td>
+<td>Ethernet1</td>
+<td>we1</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>rr</td>
+<td>Ethernet2</td>
+<td>we2</td>
+<td>swp3</td>
+</tr>
+<tr>
+<td>x1</td>
+<td>swp2</td>
+<td>x2</td>
+<td>swp2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ac1</strong></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.9/30</td>
+<td style="text-align: right;"></td>
+<td>ac1 -&gt; we1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.13/30</td>
+<td style="text-align: right;"></td>
+<td>ac1 -&gt; we2</td>
+</tr>
+<tr>
+<td><strong>rr</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">10.1.0.17/30</td>
+<td style="text-align: right;"></td>
+<td>rr -&gt; we1</td>
+</tr>
+<tr>
+<td>Ethernet2</td>
+<td style="text-align: right;">10.1.0.21/30</td>
+<td style="text-align: right;"></td>
+<td>rr -&gt; we2</td>
+</tr>
+<tr>
+<td><strong>we1</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.1/30</td>
+<td style="text-align: right;"></td>
+<td>we1 -&gt; x1</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.10/30</td>
+<td style="text-align: right;"></td>
+<td>we1 -&gt; ac1</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.18/30</td>
+<td style="text-align: right;"></td>
+<td>we1 -&gt; rr</td>
+</tr>
+<tr>
+<td><strong>we2</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.5/30</td>
+<td style="text-align: right;"></td>
+<td>we2 -&gt; x2</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">10.1.0.14/30</td>
+<td style="text-align: right;"></td>
+<td>we2 -&gt; ac1</td>
+</tr>
+<tr>
+<td>swp3</td>
+<td style="text-align: right;">10.1.0.22/30</td>
+<td style="text-align: right;"></td>
+<td>we2 -&gt; rr</td>
+</tr>
+<tr>
+<td><strong>x1</strong></td>
+<td style="text-align: right;">10.0.0.10/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.2/30</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; we1</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">192.168.42.1/24</td>
+<td style="text-align: right;"></td>
+<td>x1 -&gt; x2</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td style="text-align: right;">10.0.0.11/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">10.1.0.6/30</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; we2</td>
+</tr>
+<tr>
+<td>swp2</td>
+<td style="text-align: right;">192.168.42.2/24</td>
+<td style="text-align: right;"></td>
+<td>x2 -&gt; x1</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 

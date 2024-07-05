@@ -209,6 +209,10 @@
 <li>
     <a href="./" class="dropdown-item active">IBGP Load Balancing with BGP Link Bandwidth</a>
 </li>
+            
+<li>
+    <a href="../4-ibgp-add-path/" class="dropdown-item">IBGP Load Balancing with BGP Additional Paths</a>
+</li>
     </ul>
   </li>
                                     
@@ -374,10 +378,6 @@
 </li>
                                     
 <li>
-    <a href="../4-ibgp-add-path/" class="dropdown-item">IBGP Load Balancing with BGP Additional Paths</a>
-</li>
-                                    
-<li>
     <a href="../../challenge/02-anycast/" class="dropdown-item">Implement Anycast Services with BGP</a>
 </li>
                                     
@@ -404,7 +404,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../basic/7-bfd/" class="nav-link">
+                                <a rel="next" href="../4-ibgp-add-path/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -433,6 +433,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
               <ul class="nav flex-column">
               </ul>
@@ -451,10 +455,6 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
               <ul class="nav flex-column">
               </ul>
@@ -609,6 +609,11 @@
 </tbody>
 </table>
 <p><em>netlab</em> automatically configures IP addresses and routing protocols; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure your devices manually.</p>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
+<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
@@ -677,12 +682,8 @@ BGP routing table entry for 10.1.3.0/24
            via 10.1.0.2, Ethernet1, weight 3/4
            via 10.1.0.6, Ethernet2, weight 1/4
 </code></pre>
+<p><strong>Next:</strong> <a href="../4-ibgp-add-path/">IBGP Load Balancing with BGP Additional Paths</a></p>
 <h2 id="reference-information">Reference Information</h2>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
