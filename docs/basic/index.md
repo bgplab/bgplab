@@ -71,4 +71,4 @@ Willing to learn more? Challenge yourself with these advanced topics:
 * [Advertise Default Route in BGP](c-default-route.md)
 * [EBGP Sessions over IPv6 LLA Interfaces](d-interface.md)
 * [Running EBGP Across a Firewall](e-ebgp-multihop.md)
-* [Passive BGP Sessions](../session/8-passive.md) (coming soon)
+* [Passive BGP Sessions](../session/8-passive.md)

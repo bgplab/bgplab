@@ -117,6 +117,11 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      192.168.107.0/24       172.16.42.4           0       -          100     0       65107 i
 ```
 
+**Next:**
+
+* [Dynamic BGP Peers](9-dynamic.md)
+* [Passive BGP Sessions](8-passive.md)
+
 ## Reference Information
 
 ### Device Requirements {#req}

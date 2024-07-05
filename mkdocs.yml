@@ -61,6 +61,7 @@ nav:
     - basic/c-default-route.md
     - "EBGP Sessions over IPv6 LLA Interfaces": basic/d-interface.md
     - basic/e-ebgp-multihop.md
+    - session/8-passive.md
 
 - "Routing Policies":
   - Overview: policy/index.md
@@ -97,7 +98,6 @@ nav:
   - challenge/01-bird-rr.md
   - challenge/02-anycast.md
   - challenge/05-ebgp-dc.md
-  - session/8-passive.md
 
 markdown_extensions:
 - footnotes

@@ -67,7 +67,7 @@ EBGP sessions
   * [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md) (coming soon)
   * [Dynamic BGP Peers](session/9-dynamic.md)
   * [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)
-  * [Passive BGP Sessions](session/8-passive.md) (coming soon)
+  * [Passive BGP Sessions](session/8-passive.md)
 
 Forwarding Table
 : * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
