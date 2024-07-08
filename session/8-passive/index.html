@@ -78,7 +78,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Deploy BGP <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -239,6 +239,10 @@
 <li>
     <a href="../../basic/e-ebgp-multihop/" class="dropdown-item">Running EBGP Across a Firewall</a>
 </li>
+            
+<li>
+    <a href="./" class="dropdown-item active">Passive BGP Sessions</a>
+</li>
     </ul>
   </li>
                                 </ul>
@@ -365,7 +369,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Upcoming <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -384,10 +388,6 @@
 <li>
     <a href="../../challenge/05-ebgp-dc/" class="dropdown-item">EBGP-Only Data Center Design</a>
 </li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active">Passive BGP Sessions</a>
-</li>
                                 </ul>
                             </li>
                         </ul>
@@ -399,12 +399,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../challenge/05-ebgp-dc/" class="nav-link">
+                                <a rel="prev" href="../../basic/e-ebgp-multihop/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../../policy/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -429,6 +429,42 @@
             
             <li class="nav-item" data-level="1"><a href="#passive-bgp-sessions" class="nav-link">Passive BGP Sessions</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -440,18 +476,267 @@
 <p>BGP routers continuously try to establish TCP sessions (and start the BGP protocol) with the configured neighbors. That persistence might result in performance challenges when a hub router has hundreds (or thousands) of spoke neighbors that might not always be reachable. In those cases, a <em>passive</em> BGP router might offer an advantage; such a router would accept incoming TCP sessions to port 179 but never try to establish a TCP session with its BGP neighbors.</p>
 <p>Passive BGP is a rarely used feature but might make sense in these scenarios:</p>
 <ul>
-<li>Route reflectors with many clients,</li>
-<li>Route servers,</li>
+<li><a href="../../ibgp/3-rr/">Route reflectors</a> with many clients,</li>
+<li><a href="../5-routeserver/">Route servers</a>,</li>
 <li>Hubs in large VPN deployments,</li>
 <li>Leaf switches running BGP with servers or virtual machines, </li>
 <li>BGP monitoring tools, </li>
-<li>Routers outside a firewall running BGP with an inside router.</li>
+<li>Routers outside a firewall <a href="../../basic/e-ebgp-multihop/">running BGP with an inside router</a>.</li>
 </ul>
 <p>In this lab exercise, you&rsquo;ll make the hub BGP router passive and explore what happens with its view of its BGP neighbors as they shut down their BGP sessions.</p>
 <p><img alt="Lab topology" src="../topology-passive-bgp.png" /></p>
+<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
+<p>The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.</p>
+<table>
+<thead>
+<tr>
+<th>Node/ASN</th>
+<th style="text-align: right;">Router ID</th>
+<th style="text-align: right;">Advertised prefixes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AS65000</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>hub</td>
+<td style="text-align: right;">10.0.0.1</td>
+<td style="text-align: right;">10.0.0.1/32</td>
+</tr>
+<tr>
+<td><strong>AS65100</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>s1</td>
+<td style="text-align: right;">10.0.0.2</td>
+<td style="text-align: right;">10.0.0.2/32</td>
+</tr>
+<tr>
+<td><strong>AS65103</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>s2</td>
+<td style="text-align: right;">10.0.0.3</td>
+<td style="text-align: right;">10.0.0.3/32</td>
+</tr>
+<tr>
+<td><strong>AS65107</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td>s3</td>
+<td style="text-align: right;">10.0.0.4</td>
+<td style="text-align: right;">10.0.0.4/32</td>
+</tr>
+</tbody>
+</table>
+<p>The hub router has these EBGP neighbors:</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Router ID /<br />Neighbor</th>
+<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
+<th style="text-align: right;">Neighbor IPv4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hub</strong></td>
+<td>10.0.0.1</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td></td>
+<td>s1</td>
+<td style="text-align: right;">65100</td>
+<td style="text-align: right;">172.16.0.2</td>
+</tr>
+<tr>
+<td></td>
+<td>s2</td>
+<td style="text-align: right;">65103</td>
+<td style="text-align: right;">172.16.0.3</td>
+</tr>
+<tr>
+<td></td>
+<td>s3</td>
+<td style="text-align: right;">65107</td>
+<td style="text-align: right;">172.16.0.4</td>
+</tr>
+</tbody>
+</table>
+<p><em>netlab</em> automatically configures device interfaces, IP addresses, and BGP routing; if you&rsquo;re using another lab infrastructure, you&rsquo;ll have to configure lab devices manually.</p>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for HUB and S1.</li>
+<li>Use any device for which <em>netlab</em> implements <a href="https://netlab.tools/plugins/bgp.session/#platform-support">passive BGP neighbors and BGP timers</a> for the external routers (S2 and S3). The Git repository contains external router initial device configurations for Cumulus Linux.</li>
+</ul>
+<h2 id="start-the-lab">Start the Lab</h2>
+<p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
+<ul>
+<li>Change directory to <code>session/8-passive</code></li>
+<li>Execute <strong>netlab up</strong></li>
+<li>Log into your devices (HUB and S1) with <strong>netlab connect</strong> and verify that their IP addresses and the EBGP sessions are properly configured.</li>
+</ul>
+<h2 id="the-problem">The Problem</h2>
+<p>Log into the hub router and check its EBGP sessions. It should have three established EBGP sessions. Now shut down S2:</p>
+<ul>
+<li>Use <strong>netlab status</strong> to find the container/VM name of S2.</li>
+<li>Use <strong>docker kill <em>container</em></strong> if you&rsquo;re running network devices as containers.</li>
+<li>Use <strong>vagrant halt <em>vm</em></strong> if you&rsquo;re running network devices as virtual machines</li>
+</ul>
+<p>After the BGP hold timer expires<sup id="fnref:S2HD"><a class="footnote-ref" href="#fn:S2HD">1</a></sup>, the corresponding EBGP session on the hub router will most probably enter the <code>Connect</code> state<sup id="fnref:CST"><a class="footnote-ref" href="#fn:CST">2</a></sup>:</p>
+<pre><code>hub&gt;show ip bgp summary
+BGP summary information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor   V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  s1                       172.16.0.2 4 65100             10        12    0    0 00:04:32 Estab   1      1
+  s2                       172.16.0.3 4 65103             65        75    0    0 00:01:36 Connect
+  s3                       172.16.0.4 4 65107            101       114    0    0 00:04:31 Estab   1      1
+</code></pre>
+<p>We don&rsquo;t want that; we would like the hub router to ignore the unreachable neighbors.</p>
+<h2 id="configuration-tasks">Configuration Tasks</h2>
+<p>On the hub router, configure all EBGP neighbors as passive BGP neighbors with a configuration command similar to <strong>neighbor passive</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Cumulus Linux or FRR might reset the BGP session when you configure the device to be a passive BGP neighbor.</p>
+</div>
+<h2 id="verification">Verification</h2>
+<p>Inspect the state of the BGP sessions on the hub router with a command similar to <strong>show ip bgp summary</strong>. The session with S2 should be in an <code>Idle</code> or <code>Active</code> state (but not in <code>Connect</code> state). This is the printout you should get on Arista EOS:</p>
+<pre><code>hub&gt;show ip bgp summary
+BGP summary information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor   V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  s1                       172.16.0.2 4 65100              6         8    0    0 00:01:24 Estab   1      1
+  s2                       172.16.0.3 4 65103             47        56    0    0 00:00:46 Active
+  s3                       172.16.0.4 4 65107             38        42    0    0 00:01:24 Estab   1      1
+</code></pre>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>This lab is still under development. Follow <a href="https://blog.ipspace.net/">blog.ipspace.net</a> or <a href="https://www.linkedin.com/in/ivanpepelnjak/">Ivan Pepelnjak on LinkedIn</a> to find out when it will be ready.</p>
+<p>When in doubt (the BGP states displayed by network devices can be confusing), use a command similar to <strong>show ip bgp neighbor <em>ip-address</em></strong> and look for the <em>passive</em> keyword in the printout.</p>
+</div>
+<p>Now clear all BGP sessions on the hub router with a command similar to <strong>clear ip bgp *</strong>. The session with S3 should enter the <code>Idle</code> or <code>Active</code> state &ndash; S3 is configured to be a passive EBGP peer, and two passive peers cannot establish a session.</p>
+<h2 id="reference-information">Reference Information</h2>
+<h3 id="lab-wiring">Lab Wiring</h3>
+<table>
+<thead>
+<tr>
+<th>Origin Device</th>
+<th>Origin Port</th>
+<th>Link Name (NET)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hub</td>
+<td>Ethernet1</td>
+<td>passive_1</td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+<tr>
+<td>s1</td>
+<td>Ethernet1</td>
+<td>passive_1</td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+<tr>
+<td>s2</td>
+<td>swp1</td>
+<td>passive_1</td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+<tr>
+<td>s3</td>
+<td>swp1</td>
+<td>passive_1</td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lab-addressing">Lab Addressing</h3>
+<table>
+<thead>
+<tr>
+<th>Node/Interface</th>
+<th style="text-align: right;">IPv4 Address</th>
+<th style="text-align: right;">IPv6 Address</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>hub</strong></td>
+<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">172.16.0.1/24</td>
+<td style="text-align: right;"></td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+<tr>
+<td><strong>s1</strong></td>
+<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>Ethernet1</td>
+<td style="text-align: right;">172.16.0.2/24</td>
+<td style="text-align: right;"></td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+<tr>
+<td><strong>s2</strong></td>
+<td style="text-align: right;">10.0.0.3/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">172.16.0.3/24</td>
+<td style="text-align: right;"></td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+<tr>
+<td><strong>s3</strong></td>
+<td style="text-align: right;">10.0.0.4/32</td>
+<td style="text-align: right;"></td>
+<td>Loopback</td>
+</tr>
+<tr>
+<td>swp1</td>
+<td style="text-align: right;">172.16.0.4/24</td>
+<td style="text-align: right;"></td>
+<td>Carrier Ethernet LAN</td>
+</tr>
+</tbody>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:S2HD">
+<p>S2 tries to negotiate a 3-second BGP hold timer with the hub router&#160;<a class="footnote-backref" href="#fnref:S2HD" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:CST">
+<p>The state in which a device actively tries to open a TCP session with a BGP neighbor might be displayed as an <code>Active</code> state on some other network devices.&#160;<a class="footnote-backref" href="#fnref:CST" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
 </div></div>
             </div>
         </div>
