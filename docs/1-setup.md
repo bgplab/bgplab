@@ -10,12 +10,12 @@ It's easiest to use the BGP labs with _[netlab](https://netlab.tools/)_. Still, 
 
 ## Select the Network Devices You Will Work With
 
-You can run Cumulus Linux (and FRR) in all [_netlab_-supported virtualization environments](https://netlab.tools/providers/) (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, [Macbooks with Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)).
+Cumulus Linux and FRRouting devices can be run in all [_netlab_-supported virtualization environments](https://netlab.tools/providers/) (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, [Macbooks with Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)).
 
 If you'd like to use a more traditional networking device, use any other [_netlab_-supported device](https://netlab.tools/platforms/) for which we implemented [basic BGP configuration](https://netlab.tools/module/bgp/#platform-support) as the device to practice with[^x86]. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.
 
 !!! tip
-    If you plan to run the BGP labs in [free GitHub Codespaces](4-codespaces.md), I'd recommend using container-based network devices like Arista cEOS, Cumulus Linux, FRR, Nokia SR Linux, or Vyos.
+    You must use container-based network devices like Arista cEOS, Cumulus Linux, FRR, Nokia SR Linux, or Vyos if you plan to run the BGP labs in [GitHub Codespaces](4-codespaces.md). 
 
 [^x86]: You will have to run the labs on a device with an x86 CPU (Intel or AMD).
 
@@ -63,12 +63,13 @@ One more gotcha: your hardware and virtualization software (for example, Virtual
 
 Based on the choices you made, you'll find the installation instructions in one of these documents:
 
-* [Virtualbox-Based Lab on Windows or MacOS](https://netlab.tools/labs/virtualbox/)
+* [Using GitHub Codespaces](4-codespaces.md)
 * [Ubuntu VM Installation](https://netlab.tools/install/ubuntu-vm/) on Windows or MacOS
 * [Ubuntu Server Installation](https://netlab.tools/install/ubuntu/)
 * [Running netlab on any other Linux Server](https://netlab.tools/install/linux/)
 * [Running netlab in a Public Cloud](https://netlab.tools/install/cloud/)
 * [Running netlab on Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)
+* Discouraged: [Virtualbox-Based Lab on Windows or MacOS](https://netlab.tools/labs/virtualbox/)
 
 Once you have completed the software installation you have to deal with the stupidities of downloading and installing network device images ([Virtualbox](https://netlab.tools/labs/virtualbox/), [libvirt](https://netlab.tools/labs/libvirt/#vagrant-boxes), [containers](https://netlab.tools/labs/clab/#container-images)) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.
 
@@ -78,11 +79,14 @@ I would love to simplify the process, but the networking vendors refuse to play 
 
 ## Setting Up the Labs {#defaults}
 
-We finally got to the fun part -- setting up the labs:
+We finally got to the fun part -- setting up the labs. If you're not using GitHub Codespaces:
 
 * Select a directory where you want to have the BGP labs
 * Clone the `bgplab` [GitHub repository](https://github.com/bgplab/bgplab) with `git clone https://github.com/bgplab/bgplab.git`. [GitHub UI](https://github.com/bgplab/bgplab) gives you other options in the green `Code` button, including _Download ZIP_
-* Open the `defaults.yml` file in the top directory and edit it to set your preferred network device and virtualization environment. For example, I'm using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:
+
+After you get a local copy of the repository:
+
+* If needed, edit the `defaults.yml` file in the top directory to set your preferred network device and virtualization environment. For example, I'm using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:
 
 ```
 device: eos             # Change to your preferred network device
