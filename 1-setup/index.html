@@ -416,43 +416,50 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+                    <div class="col-md-3">
+<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+  <div class="navbar-header">
+      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+          <span class="fa fa-angle-down"></span>
+      </button>
+  </div>
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+  
+  
+  
+  
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary"  style="margin-bottom: 1em;">
+      <ul class="nav flex-column">
+          
+      <li class="nav-item" data-level="1"><a href="#software-installation-and-lab-setup" class="nav-link">Software Installation and Lab Setup</a>
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#software-installation-and-lab-setup" class="nav-link">Software Installation and Lab Setup</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#select-the-network-devices-you-will-work-with" class="nav-link">Select the Network Devices You Will Work With</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#select-the-additional-devices-in-your-lab" class="nav-link">Select the Additional Devices in Your Lab</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#select-the-virtualization-environment" class="nav-link">Select the Virtualization Environment</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#software-installation" class="nav-link">Software Installation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#defaults" class="nav-link">Setting Up the Labs</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
+      <li class="nav-item" data-level="2"><a href="#select-the-network-devices-you-will-work-with" class="nav-link">Select the Network Devices You Will Work With</a>
+        <ul class="nav flex-column">
         </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#select-the-additional-devices-in-your-lab" class="nav-link">Select the Additional Devices in Your Lab</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#select-the-virtualization-environment" class="nav-link">Select the Virtualization Environment</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#software-installation" class="nav-link">Software Installation</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#defaults" class="nav-link">Setting Up the Labs</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+        </ul>
+      </li>
+      </ul>
     </div>
+  
+  
+  
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -463,11 +470,11 @@
 <p>BGP labs work best with <em>netlab</em> release 1.8.3 or later. If you&rsquo;re using an earlier <em>netlab</em> release, please upgrade with <code>pip3 install --upgrade networklab</code>.</p>
 </div>
 <h2 id="select-the-network-devices-you-will-work-with">Select the Network Devices You Will Work With</h2>
-<p>You can run Cumulus Linux (and FRR) in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks with Apple silicon</a>).</p>
+<p>Cumulus Linux and FRRouting devices can be run in all <a href="https://netlab.tools/providers/"><em>netlab</em>-supported virtualization environments</a> (VirtualBox, libvirt, or Docker), and if you want to start practicing BGP with minimum hassle, consider using it for all lab devices. Use FRR on the ARM CPU (for example, <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Macbooks with Apple silicon</a>).</p>
 <p>If you&rsquo;d like to use a more traditional networking device, use any other <a href="https://netlab.tools/platforms/"><em>netlab</em>-supported device</a> for which we implemented <a href="https://netlab.tools/module/bgp/#platform-support">basic BGP configuration</a> as the device to practice with<sup id="fnref:x86"><a class="footnote-ref" href="#fn:x86">1</a></sup>. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you plan to run the BGP labs in <a href="../4-codespaces/">free GitHub Codespaces</a>, I&rsquo;d recommend using container-based network devices like Arista cEOS, Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
+<p>You must use container-based network devices like Arista cEOS, Cumulus Linux, FRR, Nokia SR Linux, or Vyos if you plan to run the BGP labs in <a href="../4-codespaces/">GitHub Codespaces</a>. </p>
 </div>
 <h2 id="select-the-additional-devices-in-your-lab">Select the Additional Devices in Your Lab</h2>
 <p>The labs heavily rely on external BGP feeds &ndash; preconfigured devices with which your routers exchange routing information. You won&rsquo;t configure those devices, but you might have to log into them and execute <strong>show</strong> commands.</p>
@@ -522,21 +529,25 @@
 <h2 id="software-installation">Software Installation</h2>
 <p>Based on the choices you made, you&rsquo;ll find the installation instructions in one of these documents:</p>
 <ul>
-<li><a href="https://netlab.tools/labs/virtualbox/">Virtualbox-Based Lab on Windows or MacOS</a></li>
+<li><a href="../4-codespaces/">Using GitHub Codespaces</a></li>
 <li><a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM Installation</a> on Windows or MacOS</li>
 <li><a href="https://netlab.tools/install/ubuntu/">Ubuntu Server Installation</a></li>
 <li><a href="https://netlab.tools/install/linux/">Running netlab on any other Linux Server</a></li>
 <li><a href="https://netlab.tools/install/cloud/">Running netlab in a Public Cloud</a></li>
 <li><a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html">Running netlab on Apple silicon</a></li>
+<li>Discouraged: <a href="https://netlab.tools/labs/virtualbox/">Virtualbox-Based Lab on Windows or MacOS</a></li>
 </ul>
 <p>Once you have completed the software installation you have to deal with the stupidities of downloading and installing network device images (<a href="https://netlab.tools/labs/virtualbox/">Virtualbox</a>, <a href="https://netlab.tools/labs/libvirt/#vagrant-boxes">libvirt</a>, <a href="https://netlab.tools/labs/clab/#container-images">containers</a>) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.</p>
 <p>I would love to simplify the process, but the networking vendors refuse to play along. Even worse,  their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you<sup id="fnref:NPAL"><a class="footnote-ref" href="#fn:NPAL">7</a></sup>. Fortunately, you only have to go through this colossal waste of time once.</p>
 <h2 id="defaults">Setting Up the Labs</h2>
-<p>We finally got to the fun part &ndash; setting up the labs:</p>
+<p>We finally got to the fun part &ndash; setting up the labs. If you&rsquo;re not using GitHub Codespaces:</p>
 <ul>
 <li>Select a directory where you want to have the BGP labs</li>
 <li>Clone the <code>bgplab</code> <a href="https://github.com/bgplab/bgplab">GitHub repository</a> with <code>git clone https://github.com/bgplab/bgplab.git</code>. <a href="https://github.com/bgplab/bgplab">GitHub UI</a> gives you other options in the green <code>Code</code> button, including <em>Download ZIP</em></li>
-<li>Open the <code>defaults.yml</code> file in the top directory and edit it to set your preferred network device and virtualization environment. For example, I&rsquo;m using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:</li>
+</ul>
+<p>After you get a local copy of the repository:</p>
+<ul>
+<li>If needed, edit the <code>defaults.yml</code> file in the top directory to set your preferred network device and virtualization environment. For example, I&rsquo;m using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:</li>
 </ul>
 <pre><code>device: eos             # Change to your preferred network device
 provider: clab          # Change to virtualbox or libvirt if needed

@@ -416,79 +416,86 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+                    <div class="col-md-3">
+<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+  <div class="navbar-header">
+      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+          <span class="fa fa-angle-down"></span>
+      </button>
+  </div>
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+  
+  
+  
+  
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary"  style="margin-bottom: 1em;">
+      <ul class="nav flex-column">
+          
+      <li class="nav-item" data-level="1"><a href="#bgp-route-aggregation" class="nav-link">BGP Route Aggregation</a>
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#bgp-route-aggregation" class="nav-link">BGP Route Aggregation</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#lab-setup" class="nav-link">Lab Setup</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#bgp-routers-and-as-numbers" class="nav-link">BGP Routers and AS Numbers</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#bgp-neighbors" class="nav-link">BGP Neighbors</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#ospf-setup-area-0000" class="nav-link">OSPF Setup (Area 0.0.0.0)</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#redistribute-ospf-into-bgp" class="nav-link">Redistribute OSPF into BGP</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#configure-bgp-route-aggregation" class="nav-link">Configure BGP Route Aggregation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#suppress-more-specific-prefixes" class="nav-link">Suppress More Specific Prefixes</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#filter-outbound-updates" class="nav-link">Filter Outbound Updates</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#final-verification" class="nav-link">Final Verification</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-              </ul>
-            </li>
+      <li class="nav-item" data-level="2"><a href="#lab-setup" class="nav-link">Lab Setup</a>
+        <ul class="nav flex-column">
+      <li class="nav-item" data-level="3"><a href="#bgp-routers-and-as-numbers" class="nav-link">BGP Routers and AS Numbers</a>
+        <ul class="nav flex-column">
         </ul>
+      </li>
+      <li class="nav-item" data-level="3"><a href="#bgp-neighbors" class="nav-link">BGP Neighbors</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="3"><a href="#ospf-setup-area-0000" class="nav-link">OSPF Setup (Area 0.0.0.0)</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#redistribute-ospf-into-bgp" class="nav-link">Redistribute OSPF into BGP</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#configure-bgp-route-aggregation" class="nav-link">Configure BGP Route Aggregation</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#suppress-more-specific-prefixes" class="nav-link">Suppress More Specific Prefixes</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#filter-outbound-updates" class="nav-link">Filter Outbound Updates</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#final-verification" class="nav-link">Final Verification</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+        <ul class="nav flex-column">
+      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+        </ul>
+      </li>
+        </ul>
+      </li>
+      </ul>
     </div>
+  
+  
+  
 </div></div>
                     <div class="col-md-9" role="main">
 
