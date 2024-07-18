@@ -1,6 +1,8 @@
 # EBGP Load Balancing with BGP Link Bandwidth
 
-In [the previous exercise](1-ebgp.md), you configured Equal-Cost Multipathing (ECMP) between EBGP paths. ECMP results in your router sending approximately the same amount of traffic across all equal-cost links. That approach results in suboptimal performance if the links have different bandwidths, in which case you need *Unequal-Cost Multipathing* (UCMP).
+In [the previous exercise](1-ebgp.md), you configured Equal-Cost Multipathing (ECMP) between EBGP paths. ECMP results in your router sending approximately the same amount of traffic across all equal-cost links. That approach results in suboptimal performance if the links have different bandwidths, in which case you need *Weighted* ECMP[^SCDW].
+
+[^SCDW]: The costs of the alternate paths are the same, thus ECMP, but the load-balancing algorithm uses unequal weights.
 
 Most BGP implementations support the *[BGP Link Bandwidth Extended Community](https://datatracker.ietf.org/doc/html/draft-ietf-idr-link-bandwidth-07)*, which can influence the load balancing ratios across links with unequal bandwidth.
 
@@ -20,7 +22,7 @@ The routers in your lab use the following BGP AS numbers. Each router router adv
 | x1 | 10.0.0.2 | 10.1.3.0/24 |
 | x2 | 10.0.0.3 | 10.1.3.0/24 |
 
-Your router has these EBGP neighbors.  _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
+Your router has these EBGP neighbors.  _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
 | Node | Router ID /<br />Neighbor | Router AS/<br />Neighbor AS | Neighbor IPv4 |
 |------|---------------------------|----------------------------:|--------------:|
@@ -125,7 +127,7 @@ BGP routing table entry for 10.1.3.0/24
       Rx SAFI: Unicast
 ```
 
-Check the UCMP weights in the IP routing table. While this information might be hard to get on some platforms, Arista EOS makes it very explicit:
+Check the UCMP weights in the IP routing table. While this information might be challenging to get on some platforms, Arista EOS makes it very explicit:
 
 ```
 rtr#show ip route 10.1.3.0/24
