@@ -153,6 +153,14 @@ pre code {
     font-size: 12px;
 }
 
+.code-caption {
+    font-size: 80%;
+    padding: 3px 6px;
+    background-color: #372f2d;
+    color: #fff;
+    margin: 1em 0 0 0;
+}
+
 kbd {
     padding: 2px 4px;
     font-size: 90%;
