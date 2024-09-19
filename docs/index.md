@@ -60,10 +60,6 @@ These are the most recent labs added to the BGP Labs project:
 * [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)
 * [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)
 * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
-* [Resolve BGP Wedgies](policy/e-wedgies.md)<!--adv-->
 * [Dynamic BGP Peers](session/9-dynamic.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
-* [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)<!--adv-->
 * [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
-* [IBGP Load Balancing with BGP Link Bandwidth](lb/3-ibgp.md)
-
