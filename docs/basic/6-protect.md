@@ -21,7 +21,7 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| rtr | 10.0.0.1 | 192.168.42.0/24<br>10.0.0.1/32 |
+| rtr | 10.0.0.1 | 192.168.42.0/24 |
 | **AS65100** ||
 | x1 | 10.0.0.10 | 192.168.100.0/24 |
 | **AS65101** ||
@@ -58,6 +58,12 @@ To make the lab work:
 
 ## Verification
 
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2.
+
+![](basic-protect-validate.png)
+
+Do manual verification if the **netlab validate** command fails or you're using another network operating system on those routers.
+
 Check the state of the BGP sessions with a command similar to **show ip bgp summary**. This is a printout taken from Arista EOS:
 
 ```
@@ -79,7 +85,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* _netlab_ has to configure default route origination, MD5 password, and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support). You must use Cumulus Linux on the external routers if you're using _netlab_ release 1.6.3 or older.
+* _netlab_ has to configure default route origination, MD5 password, and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support).
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring

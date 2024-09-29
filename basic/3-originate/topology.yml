@@ -1,10 +1,14 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ ebgp.utils,external_devices ]
+plugin: [ bgp.session, check_validate ]
 name: originate
 
 module: [ bgp ]
+
+version: 1.6.4
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 groups:
   external:

@@ -5,7 +5,11 @@ name: multihomed
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:
-plugin: [ ebgp.utils, external_devices, check_validate, fix_frr ]
+plugin: [ bgp.session, check_validate, fix_frr ]
+
+version: 1.6.4
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 groups:
   external:

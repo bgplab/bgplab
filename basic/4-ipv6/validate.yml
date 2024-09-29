@@ -1,61 +1,22 @@
-# Check RTR-X1 EBGP session
 session:
   description: Check IPv6 EBGP session with RTR on ISP routers
   fail: The IPv6 EBGP session with your router is not established
   pass: The IPv6 EBGP session with RTR is in Established state
   stop_on_error: True
+  devices: [ eos, frr, cumulus ]
   nodes: [ x1,x2 ]
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-    eos: "bgp ipv6 unicast summary | json"
-  valid:
-    cumulus: >
-      {% for n in bgp.neighbors if n.name == 'rtr' %}
-      ipv6Unicast.peers["{{ n.ipv6 }}"].state == "Established"
-      {% endfor %}
-    frr: >
-      {% for n in bgp.neighbors if n.name == 'rtr' %}
-      ipv6Unicast.peers["{{ n.ipv6 }}"].state == "Established"
-      {% endfor %}
-    eos: >
-      {% for n in bgp.neighbors if n.name == 'rtr' %}
-      vrfs.default.peers["{{ n.ipv6 }}"].peerState == "Established"
-      {% endfor %}
+  plugin: bgp_neighbor(node.bgp.neighbors,'rtr',af='ipv6')
 
 pfxcnt:
   description: Check whether RTR receives and sends IPv6 prefixes
   fail: RTR is not advertising IPv6 prefixes to ISP routers
-  pass: RTR is advertising IPv6 prefixes to ISP routers
-  nodes: [ x1,x2 ]
-  show:
-    cumulus: >
-      {% for n in bgp.neighbors if n.name == 'rtr' %}
-      bgp ipv6 neighbors {{ n.ipv6 }} routes json
-      {% endfor %}
-    frr: >
-      {% for n in bgp.neighbors if n.name == 'rtr' %}
-      bgp ipv6 neighbors {{ n.ipv6 }} routes json
-      {% endfor %}
-    eos: >
-      {% for n in bgp.neighbors if n.name == 'rtr' %}
-      bgp neighbor {{ n.ipv6 }} ipv6 unicast routes | json
-      {% endfor %}
-  valid:
-    cumulus: routes
-    frr: routes
-    eos: vrfs.default.bgpRouteEntries
+  pass: RTR is advertising X1 IPv6 prefix to X2
+  nodes: [ x2 ]
+  plugin: bgp_prefix(nodes.x1.loopback.ipv6,af='ipv6')
 
 advroute:
   description: Check whether RTR advertises 2001:db8:1::/48
   fail: RTR is not advertising 2001:db8:1::/48
   pass: RTR is advertising 2001:db8:1::/48 to ISP routers
   nodes: [ x1,x2 ]
-  show:
-    cumulus: bgp ipv6 2001:db8:1::/48 json
-    frr: bgp ipv6 2001:db8:1::/48 json
-    eos: bgp ipv6 unicast 2001:db8:1::/48 | json
-  valid:
-    cumulus: prefix
-    frr: prefix
-    eos: vrfs.default.bgpRouteEntries
+  plugin: bgp_prefix('2001:db8:1::/48',af='ipv6')
