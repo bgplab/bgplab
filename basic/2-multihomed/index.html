@@ -554,7 +554,7 @@
 </div>
 <p>You can also configure neighbor description and BGP neighbor status logging to get an information message when the BGP session is established.</p>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
 <p><img alt="" src="../basic-multihomed-validate.png" /></p>
 <p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
 <p>Check the state of the BGP session with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
@@ -594,7 +594,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
-<li>You can do automated lab validation when running Arista EOS, Cumulus Linux, or FRR on the external router. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
+<li>You can do automated lab validation when running Arista EOS, Cumulus Linux, or FRR on the external router. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

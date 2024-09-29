@@ -596,7 +596,7 @@
 </ul>
 <p>I know you&rsquo;ll figure out those details. Just keep in mind that there&rsquo;s not much difference (usually) between IPv4 and IPv6, and you already know how to <a href="../2-multihomed/">setup EBGP sessions</a> and <a href="../3-originate/">advertise IPv4 prefixes in BGP</a>. Just do the same thing for IPv6.</p>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
 <p><img alt="" src="../basic-ipv6-validate.png" /></p>
 <p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
 <p>Before digging into the details, check that the IPv6 BGP sessions are up. Use a command similar to <strong>show bgp ipv6 summary</strong> to verify that:</p>
@@ -683,7 +683,7 @@ Displayed  3 routes and 3 total paths
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
-<li>You can do automated lab validation with Arista EOS, Cisco IOSv, Cumulus Linux, or FRR running on the external router. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the external router. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

@@ -504,7 +504,7 @@
 <tr>
 <td>rtr</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">192.168.42.0/24<br>10.0.0.1/32</td>
+<td style="text-align: right;">192.168.42.0/24</td>
 </tr>
 <tr>
 <td><strong>AS65100</strong></td>
@@ -552,6 +552,9 @@ Neighbor Status Codes: m - Under maintenance
 <li>Configure MD5 TCP checksum on the EBGP session with X2. The password used by X2 is <code>GuessWhat</code>.</li>
 </ul>
 <h2 id="verification">Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2.</p>
+<p><img alt="" src="../basic-protect-validate.png" /></p>
+<p>Do manual verification if the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on those routers.</p>
 <p>Check the state of the BGP sessions with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
 <pre><code>rtr#show ip bgp summary
 BGP summary information for VRF default
@@ -567,7 +570,8 @@ Neighbor Status Codes: m - Under maintenance
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
-<li><em>netlab</em> has to configure default route origination, MD5 password, and GTSM on the external routers. You&rsquo;ll find the supported devices in the <strong>bgp.session</strong> <a href="https://netlab.tools/plugins/bgp.session/#platform-support">platform support table</a>. You must use Cumulus Linux on the external routers if you&rsquo;re using <em>netlab</em> release 1.6.3 or older.</li>
+<li><em>netlab</em> has to configure default route origination, MD5 password, and GTSM on the external routers. You&rsquo;ll find the supported devices in the <strong>bgp.session</strong> <a href="https://netlab.tools/plugins/bgp.session/#platform-support">platform support table</a>.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the X1, and X2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
