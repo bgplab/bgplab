@@ -2,14 +2,17 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: reduce
+version: 1.6.4
+
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 module: [ bgp ]
-plugin: [ ebgp.utils ]
+plugin: [ bgp.session, bgp.policy, check_validate ]
 
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
 
 nodes:
   rtr:
@@ -23,7 +26,6 @@ nodes:
     bgp.as: 65101
     id: 11
     bgp.originate: [ 192.168.101.0/24 ]
-    config: [ extra-config ]
 links:
 - rtr:
   x1:
@@ -31,6 +33,7 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+    bgp.locpref: 200
 - x1:
   x2:
 

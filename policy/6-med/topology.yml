@@ -1,8 +1,13 @@
 # Use MED to steer incoming traffic away from the backup link
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ ebgp.utils ]
 name: med
+version: 1.6.4
+
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
+plugin: [ bgp.session, check_validate ]
 
 module: [ bgp, ospf ]
 
@@ -10,7 +15,6 @@ groups:
   external:
     bgp.as: 65100
     members: [ x1, x2 ]
-    device: cumulus
     ospf.area: 1
   customer:
     bgp.as: 65000

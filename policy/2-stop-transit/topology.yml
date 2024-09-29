@@ -2,14 +2,16 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: no_transit
+version: 1.6.4
+_validate_version: 1.8.3
 
 module: [ bgp ]
-plugin: [ ebgp.utils ]
+plugin: [ bgp.session, bgp.policy, check_validate ]
+_include: [ validate.yml ]
 
 groups:
   external:
     members: [ x1, x2 ]
-    device: cumulus
 
 nodes:
   rtr:
@@ -26,7 +28,6 @@ nodes:
     bgp.router_id: 10.0.0.11
     id: 11
     loopback.ipv4: 192.168.101.1/24
-    config: [ extra-config ]
 links:
 - rtr:
   x1:
@@ -34,6 +35,7 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+    bgp.locpref: 200
 - x1:
   x2:
 
