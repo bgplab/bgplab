@@ -2,7 +2,12 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: noexport
+
+plugin: [ check_validate ]
+
 version: 1.6.4
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 bgp.community: []
 
@@ -10,11 +15,11 @@ groups:
   external:
     module: [ bgp ]
     members: [ x1, x2 ]
-    device: cumulus
   customer:
     module: [ bgp, ospf ]
     bgp.as: 65000
     members: [ c1, c2 ]
+    bgp.advertise_loopback: False
 
 nodes:
   c1:
@@ -52,6 +57,8 @@ links:
   c2:
   type: lan
   name: Customer internal link
+  prefix.ipv4: 192.168.42.0/24
+  bgp.advertise: True
 
 message: |
   The "Using No-Export Community to Filter Transit Routes" lab is ready.

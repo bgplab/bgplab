@@ -1,0 +1,37 @@
+ebgp_c1:
+  description: Check EBGP session with C1
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with C1 is in Established state
+  devices: [ frr, cumulus, eos ]
+  nodes: [ x1 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'c1')
+  stop_on_error: True
+
+ebgp_c2:
+  description: Check EBGP session with C2
+  fail: The EBGP session with your router is not established
+  pass: The EBGP session with C2 is in Established state
+  nodes: [ x2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'c2')
+  stop_on_error: True
+
+c_pfx:
+  description: Check customer prefix advertisement
+  pass: Customer routers are advertising their IPv4 prefix
+  fail: An ISP router did not receive the customer prefix
+  nodes: [ x1, x2 ]
+  plugin: bgp_prefix(links[5].prefix.ipv4)
+
+t_pfx_x2:
+  description: Check X1 => X2 transit prefix advertisement
+  pass: The customer AS is not advertising prefixes from X1 to X2
+  fail: Customer AS is not blocking transit routes
+  nodes: [ x2 ]
+  plugin: bgp_prefix(nodes.x1.loopback.ipv4,state='missing')
+
+t_pfx_x1:
+  description: Check X2 => X1 transit prefix advertisement
+  pass: The customer AS is not advertising prefixes from X2 to X1
+  fail: Customer AS is not blocking transit routes
+  nodes: [ x1 ]
+  plugin: bgp_prefix(nodes.x2.loopback.ipv4,state='missing')

@@ -18,8 +18,8 @@ The routers in your lab use the following BGP AS numbers. X1 and X2 advertise an
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| c1 | 10.0.0.1 |  |
-| c2 | 10.0.0.2 |  |
+| c1 | 10.0.0.1 | 192.168.42.0/24 |
+| c2 | 10.0.0.2 | 192.168.42.0/24 |
 | **AS65100** ||
 | x1 | 10.0.0.10 | 10.42.100.0/24 |
 | **AS65101** ||
@@ -53,22 +53,21 @@ Assuming your routers don't use default EBGP route filters compliant with RFC 82
 [^DF]: To make this lab exercise useful, configure a *permit all* EBGP route policy if your devices comply with RFC 8212. 
 
 ```
-$ netlab connect x1 --show ip bgp
-Connecting to container clab-noexport-x1, executing sudo vtysh -c "show ip bgp"
-BGP table version is 4, local router ID is 10.0.0.10, vrf id 0
+$ netlab connect -q x1 --show ip bgp
+BGP table version is 3, local router ID is 10.0.0.10, vrf id 0
 Default local pref 100, local AS 65100
 Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
 Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-   Network          Next Hop            Metric LocPrf Weight Path
-*> 10.0.0.1/32      10.1.0.1                               0 65000 i
-*> 10.0.0.2/32      10.1.0.1                               0 65000 i
-*> 10.42.100.0/24   0.0.0.0                  0         32768 i
-*> 10.43.101.0/24   10.1.0.1                               0 65000 65101 i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 10.42.100.0/24   0.0.0.0(x1)              0         32768 i
+ *> 10.43.101.0/24   10.1.0.1(c1)                           0 65000 65101 i
+ *> 192.168.42.0/24  10.1.0.1(c1)             0             0 65000 i
 
-Displayed  4 routes and 4 total paths
+Displayed 3 routes and 3 total paths
 ```
 
 ## Configuration Tasks
@@ -80,74 +79,78 @@ All modern BGP implementations should support the NO_EXPORT BGP community. We'll
 
 ## Verification
 
-Check the BGP prefix 10.42.100.0/24 (advertised by X1) on C1. It should have the BGP community NO_EXPORT:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:
 
-```
-c1#show ip bgp 10.42.100.0
-BGP routing table information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-BGP routing table entry for 10.42.100.0/24
- Paths: 1 available
+* The state of the EBGP sessions between C1 and X1, and between C2 and X2
+* Whether C1 and C2 advertise the prefix 192.168.42.0/24 to X1 and X2
+* Whether C1 and C2 block transit routes
+
+This is the printout you should get after completing the exercise:
+
+![](policy-noexport-validate.png)
+
+You can also check the BGP prefix 10.42.100.0/24 (advertised by X1) on C1. It should have the BGP community NO_EXPORT:
+
+```bash
+$ netlab connect -q c1 --show ip bgp 10.42.100.0
+BGP routing table entry for 10.42.100.0/24, version 4
+Paths: (1 available, best #1, table default, not advertised to EBGP peer)
+  Advertised to non peer-group peers:
+  c2(10.0.0.2)
   65100
-    10.1.0.2 from 10.1.0.2 (10.0.0.10)
-      Origin IGP, metric 0, localpref 100, IGP metric 0, weight 0, tag 0
-      Received 00:02:21 ago, valid, external, best
+    10.1.0.2(x1) from x1(10.1.0.2) (10.0.0.10)
+      Origin IGP, metric 0, valid, external, bestpath-from-AS 65100, best (First path received)
       Community: no-export
-      Rx SAFI: Unicast
+      Last update: Tue Oct  1 17:35:04 2024
 ```
 
-Check the same prefix on C2. The NO_EXPORT community should still be attached to the BGP prefix:
+When checking the same prefix on C2, the NO_EXPORT community should still be attached to the BGP prefix:
 
-```
-c2#show ip bgp 10.42.100.0
-BGP routing table information for VRF default
-Router identifier 10.0.0.2, local AS number 65000
-BGP routing table entry for 10.42.100.0/24
- Paths: 1 available
+```bash
+$ netlab connect -q c2 --show ip bgp 10.42.100.0
+BGP routing table entry for 10.42.100.0/24, version 4
+Paths: (1 available, best #1, table default, not advertised to EBGP peer)
+  Not advertised to any peer
   65100
-    10.0.0.1 from 10.0.0.1 (10.0.0.1)
-      Origin IGP, metric 0, localpref 100, IGP metric 20, weight 0, tag 0
-      Received 00:01:55 ago, valid, internal, best
+    10.0.0.1(c1) (metric 10) from c1(10.0.0.1) (10.0.0.1)
+      Origin IGP, metric 0, localpref 100, valid, internal, bestpath-from-AS 65100, best (First path received)
       Community: no-export
-      Rx SAFI: Unicast
+      Last update: Tue Oct  1 17:35:10 2024
 ```
 
-Check the routes C2 advertises to X2 to verify it no longer advertises the prefix from AS 65100:
+Next, check the routes C2 advertises to X2 to verify C2 no longer advertises the prefix from AS 65100 to X2:
 
 ```
-c2#show ip bgp neighbor 10.1.0.6 advertised-routes
-BGP routing table information for VRF default
-Router identifier 10.0.0.2, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast, q - Queued for advertisement
-                    % - Pending best path selection
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+$ netlab connect -q c2 --show ip bgp neighbor 10.1.0.6 advertised-routes
+BGP table version is 5, local router ID is 10.0.0.2, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.1/32            10.1.0.5              -       -          -       -       65000 i
- * >      10.0.0.2/32            10.1.0.5              -       -          -       -       65000 i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 192.168.42.0/24  0.0.0.0                  0         32768 i
+
+Total number of prefixes 1
 ```
 
-Check the BGP table on X2. It should not contain the BGP prefix advertised by X1:
+Finally, check the BGP table on X2. It should not contain the BGP prefix advertised by X1 (AS 65100)
 
 ```
-$ netlab connect x2 --show ip bgp
-Connecting to container clab-noexport-x2, executing sudo vtysh -c "show ip bgp"
-BGP table version is 5, local router ID is 10.0.0.11, vrf id 0
+$ netlab connect -q x2 --show ip bgp
+BGP table version is 4, local router ID is 10.0.0.11, vrf id 0
 Default local pref 100, local AS 65101
 Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
 Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-   Network          Next Hop            Metric LocPrf Weight Path
-*> 10.0.0.1/32      10.1.0.5                               0 65000 i
-*> 10.0.0.2/32      10.1.0.5                               0 65000 i
-*> 10.43.101.0/24   0.0.0.0                  0         32768 i
-
-Displayed  3 routes and 3 total paths
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 10.43.101.0/24   0.0.0.0(x2)              0         32768 i
+ *> 192.168.42.0/24  10.1.0.5(c2)             0             0 65000 i
 ```
 
 **Next:** 
@@ -161,6 +164,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and external routers.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
