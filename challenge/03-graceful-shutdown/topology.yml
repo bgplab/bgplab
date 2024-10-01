@@ -7,6 +7,8 @@ version: 1.6.4
 name: gshut
 module: [ bgp, ospf ]
 
+bgp.advertise_loopback: false
+
 groups:
   external:
     members: [ c2, x2 ]
@@ -29,6 +31,8 @@ links:
 - c1:
   c2:
   name: Intra-customer link
+  prefix.ipv4: 192.168.42.0/24
+  bgp.advertise: true
 - c1:
   x2:
   pool: l2only
@@ -45,6 +49,8 @@ links:
 - x1:
   x2:
   name: Intra-ISP link
+  prefix.ipv4: 172.18.12.0/24
+  bgp.advertise: true
 - c1:
   x1:
   name: C1 uplink
