@@ -14,4 +14,4 @@ pfx:
   fail: The Hub IPv4 prefix is not propagated to other routers
   pass: All lab devices has the Hub IPv4 prefix in the BGP table
   nodes: [ s1, s2, c1, c2 ]
-  plugin: bgp_prefix(nodes.hub.loopback.ipv4)
+  plugin: bgp_prefix(nodes.hub.bgp.originate[0])

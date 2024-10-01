@@ -18,14 +18,14 @@ In this lab exercise, you'll configure two types of dynamic peers on a hub route
 
 ## Existing Device Configuration
 
-The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.
+The routers in your lab use the following BGP AS numbers. The external routers and the hub router advertise IPv4 prefixes.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| c1 | 10.0.0.4 | 10.0.0.4/32 |
-| c2 | 10.0.0.5 | 10.0.0.5/32 |
-| hub | 10.0.0.1 | 10.0.0.1/32 |
+| c1 | 10.0.0.4 |  |
+| c2 | 10.0.0.5 |  |
+| hub | 10.0.0.1 | 192.168.42.0/24 |
 | **AS65100** ||
 | s1 | 10.0.0.2 | 10.0.0.2/32 |
 | s2 | 10.0.0.3 | 10.0.0.3/32 |
@@ -92,36 +92,44 @@ You can also validate your work on the Hub router:
 * Check the state of the BGP sessions with a command similar to **show ip bgp summary**. You should see four BGP neighbors, two from AS 65000 and two from AS 65100.
 
 ```
-hub#show ip bgp summary
-BGP summary information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Neighbor Status Codes: m - Under maintenance
-  Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  10.0.0.4    4 65000            995      1171    0    0 00:49:36 Estab   1      1
-  10.0.0.5    4 65000           1678      1971    0    0 01:23:43 Estab   1      1
-  172.16.42.2 4 65100           1627      1908    0    0 01:21:03 Estab   1      1
-  172.16.42.3 4 65100           1627      1910    0    0 01:21:03 Estab   1      1
+$ netlab connect -q hub --show ip bgp sum
+
+IPv4 Unicast Summary:
+BGP router identifier 10.0.0.1, local AS number 65000 VRF default vrf-id 0
+BGP table version 3
+RIB entries 5, using 480 bytes of memory
+Peers 4, using 52 KiB of memory
+Peer groups 2, using 128 bytes of memory
+
+Neighbor         V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+*s1(172.16.42.2) 4      65100        42        43        3    0    0 00:01:52            1        3 FRRouting/10.0.1_git
+*s2(172.16.42.3) 4      65100        42        43        3    0    0 00:01:52            1        3 FRRouting/10.0.1_git
+*c1(10.0.0.4)    4      65000        44        47        3    0    0 00:02:05            0        3 FRRouting/10.0.1_git
+*c2(10.0.0.5)    4      65000        44        47        3    0    0 00:02:04            0        3 FRRouting/10.0.1_git
+
+Total number of neighbors 4
+* - dynamic neighbor
+4 dynamic neighbor(s), limit 100
 ```
 
-* Check the BGP table on the Hub router with a command similar to **show ip bgp**. You should see five IPv4 prefixes in the BGP table:
+* Check the BGP table on the Hub router with a command similar to **show ip bgp**. You should see the prefixes advertised by S1 and S2 as well as the local prefix:
 
 ```
-hub#show ip bgp
-BGP routing table information for VRF default
-Router identifier 10.0.0.1, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending best path selection
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+$ netlab connect -q hub --show ip bgp
+BGP table version is 3, local router ID is 10.0.0.1, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.1/32            -                     -       -          -       0       i
- * >      10.0.0.2/32            172.16.42.2           0       -          100     0       65100 i
- * >      10.0.0.3/32            172.16.42.3           0       -          100     0       65100 i
- * >      10.0.0.4/32            10.0.0.4              0       -          100     0       i
- * >      10.0.0.5/32            10.0.0.5              0       -          100     0       i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 10.0.0.2/32      172.16.42.2(s1)          0             0 65100 i
+ *> 10.0.0.3/32      172.16.42.3(s2)          0             0 65100 i
+ *> 192.168.42.0/24  0.0.0.0(hub)             0         32768 i
+
+Displayed 3 routes and 3 total paths
 ```
 
 ## Impact of BGP Session Loss
@@ -143,7 +151,7 @@ Bgp: %BGP-3-NOTIFICATION: received from neighbor 10.0.0.4 (VRF default AS 65000)
 Bgp: %BGP-5-ADJCHANGE: peer 10.0.0.4 (VRF default AS 65000) old state Established event RecvNotify new state Idle
 ```
 
-However, even though the BGP log message claims the BGP neighbor is now in the *Idle* state, the neighbor is no longer visible in the list of BGP neighbors:
+However, even though the BGP log message claims the BGP neighbor is now in the *Idle* state, the neighbor is no longer visible in the list of BGP neighbors (printout from Arista EOS):
 
 ```
 hub#show ip bgp summary

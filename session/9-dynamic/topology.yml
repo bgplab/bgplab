@@ -18,6 +18,7 @@ groups:
     members: [ hub, c1, c2 ]
     bgp.as: 65000
     module: [ bgp, ospf ]
+    bgp.advertise_loopback: False
   site:
     members: [ s1, s2 ]
     bgp.sessions.ipv4: [ ebgp ]
@@ -26,6 +27,7 @@ groups:
 nodes:
   hub:
     id: 1
+    bgp.originate: [ 192.168.42.0/24 ]
 
 links:
 - hub:
