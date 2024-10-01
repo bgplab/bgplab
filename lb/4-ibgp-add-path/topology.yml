@@ -6,13 +6,14 @@ version: 1.8.3
 
 plugin: [ bgp.policy ]
 
+bgp.advertise_loopback: false
+
 groups:
   external:
     members: [ x1, x2, we1, we2 ]
   isp:
     members: [ x1, x2 ]
     bgp.as: 65100
-    bgp.advertise_loopback: false
   customer:
     members: [ we1, we2, rr, ac1 ]
     bgp.as: 65000

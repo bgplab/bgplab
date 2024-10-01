@@ -20,7 +20,7 @@ The routers in your lab use the following BGP AS numbers. C2 and P1 advertise an
 | **AS65001** ||
 | c2 | 10.7.5.0 | 10.7.5.0/24 |
 | **AS65100** ||
-| p1 | 10.1.3.0 | 10.1.3.0/24 |
+| p1 | 10.0.0.2 | 10.1.3.0/24 |
 | p2 | 10.0.0.3 |  |
 | **AS65101** ||
 | p3 | 10.0.0.4 |  |
@@ -130,7 +130,7 @@ The following information might help you if you plan to build custom lab infrast
 | **c2** |  10.7.5.0/24 |  | Loopback |
 | swp1 | 10.1.0.17/30 |  | c2 -> p2 |
 | swp2 | 10.1.0.21/30 |  | c2 -> p3 |
-| **p1** |  10.1.3.0/24 |  | Loopback |
+| **p1** |  10.0.0.2/32 |  | Loopback |
 | swp1 | 10.1.0.1/30 |  | p1 -> rtr |
 | swp2 | 10.1.0.13/30 |  | p1 -> p2 |
 | **p2** |  10.0.0.3/32 |  | Loopback |

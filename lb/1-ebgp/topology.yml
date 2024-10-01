@@ -19,8 +19,7 @@ nodes:
   rtr:
     bgp.as: 65000
   p1:
-    bgp.advertise_loopback: true
-    loopback.ipv4: 10.1.3.0/24
+    bgp.originate: [ 10.1.3.0/24 ]
   p2:
   p3:
     bgp.as: 65101
