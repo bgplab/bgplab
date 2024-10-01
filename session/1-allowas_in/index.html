@@ -638,7 +638,7 @@ BGP neighbor is 10.1.0.2, remote AS 65100, external link
 <li>Refresh the BGP tables on CE1 and CE2. You can either clear the EBGP sessions with the PE routers or perform a route refresh with a command similar to <strong>clear ip bgp soft in</strong> </li>
 </ul>
 <h2 id="ver">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on your devices. You&rsquo;ll get this printout if you configure <strong>allowas-in</strong> on CE1 but not CE2.</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your devices. You&rsquo;ll get this printout if you configure <strong>allowas-in</strong> on CE1 but not CE2.</p>
 <p><img alt="" src="../session-allowas-validate.png" /></p>
 <p>If that command fails or you&rsquo;re using another network operating system on your devices, check the BGP tables on CE1 and CE2 and verify that they contain both loopback prefixes. This is the printout you could get on Arista EOS:</p>
 <pre><code>ce1#show ip bgp
@@ -667,7 +667,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <ul>
 <li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li>Provider routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer routers. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
+<li>You can perform automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains initial provider routers&rsquo; device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>

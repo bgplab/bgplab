@@ -508,7 +508,7 @@
 </tr>
 <tr>
 <td>r2</td>
-<td style="text-align: right;">192.168.42.1</td>
+<td style="text-align: right;">10.0.0.2</td>
 <td style="text-align: right;">192.168.42.0/24</td>
 </tr>
 <tr>
@@ -518,7 +518,7 @@
 </tr>
 <tr>
 <td>x1</td>
-<td style="text-align: right;">172.16.37.1</td>
+<td style="text-align: right;">10.0.0.10</td>
 <td style="text-align: right;">172.16.37.0/24</td>
 </tr>
 </tbody>
@@ -538,7 +538,7 @@
 <td><strong>r1</strong></td>
 <td>r2</td>
 <td style="text-align: right;">65000</td>
-<td style="text-align: right;">192.168.42.1</td>
+<td style="text-align: right;">10.0.0.2</td>
 </tr>
 <tr>
 <td></td>
@@ -588,7 +588,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <li>Use an outbound filter on R1 to stop the propagation of any other information to X1. You&rsquo;ll find more details in the <a href="../../policy/3-prefix/">Filter Advertised Prefixes</a> lab exercise.</li>
 </ul>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP sessions between R1 and X1 and between R1 and R2</li>
 <li>Whether R1 sends the default route to X1</li>
