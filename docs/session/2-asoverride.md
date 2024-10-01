@@ -100,7 +100,7 @@ Many BGP implementations have a nerd knob that replaces the neighbor AS number i
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on CE routers. You'll get this printout if you configure **as-override** on PE1 but not PE2.
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on CE routers. You'll get this printout if you configure **as-override** on PE1 but not PE2.
 
 ![](session-asoverride-validate.png)
 
@@ -132,8 +132,8 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 ### Device Requirements {#req}
 
 * Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). The device also has to support the *AS override* functionality.
-* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support). The lab topology configures *BGP soft reconfiguration* on Cumulus Linux and FRR; you might want to configure something similar on the EBGP sessions if you use other devices as CE routers. 
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the CE routers. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support). The lab topology configures *BGP soft reconfiguration* on Cumulus Linux and FRR; if you use other devices as CE routers, you might want to configure something similar on the EBGP sessions. 
+* You can perform automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the CE routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains initial CE router device configurations for Cumulus Linux.
 
 ### Lab Wiring

@@ -3,7 +3,10 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 name: localas
 
-plugin: [ external_devices, check_validate, change_as ]
+plugin: [ check_validate, change_as ]
+
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 module: [ bgp ]
 
@@ -29,8 +32,6 @@ links:
   x1:
 - rtr:
   x2:
-
-_include: [ validate.yml ]
 
 message: |
   The "Use Multiple AS Numbers on the Same Router" lab is ready.

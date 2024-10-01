@@ -19,7 +19,7 @@ The routers in your lab use the following BGP AS numbers. Each router advertises
 | **AS65000** ||
 | x1 | 10.0.0.10 | 192.168.42.0/24 |
 
-Your router has these EBGP neighbors.  _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
+Your router has these EBGP neighbors.  _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
 Node | Neighbor | Neighbor AS | Neighbor IPv4 |
 |------|----------|------------:|--------------:|
@@ -71,6 +71,18 @@ Most BGP implementations have a nerd knob that removes private AS numbers from t
     After changing the BGP configuration, you might have to do a soft reset of the EBGP session to force your router to resend the routing updates with modified AS paths.
 
 ## Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+
+* The state of the EBGP session between RTR and X1/X2
+* Whether RTR sends the prefix received from X1 to X2
+* Whether RTR removes private AS numbers (AS 65000) from the AS path before sending the updates to X2.
+
+For example, this is the result you'd get if you forgot to remove the private AS numbers from the updates sent to X2:
+
+![](session-removeprivate-validate.png)
+
+If the **netlab validate** command fails or you're using another network operating system on the ISP routers, do manual validation.
 
 Check the BGP table on X2. None of the AS paths should contain private AS numbers. This is the printout you should get on Cumulus Linux:
 

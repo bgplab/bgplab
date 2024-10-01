@@ -6,6 +6,9 @@ name: ebgp_intf
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 plugin: [ external_devices, check_validate, fix_unnumbered ]
 
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
 module: [ bgp ]
 
 groups:
@@ -34,8 +37,6 @@ links:
 - prefix.ipv4: True
   rtr:
   x2:
-
-_include: [ validate.yml ]
 
 message: |
   The "Configure Interface EBGP Sessions" lab is ready. Connect to your router

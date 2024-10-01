@@ -9,7 +9,7 @@ A few years ago, Cumulus Networks engineers got an [interesting idea](https://bl
 ![Lab topology](topology-interface-ebgp.png)
 
 !!! tip
-    This lab focuses on a somewhat advanced trick usually encountered in data centers that use EBGP instead of an IGP. EBGP over IPv6 LLA is rarely used in Service Provider environments. You might want to skip it if you're just starting your BGP journey.
+    This lab focuses on a somewhat advanced trick usually encountered in data centers that use EBGP instead of an IGP. EBGP over IPv6 LLA is rarely used in Service Provider environments, so you might want to skip it if you're just starting your BGP journey.
 
 ## Existing BGP Configuration
 
@@ -39,23 +39,29 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Configuration Tasks
 
-The configuration process is reasonably simple on Cumulus Linux and FRR:
+The *interface EBGP* sessions are usually established between IPv6 link-local addresses (LLA); the routers find their neighbor's IPv6 LLA from the IPv6 Router Advertisement messages. Before configuring the EBGP sessions:
 
-* Make sure the EBGP interfaces have IPv6 link-local addresses.
+* Enable IPv6 processing on the desired interfaces. A typical command to use is **ipv6 enable**; on FRRouting containers, you'll have to use the *bash* command **sysctl -w net.ipv6.conf._interface_.disable_ipv6=0**.
+* configure IPv6 router advertisement messages. That should be the default setting, but some devices might need a command similar to **‌no ipv6 nd suppress-ra**.
+* Tweak the RA timer to a low value to ensure BGP does not wait too long for an RA message.
+* Some devices try to establish an IPv4 session if they find a /30 or a /31 subnet on the interface. Ensure the interface is an unnumbered IPv4 interface (on FRRouting, set the interface address to the loopback IPv4 address).
+
+The rest of the configuration process is reasonably simple on Cumulus Linux and FRR:
+
 * Configure interface EBGP neighbors with **neighbor _name_ interface remote-as _asn_**
 * Add neighbor descriptions and BGP neighbor status logging
 * Activate the EBGP neighbor within the IPv4 address family.
 
-Other platforms might have more convoluted requirements. For example, you must enable IPv6 routing and create a BGP peer group on Arista EOS.
+Other platforms might have more convoluted requirements. For example, you must [enable IPv6 routing and create a BGP peer group on Arista EOS](https://blog.ipspace.net/2024/03/arista-interface-ebgp/).
 
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming- and outgoing filters on all EBGP neighbors.
 
 ## Verification
 
-You can use the **netlab validate** command if you use *netlab* release 1.7.0 or later and Cumulus Linux or FRR on the external routers.
+You can use the **netlab validate** command if you use *netlab* release 1.8.3 or later and Cumulus Linux or FRR on the external routers.
 
-![](basic-interface-ebgp-validate.jpg)
+![](basic-interface-ebgp-validate.png)
 
 You can also check the state of BGP sessions on your router. A command similar to **show ip bgp summary** should display two BGP sessions with IPv6 link-local addresses. This is a printout taken from Arista EOS:
 
@@ -108,7 +114,7 @@ Gateway of last resort is not set
 
 * While you can use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) as the customer router, it does not make sense to try to do the lab with devices that do not support EBGP sessions over IPv6 link-local addresses
 * External routers have to support EBGP over IPv6 LLA and RFC 8950. *netlab* releases up to (and including) 1.8.0 can use Cumulus Linux, Dell OS10, FRR, Nokia SR Linux, or VyOS as external routers. Use the **netlab show modules -m bgp** command to display the BGP features supported by various network devices in your *netlab* release; the device you want to use as an external router has to support **ipv6_lla** and **rfc8950** features.
-* You can do automated lab validation when running Cumulus Linux or FRR on the external router. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* You can do automated lab validation when running Cumulus Linux or FRR on the external router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ## Reference Information

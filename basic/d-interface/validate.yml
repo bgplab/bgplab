@@ -3,24 +3,14 @@ session:
   description: Check EBGP session with RTR on X1 and X2
   fail: The EBGP session with your router is not established
   pass: The EBGP session with RTR is in Established state
+  devices: [ frr, cumulus ]
   nodes: [ x1, x2 ]
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-  valid:
-    cumulus: >
-      ipv4Unicast.peers.swp1.state == "Established"
-    frr: >
-      ipv4Unicast.peers.eth1.state == "Established"
+  plugin: bgp_neighbor(node.bgp.neighbors,'rtr',intf=node.interfaces[0].ifname)
+  stop_on_error: true
 
 advroute:
   description: Check whether RTR advertises IPv4 prefixes
   fail: RTR is not advertising 10.0.0.1/32
   pass: RTR is advertising 10.0.0.1/32 to X1 and X2
   nodes: [ x1, x2 ]
-  show:
-    cumulus: bgp ipv4 10.0.0.1/32 json
-    frr: bgp ipv4 10.0.0.1/32 json
-  valid:
-    cumulus: prefix
-    frr: prefix
+  plugin: bgp_prefix(nodes.rtr.loopback.ipv4)

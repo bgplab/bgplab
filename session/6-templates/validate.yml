@@ -5,57 +5,33 @@ ibgp_s1:
   fail: The IBGP session with the router reflector S1 is not established
   pass: The IBGP session with the router reflector S1 is established
   nodes: [ l1, l2 ]
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-    eos: "ip bgp summary | json"
-  valid:
-    cumulus: >
-      {% for n in bgp.neighbors if n.name == 's1' %}
-      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
-      {% endfor %}
-    frr: >
-      {% for n in bgp.neighbors if n.name == 's1' %}
-      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
-      {% endfor %}
-    eos: >
-      {% for n in bgp.neighbors if n.name == 's1' %}
-      vrfs.default.peers["{{ n.ipv4 }}"].peerState == "Established"
-      {% endfor %}
+  devices: [ frr, cumulus, eos ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'s1')
 
 ibgp_s2:
   description: Check IBGP session with S2 on L1/L2
   fail: The IBGP session with the router reflector S2 is not established
   pass: The IBGP session with the router reflector S2 is established
   nodes: [ l1, l2 ]
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-    eos: "ip bgp summary | json"
-  valid:
-    cumulus: >
-      {% for n in bgp.neighbors if n.name == 's2' %}
-      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
-      {% endfor %}
-    frr: >
-      {% for n in bgp.neighbors if n.name == 's2' %}
-      ipv4Unicast.peers["{{ n.ipv4 }}"].state == "Established"
-      {% endfor %}
-    eos: >
-      {% for n in bgp.neighbors if n.name == 's2' %}
-      vrfs.default.peers["{{ n.ipv4 }}"].peerState == "Established"
-      {% endfor %}
+  plugin: bgp_neighbor(node.bgp.neighbors,'s2')
 
 lb_pfx:
   description: Check whether L1 receives loopback prefix from L2
-  fail: L2 loopback prefix is not propagated to L1 by S1 or S2
-  pass: L2 loopback prefix is propagated to L1 by S1 and S2
+  fail: L2 prefix is not propagated to L1 by S1 or S2
+  pass: L2 prefix is propagated to L1 by S1 and S2
   nodes: [ l1 ]
-  show:
-    cumulus: bgp ipv4 10.0.0.4 json
-    frr: bgp ipv4  10.0.0.4 json
-    eos: bgp ipv4 unicast 10.0.0.4 | json
-  valid:
-    cumulus: prefix and paths[1]
-    frr:  prefix and paths[1]
-    eos: vrfs.default.bgpRouteEntries["10.0.0.4/32"].totalPaths == 2
+  plugin: bgp_prefix(nodes.l2.bgp.originate[0])
+
+lb_pfx_s1:
+  description: Check whether S1 advertises L2 prefix to L1
+  fail: S1 does not propagate L2 prefix to L1
+  pass: S1 propagates L2 prefix to L1
+  nodes: [ l1 ]
+  plugin: bgp_prefix(nodes.l2.bgp.originate[0],peer=nodes.s1.bgp.router_id)
+
+lb_pfx_s2:
+  description: Check whether S2 advertises L2 prefix to L1
+  fail: S2 does not propagate L2 prefix to L1
+  pass: S2 propagates L2 prefix to L1
+  nodes: [ l1 ]
+  plugin: bgp_prefix(nodes.l2.bgp.originate[0],peer=nodes.s2.bgp.router_id)

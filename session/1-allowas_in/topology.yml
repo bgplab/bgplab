@@ -5,6 +5,9 @@ defaults.sources.extra: [ ../../defaults.yml ]
 name: allowas
 plugin: [ external_devices, check_validate ]
 
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
 groups:
   external:
     members: [ pe1, pe2 ]
@@ -47,8 +50,6 @@ links:
 - ce2:
   pe2:
   name: Site_B-to-ISP
-
-_include: [ validate.yml ]
 
 message: |
   The "Reuse a BGP AS Number Across Multiple Sites" lab is ready. Use

@@ -14,15 +14,15 @@ The routers in your lab use the following BGP AS numbers. X1 and R2 advertise an
 |----------|----------:|--------------------:|
 | **AS65000** ||
 | r1 | 10.0.0.1 |  |
-| r2 | 192.168.42.1 | 192.168.42.0/24 |
+| r2 | 10.0.0.2 | 192.168.42.0/24 |
 | **AS65100** ||
-| x1 | 172.16.37.1 | 172.16.37.0/24 |
+| x1 | 10.0.0.10 | 172.16.37.0/24 |
 
 Your router has these BGP neighbors and runs OSPF in area 0 with R2.  _netlab_ configures BGP and OSPF automatically; if you're using some other lab infrastructure, you'll have to configure them manually.
 
 | Node | Neighbor | Neighbor AS | Neighbor IPv4 |
 |------|----------|------------:|--------------:|
-| **r1** | r2 | 65000 | 192.168.42.1 |
+| **r1** | r2 | 65000 | 10.0.0.2 |
 |  | x1 | 65100 | 10.1.0.2 |
 
 ## Start the Lab
@@ -68,7 +68,7 @@ While it's relatively easy to filter the outbound BGP updates on R1 and send not
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
 
 * The state of the EBGP sessions between R1 and X1 and between R1 and R2
 * Whether R1 sends the default route to X1

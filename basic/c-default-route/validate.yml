@@ -1,60 +1,29 @@
-# Validate local-as lab
+# Validate default route lab
 ---
 session:
   description: Check EBGP session with R1
   fail: The EBGP session with your router is not established
   pass: The EBGP session with R1 is in Established state
   nodes: [ x1, r2 ]
+  devices: [ frr, cumulus, eos ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'r1')
   stop_on_error: True
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-    eos: "ip bgp summary | json"
-
-  valid:
-    cumulus: >
-      ipv4Unicast.failedPeers == 0
-    frr: >
-      ipv4Unicast.failedPeers == 0
-    eos: >
-      vrfs.default.peers["{{ bgp.neighbors[0].ipv4 }}"].peerState == "Established"
 
 default:
   description: Check the advertising of BGP default route
   fail: R1 is not sending the default route
   pass: R1 is sending the default route to X1
   nodes: [ x1 ]
-  show:
-    cumulus: bgp ipv4 0.0.0.0/0 json
-    frr: bgp ipv4 0.0.0.0/0 json
-    eos: bgp ipv4 unicast 0.0.0.0/0 | json
-  valid:
-    cumulus: prefix
-    frr: prefix
-    eos: vrfs.default.bgpRouteEntries
+  plugin: bgp_prefix('0.0.0.0/0')
 
 filter:
   description: Check whether R1 filters other BGP prefixes
   fail: R1 is sending more than just the default route to X1
   nodes: [ x1 ]
-  show:
-    cumulus: ip bgp json
-    frr: ip bgp json
-    eos: bgp ipv4 unicast 192.168.42.0/24 | json
-  valid:
-    cumulus: len(routes) == 2
-    frr: len(routes) == 2
-    eos: len(vrfs.default.bgpRouteEntries) == 0
+  plugin: bgp_prefix(nodes.r2.bgp.originate[0],state='missing')
 
 propagate:
   description: Check the propagation of external prefix to R2
   fail: R1 is not sending the external prefix to R2
   nodes: [ r2 ]
-  show:
-    cumulus: bgp ipv4 172.16.37.0/24 json
-    frr: bgp ipv4 172.16.37.0/24 json
-    eos: bgp ipv4 unicast 172.16.37.0/24 | json
-  valid:
-    cumulus: prefix
-    frr: prefix
-    eos: vrfs.default.bgpRouteEntries
+  plugin: bgp_prefix(nodes.x1.bgp.originate[0])

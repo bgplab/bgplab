@@ -124,7 +124,7 @@ Most BGP implementations have a nerd knob that disables the BGP AS-path-based lo
 
 ## Verification {#ver}
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on your devices. You'll get this printout if you configure **allowas-in** on CE1 but not CE2.
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your devices. You'll get this printout if you configure **allowas-in** on CE1 but not CE2.
 
 ![](session-allowas-validate.png)
 
@@ -160,7 +160,7 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 * Customer routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer routers. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* You can perform automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains initial provider routers' device configurations for Cumulus Linux.
 
 ### Lab Wiring

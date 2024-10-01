@@ -1,32 +1,29 @@
 # Validate the 'allowas-in' lab
-session:
-  description: Check EBGP sessions on CE1 and CE2 router
-  fail: The EBGP sessions on CE routers are not established
-  pass: The EBGP sessions on the CE routers work as expected
-  nodes: [ ce1,ce2 ]
-  show:
-    cumulus: bgp summary json
-    frr: bgp summary json
-    eos: "ip bgp summary | json"
+ebgp_ce1:
+  description: Check the EBGP sessions on CE1
+  fail: The PE1-CE1 EBGP session is not established
+  pass: The EBGP session on CE1 works as expected
+  nodes: [ ce1 ]
+  devices: [ cumulus, eos, frr ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'pe1')
 
-  valid:
-    cumulus: >
-      ipv4Unicast.failedPeers == 0
-    frr: >
-      ipv4Unicast.failedPeers == 0
-    eos: >
-      vrfs.default.peers["{{ bgp.neighbors[0].ipv4 }}"].peerState == "Established"
+ebgp_ce2:
+  description: Check the EBGP sessions on CE2
+  fail: The PE2-CE2 EBGP session is not established
+  pass: The EBGP session on CE1 works as expected
+  nodes: [ ce2 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'pe2')
 
-updates:
-  description: Check the propagation of loopback prefixes
-  fail: Remote loopback prefix is not visible on the CE-router
-  pass: CE-router is receiving prefixes from the PE-router
-  nodes: [ ce1, ce2 ]
-  show:
-    cumulus: bgp ipv4 regexp 65100 json
-    frr: bgp ipv4 regexp 65100 json
-    eos: bgp neighbor {{ bgp.neighbors[0].ipv4 }} ipv4 unicast received-routes | json
-  valid:
-    cumulus: routes
-    frr: routes
-    eos: vrfs.default.bgpRouteEntries
+asin_ce1:
+  description: Check whether CE1 accepts the loopback prefix of CE2
+  fail: Remote loopback prefix is not visible on CE1
+  pass: CE1 is receiving prefixes from the PE1
+  nodes: [ ce1 ]
+  plugin: bgp_prefix(nodes.ce2.loopback.ipv4)
+
+asin_ce2:
+  description: Check whether CE2 accepts the loopback prefix of CE1
+  fail: Remote loopback prefix is not visible on CE2
+  pass: CE2 is receiving prefixes from the PE2
+  nodes: [ ce2 ]
+  plugin: bgp_prefix(nodes.ce1.loopback.ipv4)

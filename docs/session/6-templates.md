@@ -17,8 +17,8 @@ All routers in your lab are in AS 65000. The spine routers (S1 and S2) are route
 | Node/ASN | Router ID | BGP RR | Advertised prefixes |
 |----------|----------:|--------|--------------------:|
 | **AS65000** |||
-| l1 | 10.0.0.3 |  | 10.0.0.3/32 |
-| l2 | 10.0.0.4 |  | 10.0.0.4/32 |
+| l1 | 10.0.0.3 |  | 192.168.42.0/24 |
+| l2 | 10.0.0.4 |  | 192.168.43.0/24 |
 | s1 | 10.0.0.1 | ✅ |  |
 | s2 | 10.0.0.2 | ✅ |  |
 
@@ -111,43 +111,52 @@ After creating the BGP templates, change the BGP configuration on S1 and S2 to u
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the leaf routers. The validation tests check:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the leaf routers. The validation tests check:
 
 * The state of the IBGP session between L1/L2 and S1/S2
-* Whether L1 receives the loopback prefix advertised by L2.
+* Whether S1 and S2 both propagate the L2 prefix to L1.
+
+This is the printout you should get after completing the lab exercise:
+
+![](session-templates-validate.png)
 
 If the **netlab validate** command fails or you're using another network operating system on the leaf routers:
 
 * Log into the leaf routers
-* Check the state of the IBGP sessions with a command similar to **show ip bgp summary**. All sessions should be in the established state. For example, this is the printout you should get on Arista EOS:
+* Check the state of the IBGP sessions with a command similar to **show ip bgp summary**. All sessions should be in the established state. For example, this is the printout you should get on FRRouting or Cumulus Linux:
 
 ```
-l1>show ip bgp summary
-BGP summary information for VRF default
-Router identifier 10.0.0.3, local AS number 65000
-Neighbor Status Codes: m - Under maintenance
-  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
-  s1                       10.0.0.1 4 65000              5         5    0    0 00:00:06 Estab   1      1
-  s2                       10.0.0.2 4 65000              6         6    0    0 00:00:06 Estab   1      1
+l1# show ip bgp summary
+
+IPv4 Unicast Summary:
+BGP router identifier 10.0.0.3, local AS number 65000 VRF default vrf-id 0
+BGP table version 2
+RIB entries 3, using 288 bytes of memory
+Peers 2, using 26 KiB of memory
+
+Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+s1(10.0.0.1)    4      65000        80        79        2    0    0 00:03:47            1        1 s1
+s2(10.0.0.2)    4      65000        78        77        2    0    0 00:03:42            1        1 s2
+
+Total number of neighbors 2
 ```
 
-* Check the BGP table with a command similar to **show ip bgp**. It should contain the local loopback prefix and two paths to the remote loopback prefix, resulting in a printout similar to the one you'd get on Arista EOS:
+* Check the BGP table with a command similar to **show ip bgp**. It should contain the local prefix and two paths to the remote prefix, resulting in a printout similar to the one you'd get on FRRouting or Cumulus Linux:
 
 ```
-l1>show ip bgp
-BGP routing table information for VRF default
-Router identifier 10.0.0.3, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+l1# show ip bgp
+BGP table version is 2, local router ID is 10.0.0.3, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.3/32            -                     -       -          -       0       i
- * >      10.0.0.4/32            10.0.0.4              0       -          100     0       i Or-ID: 10.0.0.4 C-LST: 10.0.0.1
- *        10.0.0.4/32            10.0.0.4              0       -          100     0       i Or-ID: 10.0.0.4 C-LST: 10.0.0.1
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 192.168.42.0/24  0.0.0.0(l1)              0         32768 i
+ *>i192.168.43.0/24  10.0.0.4(s1)             0    100      0 i
+ * i                 10.0.0.4(s2)             0    100      0 i
 ```
 
 **Next:**
@@ -160,7 +169,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the leaf- and spine routers.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1 and S2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1 and S2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains leaf router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
