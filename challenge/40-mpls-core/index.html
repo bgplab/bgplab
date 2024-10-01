@@ -496,10 +496,14 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Arista EOS containers do not support MPLS on Ethernet interfaces<sup id="fnref:cEOS"><a class="footnote-ref" href="#fn:cEOS">1</a></sup>. If you want to test MPLS on Arista EOS, use vEOS virtual machines.</p>
+<ul>
+<li>Use cEOS release 4.31.2F or later and netlab release 1.9.0 or later to use MPLS with Arista EOS containers.</li>
+<li>SR Linux needs a license file to run MPLS.</li>
+<li>You cannot use MPLS with FRRouting, Cumulus Linux, or VyOS containers within Github Codespaces.</li>
+</ul>
 </div>
 <h2 id="existing-routing-protocol-configuration">Existing Routing Protocol Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. All routers advertise their loopbacks<sup id="fnref:FRRLB"><a class="footnote-ref" href="#fn:FRRLB">2</a></sup>.</p>
+<p>The routers in your lab use the following BGP AS numbers. All routers advertise their loopbacks<sup id="fnref:FRRLB"><a class="footnote-ref" href="#fn:FRRLB">1</a></sup>.</p>
 <table>
 <thead>
 <tr>
@@ -517,12 +521,12 @@
 <tr>
 <td>pe1</td>
 <td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">10.0.0.1/32</td>
+<td style="text-align: right;"></td>
 </tr>
 <tr>
 <td>pe2</td>
 <td style="text-align: right;">10.0.0.2</td>
-<td style="text-align: right;">10.0.0.2/32</td>
+<td style="text-align: right;"></td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
@@ -669,8 +673,6 @@ Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
 
    Network          Next Hop            Metric LocPrf Weight Path
-*&gt; 10.0.0.1/32      10.1.0.2                               0 65000 i
-*&gt; 10.0.0.2/32      10.1.0.2                               0 65000 i
 *&gt; 192.168.101.0/24 0.0.0.0(e1)              0         32768 i
 *&gt; 192.168.102.0/24 10.1.0.2                               0 65000 65102 i
 
@@ -684,10 +686,7 @@ PING 192.168.102.1 (192.168.102.1) from 192.168.101.1: 56 data bytes
 8 packets transmitted, 0 packets received, 100% packet loss
 </code></pre>
 <p>A traceroute executed on E1 indicates that the probe packets arrive at PE1 and then get dropped by the CORE router. You shouldn&rsquo;t be surprised by that behavior; the CORE router is not running BGP and has no route to E1 or E2.</p>
-<pre><code>e1(bash)#traceroute -s 192.168.101.1 192.168.101.2
-traceroute to 192.168.101.2 (192.168.101.2) from 192.168.101.1, 30 hops max, 46 byte packets
- 1  *  *^C
-e1(bash)#traceroute -s 192.168.101.1 192.168.102.1
+<pre><code>e1(bash)#traceroute -s 192.168.101.1 192.168.102.1
 traceroute to 192.168.102.1 (192.168.102.1) from 192.168.101.1, 30 hops max, 46 byte packets
  1  10.1.0.2 (10.1.0.2)  0.002 ms  0.002 ms  0.001 ms
  2  *  *  *
@@ -698,6 +697,13 @@ traceroute to 192.168.102.1 (192.168.102.1) from 192.168.101.1, 30 hops max, 46 
 </div>
 <h2 id="configuration-hint">Configuration Hint</h2>
 <p>You must configure MPLS transport across AS 65000 to hide transit traffic into an MPLS LSP. To do this, you can use the Label Distribution Protocol or MPLS-based Segment Routing (SR/MPLS) using OSPF.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>If you&rsquo;re using FRRouting containers, execute <code>sudo modprobe mpls-router mpls-iptunnel</code> before starting the lab.</li>
+<li>You must use <code>sysctl</code> commands to enable MPLS on FRRouting interfaces (see <a href="https://docs.frrouting.org/projects/dev-guide/en/latest/ospf-sr.html#linux-kernel">FRRouting OSPF Segment Routing documentation</a> for more details).</li>
+</ul>
+</div>
 <h2 id="verification">Verification</h2>
 <p>After setting up MPLS transport across AS 65000, you should see MPLS labels attached to BGP routes on PE1 and PE2 (printout from Arista vEOS):</p>
 <pre><code>pe1#show ip route bgp
@@ -861,11 +867,8 @@ traceroute to 192.168.102.1 (192.168.102.1), 30 hops max, 60 byte packets
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:cEOS">
-<p>See <a href="https://github.com/srl-labs/containerlab/discussions/807">this discussion</a> for more details and a workaround (use SVI interfaces).&#160;<a class="footnote-backref" href="#fnref:cEOS" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
 <li id="fn:FRRLB">
-<p>Loopbacks of PE1 and PE2 won&rsquo;t be advertised to adjacent autonomous systems if you&rsquo;re running a recent version of FRRouting (<a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">more details</a>).&#160;<a class="footnote-backref" href="#fnref:FRRLB" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Loopbacks of PE1 and PE2 won&rsquo;t be advertised to adjacent autonomous systems if you&rsquo;re running a recent version of FRRouting (<a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">more details</a>).&#160;<a class="footnote-backref" href="#fnref:FRRLB" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
