@@ -12,6 +12,7 @@ groups:
     members: [ pe1, pe2 ]
     module: [ bgp, ospf ]
     bgp.as: 65000
+    bgp.advertise_loopback: False
   p:
     members: [ core ]
     module: [ ospf ]

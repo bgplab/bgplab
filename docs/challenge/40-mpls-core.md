@@ -14,9 +14,9 @@ In the *‌[Build a Transit Network with IBGP](../ibgp/2-transit.md)* lab exerci
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 !!! Warning
-    Arista EOS containers do not support MPLS on Ethernet interfaces[^cEOS]. If you want to test MPLS on Arista EOS, use vEOS virtual machines.
-
-[^cEOS]: See [this discussion](https://github.com/srl-labs/containerlab/discussions/807) for more details and a workaround (use SVI interfaces).
+    * Use cEOS release 4.31.2F or later and netlab release 1.9.0 or later to use MPLS with Arista EOS containers.
+    * SR Linux needs a license file to run MPLS.
+    * You cannot use MPLS with FRRouting, Cumulus Linux, or VyOS containers within Github Codespaces.
 
 ## Existing Routing Protocol Configuration
 
@@ -27,8 +27,8 @@ The routers in your lab use the following BGP AS numbers. All routers advertise 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| pe1 | 10.0.0.1 | 10.0.0.1/32 |
-| pe2 | 10.0.0.2 | 10.0.0.2/32 |
+| pe1 | 10.0.0.1 |  |
+| pe2 | 10.0.0.2 |  |
 | **AS65101** ||
 | e1 | 192.168.101.1 | 192.168.101.0/24 |
 | **AS65102** ||
@@ -81,8 +81,6 @@ Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
 
    Network          Next Hop            Metric LocPrf Weight Path
-*> 10.0.0.1/32      10.1.0.2                               0 65000 i
-*> 10.0.0.2/32      10.1.0.2                               0 65000 i
 *> 192.168.101.0/24 0.0.0.0(e1)              0         32768 i
 *> 192.168.102.0/24 10.1.0.2                               0 65000 65102 i
 
@@ -102,9 +100,6 @@ PING 192.168.102.1 (192.168.102.1) from 192.168.101.1: 56 data bytes
 A traceroute executed on E1 indicates that the probe packets arrive at PE1 and then get dropped by the CORE router. You shouldn't be surprised by that behavior; the CORE router is not running BGP and has no route to E1 or E2.
 
 ```
-e1(bash)#traceroute -s 192.168.101.1 192.168.101.2
-traceroute to 192.168.101.2 (192.168.101.2) from 192.168.101.1, 30 hops max, 46 byte packets
- 1  *  *^C
 e1(bash)#traceroute -s 192.168.101.1 192.168.102.1
 traceroute to 192.168.102.1 (192.168.102.1) from 192.168.101.1, 30 hops max, 46 byte packets
  1  10.1.0.2 (10.1.0.2)  0.002 ms  0.002 ms  0.001 ms
@@ -117,6 +112,10 @@ traceroute to 192.168.102.1 (192.168.102.1) from 192.168.101.1, 30 hops max, 46 
 ## Configuration Hint
 
 You must configure MPLS transport across AS 65000 to hide transit traffic into an MPLS LSP. To do this, you can use the Label Distribution Protocol or MPLS-based Segment Routing (SR/MPLS) using OSPF.
+
+!!! Warning
+    * If you're using FRRouting containers, execute `sudo modprobe mpls-router mpls-iptunnel` before starting the lab.
+    * You must use `sysctl` commands to enable MPLS on FRRouting interfaces (see [FRRouting OSPF Segment Routing documentation](https://docs.frrouting.org/projects/dev-guide/en/latest/ospf-sr.html#linux-kernel) for more details).
 
 ## Verification
 
