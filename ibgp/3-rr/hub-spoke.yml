@@ -3,10 +3,11 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 
 name: rr
-module: [ bgp,ospf ]
+module: [ bgp, ospf ]
 plugin: [ clear_rr_flag ]
 bgp.as: 65000
 bgp.next_hop_self: False
+bgp.advertise_loopback: False
 
 groups:
   leafs:
@@ -14,9 +15,13 @@ groups:
 
 nodes:
   l1:
+    bgp.originate: [ 192.168.41.0/24 ]
   l2:
+    bgp.originate: [ 192.168.42.0/24 ]
   l3:
+    bgp.originate: [ 192.168.43.0/24 ]
   l4:
+    bgp.originate: [ 192.168.44.0/24 ]
   s1:
     id: 10
     bgp.rr: True

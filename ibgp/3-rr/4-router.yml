@@ -5,13 +5,14 @@ defaults.sources.extra: [ ../../defaults.yml ]
 groups:
   external:
     members: [ l1, l2 ]
-    device: cumulus
+    device: frr
 
 name: rr
-module: [ bgp,ospf ]
+module: [ bgp, ospf ]
 plugin: [ clear_rr_flag ]
 bgp.as: 65000
 bgp.next_hop_self: False
+bgp.advertise_loopback: False
 
 nodes:
   s1:
@@ -21,7 +22,9 @@ nodes:
     id: 11
     bgp.rr: True
   l1:
+    bgp.originate: [ 192.168.41.0/24 ]
   l2:
+    bgp.originate: [ 192.168.42.0/24 ]
 links:
 - s1:
   l1:

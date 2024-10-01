@@ -29,10 +29,7 @@ You can choose between these lab topologies:
 
 * `topology.yml`: 6-router topology with a full mesh of IBGP sessions. Start with **netlab up** ([device requirements](#req))
 * `hub-spoke.yml`: 6-router topology with hub-and-spoke IBGP sessions. Start with **netlab up hub-spoke.yml**.
-* `4-router.yml`: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and Cumulus Linux running on the leaf routers. Use this topology when you're low on memory; start it with **netlab up 4-router.yml**.
-
-!!! Tip
-    If you don't want to use _netlab_, read the *[Run the Lab without netlab](#nonetlab)* section.
+* `4-router.yml`: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and FRRouting running on the leaf routers. Use this topology when you're low on memory; start it with **netlab up 4-router.yml**.
 
 After starting the lab, log into lab devices with **netlab connect** and verify that _netlab_ correctly configured their IP addresses, OSPF routing, and EBGP sessions.
 
@@ -40,15 +37,19 @@ After starting the lab, log into lab devices with **netlab connect** and verify 
 
 _netlab_ will configure IP addressing, OSPF, and a full mesh of IBGP sessions on the lab devices.
 
+**BGP router identifiers and advertised prefixes**
+
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
-| l1 | 10.0.0.1 | 10.0.0.1/32 |
-| l2 | 10.0.0.2 | 10.0.0.2/32 |
-| l3 | 10.0.0.3 | 10.0.0.3/32 |
-| l4 | 10.0.0.4 | 10.0.0.4/32 |
-| s1 | 10.0.0.10 | 10.0.0.10/32 |
-| s2 | 10.0.0.11 | 10.0.0.11/32 |
+| l1 | 10.0.0.1 | 192.168.41.0/24 |
+| l2 | 10.0.0.2 | 192.168.42.0/24 |
+| l3 | 10.0.0.3 | 192.168.43.0/24 |
+| l4 | 10.0.0.4 | 192.168.44.0/24 |
+| s1 | 10.0.0.10 |  |
+| s2 | 10.0.0.11 |  |
+
+**BGP neighbors (6-router topology)**
 
 | Node | Router ID /<br />Neighbor | Router AS/<br />Neighbor AS | Neighbor IPv4 |
 |------|---------------------------|----------------------------:|--------------:|
@@ -91,26 +92,27 @@ _netlab_ will configure IP addressing, OSPF, and a full mesh of IBGP sessions on
 
 ## Cutting the Mesh
 
-Log into L4 and inspect its BGP table. It should contain six prefixes (loopback addresses of all routers in your lab). This is the printout you'd get when using Arista cEOS containers:
+Log into L4 and inspect its BGP table. It should contain four prefixes (each leaf router advertises a BGP prefix). This is the printout you'd get when using FRRouting containers:
 
+Original BGP table on L4
+{.code-caption}
 ```
-l4>show ip bgp
-BGP routing table information for VRF default
-Router identifier 10.0.0.4, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+l4# show ip bgp
+BGP table version is 4, local router ID is 10.0.0.4, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.1/32            10.0.0.1              0       -          100     0       i
- * >      10.0.0.2/32            10.0.0.2              0       -          100     0       i
- * >      10.0.0.3/32            10.0.0.3              0       -          100     0       i
- * >      10.0.0.4/32            -                     -       -          -       0       i
- * >      10.0.0.10/32           10.0.0.10             0       -          100     0       i
- * >      10.0.0.11/32           10.0.0.11             0       -          100     0       i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *>i192.168.41.0/24  10.0.0.1(l1)             0    100      0 i
+ *>i192.168.42.0/24  10.0.0.2(l2)             0    100      0 i
+ *>i192.168.43.0/24  10.0.0.3(l3)             0    100      0 i
+ *> 192.168.44.0/24  0.0.0.0(l4)              0         32768 i
+
+Displayed 4 routes and 4 total paths
 ```
 
 Next, log into all leaf routers and remove IBGP sessions with other leaf routers. After completing this part of the exercise, you should have two BGP neighbors on every leaf router.
@@ -118,23 +120,24 @@ Next, log into all leaf routers and remove IBGP sessions with other leaf routers
 !!! Tip
     If you don't like the extra practice, start the `hub-spoke.yml` lab topology.
 
-You'll also notice that L4 no longer knows how to reach the loopback interfaces of L1, L2, or L3:
+You'll also notice that L4 no longer knows how to reach the other leaf switches:
 
+The BGP table on L4 no longer contains other leaf prefixes
+{.code-caption}
 ```
-l4>show ip bgp
-BGP routing table information for VRF default
-Router identifier 10.0.0.4, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+l4# show ip bgp
+BGP table version is 7, local router ID is 10.0.0.4, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.4/32            -                     -       -          -       0       i
- * >      10.0.0.10/32           10.0.0.10             0       -          100     0       i
- * >      10.0.0.11/32           10.0.0.11             0       -          100     0       i
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 192.168.44.0/24  0.0.0.0(l4)              0         32768 i
+
+Displayed 1 routes and 1 total paths
 ```
 
 ## Adding Route Reflectors
@@ -145,53 +148,51 @@ Reducing the number of IBGP sessions in our network is good, but we still need f
 
 ## Verification
 
-Log into L4 and inspect its BGP table. As both route reflectors (S1 and S2) send IBGP routes to L4, you should see two copies of every loopback prefix. Some devices (including Arista EOS) will also show additional BGP attributes attached to reflected routes (ORIGINATOR_ID and CLUSTER_LIST):
+Log into L4 and inspect its BGP table. As both route reflectors (S1 and S2) send IBGP routes to L4, you should see two copies of every leaf prefix:
 
+BGP table on L4 after the introduction of route reflectors
+{.code-caption}
 ```
-l4#show ip bgp
-BGP routing table information for VRF default
-Router identifier 10.0.0.4, local AS number 65000
-Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
-                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast
-                    % - Pending BGP convergence
-Origin codes: i - IGP, e - EGP, ? - incomplete
-RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
-AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+l4# show ip bgp
+BGP table version is 13, local router ID is 10.0.0.4, vrf id 0
+Default local pref 100, local AS 65000
+Status codes:  s suppressed, d damped, h history, * valid, > best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
 
-          Network                Next Hop              Metric  AIGP       LocPref Weight  Path
- * >      10.0.0.1/32            10.0.0.1              0       -          100     0       i Or-ID: 10.0.0.1 C-LST: 10.0.0.10
- *        10.0.0.1/32            10.0.0.1              0       -          100     0       i Or-ID: 10.0.0.1 C-LST: 10.0.0.11
- * >      10.0.0.2/32            10.0.0.2              0       -          100     0       i Or-ID: 10.0.0.2 C-LST: 10.0.0.10
- *        10.0.0.2/32            10.0.0.2              0       -          100     0       i Or-ID: 10.0.0.2 C-LST: 10.0.0.11
- * >      10.0.0.3/32            10.0.0.3              0       -          100     0       i Or-ID: 10.0.0.3 C-LST: 10.0.0.10
- *        10.0.0.3/32            10.0.0.3              0       -          100     0       i Or-ID: 10.0.0.3 C-LST: 10.0.0.11
- * >      10.0.0.4/32            -                     -       -          -       0       i
- * >      10.0.0.10/32           10.0.0.10             0       -          100     0       i
- *        10.0.0.10/32           10.0.0.10             0       -          100     0       i Or-ID: 10.0.0.10 C-LST: 10.0.0.11
- * >      10.0.0.11/32           10.0.0.11             0       -          100     0       i
- *        10.0.0.11/32           10.0.0.11             0       -          100     0       i Or-ID: 10.0.0.11 C-LST: 10.0.0.10
+    Network          Next Hop            Metric LocPrf Weight Path
+ *>i192.168.41.0/24  10.0.0.1(s1)             0    100      0 i
+ * i                 10.0.0.1(s2)             0    100      0 i
+ *>i192.168.42.0/24  10.0.0.2(s1)             0    100      0 i
+ * i                 10.0.0.2(s2)             0    100      0 i
+ *>i192.168.43.0/24  10.0.0.3(s1)             0    100      0 i
+ * i                 10.0.0.3(s2)             0    100      0 i
+ *> 192.168.44.0/24  0.0.0.0(l4)              0         32768 i
+
+Displayed 4 routes and 7 total paths
 ```
 
-You can inspect a single BGP prefix to see the route reflection-related attributes on most network devices:
+Some devices (including Arista EOS) will also show additional BGP attributes attached to reflected routes (ORIGINATOR_ID and CLUSTER_LIST). Alternatively, you can inspect a single BGP prefix on most network devices to see the route reflection-related attributes:
 
+The details of the BGP prefix advertised by L1 as seen by L4
+{.code-caption}
 ```
-l4#show ip bgp 10.0.0.1
-BGP routing table information for VRF default
-Router identifier 10.0.0.4, local AS number 65000
-BGP routing table entry for 10.0.0.1/32
- Paths: 2 available
+l4# show ip bgp 192.168.41.0/24
+BGP routing table entry for 192.168.41.0/24, version 11
+Paths: (2 available, best #1, table default)
+  Not advertised to any peer
   Local
-    10.0.0.1 from 10.0.0.10 (10.0.0.10)
-      Origin IGP, metric 0, localpref 100, IGP metric 30, weight 0, tag 0
-      Received 00:07:01 ago, valid, internal, best
+    10.0.0.1(s1) (metric 20) from s1(10.0.0.10) (10.0.0.1)
+      Origin IGP, metric 0, localpref 100, valid, internal, bestpath-from-AS Local, best (Neighbor IP)
       Originator: 10.0.0.1, Cluster list: 10.0.0.10
-      Rx SAFI: Unicast
+      Last update: Tue Oct  1 19:04:57 2024
   Local
-    10.0.0.1 from 10.0.0.11 (10.0.0.11)
-      Origin IGP, metric 0, localpref 100, IGP metric 30, weight 0, tag 0
-      Received 00:06:43 ago, valid, internal
+    10.0.0.1(s2) (metric 20) from s2(10.0.0.11) (10.0.0.1)
+      Origin IGP, metric 0, localpref 100, valid, internal
       Originator: 10.0.0.1, Cluster list: 10.0.0.11
-      Rx SAFI: Unicast
+      Last update: Tue Oct  1 19:04:43 2024
 ```
 
 **Next:** 
@@ -201,7 +202,7 @@ BGP routing table entry for 10.0.0.1/32
 
 ## Alternate Solutions {#alt}
 
-Your lab uses a very structured addressing scheme, so you can advertise an aggregate prefix (for example, `10.0.0.0/24`) from the spine routers to fix the routing in your lab. You could advertise the default route from the spine routers in a less structured lab.
+Your lab uses a very structured addressing scheme, so you can advertise an aggregate prefix (for example, `192.168.0.0/16`) from the spine routers to fix the routing in your lab. You could advertise the default route from the spine routers in a less structured lab.
 
 You can easily try out both solutions:
 
@@ -214,17 +215,22 @@ You can easily try out both solutions:
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as leaf- or spine routers.
 
-### Run the Lab without _netlab_ {#nonetlab}
+### Lab Wiring 
 
-You can run this lab on any [virtual lab infrastructure](../external/index.md) conforming to the [four router lab topology](../external/4-router.md) -- your devices (S1, S2) will be spine routers;  leaf routers (L1, L2) will run Cumulus Linux.
+**6-router topology**
 
-The leaf router configurations are in the `ibgp/3-rr/config` directory. You'll have to configure the spine routers yourself.
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| l1 | eth1 | s1 | eth1 |
+| l1 | eth2 | s2 | eth1 |
+| l2 | eth1 | s1 | eth2 |
+| l2 | eth2 | s2 | eth2 |
+| l3 | eth1 | s1 | eth3 |
+| l3 | eth2 | s2 | eth3 |
+| l4 | eth1 | s1 | eth4 |
+| l4 | eth2 | s2 | eth4 |
 
-Use the following information if you decide to do that[^NM]:
-
-[^NM]: I wouldn't, but that's just me.
-
-#### Lab Wiring
+**4-router topology**
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
@@ -237,7 +243,36 @@ Use the following information if you decide to do that[^NM]:
 
 **Note**: Some interfaces are not used to conform with the predefined 4-router lab topology.
 
-#### Lab Addressing
+### Lab Addressing
+
+**6-router topology**
+
+| Node/Interface | IPv4 Address | IPv6 Address | Description |
+|----------------|-------------:|-------------:|-------------|
+| **l1** |  10.0.0.1/32 |  | Loopback |
+| eth1 | 10.1.0.1/30 |  | l1 -> s1 |
+| eth2 | 10.1.0.5/30 |  | l1 -> s2 |
+| **l2** |  10.0.0.2/32 |  | Loopback |
+| eth1 | 10.1.0.9/30 |  | l2 -> s1 |
+| eth2 | 10.1.0.13/30 |  | l2 -> s2 |
+| **l3** |  10.0.0.3/32 |  | Loopback |
+| eth1 | 10.1.0.17/30 |  | l3 -> s1 |
+| eth2 | 10.1.0.21/30 |  | l3 -> s2 |
+| **l4** |  10.0.0.4/32 |  | Loopback |
+| eth1 | 10.1.0.25/30 |  | l4 -> s1 |
+| eth2 | 10.1.0.29/30 |  | l4 -> s2 |
+| **s1** |  10.0.0.10/32 |  | Loopback |
+| eth1 | 10.1.0.2/30 |  | s1 -> l1 |
+| eth2 | 10.1.0.10/30 |  | s1 -> l2 |
+| eth3 | 10.1.0.18/30 |  | s1 -> l3 |
+| eth4 | 10.1.0.26/30 |  | s1 -> l4 |
+| **s2** |  10.0.0.11/32 |  | Loopback |
+| eth1 | 10.1.0.6/30 |  | s2 -> l1 |
+| eth2 | 10.1.0.14/30 |  | s2 -> l2 |
+| eth3 | 10.1.0.22/30 |  | s2 -> l3 |
+| eth4 | 10.1.0.30/30 |  | s2 -> l4 |
+
+**4-router topology**
 
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
