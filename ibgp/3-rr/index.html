@@ -458,6 +458,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#automated-verification" class="nav-link">Automated Verification</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#alt" class="nav-link">Alternate Solutions</a>
         <ul class="nav flex-column">
         </ul>
@@ -881,6 +885,14 @@ Paths: (2 available, best #1, table default)
 <li><a href="../../session/6-templates/">Use BGP session templates</a> to make the BGP configuration on the BGP route reflectors scalable.</li>
 <li>Configure a <a href="../../session/5-routeserver/">BGP Route Server</a> &ndash; functionality similar to BGP Route Reflectors, but for EBGP sessions.</li>
 </ul>
+<h2 id="automated-verification">Automated Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on leaf devices. The validation tests check:</p>
+<ul>
+<li>Whether the leaf devices get BGP prefixes directly from other leaf devices (you forgot to remove the leaf-to-leaf IBGP sessions)</li>
+<li>Whether the leaf devices get BGP prefixes from both spine devices (spine devices work as route reflectors).</li>
+</ul>
+<p>This is the printout validating the L1 prefix<sup id="fnref:CTL"><a class="footnote-ref" href="#fn:CTL">1</a></sup>:</p>
+<p><img alt="" src="../ibgp-rr-validate.png" /></p>
 <h2 id="alt">Alternate Solutions</h2>
 <p>Your lab uses a very structured addressing scheme, so you can advertise an aggregate prefix (for example, <code>192.168.0.0/16</code>) from the spine routers to fix the routing in your lab. You could advertise the default route from the spine routers in a less structured lab.</p>
 <p>You can easily try out both solutions:</p>
@@ -892,6 +904,7 @@ Paths: (2 available, best #1, table default)
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> as leaf- or spine routers.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on leaf devices. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p><strong>6-router topology</strong></p>
@@ -1267,7 +1280,15 @@ Paths: (2 available, best #1, table default)
 </tr>
 </tbody>
 </table>
-<p><strong>Note</strong>: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.</p></div>
+<p><strong>Note</strong>: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:CTL">
+<p>The complete validation results are too long to include in the lab description.&#160;<a class="footnote-backref" href="#fnref:CTL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 

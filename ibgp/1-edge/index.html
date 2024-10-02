@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#automated-verification" class="nav-link">Automated Verification</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
@@ -497,7 +501,7 @@
 <p>The <em><a href="../../#setting-up-bgp">Setting Up BGP</a></em> lab exercises covered the simplest possible scenario: your site has a single WAN edge router running BGP with one or more upstream Internet Service Providers (ISPs). That scenario is implausible &ndash; an organization investing in its own IP address space and AS number usually does that to achieve higher resilience of its Internet connectivity, and having a single WAN edge router is not good enough for that.</p>
 <p>In this lab exercise, you&rsquo;ll build a more realistic solution: your organization uses two WAN edge routers running BGP with two upstream ISPs.</p>
 <p><img alt="Lab topology" src="../topology-ibgp.png" /></p>
-<p>Most organizations want to optimize the use of their (still relatively expensive) WAN links &ndash; you&rsquo;ll have to ensure that all your routers reach the destinations in ISP-1 via the R1-X1 uplink (and similarly for ISP-2).</p>
+<p>Most organizations want to optimize the utilization of their (still relatively expensive) WAN links. To do so, you&rsquo;ll have to ensure that all your routers reach the destinations in ISP-1 via the R1-X1 uplink (and similarly for ISP-2).</p>
 <h2 id="existing-lab-configuration">Existing Lab Configuration</h2>
 <p>When starting the lab with <em>netlab</em>, you&rsquo;ll get a preconfigured lab with EBGP sessions between the three autonomous systems and OSPF running between R1 and R2.</p>
 <h3 id="bgp-configuration">BGP Configuration</h3>
@@ -548,7 +552,7 @@
 </tr>
 </tbody>
 </table>
-<p><em>netlab</em> configures these EBGP sessions when starting the lab; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to manually configure EBGP neighbors and advertised prefixes.</p>
+<p><em>netlab</em> configures these EBGP sessions when starting the lab; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
 <table>
 <thead>
 <tr>
@@ -648,12 +652,14 @@
 </div>
 <h2 id="why-do-we-need-ibgp">Why Do We Need IBGP?</h2>
 <p>Inspect the BGP tables on R1 and R2. They contain the routes received from upstream ISPs but not those received by the other WAN router &ndash; R1 cannot use the R2-X2 uplink to reach ISP-2 (and vice versa for R2). The following printouts contain BGP tables on R1 and R2 (Arista vEOS generated all printouts in this lab exercise):</p>
+<p class="code-caption">BGP table on R1<br /></p>
 <pre><code>r1&gt;show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      10.0.100.0/24          -                     -       -          -       0       i
  * &gt;      172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
 </code></pre>
+<p class="code-caption">BGP table on R2<br /></p>
 <pre><code>r2&gt;show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      10.0.100.0/24          -                     -       -          -       0       i
@@ -661,7 +667,7 @@
  * &gt;      192.168.100.0/24       10.1.0.10             0       -          100     0       65101 65100 i
 </code></pre>
 <p>The content of the BGP tables on R1 and R2 shouldn&rsquo;t surprise you; R1 and R2 are exchanging internal routes (using OSPF) but not external routes. We could &ldquo;solve&rdquo; the challenge by redistributing external routes into OSPF (hint: <a href="https://blog.ipspace.net/2020/10/redistributing-bgp-into-ospf.html">don&rsquo;t do that</a>), but then we&rsquo;d lose the BGP information like the AS path the routers need to compare the routes.</p>
-<p>The only sane way forward is to establish a BGP session between R1 and R2, and because that session is set up between two routers in the same autonomous system, we call it an <em>internal </em>BGP (IBGP) session.</p>
+<p>The only sensible way forward is establishing a BGP session between R1 and R2. Because that session is set up between two routers in the same autonomous system, we call it an <em>internal</em> BGP (IBGP) session.</p>
 <h2 id="establish-ibgp-session">Establish IBGP Session</h2>
 <p><strong>Configuration tasks:</strong></p>
 <ul>
@@ -677,6 +683,7 @@
 <p><strong>Verification:</strong></p>
 <p>Check the status of the IBGP session with a command similar to <strong>show ip bgp summary</strong> or <strong>show ip bgp neighbors</strong></p>
 <p>The following printout contains the BGP summary information on R1 after configuring the IBGP session. As you can see, the router tries to establish the IBGP session but fails.</p>
+<p class="code-caption">EBGP and IBGP neighbors on R1 (IBGP is not working)<br /></p>
 <pre><code>r1#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -693,10 +700,11 @@ Neighbor Status Codes: m - Under maintenance
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You could also configure the IBGP session between LAN IP addresses to make the lab work, but never do that in a real-life network. You want the IBGP sessions to be stable, and using loopbacks as the endpoints of the TCP sessions (and relying on IGP to figure out how to reach remote loopbacks) is the best way to achieve that goal.</p>
+<p>You could also configure the IBGP session between LAN IP addresses to make the lab work but never do that in a real-life network. You want the IBGP sessions to be stable, and the best way to achieve that goal is to use loopbacks as the endpoints of the TCP sessions (and rely on IGP to figure out how to reach remote loopbacks).</p>
 </div>
 <p><strong>Verification:</strong></p>
 <p>After configuring the source IP address of the IBGP session on R1 and R2, the routers should be able to establish the IBGP session, as illustrated by the following printout:</p>
+<p class="code-caption">EBGP and IBGP neighbors on R1 (after fixing the BGP source interface)<br /></p>
 <pre><code>r1#show ip bgp summary
 BGP summary information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -706,6 +714,7 @@ Neighbor Status Codes: m - Under maintenance
   x1                       10.1.0.2 4 65100           2795      3276    0    0 02:19:28 Estab   2      2
 </code></pre>
 <p>After the IBGP session has been established, R1 and R2 exchange BGP prefixes received from X1 and X2, but the prefixes advertised by R2 are not selected as the best routes by R1 (and vice versa):</p>
+<p class="code-caption">BGP table on R1 with a working IBGP session<br /></p>
 <pre><code>r1#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      10.0.100.0/24          -                     -       -          -       0       i
@@ -716,6 +725,7 @@ Neighbor Status Codes: m - Under maintenance
           192.168.100.0/24       10.1.0.10             0       -          100     0       65101 65100 i
 </code></pre>
 <p>Further investigation shows that the IBGP prefixes are not used because they are considered <em>invalid</em>.</p>
+<p class="code-caption">A BGP prefix advertised by EBGP and IBGP neighbors<br /></p>
 <pre><code>r1#show ip bgp 172.16.101.0
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -757,6 +767,7 @@ BGP routing table entry for 172.16.101.0/24
 <li>BGP-derived IP prefixes in the IP routing tables point to the WAN uplinks or the LAN link between R1 and R2.</li>
 </ul>
 <p>You should get printouts similar to the ones generated by Arista EOS on R1:</p>
+<p class="code-caption">BGP table on R1 with fixed BGP next hops<br /></p>
 <pre><code>r1#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      10.0.100.0/24          -                     -       -          -       0       i
@@ -765,6 +776,7 @@ BGP routing table entry for 172.16.101.0/24
  *        172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
  * &gt;      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
 </code></pre>
+<p class="code-caption">A BGP prefix advertised over IBGP has the correct BGP next hop<br /></p>
 <pre><code>r1#show ip bgp 172.16.101.0
 BGP routing table information for VRF default
 Router identifier 10.0.0.1, local AS number 65000
@@ -781,6 +793,7 @@ BGP routing table entry for 172.16.101.0/24
       Received 00:51:03 ago, valid, external
       Rx SAFI: Unicast
 </code></pre>
+<p class="code-caption">The final IP routing table on R1<br /></p>
 <pre><code>r1#show ip route | begin Gateway
 Gateway of last resort is not set
 
@@ -795,12 +808,17 @@ Gateway of last resort is not set
 <ul>
 <li><a href="../2-transit/">Build a Transit Network with IBGP</a></li>
 </ul>
+<h2 id="automated-verification">Automated Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on R1 and R2. The validation tests check whether R1 and R2 propagate the X1/X2 prefixes over the IBGP session and whether they change the BGP next hop to their loopback IPv4 addresses.</p>
+<p>This is the printout you should get after completing the lab exercise:</p>
+<p><img alt="" src="../ibgp-edge-validate.png" /></p>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
 <li>Provider routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on R1 and R2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains provider routers&rsquo; initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
