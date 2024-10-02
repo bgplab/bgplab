@@ -1,7 +1,7 @@
 # Attach BGP communities to EBGP updates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ external_devices, check_extra_config, check_validate ]
+plugin: [ check_extra_config, check_validate ]
 name: a_community
 
 _validate_version: 1.8.3

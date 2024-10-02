@@ -2,6 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: ebgp_dc
+version: 1.6.4
 
 plugin: [ frr_bgp ]
 

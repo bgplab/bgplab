@@ -1,7 +1,7 @@
 # Configure BGP policy template
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ check_validate, external_devices ]
+plugin: [ check_validate ]
 
 name: poltemp
 module: [ bgp ]

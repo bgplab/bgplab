@@ -2,8 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: maxprefix
-
-plugin: [ external_devices ]
+version: 1.6.4
 
 module: [ bgp ]
 

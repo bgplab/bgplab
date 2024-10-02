@@ -2,9 +2,10 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 name: protect
+version: 1.6.4
 
 module: [ bgp ]
-plugin: [ ebgp.utils ]
+plugin: [ bgp.session ]
 
 groups:
   external:

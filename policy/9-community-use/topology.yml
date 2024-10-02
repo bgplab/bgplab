@@ -2,7 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: use_community
-plugin: [ check_extra_config, external_devices, check_validate ]
+plugin: [ check_extra_config, check_validate ]
 
 _validate_version: 1.8.3
 _include: [ validate.yml ]

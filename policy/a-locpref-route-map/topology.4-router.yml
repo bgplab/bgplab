@@ -1,8 +1,9 @@
 # Configure local preference in a complex environment emulated with two external routers
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ ebgp.utils ]
+plugin: [ bgp.session ]
 name: a_locpref
+version: 1.6.4
 
 groups:
   external:

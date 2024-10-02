@@ -3,7 +3,7 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 
 name: allowas
-plugin: [ external_devices, check_validate ]
+plugin: [ check_validate ]
 
 _validate_version: 1.8.3
 _include: [ validate.yml ]

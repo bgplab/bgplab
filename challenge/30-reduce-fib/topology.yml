@@ -3,7 +3,7 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 name: reducefib
 
-plugin: [ check_validate, external_devices ]
+plugin: [ check_validate ]
 
 module: [ bgp ]
 bgp.as: 65100

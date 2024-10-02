@@ -1,8 +1,8 @@
 # Configure local preference in a complex environment
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ external_devices ]
 name: a_locpref
+version: 1.6.4
 
 groups:
   external:

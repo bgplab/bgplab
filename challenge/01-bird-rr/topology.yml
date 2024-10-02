@@ -3,7 +3,8 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 name: localas
 
-plugin: [ external_devices, check_validate, change_as ]
+plugin: [ check_validate, change_as ]
+version: 1.6.4
 
 module: [ bgp ]
 
