@@ -1,0 +1,24 @@
+# Check RTR-X1 EBGP session
+pfx_pe2_ext:
+  description: Check for PE2 prefix on Ext
+  fail: The PE2 prefix is not propagated to the Ext router
+  devices: [ frr, cumulus, eos ]
+  nodes: [ ext ]
+  plugin: bgp_prefix('192.168.43.0/24')
+
+pfx_pe2_ibgp:
+  description: Check for PE2 prefix on PE1 and Core
+  fail: PE2 prefix is not advertised to all routers in AS 65000
+  nodes: [ pe1, core ]
+  plugin: bgp_prefix('192.168.43.0/24')
+
+pfx_ext_ibgp:
+  description: Check for Ext prefix on PE2 and Core
+  fail: Ext prefix is not advertised to all routers in AS 65000
+  nodes: [ core, pe2 ]
+  plugin: bgp_prefix('172.16.42.42/24')
+
+ping:
+  description: Do a ping between Ext and PE2
+  nodes: [ ext ]
+  plugin: ping(host=nodes.pe2.interfaces[1].ipv4,src=nodes.ext.loopback.ipv4)

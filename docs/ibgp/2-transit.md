@@ -101,9 +101,9 @@ ping: sendmsg: Network is unreachable
 
 [^DP]: If it doesn't, you have a more interesting problem to troubleshoot -- why does it work? 
 
-A quick look into the routing- and BGP table on PE2 confirms that PE2 knows nothing about the IPv4 prefix `172.16.42.0/24`.
+A quick look into PE2's routing- and BGP table confirms that PE2 knows nothing about the IPv4 prefix `172.16.42.0/24`.
 
-Routing table on PE2
+The routing table on PE2
 {.code-caption}
 ```
 pe2# show ip route
@@ -224,7 +224,7 @@ traceroute to 172.16.42.42 (172.16.42.42), 30 hops max, 46 byte packets
 
 Log into the router complaining it cannot reach the destination (the CORE router) and check its IP routing table. The route for `172.16.42.0/24` is missing.
 
-Routing table on Core
+The routing table on Core
 {.code-caption}
 ```
 core# show ip route
@@ -328,6 +328,20 @@ round-trip min/avg/max = 0.377/0.533/0.689 ms
 
 **Next:** [Use BGP Route Reflectors](3-rr.md)
 
+## Automated Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on Ext and PE1. The validation tests check:
+
+* Whether the PE2 prefix is propagated to Core, PE1, and Ext.
+* Whether the Ext prefix is propagated to Core and PE2
+* Whether Ext can ping PE2
+
+The **netlab validate** command skips checks that would be executed on Core and PE2 if they're not running one of the supported network operating systems.
+
+This is the printout you would get after establishing the PE1-PE2 IBGP session (the IBGP sessions with the Core router are not yet established):
+
+![](ibgp-transit-validate.png)
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
@@ -335,6 +349,7 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do limited automated lab validation with Arista EOS, Cumulus Linux, or FRR running on Ext and PE1. You must run one of these network operating systems on all devices for a complete validation. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
