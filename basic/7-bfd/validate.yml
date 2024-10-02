@@ -1,0 +1,35 @@
+# Check RTR-X1 EBGP session
+ebgp_r1:
+  description: Check EBGP session with R1
+  fail: The R1-X2 EBGP session is not established
+  devices: [ frr, cumulus, eos ]
+  stop_on_error: True
+  nodes: [ x1 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'r1')
+
+ebgp_r2:
+  description: Check EBGP session with R2
+  fail: The R2-X1 EBGP session is not established
+  devices: [ frr, cumulus, eos ]
+  stop_on_error: True
+  nodes: [ x1 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'r2')
+
+timers:
+  description: Check the EBGP session timers
+  nodes: [ x1 ]
+  plugin: |-
+    bgp_neighbor_details(
+      node.bgp.neighbors,'r1',
+      bgpTimerHoldTimeMsecs=9000,
+      bgpTimerKeepAliveIntervalMsecs=3000)
+
+bfd:
+  description: Check BFD status
+  fail: There is no BFD session between R1 and X1
+  nodes: [ x1 ]
+  show:
+    frr: bfd peer 10.1.0.1 json
+    cumulus: bfd peer 10.1.0.1 json
+  valid: |
+    status == 'up'

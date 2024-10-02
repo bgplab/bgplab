@@ -28,13 +28,13 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
 * Log into your devices (R1,R2) with **netlab connect _node_** and verify their configuration.
 
-If you're using *netlab*, you'll get a fully-configured lab, including BGP prefix origination on R1 and R2, and EBGP sessions between R1/R2 and X1. If you're using another lab platform, you'll have to do a fair amount of prep work[^PW].
+If you're using *netlab*, you'll get a fully configured lab, including BGP prefix origination on R1 and R2 and EBGP sessions between R1/R2 and X1. If you're using another lab platform, you'll have to do a fair amount of prep work[^PW].
 
 [^PW]: I did [tell you to use _netlab_](../1-setup.md), didn't I?
 
 ## Checking the Convergence Time
 
-* Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS) or monitoring of IP routing table (example: Arista EOS **event monitor**). You'll have to inspect the BGP table on R2 every few seconds if your platform does not have similar functionality.
+* Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS) or monitoring of the IP routing table (example: Arista EOS **event monitor**). If your platform does not have similar functionality, you'll have to inspect the BGP table on R2 every few seconds.
 * Log into R1 and remove the IP address from the R1-X1 link.
 
 !!! Note
@@ -52,12 +52,15 @@ r2#sh event-monitor route match-ip 192.168.42.0/24
 
 You can reduce BGP session timers to improve BGP convergence:
 
-* On the R1-X1 EBGP session, set the keepalive timer to three seconds and hold timer (timeout) to nine seconds.
+* On the R1-X1 EBGP session, set the keepalive timer to three seconds and the hold timer (timeout) to nine seconds.
 * Clear the EBGP session if needed[^ATD] -- the BGP timers are negotiated during the BGP session establishment phase.
 
 [^ATD]: Some BGP implementations tear down BGP sessions when you change the BGP timers.
 
-Verification:
+!!! tip
+    FRRouting and Cumulus Linux using the *datacenter* profile already use low BGP timers. The lab configuration process returns those timers to the default 60/180 seconds.
+
+**Verification:**
 
 * Verify that you reduced the BGP timers with a command similar to **show ip bgp neighbor detail**. 
 * Repeat the BGP convergence measurements -- X1 should revoke the BGP prefix advertised by R1 within nine seconds.
@@ -69,10 +72,21 @@ While some BGP implementations allow you to use very small BGP timers (for examp
 * Configure BFD on the EBGP neighbor session on R1
 * Clear the BGP session if needed
 
-Verification:
+!!! warning
+    Similarly to what you had to do to get BGP up and running, you have to modify the `/etc/frr/daemons` file and restart FRR on Culumus Linux and FRRouting virtual machines ([more details](0-frrouting.md)). The BFD daemon is already started in FRRouting containers.
+     
+**Verification:**
 
-* Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the **show ip bgp neighbor details** (or similar) command. Some implementations have BFD-specific show commands like **show bad neighbors**.
+* Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the **show ip bgp neighbor details** (or similar) command. Some implementations have BFD-specific show commands like **show bfd neighbors** or **show bfd peers**.
 * Repeat the BGP convergence measurements -- X1 should revoke the BGP prefix advertised by R1 almost immediately.
+
+## Automated Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux or FRR on X1. The validation tests check the BGP timers on the R1-X1 EBGP session and the state of the R1-X1 BFD session. 
+
+This is the printout you should get after completing the lab exercise:
+
+![](basic-bfd-validate.png)
 
 ## Reference Information
 
@@ -82,7 +96,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * _netlab_ has to configure BFD and BGP timers on the external routers. The device you want to use as an external router has to be supported by the [BFD configuration module](https://netlab.tools/platforms/#platform-routing-support) and the [**bgp.session** plugin](https://netlab.tools/plugins/bgp.session/#platform-support).
-* You must use Cumulus Linux on the external router if you're using _netlab_ release 1.6.3 or older.
+* You can do automated lab validation with Cumulus Linux or FRR running on X1. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring

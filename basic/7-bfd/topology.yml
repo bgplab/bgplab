@@ -2,31 +2,40 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 name: bfd
-plugin: [ external_devices,check_extra_config ]
 
 module: [ bgp ]
+plugin: [ bgp.session, enable_fix_config, fix_frr, check_validate ]
+
+version: 1.6.4
+_validate_version: 1.8.3
+_include: [ validate.yml ]
 
 groups:
   external:
     members: [ x1 ]
-    config: [ extra-config ]
+    module: [ bgp, bfd ]
+
+bgp.advertise_loopback: false
 
 nodes:
   r1:
     bgp.as: 65000
     bgp.originate: [ 192.168.42.0/24 ]
-    bgp.advertise_loopback: false
   r2:
     bgp.as: 65001
     bgp.originate: [ 192.168.43.0/24 ]
-    bgp.advertise_loopback: false
   x1:
     bgp.as: 65100
     id: 10
-    bgp.advertise_loopback: false
+
 links:
-- r1-x1
-- x1:               # Link added to 
+- r1:
+  x1:
+    bgp.timers:
+      keepalive: 60
+      hold: 180
+    bgp.bfd: True
+- x1:               # Link added to maintain the interface names consistent with 4-router topology
   pool: l2only
 - r2-x1
 

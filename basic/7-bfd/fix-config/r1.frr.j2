@@ -1,0 +1,4 @@
+router bgp {{ bgp.as }}
+{% for n in bgp.neighbors if 'ipv4' in n %}
+ neighbor {{ n.ipv4 }} timers 60 180
+{% endfor %}
