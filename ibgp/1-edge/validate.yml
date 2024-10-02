@@ -1,0 +1,26 @@
+# Check RTR-X1 EBGP session
+pfx_x2:
+  description: Check whether R1 receives X2 prefix from R2
+  fail: R2 is not advertising X2 prefix to R1
+  devices: [ frr, cumulus, eos ]
+  nodes: [ r1 ]
+  plugin: bgp_prefix(nodes.x2.loopback.ipv4,peer=nodes.r2.bgp.router_id)
+
+pfx_x1:
+  description: Check whether R2 receives X1 prefix from R1
+  fail: R1 is not advertising X1 prefix to R2
+  nodes: [ r2 ]
+  plugin: bgp_prefix(nodes.x1.loopback.ipv4,peer=nodes.r1.bgp.router_id)
+
+nh_x2:
+  description: Check whether R2 uses next-hop-self
+  fail: R2 is not changing the next hop on X2 prefix
+  devices: [ frr, cumulus, eos ]
+  nodes: [ r1 ]
+  plugin: bgp_prefix(nodes.x2.loopback.ipv4,peer=nodes.r2.bgp.router_id,nh=nodes.r2.loopback.ipv4)
+
+nh_x1:
+  description: Check whether R1 uses next-hop-self
+  fail: R1 is not changing the next hop on X1 prefix
+  nodes: [ r2 ]
+  plugin: bgp_prefix(nodes.x1.loopback.ipv4,peer=nodes.r1.bgp.router_id,nh=nodes.r1.loopback.ipv4)
