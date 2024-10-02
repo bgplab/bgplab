@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#automated-verification" class="nav-link">Automated Verification</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
@@ -534,10 +538,10 @@
 <li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your devices (R1,R2) with <strong>netlab connect <em>node</em></strong> and verify their configuration.</li>
 </ul>
-<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully-configured lab, including BGP prefix origination on R1 and R2, and EBGP sessions between R1/R2 and X1. If you&rsquo;re using another lab platform, you&rsquo;ll have to do a fair amount of prep work<sup id="fnref:PW"><a class="footnote-ref" href="#fn:PW">1</a></sup>.</p>
+<p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully configured lab, including BGP prefix origination on R1 and R2 and EBGP sessions between R1/R2 and X1. If you&rsquo;re using another lab platform, you&rsquo;ll have to do a fair amount of prep work<sup id="fnref:PW"><a class="footnote-ref" href="#fn:PW">1</a></sup>.</p>
 <h2 id="checking-the-convergence-time">Checking the Convergence Time</h2>
 <ul>
-<li>Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS) or monitoring of IP routing table (example: Arista EOS <strong>event monitor</strong>). You&rsquo;ll have to inspect the BGP table on R2 every few seconds if your platform does not have similar functionality.</li>
+<li>Log into R2 and enable debugging/logging of BGP updates (example: Cisco IOS) or monitoring of the IP routing table (example: Arista EOS <strong>event monitor</strong>). If your platform does not have similar functionality, you&rsquo;ll have to inspect the BGP table on R2 every few seconds.</li>
 <li>Log into R1 and remove the IP address from the R1-X1 link.</li>
 </ul>
 <div class="admonition note">
@@ -552,10 +556,14 @@
 <h2 id="reduce-the-bgp-timers">Reduce the BGP Timers</h2>
 <p>You can reduce BGP session timers to improve BGP convergence:</p>
 <ul>
-<li>On the R1-X1 EBGP session, set the keepalive timer to three seconds and hold timer (timeout) to nine seconds.</li>
+<li>On the R1-X1 EBGP session, set the keepalive timer to three seconds and the hold timer (timeout) to nine seconds.</li>
 <li>Clear the EBGP session if needed<sup id="fnref:ATD"><a class="footnote-ref" href="#fn:ATD">2</a></sup> &ndash; the BGP timers are negotiated during the BGP session establishment phase.</li>
 </ul>
-<p>Verification:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>FRRouting and Cumulus Linux using the <em>datacenter</em> profile already use low BGP timers. The lab configuration process returns those timers to the default 60/180 seconds.</p>
+</div>
+<p><strong>Verification:</strong></p>
 <ul>
 <li>Verify that you reduced the BGP timers with a command similar to <strong>show ip bgp neighbor detail</strong>. </li>
 <li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 within nine seconds.</li>
@@ -566,18 +574,26 @@
 <li>Configure BFD on the EBGP neighbor session on R1</li>
 <li>Clear the BGP session if needed</li>
 </ul>
-<p>Verification:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Similarly to what you had to do to get BGP up and running, you have to modify the <code>/etc/frr/daemons</code> file and restart FRR on Culumus Linux and FRRouting virtual machines (<a href="../0-frrouting/">more details</a>). The BFD daemon is already started in FRRouting containers.</p>
+</div>
+<p><strong>Verification:</strong></p>
 <ul>
-<li>Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the <strong>show ip bgp neighbor details</strong> (or similar) command. Some implementations have BFD-specific show commands like <strong>show bad neighbors</strong>.</li>
+<li>Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the <strong>show ip bgp neighbor details</strong> (or similar) command. Some implementations have BFD-specific show commands like <strong>show bfd neighbors</strong> or <strong>show bfd peers</strong>.</li>
 <li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 almost immediately.</li>
 </ul>
+<h2 id="automated-verification">Automated Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux or FRR on X1. The validation tests check the BGP timers on the R1-X1 EBGP session and the state of the R1-X1 BFD session. </p>
+<p>This is the printout you should get after completing the lab exercise:</p>
+<p><img alt="" src="../basic-bfd-validate.png" /></p>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
 <li><em>netlab</em> has to configure BFD and BGP timers on the external routers. The device you want to use as an external router has to be supported by the <a href="https://netlab.tools/platforms/#platform-routing-support">BFD configuration module</a> and the <a href="https://netlab.tools/plugins/bgp.session/#platform-support"><strong>bgp.session</strong> plugin</a>.</li>
-<li>You must use Cumulus Linux on the external router if you&rsquo;re using <em>netlab</em> release 1.6.3 or older.</li>
+<li>You can do automated lab validation with Cumulus Linux or FRR running on X1. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
