@@ -200,6 +200,19 @@ Paths: (2 available, best #1, table default)
 * [Use BGP session templates](../session/6-templates.md) to make the BGP configuration on the BGP route reflectors scalable.
 * Configure a [BGP Route Server](../session/5-routeserver.md) -- functionality similar to BGP Route Reflectors, but for EBGP sessions.
 
+## Automated Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on leaf devices. The validation tests check:
+
+* Whether the leaf devices get BGP prefixes directly from other leaf devices (you forgot to remove the leaf-to-leaf IBGP sessions)
+* Whether the leaf devices get BGP prefixes from both spine devices (spine devices work as route reflectors).
+
+This is the printout validating the L1 prefix[^CTL]:
+
+[^CTL]: The complete validation results are too long to include in the lab description.
+
+![](ibgp-rr-validate.png)
+
 ## Alternate Solutions {#alt}
 
 Your lab uses a very structured addressing scheme, so you can advertise an aggregate prefix (for example, `192.168.0.0/16`) from the spine routers to fix the routing in your lab. You could advertise the default route from the spine routers in a less structured lab.
@@ -214,6 +227,7 @@ You can easily try out both solutions:
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as leaf- or spine routers.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on leaf devices. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring 
 

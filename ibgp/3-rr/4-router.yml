@@ -9,7 +9,10 @@ groups:
 
 name: rr
 module: [ bgp, ospf ]
-plugin: [ clear_rr_flag ]
+plugin: [ clear_rr_flag, check_validate ]
+_validate_version: 1.8.3
+_include: [ 4-router/validate.yml ]
+
 bgp.as: 65000
 bgp.next_hop_self: False
 bgp.advertise_loopback: False
@@ -46,3 +49,7 @@ links:
   s2:
   name: Unused link
   pool: l2only
+
+message: |
+  The 4-router hub-and-spoke "Use BGP Route Reflectors" lab is ready. Use
+  "netlab connect" command to connect to lab devices.

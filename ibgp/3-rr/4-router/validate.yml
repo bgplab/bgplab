@@ -1,0 +1,24 @@
+pfx_l1_s1:
+  description: Check that S1 advertises the L1 prefix
+  fail: S1 is not reflecting the L1 prefix
+  devices: [ frr, cumulus, eos ]
+  nodes: [ l2 ]
+  plugin: bgp_prefix(nodes.l1.bgp.originate[0],peer=nodes.s1.bgp.router_id)
+
+pfx_l1_s2:
+  description: Check that S2 advertises the L1 prefix
+  fail: S2 is not reflecting the L1 prefix
+  nodes: [ l2 ]
+  plugin: bgp_prefix(nodes.l1.bgp.originate[0],peer=nodes.s2.bgp.router_id)
+
+pfx_l2_s1:
+  description: Check that S1 advertises the L2 prefix
+  fail: S1 is not reflecting the L2 prefix
+  nodes: [ l1 ]
+  plugin: bgp_prefix(nodes.l2.bgp.originate[0],peer=nodes.s1.bgp.router_id)
+
+pfx_l2_s2:
+  description: Check that S2 advertises the L2 prefix
+  fail: S2 is not reflecting the L2 prefix
+  nodes: [ l1 ]
+  plugin: bgp_prefix(nodes.l2.bgp.originate[0],peer=nodes.s2.bgp.router_id)
