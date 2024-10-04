@@ -474,6 +474,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#automated-verification" class="nav-link">Automated Verification</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
@@ -728,11 +732,21 @@
 <li>Verify that R1 advertises no BGP prefixes to X1/R2.</li>
 </ul>
 <p><strong>Next:</strong> <a href="../b-max-prefix/">Limit the Number of Accepted BGP Prefixes</a></p>
+<h2 id="automated-verification">Automated Verification</h2>
+<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on CE1. The validation tests check:</p>
+<ul>
+<li>The state of CE1-X1 EBGP session</li>
+<li>Whether CE1 advertises the summary prefix and suppresses the more specific prefixes</li>
+<li>Whether CE1 filters the loopback prefixes from the outgoing EBGP updates.</li>
+</ul>
+<p>This is the printout you could get after configuring route aggregation but before configuring an outbound prefix filter:</p>
+<p><img alt="" src="../basic-aggregate-validate.png" /></p>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 <li>Git repository contains initial device configurations for Cumulus Linux.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
