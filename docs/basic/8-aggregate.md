@@ -159,6 +159,18 @@ ce2>show ip bgp|begin Network
 
 **Next:** [Limit the Number of Accepted BGP Prefixes](b-max-prefix.md)
 
+## Automated Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on CE1. The validation tests check:
+
+* The state of CE1-X1 EBGP session
+* Whether CE1 advertises the summary prefix and suppresses the more specific prefixes
+* Whether CE1 filters the loopback prefixes from the outgoing EBGP updates.
+
+This is the printout you could get after configuring route aggregation but before configuring an outbound prefix filter:
+
+![](basic-aggregate-validate.png)
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
@@ -166,6 +178,7 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * Git repository contains initial device configurations for Cumulus Linux.
 
 ### Lab Wiring

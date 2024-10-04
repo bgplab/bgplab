@@ -2,8 +2,12 @@
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 name: aggregate
-version: 1.6.4
 
+version: 1.6.4
+_validate_version: 1.8.3
+_include: [ validate.yml ]
+
+plugin: [ check_validate ]
 groups:
   external:
     members: [ x1, sw ]

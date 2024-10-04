@@ -1,0 +1,37 @@
+# Check RTR-X1 EBGP session
+session:
+  description: Check EBGP session with CE1
+  fail: The X1-CE1 EBGP session is not established
+  pass: The X1-CE1 EBGP session is in Established state
+  devices: [ frr, cumulus, eos ]
+  nodes: [ x1 ]
+  plugin: bgp_neighbor(node.bgp.neighbors,'ce1')
+  stop_on_error: True
+
+pfx_agg:
+  description: Check whether CE1 advertises the aggregate prefix
+  fail: CE1 is not advertising the aggregate prefix (10.42.42.0/24)
+  pass: CE1 is advertising the aggregate prefix to X1
+  nodes: [ x1 ]
+  plugin: bgp_prefix('10.42.42.0/24')
+
+pfx_ms1:
+  description: Check whether CE1 advertises the /25 more-specific prefixe
+  fail: CE1 is advertising 10.42.42.128/25
+  pass: CE1 is not advertising more-specific /25 prefix
+  nodes: [ x1 ]
+  plugin: bgp_prefix('10.42.42.128/25',state='missing')
+
+pfx_ms2:
+  description: Check whether CE1 advertises the /28 more-specific prefixe
+  fail: CE1 is advertising 10.42.42.16/28
+  pass: CE1 is not advertising more-specific /28 prefix
+  nodes: [ x1 ]
+  plugin: bgp_prefix('10.42.42.16/28',state='missing')
+
+pfx_lb:
+  description: Check whether CE1 advertises a loopback prefix
+  fail: CE1 is not blocking the loopback prefixes
+  pass: CE1 is not advertising loopback prefixes to X1
+  nodes: [ x1 ]
+  plugin: bgp_prefix(nodes.sw.loopback.ipv4,state='missing')
