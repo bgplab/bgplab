@@ -39,6 +39,11 @@ body > .container {
     float: right;
 }
 
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1140px;
+    }
+}
 @media (min-width: 992px) {
     .col-md-9 {
         padding-left: 35px;
@@ -173,6 +178,7 @@ kbd {
 
 a {
     color: #d26400;
+    text-decoration: none;
 }
 a code {
     color: #d26400;
@@ -204,16 +210,16 @@ table.table th, table.table td {
     padding: 0.5rem 0.75rem;
 }
 
-table.table thead tr {
-    background-color: rgba(205, 205, 205, 0.16);
+table.table thead tr > * {
+    background-color: rgba(205, 205, 205, 0.16) !important;
 }
 
-table.table-striped tbody tr:nth-of-type(odd) {
-    background-color: transparent;
+table.table-striped tbody tr:nth-of-type(odd) > * {
+    background-color: transparent !important;
 }
 
-table.table-striped tbody tr:nth-of-type(even) {
-    background-color: rgba(205, 205, 205, 0.04);
+table.table-striped tbody tr:nth-of-type(even) > * {
+    background-color: rgba(205, 205, 205, 0.04) !important;
 }
 
 .modal-dialog {
@@ -286,7 +292,9 @@ button:focus {
     display: block;
     padding: 5px 20px;
     z-index: 1;
+    color: #d26400;
 }
+
 .bs-sidebar .nav > li > a:hover,
 .bs-sidebar .nav > li > a:focus {
     text-decoration: none;
