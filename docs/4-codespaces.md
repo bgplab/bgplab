@@ -11,14 +11,24 @@ You can run BGP labs in (free[^UTAP]) [GitHub codespaces](https://docs.github.co
 
 ## Select Lab Devices
 
-The BGP labs repository uses Cumulus Linux 4.4 as the default device. To change the device settings, edit the `defaults.yml` file with `vi` or `nano`.
+The BGP labs repository uses a recent FRRouting container as the default device. To change the device settings, edit the `defaults.yml` file with `vi` or `nano`:
     
+* It's best to use network devices with free-to-download container images:
+
+| Device | Device type to use in `defaults.yml` |
+|--------|--------------------------------------|
+| Cumulus Linux 4.4 | cumulus |
+| FRRouting | frr |
+| Nokia SR Linux | srlinux |
+| VyOS | vyos |
+
 !!! tip
-    * It's best to use network devices with free-to-download container images (Cumulus Linux, FRR, Nokia SR Linux, Vyos).
-    * Use FRR to use the 2 CPU/8 GB codespaces VM with larger labs.
-    * Codespaces have persistent storage; you can download and install other containers.
-    * To use containers that have to be downloaded from the vendors' website, download them onto your laptop, drag-and-drop them into the Folders, and install them [like you would on a local netlab instance](https://netlab.tools/labs/clab/#container-images).
-    * While it looks like the Codespaces environment supports nested virtualization, the environment does not include the `kvm` kernel module, so we cannot get virtual machines to work (yet). That also precludes running VMs in virtual machines (the *vrnetlab* approach).
+    Start with the [Configuring Cumulus Linux and FRRouting](basic/0-frrouting.md) exercise if you want to use the default settings but never worked with FRRouting before.
+
+* Use FRRouting to use the 2 CPU/8 GB codespaces VM with more extensive labs.
+* Codespaces have persistent storage; you can download and install other containers.
+* To use containers that have to be downloaded from the vendors' website, download them onto your laptop, [drag-and-drop them into the Folders](https://blog.ipspace.net/2024/07/arista-eos-codespaces/), and install them [like you would on a local netlab instance](https://netlab.tools/labs/clab/#container-images).
+* While it looks like the Codespaces environment supports nested virtualization, the environment does not include the `kvm` kernel module, so we cannot get virtual machines to work (yet). That also precludes running VMs in virtual machines (the *vrnetlab* approach).
 
 ## Start a Lab
 
