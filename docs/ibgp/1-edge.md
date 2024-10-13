@@ -1,6 +1,6 @@
 # Establish an IBGP Session Between WAN Edge Routers
 
-The *[Setting Up BGP](../index.md#setting-up-bgp)* lab exercises covered the simplest possible scenario: your site has a single WAN edge router running BGP with one or more upstream Internet Service Providers (ISPs). That scenario is implausible -- an organization investing in its own IP address space and AS number usually does that to achieve higher resilience of its Internet connectivity, and having a single WAN edge router is not good enough for that.
+The *[Setting Up BGP](../basic/index.md#simple)* lab exercises covered the simplest possible scenario: your site has a single WAN edge router running BGP with one or more upstream Internet Service Providers (ISPs). That scenario is implausible -- an organization investing in its own IP address space and AS number usually does that to achieve higher resilience of its Internet connectivity, and having a single WAN edge router is not good enough for that.
 
 In this lab exercise, you'll build a more realistic solution: your organization uses two WAN edge routers running BGP with two upstream ISPs.
 
