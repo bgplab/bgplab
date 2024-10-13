@@ -40,7 +40,7 @@ _netlab_ configures your routers when you start the lab; if you're using some ot
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Change directory to `policy/d-no-export`
 * Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))

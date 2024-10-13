@@ -62,4 +62,4 @@ These are the most recent labs added to the BGP Labs project:
 * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
 * [Dynamic BGP Peers](session/9-dynamic.md)
 * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
-* [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)
+* [Use No-Export Community to Filter Transit Routes](policy/d-no-export.md)<!-- adv -->
