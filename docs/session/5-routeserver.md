@@ -38,14 +38,14 @@ The routers have these EBGP sessions. _netlab_ configures them automatically; if
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Change directory to `session/5-routeserver`
 * Execute `netlab up` ([device requirements](#req), [other options](../external/index.md)).
 * Log into your devices with `netlab connect` and verify their IP addresses and EBGP sessions.
 
 !!! tip
-    If the device you want to work with does not support the BGP Route Server functionality, use Cumulus Linux as the route server. Start the lab with `netlab up -s nodes.rs.device=cumulus` and configure the route server with `netlab config route_server -l rs`.
+    If the device you want to work with does not support the BGP Route Server functionality, use Cumulus Linux as the route server. Start the lab with `netlab up -s nodes.rs.device=cumulus` and (if you're not familiar with FRRouting configuration) configure the route server with `netlab config route_server -l rs`.
 
 ## The Problem
 
