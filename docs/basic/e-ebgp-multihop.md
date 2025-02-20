@@ -51,10 +51,9 @@ default via 192.168.121.1 dev eth0
 
 _netlab_ automatically configures interface IP addresses, static routes on the firewall, and BGP routing processes; you'll have to configure them manually if you're using some other lab infrastructure.
 
-
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your routers.
 * Change directory to `basic/e-ebgp-multihop`

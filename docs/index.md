@@ -57,6 +57,6 @@ These are the most recent labs added to the BGP Labs project:
 
 * [Passive BGP Sessions](session/8-passive.md)
 * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
-* [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)
+* [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)<!--adv-->
 * [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)<!--adv-->
 * [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)<!--adv-->
