@@ -45,7 +45,7 @@ rtr>show ip bgp | begin Network
  * >      192.168.100.0/24       10.1.0.1              0       -          100     0       65100 i
 ```
 
-Now emulate a *fat fingers* incident in the customer network. Use **sh** to execute the `start` script, optionally specifying the number of prefixes you want the customer to generate:
+Now emulate a *fat fingers* incident in the customer network. Use **sh** to execute the `start` script (outside the container), optionally specifying the number of prefixes you want the customer to generate:
 
 ```
 $ sh start 20
