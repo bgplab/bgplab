@@ -5,6 +5,8 @@ While we're working on new stuff, you can already enjoy [two dozen](index.md) la
 * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [Implement Anycast Services with BGP](challenge/02-anycast.md) 
 * [EBGP-Only Data Center Design](challenge/05-ebgp-dc.md)
+* [Multihop EBGP peering in a high-availability firewall scenario](challenge/22-bgp-ha-protocol.md)
+* [Firewall-on-a-stick scenario with two VRFs in the directly attached router](challenge/21-loopback-vrf.md).
 
 We have plenty of other ideas, including:
 
@@ -31,11 +33,7 @@ See [this LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:72
 
 ## Advanced Scenarios
 
-* Multihop EBGP sessions with servers
-* BGP as a firewall high availability protocol
-* Multihop EBGP peering in a high-availability firewall scenario
-* Peering across a hidden router (example: Azure vWan)
-* Firewall-on-a-stick scenario with two VRFs in the directly attached router.
+* Peering across a low-end router using a default route
 
 See [this blog post](https://blog.ipspace.net/2024/06/ebgp-multihop-use-cases.html) for more details.
 

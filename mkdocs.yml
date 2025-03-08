@@ -9,7 +9,7 @@ site_description: Hands-on BGP labs using virtual devices
 site_author: Ivan Pepelnjak, ipSpace.net AG
 extra:
   toc_sidebar: False
-copyright: (C) 2023–2024 Ivan Pepelnjak (ipSpace.net AG)
+copyright: (C) 2023–2025 Ivan Pepelnjak (ipSpace.net AG)
 plugins:
 - search
 - include_dir_to_nav
@@ -100,6 +100,8 @@ nav:
   - challenge/01-bird-rr.md
   - challenge/02-anycast.md
   - challenge/05-ebgp-dc.md
+  - challenge/21-loopback-vrf.md
+  - challenge/22-bgp-ha-protocol.md
 
 markdown_extensions:
 - footnotes
