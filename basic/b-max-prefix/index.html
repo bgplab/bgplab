@@ -562,7 +562,7 @@
  * &gt;      10.0.0.1/32            -                     -       -          -       0       i
  * &gt;      192.168.100.0/24       10.1.0.1              0       -          100     0       65100 i
 </code></pre>
-<p>Now emulate a <em>fat fingers</em> incident in the customer network. Use <strong>sh</strong> to execute the <code>start</code> script, optionally specifying the number of prefixes you want the customer to generate:</p>
+<p>Now emulate a <em>fat fingers</em> incident in the customer network. Use <strong>sh</strong> to execute the <code>start</code> script (outside the container), optionally specifying the number of prefixes you want the customer to generate:</p>
 <pre><code>$ sh start 20
 Generating 20 prefixes on the customer router
 PLAY 1: DEPLOY DEVICE CONFIGURATION
