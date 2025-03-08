@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
-        <link rel="canonical" href="https://bgplabs.net/policy/b-disaggregate/">
+        <link rel="canonical" href="https://bgplabs.net/challenge/22-bgp-ha-protocol/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Use Disaggregated Prefixes to Select the Primary Link &#171; BGP Labs</title>
+  <title>BGP as a High Availability Protocol &#171; BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -252,11 +252,11 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Routing Policies</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Routing Policies</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../" class="dropdown-item">Overview</a>
+    <a href="../../policy/" class="dropdown-item">Overview</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -264,15 +264,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
+    <a href="../../policy/2-stop-transit/" class="dropdown-item">Filter Transit Routes</a>
 </li>
             
 <li>
-    <a href="../3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
+    <a href="../../policy/3-prefix/" class="dropdown-item">Filter Advertised Prefixes</a>
 </li>
             
 <li>
-    <a href="../4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
+    <a href="../../policy/4-reduce/" class="dropdown-item">Minimize the Size of Your BGP Table</a>
 </li>
             
 <li>
@@ -280,11 +280,11 @@
 </li>
             
 <li>
-    <a href="../d-no-export/" class="dropdown-item">Using No-Export Community to Filter Transit Routes</a>
+    <a href="../../policy/d-no-export/" class="dropdown-item">Using No-Export Community to Filter Transit Routes</a>
 </li>
             
 <li>
-    <a href="../f-orf/" class="dropdown-item">Use Outbound Route Filters (ORF) for IP Prefixes</a>
+    <a href="../../policy/f-orf/" class="dropdown-item">Use Outbound Route Filters (ORF) for IP Prefixes</a>
 </li>
     </ul>
   </li>
@@ -294,11 +294,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
+    <a href="../../policy/1-weights/" class="dropdown-item">Select Preferred EBGP Peer with Weights</a>
 </li>
             
 <li>
-    <a href="../5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
+    <a href="../../policy/5-local-preference/" class="dropdown-item">Select Preferred Uplink with BGP Local Preference</a>
 </li>
     </ul>
   </li>
@@ -308,23 +308,23 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
+    <a href="../../policy/6-med/" class="dropdown-item">Use MED to Influence Incoming Traffic Flow</a>
 </li>
             
 <li>
-    <a href="../7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+    <a href="../../policy/7-prepend/" class="dropdown-item">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
 </li>
             
 <li>
-    <a href="../8-community-attach/" class="dropdown-item">Attach BGP Communities to Outgoing BGP Updates</a>
+    <a href="../../policy/8-community-attach/" class="dropdown-item">Attach BGP Communities to Outgoing BGP Updates</a>
 </li>
             
 <li>
-    <a href="../e-wedgies/" class="dropdown-item">Resolve BGP Wedgies</a>
+    <a href="../../policy/e-wedgies/" class="dropdown-item">Resolve BGP Wedgies</a>
 </li>
             
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Use Disaggregated Prefixes to Select the Primary Link</a>
+    <a href="../../policy/b-disaggregate/" class="dropdown-item">Use Disaggregated Prefixes to Select the Primary Link</a>
 </li>
     </ul>
   </li>
@@ -334,11 +334,11 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../9-community-use/" class="dropdown-item">Use BGP Communities in Routing Policies</a>
+    <a href="../../policy/9-community-use/" class="dropdown-item">Use BGP Communities in Routing Policies</a>
 </li>
             
 <li>
-    <a href="../a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
+    <a href="../../policy/a-locpref-route-map/" class="dropdown-item">BGP Local Preference in a Complex Routing Policy</a>
 </li>
             
 <li>
@@ -353,28 +353,28 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../challenge/03-graceful-shutdown/" class="dropdown-item">BGP Graceful Shutdown</a>
+    <a href="../03-graceful-shutdown/" class="dropdown-item">BGP Graceful Shutdown</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/04-block-fat-fingers/" class="dropdown-item">Stop the Propagation of Configuration Errors</a>
+    <a href="../04-block-fat-fingers/" class="dropdown-item">Stop the Propagation of Configuration Errors</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/20-merge-as/" class="dropdown-item">Merge Networks Using Different BGP AS Numbers</a>
+    <a href="../20-merge-as/" class="dropdown-item">Merge Networks Using Different BGP AS Numbers</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/30-reduce-fib/" class="dropdown-item">Minimize the Forwarding Table on BGP Routers</a>
+    <a href="../30-reduce-fib/" class="dropdown-item">Minimize the Forwarding Table on BGP Routers</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/40-mpls-core/" class="dropdown-item">BGP-Free Core in a Transit Network</a>
+    <a href="../40-mpls-core/" class="dropdown-item">BGP-Free Core in a Transit Network</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Upcoming</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Upcoming</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -382,23 +382,23 @@
 </li>
                                     
 <li>
-    <a href="../../challenge/01-bird-rr/" class="dropdown-item">Using Bird BGP Daemon as a BGP Route Reflector</a>
+    <a href="../01-bird-rr/" class="dropdown-item">Using Bird BGP Daemon as a BGP Route Reflector</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/02-anycast/" class="dropdown-item">Implement Anycast Services with BGP</a>
+    <a href="../02-anycast/" class="dropdown-item">Implement Anycast Services with BGP</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/05-ebgp-dc/" class="dropdown-item">EBGP-Only Data Center Design</a>
+    <a href="../05-ebgp-dc/" class="dropdown-item">EBGP-Only Data Center Design</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/21-loopback-vrf/" class="dropdown-item">Run EBGP Between VRF Instances on a Single Router</a>
+    <a href="../21-loopback-vrf/" class="dropdown-item">Run EBGP Between VRF Instances on a Single Router</a>
 </li>
                                     
 <li>
-    <a href="../../challenge/22-bgp-ha-protocol/" class="dropdown-item">BGP as a High Availability Protocol</a>
+    <a href="./" class="dropdown-item active" aria-current="page">BGP as a High Availability Protocol</a>
 </li>
                                 </ul>
                             </li>
@@ -411,12 +411,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../e-wedgies/" class="nav-link">
+                                <a rel="prev" href="../21-loopback-vrf/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../9-community-use/" class="nav-link">
+                                <a rel="next" class="nav-link disabled">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -441,207 +441,114 @@
   
   
   
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary"  style="margin-bottom: 1em;">
-      <ul class="nav flex-column">
-          
-      <li class="nav-item" data-level="1"><a href="#use-disaggregated-prefixes-to-select-the-primary-link" class="nav-link">Use Disaggregated Prefixes to Select the Primary Link</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#the-problem" class="nav-link">The Problem</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#advertise-disaggregated-prefixes" class="nav-link">Advertise Disaggregated Prefixes</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-        </ul>
-      </li>
-        </ul>
-      </li>
-      </ul>
-    </div>
-  
   
   
   
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="use-disaggregated-prefixes-to-select-the-primary-link">Use Disaggregated Prefixes to Select the Primary Link</h1>
-<p>Previous lab exercises in the <em><a href="../#ingress">‌Influencing Incoming (Ingress) Traffic Flow</a></em> part of the <em><a href="../">BGP Routing Policies</a></em> section described various mechanisms you can use to try to influence the inbound traffic flow. None of these tools work when dealing with &ldquo;suboptimal&rdquo; ISPs; in those rare moments, you&rsquo;ll have to use a bigger hammer.</p>
-<p>Unfortunately, one scenario often used in the global Internet is prefix disaggregation: a customer owning address space larger than the minimum prefix size accepted in the public Internet can advertise the summary prefix over the backup link and two more specific prefixes over the primary link. That&rsquo;s what you&rsquo;ll practice in this lab exercise.</p>
-<p><img alt="Lab topology" src="../topology-disaggregate.png" /></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Prefix disaggregation should be the tool of last resort as it pollutes the routing tables throughout the Internet. Do not use it unless all the other tools have failed.</p>
-</div>
-<h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.</p>
-<table>
-<thead>
-<tr>
-<th>Node/ASN</th>
-<th style="text-align: right;">Router ID</th>
-<th style="text-align: right;">Advertised prefixes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>AS65000</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>rtr</td>
-<td style="text-align: right;">10.0.0.1</td>
-<td style="text-align: right;">172.16.4.0/22</td>
-</tr>
-<tr>
-<td><strong>AS65100</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>x1</td>
-<td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">192.168.100.0/24</td>
-</tr>
-<tr>
-<td><strong>AS65101</strong></td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td>x2</td>
-<td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">192.168.101.0/24</td>
-</tr>
-</tbody>
-</table>
-<p>Your router has these EBGP neighbors.  <em>netlab</em> configures them automatically; if you&rsquo;re using some other lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Router ID /<br />Neighbor</th>
-<th style="text-align: right;">Router AS/<br />Neighbor AS</th>
-<th style="text-align: right;">Neighbor IPv4</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>rtr</strong></td>
-<td>10.0.0.1</td>
-<td style="text-align: right;">65000</td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td></td>
-<td>x1</td>
-<td style="text-align: right;">65100</td>
-<td style="text-align: right;">10.1.0.2</td>
-</tr>
-<tr>
-<td></td>
-<td>x2</td>
-<td style="text-align: right;">65101</td>
-<td style="text-align: right;">10.1.0.6</td>
-</tr>
-</tbody>
-</table>
-<h2 id="start-the-lab">Start the Lab</h2>
-<p>You can start the lab <a href="../../1-setup/">on your own lab infrastructure</a> or in <a href="https://github.com/codespaces/new/bgplab/bgplab">GitHub Codespaces</a> (<a href="https://bgplabs.net/4-codespaces/">more details</a>):</p>
-<ul>
-<li>Change directory to <code>policy/b-disaggregate</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
-<li>Log into your router (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses and the EBGP sessions are properly configured.</li>
-</ul>
-<h2 id="the-problem">The Problem</h2>
-<p>You would like to use the link between RTR and X2 as a backup link; X2 should send the traffic toward 172.16.4.0/22 via X1. </p>
-<p>Unfortunately, the X2 ISP does not offer flexible BGP routing policies like BGP communities. It uses BGP local preference to prefer customer routes over peer routes; there&rsquo;s nothing you can do to change that.</p>
-<p>Don&rsquo;t believe me? Execute <strong>show ip bgp 172.16.4.0/22</strong> (or a similar command) on X2 to inspect the alternate paths for your prefix; the best path points to the RTR-X2 link. Using <a href="../7-prepend/">AS-path prepending</a> won&rsquo;t change that (you might want to check that claim before proceeding):</p>
-<pre><code>$ netlab connect -q x2 --show ip bgp 172.16.4.0/22
-BGP routing table entry for 172.16.4.0/22
-Paths: (2 available, best #2, table default)
-  Advertised to non peer-group peers:
-  10.1.0.5 x1(10.1.0.9)
-  65100 65000
-    10.1.0.9 from x1(10.1.0.9) (10.0.0.10)
-      Origin incomplete, valid, external, bestpath-from-AS 65100
-      Last update: Tue Jun 25 17:12:20 2024
-  65000
-    10.1.0.5 from 10.1.0.5 (10.0.0.1)
-      Origin incomplete, localpref 200, valid, external, bestpath-from-AS 65000, best (Local Pref)
-      Last update: Tue Jun 25 17:12:25 2024
-</code></pre>
-<p>The only way to force X2 to use the path through X1 is to advertise two prefixes (172.16.4.0/23 and 172.16.6.0/23) to X1 while advertising just the summary prefix (172.16.4.0/22) to X2.</p>
-<h2 id="advertise-disaggregated-prefixes">Advertise Disaggregated Prefixes</h2>
-<p>You mastered all the tools you need to solve this challenge in the previous lab exercises:</p>
-<ul>
-<li>Start advertising the two more specific prefixes (see <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> for more details).</li>
-<li>Configure two outbound prefix lists, one that matches only the more specific prefixes and another that only matches the aggregate prefixes. Apply them as outbound filters on EBGP sessions with X1 and X2 (see <a href="../3-prefix/">Filter Advertised Prefixes</a> for more details).</li>
-</ul>
-<h2 id="verification">Verification</h2>
-<p>After completing the lab exercise, your router should:</p>
-<ul>
-<li>Advertise 172.16.4.0/23 and 172.16.6.0/23 (and nothing else) to X1</li>
-<li>Advertise 172.16.4.0/22 to X2</li>
-</ul>
-<p>X2 should use the path through X1 to reach the 172.16.4.0/22 address space.</p>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:</p>
-<ul>
-<li>The state of the EBGP session between RTR and X1/X2</li>
-<li>The prefixes RTR advertises to X1/X2</li>
-<li>Whether X2 uses X1 to get to the 172.16.4.0/22 address space.</li>
-</ul>
-<p>For example, this is the result you&rsquo;d get if you configured the prefix origination but forgot to apply prefix filters to outbound EBGP updates (the printout shows just the final tests):</p>
-<p><img alt="" src="../policy-disaggregate-validate.png" /></p>
-<p>If the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on the ISP routers, do manual validation. Inspect the state of the BGP table on X1 and X2 (use a command similar to <strong>show ip bgp regex 65000$</strong> to limit the printout to prefixes originated by AS 65000) and check whether it matches the expected results.</p>
-<p>This is the BGP table you should see on X1:</p>
-<pre><code>$ netlab connect -q x1 --show 'ip bgp regex 65000$'
-BGP table version is 12, local router ID is 10.0.0.10, vrf id 0
-Default local pref 100, local AS 65100
-Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
-               i internal, r RIB-failure, S Stale, R Removed
-Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
-Origin codes:  i - IGP, e - EGP, ? - incomplete
+<h1 id="bgp-as-a-high-availability-protocol">BGP as a High Availability Protocol</h1>
+<p>In the <a href="../../basic/e-ebgp-multihop/">Running EBGP Across a Firewall</a> lab exercise, you learned how to establish a multihop EBGP session across a layer-3 firewall between an internal router and a WAN edge router.</p>
+<p>In this lab exercise, you&rsquo;ll use that concept to run BGP across two firewalls, using one of them as the primary and the other as the backup instance.</p>
+<p><img alt="Lab topology" src="../topology-bgp-ha-protocol.png" /></p>
+<!--
+## Existing BGP Configuration
 
-   Network          Next Hop            Metric LocPrf Weight Path
-*&gt; 172.16.4.0/22    10.1.0.10                              0 65101 65000 ?
-*&gt; 172.16.4.0/23    10.1.0.1                               0 65000 ?
-*&gt; 172.16.6.0/23    10.1.0.1                               0 65000 ?
+The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.
 
-Displayed  3 routes and 5 total paths
+| Node/ASN | Router ID | Advertised prefixes |
+|----------|----------:|--------------------:|
+| **AS65000** ||
+| rtr | 10.0.0.1 | 10.0.0.1/32 |
+| **AS65100** ||
+| x1 | 10.0.0.10 | 192.168.100.1/24 |
+| **AS65101** ||
+| x2 | 10.0.0.11 | 192.168.101.1/24 |
+
+Your router has these EBGP neighbors:
+
+| Node | Router ID /<br />Neighbor | Router AS/<br />Neighbor AS | Neighbor IPv4 |
+|------|---------------------------|----------------------------:|--------------:|
+| **rtr** | 10.0.0.1 | 65000 |
+| | x1 | 65100 | 10.1.0.2 |
+| | x2 | 65101 | 10.1.0.6 |
+
+However, X2 (belonging to ISP-2) thinks your router should have AS number 65007:
+
+| Node | Router ID /<br />Neighbor | Router AS/<br />Neighbor AS | Neighbor IPv4 |
+|------|---------------------------|----------------------------:|--------------:|
+| **x2** | 10.0.0.11 | 65101 |
+| | rtr | 65007 | 10.1.0.5 |
+
+_netlab_ automatically configures device interfaces, OSPF, and BGP; if you're using another lab infrastructure, you'll have to configure lab devices manually.
+
+
+## Start the Lab
+
+Assuming you already [set up your lab infrastructure](../1-setup.md):
+
+* Change directory to `session/3-localas`
+* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
+
+## The Problem
+
+Log into your router and check its EBGP sessions. The session with X1 should be established; the one with X2 should be stuck in the `Active` or `Idle` state[^IS]. This is the printout you would get on Arista EOS:
+
+
+<pre><code>rtr&gt;show ip bgp summary
+BGP summary information for VRF default
+Router identifier 10.0.0.1, local AS number 65000
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  x1                       10.1.0.2 4 65100             10        10    0    0 00:00:16 Estab   1      1
+  x2                       10.1.0.6 4 65101             12        12    0    0 00:00:17 Active 
 </code></pre>
-<p>And this is the BGP table you should see on X2:</p>
-<pre><code>$ netlab connect -q x2 --show 'ip bgp regex 65000$'
-BGP table version is 12, local router ID is 10.0.0.11, vrf id 0
+
+
+[^IS]: Most BGP implementations keep trying and show a BGP session that cannot be successfully established as `Active`. FRR (also used by Cumulus Linux) gives up and shows it as `Idle`. You have to clear the BGP session to tell FRR to retry.
+
+You know that the BGP session with X2 is not established due to a BGP AS number mismatch, but you might not be so lucky in real life. Figure out how you'd discover that in a production environment.
+
+For example, Arista EOS BGP logging messages tell you that the BGP neighbor (X2) keeps rejecting your BGP OPEN message due to "a bad AS number":
+
+
+<pre><code>%BGP-3-NOTIFICATION: received from neighbor 10.1.0.6 (VRF default AS 65101) 2/2 (Open Message Error/bad AS number) 2 bytes
+</code></pre>
+
+
+## Configuration Tasks
+
+Most BGP implementations have a nerd knob that changes the local BGP AS number on a single EBGP session. It's usually configured with a command similar to **neighbor local-as**. The syntax and capabilities of this command vary between implementations. Some implementations cannot do anything else but "_use a different AS number_" while others have configurable AS-path handling behavior.  For example, you can decide whether to include the node BGP AS number in the AS path on Cumulus Linux.
+
+* Configure BGP local AS on the EBGP session between RTR and X2 to be 65007.
+* Ensure that the AS number 65000 never appears in the AS path advertised to X2.
+
+!!! Warning
+    After configuring the BGP local AS number, you might have to clear the BGP session with X2.
+
+## Verification
+
+You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+
+* The state of the EBGP session between RTR and X2
+* Whether RTR sends any routing updates to X2
+* Whether RTR removes AS 65000 from the AS path before sending the updates to X2.
+
+For example, this is the result you'd get if you configured the BGP local AS number on Cumulus Linux but forgot to remove AS 65000 from the outbound AS path:
+
+![](session-localas-validate.png)
+
+If the **netlab validate** command fails or you're using another network operating system on the ISP routers, it's time to start a troubleshooting session.
+
+* Check the state of the BGP sessions on RTR with a command similar to **show ip bgp summary**. All sessions should be in the established state.
+* Check the BGP table on X2 with a command similar to **show ip bgp**.
+
+If you forgot to remove AS 65000 from the updates sent to X2, X2 will have a BGP table similar to the following one:
+
+
+<pre><code>x2# show ip bgp
+BGP table version is 3, local router ID is 10.0.0.11, vrf id 0
 Default local pref 100, local AS 65101
 Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
                i internal, r RIB-failure, S Stale, R Removed
@@ -649,119 +556,63 @@ Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
 Origin codes:  i - IGP, e - EGP, ? - incomplete
 
    Network          Next Hop            Metric LocPrf Weight Path
-*&gt; 172.16.4.0/22    10.1.0.5                      200      0 65000 ?
-*&gt; 172.16.4.0/23    10.1.0.9                               0 65100 65000 ?
-*&gt; 172.16.6.0/23    10.1.0.9                               0 65100 65000 ?
+*&gt; 10.0.0.1/32      10.1.0.5                 0             0 65007 65000 i
+*&gt; 192.168.100.0/24 10.1.0.5                               0 65007 65000 65100 i
+*&gt; 192.168.101.0/24 0.0.0.0                  0         32768 i
 
-Displayed  3 routes and 5 total paths
+Displayed  3 routes and 3 total paths
 </code></pre>
-<h2 id="reference-information">Reference Information</h2>
-<p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer routers.</li>
-<li>Use any device on which <a href="https://netlab.tools/plugins/bgp.policy/#platform-support"><em>netlab</em> can configure BGP local preference</a> for the provider routers.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires <em>netlab</em> release 1.7.0 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
-<h3 id="lab-wiring">Lab Wiring</h3>
-<table>
-<thead>
-<tr>
-<th>Origin Device</th>
-<th>Origin Port</th>
-<th>Destination Device</th>
-<th>Destination Port</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>rtr</td>
-<td>Ethernet1</td>
-<td>x1</td>
-<td>swp1</td>
-</tr>
-<tr>
-<td>rtr</td>
-<td>Ethernet2</td>
-<td>x2</td>
-<td>swp1</td>
-</tr>
-<tr>
-<td>x1</td>
-<td>swp2</td>
-<td>x2</td>
-<td>swp2</td>
-</tr>
-</tbody>
-</table>
-<h3 id="lab-addressing">Lab Addressing</h3>
-<table>
-<thead>
-<tr>
-<th>Node/Interface</th>
-<th style="text-align: right;">IPv4 Address</th>
-<th style="text-align: right;">IPv6 Address</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>rtr</strong></td>
-<td style="text-align: right;">10.0.0.1/32</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>Ethernet1</td>
-<td style="text-align: right;">10.1.0.1/30</td>
-<td style="text-align: right;"></td>
-<td>rtr -&gt; x1</td>
-</tr>
-<tr>
-<td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.5/30</td>
-<td style="text-align: right;"></td>
-<td>rtr -&gt; x2</td>
-</tr>
-<tr>
-<td><strong>x1</strong></td>
-<td style="text-align: right;">192.168.100.1/24</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>swp1</td>
-<td style="text-align: right;">10.1.0.2/30</td>
-<td style="text-align: right;"></td>
-<td>x1 -&gt; rtr</td>
-</tr>
-<tr>
-<td>swp2</td>
-<td style="text-align: right;">10.1.0.9/30</td>
-<td style="text-align: right;"></td>
-<td>x1 -&gt; x2</td>
-</tr>
-<tr>
-<td><strong>x2</strong></td>
-<td style="text-align: right;">192.168.101.1/24</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>swp1</td>
-<td style="text-align: right;">10.1.0.6/30</td>
-<td style="text-align: right;"></td>
-<td>x2 -&gt; rtr</td>
-</tr>
-<tr>
-<td>swp2</td>
-<td style="text-align: right;">10.1.0.10/30</td>
-<td style="text-align: right;"></td>
-<td>x2 -&gt; x1</td>
-</tr>
-</tbody>
-</table></div>
+
+
+The correct version of the BGP table on X2 is in the following printout. Please note that the AS 65000 is no longer in the AS path.
+
+
+<pre><code>x2# show ip bgp
+BGP table version is 11, local router ID is 10.0.0.11, vrf id 0
+Default local pref 100, local AS 65101
+Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, &lt; announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop            Metric LocPrf Weight Path
+*&gt; 10.0.0.1/32      10.1.0.5                 0             0 65007 i
+*&gt; 192.168.100.0/24 10.1.0.5                               0 65007 65100 i
+*&gt; 192.168.101.0/24 0.0.0.0                  0         32768 i
+
+Displayed  3 routes and 3 total paths
+</code></pre>
+
+
+## Reference Information
+
+This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
+
+### Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
+* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
+* Git repository contains external router initial device configurations for Cumulus Linux.
+
+### Lab Wiring
+
+| Origin Device | Origin Port | Destination Device | Destination Port |
+|---------------|-------------|--------------------|------------------|
+| rtr | Ethernet1 | x1 | swp1 |
+| rtr | Ethernet2 | x2 | swp1 |
+
+### Lab Addressing
+
+| Node/Interface | IPv4 Address | IPv6 Address | Description |
+|----------------|-------------:|-------------:|-------------|
+| **rtr** |  10.0.0.1/32 |  | Loopback |
+| Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
+| Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
+| **x1** |  192.168.100.1/24 |  | Loopback |
+| eth1 | 10.1.0.2/30 |  | x1 -> rtr |
+| **x2** |  192.168.101.1/24 |  | Loopback |
+| eth1 | 10.1.0.6/30 |  | x2 -> rtr |
+--></div>
             </div>
         </div>
 
