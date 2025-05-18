@@ -574,10 +574,6 @@
 <li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
 <li>Log into your router (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses and the EBGP sessions are properly configured.</li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This lab exercise requires <em>netlab</em> release 1.6.4 or later.</p>
-</div>
 <h2 id="the-problem">The Problem</h2>
 <p>Log into your router and check its BGP table. It should have two paths for the prefix 10.1.3.0/24, but only one of them is used due to its lower MED value:</p>
 <pre><code>rtr&gt;show ip bgp
