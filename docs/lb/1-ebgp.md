@@ -42,9 +42,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([device requirements](#req))
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
-!!! warning
-    This lab exercise requires _netlab_ release 1.6.4 or later.
-
 ## Configuration Tasks
 
 Most BGP implementations have nerd knobs that change the EBGP load-balancing behavior:

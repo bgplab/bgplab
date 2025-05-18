@@ -2,8 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: no_transit
-version: 1.6.4
-_validate_version: 1.8.3
+version: 1.8.3
 
 module: [ bgp ]
 plugin: [ bgp.session, bgp.policy, check_validate ]

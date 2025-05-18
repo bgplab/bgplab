@@ -3,7 +3,7 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ fix_frr ]
 name: mplscore
-version: 1.6.4
+version: 1.8.3
 
 groups:
   external:

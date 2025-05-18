@@ -2,9 +2,8 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: reduce
-version: 1.6.4
+version: 1.8.3
 
-_validate_version: 1.8.3
 _include: [ validate.yml ]
 
 module: [ bgp ]

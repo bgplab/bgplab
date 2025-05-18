@@ -5,8 +5,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 name: asoverride
 plugin: [ check_validate, check_extra_config ]
 
-version: 1.6.4
-_validate_version: 1.8.3
+version: 1.8.3
 _include: [ validate.yml ]
 
 groups:

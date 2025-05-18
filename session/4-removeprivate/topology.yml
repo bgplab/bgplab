@@ -5,7 +5,7 @@ name: privateas
 
 plugin: [ check_validate ]
 
-_validate_version: 1.8.3
+version: 1.8.3
 _include: [ validate.yml ]
 
 module: [ bgp ]

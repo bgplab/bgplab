@@ -2,7 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: a_locpref
-version: 1.6.4
+version: 1.8.3
 
 groups:
   external:

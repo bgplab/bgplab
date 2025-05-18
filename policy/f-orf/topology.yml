@@ -6,7 +6,7 @@ name: orf
 module: [ bgp ]
 plugin: [ bgp.session ]
 
-version: 1.6.4
+version: 1.8.3
 
 nodes:
   rtr:

@@ -4,7 +4,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 name: CHANGE
 
 plugin: [ check_validate ]
-#_validate_version: 1.8.3
+version: 1.8.3
 #_include: [ validate.yml ]
 
 groups:
@@ -29,5 +29,5 @@ links: []
 
 message: |
   The "NAME" lab is ready.
-  Use "netlab connect c1" to connect to your router and 
+  Use "netlab connect c1" to connect to your router and
   "netlab connect u2 --show" to execute show commands on u2.

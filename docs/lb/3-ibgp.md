@@ -50,9 +50,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** ([device requirements](#req))
 * Log into your routers and verify that the IP addresses and the EBGP sessions are properly configured.
 
-!!! warning
-    This lab exercise requires _netlab_ release 1.6.4 or later.
-
 ## The Problem
 
 Log into the Core router and check its BGP table. It should have two paths for the 10.1.3.0/24 prefix.

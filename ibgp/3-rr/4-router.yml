@@ -10,7 +10,7 @@ groups:
 name: rr
 module: [ bgp, ospf ]
 plugin: [ clear_rr_flag, check_validate ]
-_validate_version: 1.8.3
+version: 1.8.3
 _include: [ 4-router/validate.yml ]
 
 bgp.as: 65000

@@ -2,9 +2,8 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: locpref
-version: 1.6.4
+version: 1.8.3
 
-_validate_version: 1.8.3
 _include: [ validate.yml ]
 
 plugin: [ bgp.session, check_validate ]

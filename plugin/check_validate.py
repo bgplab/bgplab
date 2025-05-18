@@ -5,13 +5,13 @@ from netsim.utils import log
 from box import Box
 
 def init(topology: Box) -> None:
-  if __version__ < '1.6.4':
-    log.fatal('BGP labs require netlab version 1.6.4 or higher')
+  if __version__ < '1.8.3':
+    log.fatal('BGP labs require netlab version 1.8.3 or higher')
 
   if not topology.get('validate',None):
     return
 
-  v_version = topology.get('_validate_version','1.7.0')
+  v_version = topology.get('_validate_version','1.8.3')
   if __version__ >= v_version:
     return
 
