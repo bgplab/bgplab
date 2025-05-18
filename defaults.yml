@@ -4,6 +4,3 @@ provider: clab          # Change to virtualbox or libvirt if needed
 groups:
   external:
     device: frr                                       # Change to your preferred external router
-
-devices.eos.clab.node.env.CLAB_MGMT_VRF: management   # Add management VRF to cEOS. Not needed after 1.6.4
-devices.frr.features.ospf.unnumbered: true            # OSPF unnumbered works on FRR. Not needed after 1.7.0
