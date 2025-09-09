@@ -6,16 +6,16 @@ title: Installation and Setup
 It's easiest to use the BGP labs with _[netlab](https://netlab.tools/)_. Still, you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document, we'll assume you decided to use _netlab_; if you want to set up your lab in some other way, read the [Manual Setup](external/index.md) document.
 
 !!! Warning
-    BGP labs work with _netlab_ release 1.8.3 or later. If you're using an earlier _netlab_ release, please upgrade with `pip3 install --upgrade networklab`.
+    While BGP labs work with _netlab_ release 1.8.3 or later, we recommend using a recent release (for example, 25.09). If you're using an earlier _netlab_ release, please upgrade with `pip3 install --upgrade networklab`.
 
 ## Select the Network Devices You Will Work With
 
-FRRouting devices can be run in all [_netlab_-supported virtualization environments](https://netlab.tools/providers/) (Docker containers, KVM/libvirt, or VirtualBox), and if you want to start practicing BGP with minimum hassle, consider using them for all lab devices.
+FRRouting devices can be run in all [_netlab_-supported virtualization environments](https://netlab.tools/providers/) (Docker containers or KVM/libvirt virtual machines), and if you want to start practicing BGP with minimum hassle, consider using them for all lab devices.
 
 If you'd like to use a more traditional networking device, use any other [_netlab_-supported device](https://netlab.tools/platforms/) for which we implemented [basic BGP configuration](https://netlab.tools/module/bgp/#platform-support) as the device to practice with[^x86]. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.
 
 !!! tip
-    You must use container-based network devices such as Arista cEOS, FRR, Nokia SR Linux, or VyOS if you plan to run the BGP labs in [GitHub Codespaces](4-codespaces.md). 
+    You must use container-based network devices such as Arista cEOS, FRR, Nokia SR Linux, or VyOS to run the BGP labs in [GitHub Codespaces](4-codespaces.md).
 
 [^x86]: You will have to run the labs on a device with an x86 CPU (Intel or AMD).
 
@@ -29,7 +29,6 @@ It's best if you use FRR containers or virtual machines for external BGP feeds, 
 |-------------------|--------------------------------|
 | Containers (clab) | Arista EOS, FRR, Nokia SR Linux[^R164] |
 | Virtual machines (libvirt) | Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, FRR |
-| Virtual machines (Virtualbox) | Arista EOS, Cisco IOSv, Cisco IOS-XE, FRR |
 | [ARM (Apple) CPU](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html) | Arista EOS, FRR, or SR Linux containers |
 
 !!! Tip
@@ -44,14 +43,14 @@ It's best if you use FRR containers or virtual machines for external BGP feeds, 
 
 ## Select the Virtualization Environment
 
-Now that you know which network device to use, check [which virtualization environment](https://netlab.tools/platforms/#supported-virtualization-providers) you can use. I would prefer _containerlab_ over _libvirt_ with _virtualbox_ being a distant third, but that's just me.
+Now that you know which network device to use, check [which virtualization environment](https://netlab.tools/platforms/#supported-virtualization-providers) you can use. I prefer _containerlab_ over _libvirt_ (containers usually start faster), but that's just me.
 
 !!! tip
     You can also run the BGP labs in a [free GitHub Codespace](4-codespaces.md).
 
-A gotcha: You can use _virtualbox_ if you want to run the lab devices as virtual machines on your Windows- or MacOS laptop with Intel CPU, but even then, I'd prefer running them in a [Ubuntu VM](https://netlab.tools/install/ubuntu-vm/).
+Everything else being equal, I'd create a [Ubuntu VM](https://netlab.tools/install/ubuntu-vm/) on Windows or MacOS (including [Macs with Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon/)) to run _netlab_. You could also invest in a tiny brick of densely-packed silicon ([example](https://www.minisforum.com/))
 
-One more gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support _nested virtualization_ if you want to use _libvirt_ on that Ubuntu VM. You don't need nested virtualization to run Docker containers unless you're using the crazy trick we're forced to use for Aruba AOS-CX, Juniper vMX, or Nokia SR OS -- they're running as a virtual machine _within a container_.
+A gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support _nested virtualization_ if you want to use _libvirt_ on that Ubuntu VM. You don't need nested virtualization to run Docker containers unless you're using the crazy trick we're forced to use for Aruba AOS-CX, most Cisco platforms, Junos, or Nokia SR OS -- they're running as a virtual machine _within a container_.
 
 ## Software Installation
 
@@ -63,11 +62,10 @@ Based on the choices you made, you'll find the installation instructions in one 
 * [Running netlab on any other Linux Server](https://netlab.tools/install/linux/)
 * [Running netlab in a Public Cloud](https://netlab.tools/install/cloud/)
 * [Running netlab on Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)
-* Discouraged: [Virtualbox-Based Lab on Windows or MacOS](https://netlab.tools/labs/virtualbox/)
 
-Once you have completed the software installation you have to deal with the stupidities of downloading and installing network device images ([Virtualbox](https://netlab.tools/labs/virtualbox/), [libvirt](https://netlab.tools/labs/libvirt/#vagrant-boxes), [containers](https://netlab.tools/labs/clab/#container-images)) unless you decided to use Cumulus Linux, FRR, Nokia SR Linux, or Vyos.
+Once you have completed the software installation, you have to deal with the stupidities of downloading and installing network device images ([libvirt](https://netlab.tools/labs/libvirt/#vagrant-boxes), [containers](https://netlab.tools/labs/clab/#container-images)) unless you decided to use FRR, Nokia SR Linux, or Vyos.
 
-I would love to simplify the process, but the networking vendors refuse to play along. Even worse,  their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you[^NPAL]. Fortunately, you only have to go through this colossal waste of time once.
+I would love to simplify the process, but the networking vendors refuse to play along. Even worse, their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you[^NPAL]. Fortunately, you only have to go through this colossal waste of time once.
 
 [^NPAL]: I'm not going to pay a lawyer to read their boilerplate stuff, and I'm definitely not going to rely on my amateur understanding of US copyright law.
 
@@ -80,15 +78,34 @@ We finally got to the fun part -- setting up the labs. If you're not using GitHu
 
 After you get a local copy of the repository:
 
-* If needed, edit the `defaults.yml` file in the top directory to set your preferred network device and virtualization environment. For example, I'm using the following settings to run the labs with Arista EOS containers while using FRR as the external BGP feeds:
+* Change the directory to the top directory of the cloned repository[^BLB].
+* Verify the current project defaults with the `netlab defaults --project` command[^R27]:
 
 ```
-device: eos             # Change to your preferred network device
-provider: clab          # Change to virtualbox or libvirt if needed
+$ netlab defaults --project
+device = frr (project)
+groups.external.device = frr (project)
+provider = clab (project)
+```
 
-groups:
-  external:
-    device: frr         # Change to your preferred external router
+[^BLB]: `bgplab` if you used the simple version of the **git clone** command
+
+[^R27]: Available in _netlab_ release 2.0.1 and later. Edit the `defaults.yml` file if you're using an older release.
+
+[^CSR]: Assuming you built the [CSR Vagrant box](https://netlab.tools/labs/csr/) first
+
+* If needed, change the project defaults to match your environment with the `netlab defaults --project _setting_=_value_` command. For example, use these commands to change your devices to Cisco CSRs running as virtual machines[^CSR]:
+
+```shell
+$ netlab defaults --project device=csr
+The default setting device is already set in project defaults
+Do you want to change that setting in project defaults [y/n]: y
+device set to csr in /home/user/BGP/defaults.yml
+
+$ netlab defaults --project provider=libvirt
+The default setting provider is already set in netlab,project defaults
+Do you want to change that setting in project defaults [y/n]: y
+provider set to libvirt in /home/user/BGP/defaults.yml
 ```
 
 * In a terminal window, change the current directory to one of the lab directories (for example, `basic/1-session`), and execute **netlab up**.
