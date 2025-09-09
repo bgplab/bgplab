@@ -51,12 +51,14 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
 
+<!-- all recent labs were advertised in blog posts
 ## Recent Labs
 
 These are the most recent labs added to the BGP Labs project:
 
 * [Passive BGP Sessions](session/8-passive.md)
 * [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
-* [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)<!--adv-->
-* [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)<!--adv-->
-* [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)<!--adv-->
+* [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)
+* [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)
+* [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
+-->
