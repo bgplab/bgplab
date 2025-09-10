@@ -528,7 +528,7 @@
 <p class="admonition-title">Tip</p>
 <p>You can also run the BGP labs in a <a href="../4-codespaces/">free GitHub Codespace</a>.</p>
 </div>
-<p>Everything else being equal, I&rsquo;d create a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM</a> on Windows or MacOS (including <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon/">Macs with Apple silicon</a>) to run <em>netlab</em>. You could also invest in a tiny brick of densely-packed silicon (<a href="https://www.minisforum.com/">example</a>)</p>
+<p>Everything else being equal, I&rsquo;d create a <a href="https://netlab.tools/install/ubuntu-vm/">Ubuntu VM</a> on Windows or MacOS (including <a href="https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon/">Macs with Apple silicon</a>) to run <em>netlab</em>. You could also invest in a tiny brick of densely-packed silicon (<a href="https://www.minisforum.com/">example</a>).</p>
 <p>A gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support <em>nested virtualization</em> if you want to use <em>libvirt</em> on that Ubuntu VM. You don&rsquo;t need nested virtualization to run Docker containers unless you&rsquo;re using the crazy trick we&rsquo;re forced to use for Aruba AOS-CX, most Cisco platforms, Junos, or Nokia SR OS &ndash; they&rsquo;re running as a virtual machine <em>within a container</em>.</p>
 <h2 id="software-installation">Software Installation</h2>
 <p>Based on the choices you made, you&rsquo;ll find the installation instructions in one of these documents:</p>
@@ -559,7 +559,7 @@ groups.external.device = frr (project)
 provider = clab (project)
 </code></pre>
 <ul>
-<li>If needed, change the project defaults to match your environment with the <code>netlab defaults --project _setting_=_value_</code> command. For example, use these commands to change your devices to Cisco CSRs running as virtual machines<sup id="fnref:CSR"><a class="footnote-ref" href="#fn:CSR">8</a></sup>:</li>
+<li>If needed, change the project defaults to match your environment with the <code>netlab defaults --project _setting_=_value_</code> command or edit the <code>defaults.yml</code> file with a text editor like <code>vi</code> or <code>nano</code>. For example, use these commands to change your devices to Cisco CSRs running as virtual machines<sup id="fnref:CSR"><a class="footnote-ref" href="#fn:CSR">8</a></sup>:</li>
 </ul>
 <pre><code class="language-shell">$ netlab defaults --project device=csr
 The default setting device is already set in project defaults

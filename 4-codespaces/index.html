@@ -477,7 +477,8 @@
 </ul>
 <p><a href="../img/codespaces-start.png"><img alt="" src="../img/codespaces-start.png" /></a></p>
 <h2 id="select-lab-devices">Select Lab Devices</h2>
-<p>The BGP labs repository uses a recent FRRouting container as the default device. You can change that with the <code>netlab defaults --project device=_value_</code> command executed in the top directory (where the terminal window opens). For example, the following command changes the user lab devices to SR Linux<sup id="fnref:CER"><a class="footnote-ref" href="#fn:CER">2</a></sup>:</p>
+<p>The BGP labs repository uses a recent FRRouting container as the default device. You can change that with the <code>netlab defaults --project device=_value_</code> command executed in the top directory (where the terminal window opens) or edit the <code>defaults.yml</code> file with a text editor like <code>vi</code> or <code>nano</code>.</p>
+<p>For example, the following command changes the user lab devices to SR Linux<sup id="fnref:CER"><a class="footnote-ref" href="#fn:CER">2</a></sup>:</p>
 <pre><code class="language-shell">$ netlab defaults --project device=srlinux
 The default setting device is already set in project defaults
 Do you want to change that setting in project defaults [y/n]: y
