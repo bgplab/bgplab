@@ -11,7 +11,9 @@ You can run BGP labs in (free[^UTAP]) [GitHub codespaces](https://docs.github.co
 
 ## Select Lab Devices
 
-The BGP labs repository uses a recent FRRouting container as the default device. You can change that with the `netlab defaults --project device=_value_` command executed in the top directory (where the terminal window opens). For example, the following command changes the user lab devices to SR Linux[^CER]:
+The BGP labs repository uses a recent FRRouting container as the default device. You can change that with the `netlab defaults --project device=_value_` command executed in the top directory (where the terminal window opens) or edit the `defaults.yml` file with a text editor like `vi` or `nano`.
+
+For example, the following command changes the user lab devices to SR Linux[^CER]:
 
 ```shell
 $ netlab defaults --project device=srlinux

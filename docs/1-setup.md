@@ -48,7 +48,7 @@ Now that you know which network device to use, check [which virtualization envir
 !!! tip
     You can also run the BGP labs in a [free GitHub Codespace](4-codespaces.md).
 
-Everything else being equal, I'd create a [Ubuntu VM](https://netlab.tools/install/ubuntu-vm/) on Windows or MacOS (including [Macs with Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon/)) to run _netlab_. You could also invest in a tiny brick of densely-packed silicon ([example](https://www.minisforum.com/))
+Everything else being equal, I'd create a [Ubuntu VM](https://netlab.tools/install/ubuntu-vm/) on Windows or MacOS (including [Macs with Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon/)) to run _netlab_. You could also invest in a tiny brick of densely-packed silicon ([example](https://www.minisforum.com/)).
 
 A gotcha: your hardware and virtualization software (for example, VirtualBox or VMware Fusion) must support _nested virtualization_ if you want to use _libvirt_ on that Ubuntu VM. You don't need nested virtualization to run Docker containers unless you're using the crazy trick we're forced to use for Aruba AOS-CX, most Cisco platforms, Junos, or Nokia SR OS -- they're running as a virtual machine _within a container_.
 
@@ -94,7 +94,7 @@ provider = clab (project)
 
 [^CSR]: Assuming you built the [CSR Vagrant box](https://netlab.tools/labs/csr/) first
 
-* If needed, change the project defaults to match your environment with the `netlab defaults --project _setting_=_value_` command. For example, use these commands to change your devices to Cisco CSRs running as virtual machines[^CSR]:
+* If needed, change the project defaults to match your environment with the `netlab defaults --project _setting_=_value_` command or edit the `defaults.yml` file with a text editor like `vi` or `nano`. For example, use these commands to change your devices to Cisco CSRs running as virtual machines[^CSR]:
 
 ```shell
 $ netlab defaults --project device=csr
