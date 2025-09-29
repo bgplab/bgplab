@@ -71,6 +71,7 @@ The labs cover:
 
 **Challenge Labs**
 
+* [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr)
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers/)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib)
