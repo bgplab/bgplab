@@ -45,6 +45,7 @@ Once you mastered the basics, continue with [more complex routing policies](poli
 
 Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Try out the challenge labs:
 
+* [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 * [BGP Graceful Shutdown](challenge/03-graceful-shutdown.md)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers.md)
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)

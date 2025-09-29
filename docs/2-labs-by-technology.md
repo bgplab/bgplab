@@ -118,6 +118,7 @@ Prefix filters
 
 Route reflectors
 : * [Use BGP Route Reflectors](ibgp/3-rr.md)
+  * [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr.md)
 
 Route servers
 : * [BGP Route Server in an Internet Exchange Point](session/5-routeserver.md)
