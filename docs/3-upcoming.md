@@ -28,13 +28,15 @@ Advanced exercises:
 * Centralized route collection service (like bgp.tools)
 * Using RPKI for route validation (with Routinator as the source of RPKI information)
 
-See [this LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7211620163396263936/) for more details.
+    See [this LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7211620163396263936/) for more details.
 
 ## Advanced Scenarios
 
 * Peering across a low-end router using a default route
 
-See [this blog post](https://blog.ipspace.net/2024/06/ebgp-multihop-use-cases.html) for more details.
+    See [this blog post](https://blog.ipspace.net/2024/06/ebgp-multihop-use-cases.html) for more details.
+
+* Use BIRD as a BGP route server
 
 ## Use MPLS with BGP 
 
