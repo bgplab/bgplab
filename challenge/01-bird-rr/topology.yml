@@ -1,20 +1,36 @@
-# Configure a BGP session using 'local-as'
+# Using Bird BGP Daemon as a BGP Route Reflector
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: localas
+defaults.paths.plugin: [ "topology:../../plugin", "package:extra" ]
+defaults.daemons.bird.daemon_config.bird: /etc/bird/bird-netlab.conf
 
-plugin: [ check_validate, change_as ]
-version: 1.8.3
+name: bird
 
-module: [ bgp ]
+plugin: [ check_validate ]
+version: 25.06
+
+module: [ bgp, ospf ]
+bgp.as: 65000
+bgp.advertise_loopback: False
+bgp.sessions.ipv4: [ ebgp ]
 
 groups:
   external:
     members: [ x1, x2 ]
+    module: [ bgp ]
+    bgp.advertise_loopback: True
 
 nodes:
-  rtr:
-    bgp.as: 65000
+  pe1:
+  core:
+  pe2:
+  rr:
+    provider: clab
+    device: bird
+    module: [ ospf ]
+    clab.binds:
+      bird.cfg: /etc/bird/bird.conf
+      bgp.cfg: /etc/bird/bgp.conf
   x1:
     bgp.as: 65100
     bgp.router_id: 10.0.0.10
@@ -25,16 +41,21 @@ nodes:
     bgp.router_id: 10.0.0.11
     id: 11
     loopback.ipv4: 192.168.101.1/24
-links:
-- rtr:
-  x1:
-- rtr:
-  x2:
 
-_include: [ validate.yml ]
+links:
+- x1-pe1
+- pe1-core
+- core-pe2
+- pe2-x2
+- core:
+    ipv4: 172.16.0.2/24
+  rr:
+    ipv4: 172.16.0.1/24
+
+#_include: [ validate.yml ]
 
 message: |
-  The "Use Multiple AS Numbers on the Same Router" lab is ready.
-  Connect to your router with "netlab connect rtr".
+  The "Using Bird BGP Daemon as a BGP Route Reflector" lab is ready.
+  Connect to lab devices with "netlab connect".
 
   Good luck!
