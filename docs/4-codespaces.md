@@ -19,7 +19,7 @@ For example, the following command changes the user lab devices to SR Linux[^CER
 $ netlab defaults --project device=srlinux
 The default setting device is already set in project defaults
 Do you want to change that setting in project defaults [y/n]: y
-device set to srlinux in /home/pipi/BGP/defaults.yml
+device set to srlinux in /home/user/bgp/defaults.yml
 ```
 
 [^CER]: Use the **netlab defaults --project groups.external.device=_device_** command to change the device type of the "external" routers.
