@@ -26,7 +26,7 @@ nodes:
   c2:
     bgp.as: 65001
     bgp.advertise_loopback: true
-    loopback.ipv4: 10.7.5.0/24
+    loopback.ipv4: 10.7.5.1/24
 
 links: [ rtr-p1, rtr-p2, rtr-p3, p1-p2, p2-c2, p3-c2 ]
 
