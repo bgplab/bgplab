@@ -52,7 +52,6 @@ Vagrantfile
 clab.yml
 netlab.snapshot.pickle
 
-
 # Ignore redirect and GitHub profile subprojects
 /redirect/
 /profile/
