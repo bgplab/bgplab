@@ -45,10 +45,12 @@ dist/
 # Ignore netlab-created topology files
 group_vars/
 host_vars/
+node_files/
 hosts.yml
 ansible.cfg
 Vagrantfile
 clab.yml
+netlab.snapshot.pickle
 
 # Ignore redirect and GitHub profile subprojects
 /redirect/
