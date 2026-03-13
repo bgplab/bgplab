@@ -48,7 +48,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** to start the lab using the usual external devices for X1 and X2 ([device requirements](#req)), or **netlab up single.yml** to start the lab that uses only your chosen devices[^WS]. You can also  [run this lab without using _netlab_](../external/index.md)
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
-[^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (FRRouting are very memory-efficient).
+[^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (FRRouting is very memory-efficient).
 
 !!! Tip
     *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must manually configure your routers.
