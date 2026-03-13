@@ -47,10 +47,7 @@ Your routers run OSPF on the intra-AS link and have the following BGP neighbors.
 
 ## Device Requirements
 
-While you can use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers, not all devices supported BGP-to-RIB filters:
-
-* FRRouting works as expected, but the FRRouting containers don't use the BGP default route. They don't have a management VRF and have a static default route configured by the virtualization system in the global routing table.
-* While Arista EOS documentation claims Arista EOS supports this feature, I couldn't make it work.
+While you can use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers, not all devices support BGP-to-RIB filters. For example, while Arista EOS documentation claims this feature is supported, I couldn't make it work.
 
 ## Start the Lab
 
@@ -59,8 +56,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Change directory to `challenge/30-reduce-fib`
 * Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
-
-!!! tip
 
 ## The Problem
 

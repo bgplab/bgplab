@@ -4,12 +4,10 @@ The exercises that have one or two configurable devices use the following 4-rout
 
 ![Lab topology](4-router.png)
 
-* C1 and C2 are the lab devices you'll configure in the hands-on labs. C1 is usually named *rtr*; when a lab uses both routers they're usually named *r1* and *r2*.
+* C1 and C2 are the lab devices you'll configure in the hands-on labs. C1 is usually named *rtr*; when a lab uses both routers, they're usually named *r1* and *r2*.
 * X1 and X2 are external BGP routers.
 
-The individual labs assume you're using FRRouting as external BGP routers and provide initial FRRouting configurations for them as well as extra configuration needed in your lab.
-
-You can use any device you want for the external BGP routers, but you'll have to create your own initial configuration files (if you're not using _netlab_) and _extra device configuration_ templates. Should you decide to go down this route, we'd appreciate if you'd submit your changes as a pull request.
+You can use any device you want for the external BGP routers, but you'll have to create your own initial configuration files (if you're not using _netlab_) and _extra device configuration_ templates. Should you decide to go down this route, we'd appreciate it if you'd submit your changes as a pull request.
 
 ## Lab Wiring
 
