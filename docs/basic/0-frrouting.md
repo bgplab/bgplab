@@ -26,10 +26,10 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 Most network devices start routing daemons when you configure them through the configuration CLI or API. FRRouting is different: you have to enable the desired routing daemons in a configuration file and restart the top-level FRRouting process.
 
-The easiest way to find FRR daemons is to use the `ps -ef|grep frr` command. This is the printout you could get when the BGP daemon is already running:
+The easiest way to find FRRouting daemons is to use the `ps -ef | grep frr` command. This is the printout you could get when the BGP daemon is already running:
 
 ```bash
-rtr(bash)#ps -ef|grep frr
+rtr(bash)#ps -ef | grep frr
     1 root      0:00 /sbin/tini -- /usr/lib/frr/docker-start
    26 root      0:00 /usr/lib/frr/watchfrr -d -F datacenter zebra bgpd staticd
    41 frr       0:00 /usr/lib/frr/zebra -d -F datacenter -A 127.0.0.1 -s 90000000
@@ -47,10 +47,10 @@ The list of FRRouting daemons you want to enable is stored in the `/etc/frr/daem
 
 [^FRMD]: See [FRRouting Daemons Configuration File](https://docs.frrouting.org/en/latest/setup.html#daemons-configuration-file) documentation for more details.
 
-You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. _netlab_ takes care of that and enables all the daemons necessary to complete the lab exercises.
+You cannot change the FRRouting daemons in FRRouting containers. Restarting FRRouting would kill the container. _netlab_ takes care of that and enables all the daemons necessary to complete the lab exercises.
     
 !!! warning
-    * Restarting FRR daemons wipes out the current (running) configuration. If you want to retain it, save it to the startup configuration with the _vtysh_ **write** command.
+    * Restarting FRRouting daemons wipes out the current (running) configuration. If you want to retain it, save it to the startup configuration with the _vtysh_ **write** command.
     * The **write** command saves the running configuration (that you can inspect with **show running-config**) into the `/etc/frr/frr.conf` file. However, the **show startup-config** might not display the content of that file. Exit _vtysh_ and use the **more /etc/frr/frr.conf** command[^MNS] to inspect it.
 
 [^MNS]: You [might](#sudo) have to prefix it with **sudo**
@@ -60,19 +60,19 @@ You could add the required line to the FRRouting daemons file with any text edit
 * Use **sudo bash** to start another Linux shell as the root user
 * Use the **echo** command with output redirection to add a line to the `/etc/frr/daemons` file.
 
-[^TE]: `vi` is available in FRR containers. `vi` and `nano` are available in FRR virtual machines.
+[^TE]: `vi` is available in FRRouting containers. `vi` and `nano` are available in FRRouting virtual machines.
 
 ```bash
-rtr(bash)#sudo bash
+rtr(bash)$ sudo bash
 root@rtr:/# echo 'bgpd=yes' >>/etc/frr/daemons
 root@rtr:/# exit
 ```
 
-After enabling the BGP daemon and restarting FRR, you should see the `bgpd` process in the `ps -ef` printout or the BGP daemon mentioned in the `sudo systemctl status frr.service` printout.
+After enabling the BGP daemon and restarting FRRouting, you should see the `bgpd` process in the `ps -ef` printout or the BGP daemon mentioned in the `sudo systemctl status frr.service` printout.
 
 ## Work with the FRRouting CLI {#vtysh}
 
-The FRRouting suite includes a virtual terminal shell (*vtysh*) that closely resembles the industry-standard CLI[^ISC]. It must be started from the Linux command line using the **vtysh** command. The `vtysh` CLI must run as the root user unless you change the FRR permissions to allow a regular user to use it. The usual command to start the *vtysh* is thus `sudo vtysh` (but see also [To Sudo Or Not to Sudo](#sudo)).
+The FRRouting suite includes a virtual terminal shell (*vtysh*) that closely resembles the industry-standard CLI[^ISC]. It must be started from the Linux command line using the **vtysh** command. The `vtysh` CLI must run as the root user unless you change the FRRouting permissions to allow a regular user to use it. The usual command to start the *vtysh* is thus `sudo vtysh` (but see also [To Sudo Or Not to Sudo](#sudo)).
 
 [^ISC]: An euphemism for *Cisco IOS CLI* that is used when you try to avoid nasty encounters with Cisco's legal team.
 
@@ -101,7 +101,7 @@ rtr#
 Once you started _vtysh_, you can execute **show** commands to inspect the device state, for example:
 
 ```bash
-x1(bash)#sudo vtysh
+x1(bash)# vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
@@ -128,7 +128,7 @@ Displayed  1 routes and 1 total paths
 To configure FRRouting daemons, use the **configure** _vtysh_ command and enter configuration commands similar to those you'd use on Cisco IOS or Arista EOS:
 
 ```
-x1(bash)#sudo vtysh
+x1(bash)# vtysh
 
 Hello, this is FRRouting (version 7.5+cl4.4.0u4).
 Copyright 1996-2005 Kunihiro Ishiguro, et al.
@@ -143,11 +143,11 @@ x1(config-router)#
 The _vtysh_ usually needs to run as the **root** user, so you should start it with `sudo vtysh`. Unfortunately, things are never as simple as they look:
 
 * When using SSH, you log into FRRouting virtual machines as a regular user (user *vagrant* in _netlab_-created labs) and have to use the `sudo` command to start _vtysh_.
-* FRR containers run as the **root** user, and you connect to them as the **root** user with the `docker exec` or `netlab connect` commands[^WIDUW]. Start _vtysh_ without using the `sudo` command when working with containers[^NSF]
+* FRRouting containers run as the **root** user, and you connect to them as the **root** user with the `docker exec` or `netlab connect` commands[^WIDUW]. Start _vtysh_ without using the `sudo` command when working with containers[^NSF]
 
 [^WIDUW]: When in doubt, use the **whoami** command.
 
-[^NSF]: The FRR container does not include the `sudo` command.
+[^NSF]: The FRRouting container does not include the `sudo` command.
 
 **Long story short:**
 
@@ -156,7 +156,7 @@ The _vtysh_ usually needs to run as the **root** user, so you should start it wi
 
 ## Using Output Filters
 
-Unlike many other network operating systems, FRR `vtysh` does not have output filters. You probably don't need them, as you'll be running FRR on a Unix-like operating system that supports pipes, but using `vtysh` in a pipe might be a bit convoluted.
+Unlike many other network operating systems, FRRouting **vtysh** does not have output filters. You probably don't need them, as you'll be running FRRouting on a Unix-like operating system that supports pipes, but using `vtysh` in a pipe might be a bit convoluted.
 
 To use the `vtysh` output in a pipe, you have to execute `vtysh` and get the results of a **show** command in a single command:
 
@@ -171,7 +171,7 @@ $ sudo vtysh -c 'show ip bgp' | grep 32768
 
 ```
 $ netlab connect x1 --show ip bgp | grep 32768
-Connecting to container clab-originate-x1, executing sudo vtysh -c "show ip bgp"
+Connecting to container clab-originate-x1, executing vtysh -c "show ip bgp"
 *> 192.168.100.0/24 0.0.0.0                  0         32768 i
 ```
 
