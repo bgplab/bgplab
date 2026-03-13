@@ -95,7 +95,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
+    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring BGP on FRRouting</a>
 </li>
             
 <li>
@@ -600,7 +600,7 @@
 <h2 id="req">Device Requirements</h2>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for HUB and S1.</li>
-<li>Use any device for which <em>netlab</em> implements <a href="https://netlab.tools/plugins/bgp.session/#platform-support">passive BGP neighbors and BGP timers</a> for the external routers (S2 and S3). The Git repository contains external router initial device configurations for Cumulus Linux.</li>
+<li>Use any device for which <em>netlab</em> implements <a href="https://netlab.tools/plugins/bgp.session/#platform-support">passive BGP neighbors and BGP timers</a> for the external routers (S2 and S3).</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
@@ -631,7 +631,7 @@ Neighbor Status Codes: m - Under maintenance
 <p>On the hub router, configure all EBGP neighbors as passive BGP neighbors with a configuration command similar to <strong>neighbor passive</strong>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Cumulus Linux or FRR might reset the BGP session when you configure the device to be a passive BGP neighbor.</p>
+<p>FRRouting might reset the BGP session when you configure the device to be a passive BGP neighbor.</p>
 </div>
 <h2 id="verification">Verification</h2>
 <p>Inspect the state of the BGP sessions on the hub router with a command similar to <strong>show ip bgp summary</strong>. The session with S2 should be in an <code>Idle</code> or <code>Active</code> state (but not in <code>Connect</code> state). This is the printout you should get on Arista EOS:</p>

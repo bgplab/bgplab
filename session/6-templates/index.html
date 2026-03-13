@@ -95,7 +95,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
+    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring BGP on FRRouting</a>
 </li>
             
 <li>
@@ -757,7 +757,7 @@
 <p>It might be easier to remove the IBGP neighbors and recreate them. If you do this, remember to activate the IPv4 address family (if needed) for the recreated neighbors.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the leaf routers. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on the leaf routers. The validation tests check:</p>
 <ul>
 <li>The state of the IBGP session between L1/L2 and S1/S2</li>
 <li>Whether S1 and S2 both propagate the L2 prefix to L1.</li>
@@ -767,7 +767,7 @@
 <p>If the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on the leaf routers:</p>
 <ul>
 <li>Log into the leaf routers</li>
-<li>Check the state of the IBGP sessions with a command similar to <strong>show ip bgp summary</strong>. All sessions should be in the established state. For example, this is the printout you should get on FRRouting or Cumulus Linux:</li>
+<li>Check the state of the IBGP sessions with a command similar to <strong>show ip bgp summary</strong>. All sessions should be in the established state. For example, this is the printout you should get on FRRouting:</li>
 </ul>
 <pre><code>l1# show ip bgp summary
 
@@ -784,7 +784,7 @@ s2(10.0.0.2)    4      65000        78        77        2    0    0 00:03:42    
 Total number of neighbors 2
 </code></pre>
 <ul>
-<li>Check the BGP table with a command similar to <strong>show ip bgp</strong>. It should contain the local prefix and two paths to the remote prefix, resulting in a printout similar to the one you&rsquo;d get on FRRouting or Cumulus Linux:</li>
+<li>Check the BGP table with a command similar to <strong>show ip bgp</strong>. It should contain the local prefix and two paths to the remote prefix, resulting in a printout similar to the one you&rsquo;d get on FRRouting:</li>
 </ul>
 <pre><code>l1# show ip bgp
 BGP table version is 2, local router ID is 10.0.0.3, vrf id 0
@@ -809,8 +809,7 @@ RPKI validation codes: V valid, I invalid, N Not found
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the leaf- and spine routers.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1 and S2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains leaf router initial device configurations for Cumulus Linux.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on S1 and S2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>

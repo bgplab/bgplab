@@ -95,7 +95,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring Cumulus Linux and FRRouting</a>
+    <a href="../../basic/0-frrouting/" class="dropdown-item">Configuring BGP on FRRouting</a>
 </li>
             
 <li>
@@ -497,7 +497,7 @@
 <p>Some end-customers want to run BGP with their Internet Service Providers (ISPs) without acquiring a public BGP AS number. In such cases, ISPs might allocate a private BGP AS number to them. However, if you want to connect to multiple ISPs, you cannot expect to get the same private BGP AS number from all of them; your router will have to pretend it has multiple identities.</p>
 <p><img alt="Lab topology" src="../topology-localas.png" /></p>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. Each router router advertises an IPv4 prefix.</p>
+<p>The routers in your lab use the following BGP AS numbers. Each router advertises an IPv4 prefix.</p>
 <table>
 <thead>
 <tr>
@@ -617,7 +617,7 @@ Neighbor Status Codes: m - Under maintenance
 <pre><code>%BGP-3-NOTIFICATION: received from neighbor 10.1.0.6 (VRF default AS 65101) 2/2 (Open Message Error/bad AS number) 2 bytes
 </code></pre>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
-<p>Most BGP implementations have a nerd knob that changes the local BGP AS number on a single EBGP session. It&rsquo;s usually configured with a command similar to <strong>neighbor local-as</strong>. The syntax and capabilities of this command vary between implementations. Some implementations cannot do anything else but &ldquo;<em>use a different AS number</em>&rdquo; while others have configurable AS-path handling behavior.  For example, you can decide whether to include the node BGP AS number in the AS path on Cumulus Linux.</p>
+<p>Most BGP implementations have a nerd knob that changes the local BGP AS number on a single EBGP session. It&rsquo;s usually configured with a command similar to <strong>neighbor local-as</strong>. The syntax and capabilities of this command vary between implementations. Some implementations cannot do anything else but &ldquo;<em>use a different AS number</em>&rdquo; while others have configurable AS-path handling behavior.  For example, you can decide whether to include the node BGP AS number in the AS path on FRRouting.</p>
 <ul>
 <li>Configure BGP local AS on the EBGP session between RTR and X2 to be 65007.</li>
 <li>Ensure that the AS number 65000 never appears in the AS path advertised to X2.</li>
@@ -627,13 +627,13 @@ Neighbor Status Codes: m - Under maintenance
 <p>After configuring the BGP local AS number, you might have to clear the BGP session with X2.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on the external routers. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between RTR and X2</li>
 <li>Whether RTR sends any routing updates to X2</li>
 <li>Whether RTR removes AS 65000 from the AS path before sending the updates to X2.</li>
 </ul>
-<p>For example, this is the result you&rsquo;d get if you configured the BGP local AS number on Cumulus Linux but forgot to remove AS 65000 from the outbound AS path:</p>
+<p>For example, this is the result you&rsquo;d get if you configured the BGP local AS number on FRRouting but forgot to remove AS 65000 from the outbound AS path:</p>
 <p><img alt="" src="../session-localas-validate.png" /></p>
 <p>If the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on the ISP routers, it&rsquo;s time to start a troubleshooting session.</p>
 <ul>
@@ -678,8 +678,7 @@ Displayed  3 routes and 3 total paths
 <h3 id="req">Device Requirements</h3>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
 </ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
@@ -765,7 +764,7 @@ Displayed  3 routes and 3 total paths
 <hr />
 <ol>
 <li id="fn:IS">
-<p>Most BGP implementations keep trying and show a BGP session that cannot be successfully established as <code>Active</code>. FRR (also used by Cumulus Linux) gives up and shows it as <code>Idle</code>. You have to clear the BGP session to tell FRR to retry.&#160;<a class="footnote-backref" href="#fnref:IS" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Most BGP implementations keep trying and show a BGP session that cannot be successfully established as <code>Active</code>. FRRouting gives up and shows it as <code>Idle</code>. You have to clear the BGP session to tell FRRouting to retry.&#160;<a class="footnote-backref" href="#fnref:IS" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
