@@ -71,7 +71,7 @@ def adjust_topology(a_entry: Box, topology: Box) -> None:
   w_text = a_entry.get('warning','')              # Do we have to add a warning?
   if w_text:                                      # Print the formatted warning
     w_fmt_text = strings.eval_format(w_text,n_data)
-    log.warning(text=w_fmt_text,module='adjust',once=True)
+    log.warning(text=w_fmt_text,module='adjust')
     if 'validate' in topology:                    # ... and add a warning-only validation test
       topology.validate.f_warning = {
         'wait': 0,

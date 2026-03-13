@@ -39,26 +39,38 @@ links:
     bgp.password: GuessWhat
 
 _adjust:
-- nodes: [ x1 ]                     # Remove bgp.default_originate if the external router doesn't support it
+- nodes: [ x1, x2 ]                  # Remove bgp.default_originate if the external routers don't support it
   features:
   - key: bgp.default_originate
     value: true
   remove:
-  - links[0].interfaces[1].bgp.default_originate  # Only remove default_originate; bgp.gtsm must remain
+  - links[0].interfaces[1].bgp.default_originate
+  - links[1].interfaces[1].bgp.default_originate
+  warning: BGP default route cannot be configured on {device} used for external routers
   message: >-
     netlab cannot configure BGP default route on device {device} used for
     external routers. Configure the BGP default route on {node_list} manually
     if you want to get printouts matching the lab exercise.
-- nodes: [ x2 ]                     # Remove bgp.default_originate if the external router doesn't support it
+- nodes: [ x1 ]                     # Remove bgp.gtsm if X1 doesn't support it
   features:
-  - key: bgp.default_originate
+  - key: bgp.gtsm
     value: true
   remove:
-  - links[1].interfaces[1].bgp.default_originate  # Only remove default_originate; bgp.password must remain
+  - links[0].interfaces[1].bgp.gtsm
+  warning: netlab cannot configure TTL security on device {device} used for X1.
   message: >-
-    netlab cannot configure BGP default route on device {device} used for
-    external routers. Configure the BGP default route on {node_list} manually
-    if you want to get printouts matching the lab exercise.
+    netlab cannot configure TTL security on device {device} used for X1.
+    It would be better to use a different device type for this external router.
+- nodes: [ x2 ]                     # Remove bgp.password if X2 doesn't support it
+  features:
+  - key: bgp.password
+    value: true
+  remove:
+  - links[1].interfaces[1].bgp.password
+  warning: netlab cannot configure BGP MD5 password on device {device} used for X2.
+  message: >-
+    netlab cannot configure BGP MD5 password on device {device} used for X2.
+    It would be better to use a different device type for this external router.
 
 message: |
   The "Protect BGP Sessions with Passwords and GTSM" lab is ready. Connect to

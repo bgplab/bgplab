@@ -30,9 +30,8 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for customer and external routers.
-* _netlab_ has to configure MD5 password and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support).
-* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for the external router.
-* You can do automated lab validation with Arista EOS or FRRouting running on the X1, and X2.
+* _netlab_ has to configure the MD5 password, the default route origination, and GTSM on the external routers (see [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support)). You'll have to configure these features yourself if you want to use an unsupported device for X1 or X2.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2.
 
 ## Start the Lab
 
