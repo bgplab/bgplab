@@ -66,7 +66,7 @@ The routers in AS 65000 are running OSPF in area 0:
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * If needed, [install containerlab](https://netlab.tools/labs/clab/) (it's preinstalled in GitHub Codespace) and build the BIRD container image with **netlab clab build bird**.
-* Change directory to `challenge/01-bird`
+* Change directory to `challenge/01-bird-rr`
 * Execute **netlab up**
 * Log into your devices with **netlab connect** and verify that the IP addresses, OSPF, and the EBGP sessions are properly configured.
 
