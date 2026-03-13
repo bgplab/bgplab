@@ -36,12 +36,18 @@ The routers have these EBGP sessions. _netlab_ configures them automatically; if
 | | isp2 | 65103 | 172.16.42.3 |
 | | isp3 | 65107 | 172.16.42.4 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for ISP1 and RS routers.
+* Use Arista EOS or FRRouting for ISP2 and ISP3.
+* You can do automated lab validation with Arista EOS or FRRouting running on ISP2 and ISP3.
+
 ## Start the Lab
 
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Change directory to `session/5-routeserver`
-* Execute `netlab up` ([device requirements](#req), [other options](../external/index.md)).
+* Execute `netlab up`.
 * Log into your devices with `netlab connect` and verify their IP addresses and EBGP sessions.
 
 !!! tip
@@ -123,12 +129,6 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 * [Passive BGP Sessions](8-passive.md)
 
 ## Reference Information
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for ISP1 and RS routers.
-* Use Arista EOS or FRRouting for ISP2 and ISP3.
-* You can do automated lab validation with Arista EOS or FRRouting running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

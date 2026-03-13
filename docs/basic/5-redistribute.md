@@ -57,12 +57,17 @@ If you're using *netlab, *you'll start with a preconfigured lab -- *netlab* 
 |  | Ethernet1 | 10.1.0.18/30 | c2 |
 |  | Ethernet2 | 172.16.1.4/24 | passive |
 
+## Device Requirements {#req}
+
+* Customer- and provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS or FRRouting running on the S1, S2, X1, and X2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/5-redistribute`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices with **netlab connect** and verify IP addresses, OSPF routing, and basic BGP configuration.
 
 **Note:** *netlab* will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you're not using *netlab*, you must manually configure them.
@@ -155,11 +160,6 @@ Gateway of last resort:
 This lab uses a superset of the [4-router lab topology](../external/4-router.md). You can still use that topology without the S1/S2 routers and redistribute *connected* prefixes into BGP.
 
 The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Customer- and provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS or FRRouting running on the S1, S2, X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

@@ -70,12 +70,18 @@ Your routers have these BGP neighbors:
 * Routers in AS 65000 run OSPF.
 * Routers in AS 65003 run IS-IS.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP, OSPF, and IS-IS configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the customer routers.
+* If your preferred device does not support IS-IS, replace the **org_2** group setting `module: [ bgp, isis ]` in the lab topology file with `module: [ bgp, ospf ]`.
+* Use any device [supported by the BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the external routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `challenge/20-merge-as`
-* Execute **netlab up** ([device requirements](#req))
+* Execute **netlab up**
 * Log into your devices with **netlab connect** and verify that the IP addresses and the BGP sessions are properly configured.
 
 ## Verification
@@ -132,9 +138,3 @@ BGP routing table entry for 192.168.3.0/24
       Received 00:06:14 ago, valid, internal, best
 ...
 ```
-
-## Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP, OSPF, and IS-IS configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the customer routers.
-* If your preferred device does not support IS-IS, replace the **org_2** group setting `module: [ bgp, isis ]` in the lab topology file with `module: [ bgp, ospf ]`.
-* Use any device [supported by the BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the external routers.

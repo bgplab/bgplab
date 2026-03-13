@@ -48,12 +48,19 @@ OSPF running in the backbone area is configured on the following routers:
 | r2 | Loopback | 10.0.0.2/32 | |
 |  | Ethernet3 | 10.0.100.2/24 | r1 |
 
+## Device Requirements {#req}
+
+* Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* Provider routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS or FRRouting running on R1 and R2.
+* Git repository contains provider routers' initial device configurations for FRRouting.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `ibgp/1-edge`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices (R1, R2) with **netlab connect** and verify that _netlab_ correctly configured their IP addresses, OSPF routing, and EBGP sessions.
 
 !!! Warning
@@ -272,13 +279,6 @@ This is the printout you should get after completing the lab exercise:
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
 
-### Device Requirements {#req}
-
-* Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* Provider routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS or FRRouting running on R1 and R2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains provider routers' initial device configurations for FRRouting.
-
 ### Lab Wiring
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
@@ -312,4 +312,3 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 | swp3 | 10.1.0.10/30 |  | WAN uplink R2-to-X2 |
 
 **Note**: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.
-

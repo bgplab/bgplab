@@ -30,12 +30,17 @@ Your router has these EBGP neighbors.  _netlab_ configures them automatically; i
 | | x1 | 65100 | 10.1.0.2 |
 | | x2 | 65100 | 10.1.0.6 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer router.
+* This lab does not include automated validation.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `lb/2-dmz-bw`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -139,11 +144,6 @@ rtr#show ip route 10.1.3.0/24
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer router.
-* This lab does not include automated validation.
 
 ### Lab Wiring
 

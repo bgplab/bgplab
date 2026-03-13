@@ -53,12 +53,17 @@ OSPF backbone area is configured on the following routers in AS 65000:
 | pe2 | Loopback | 10.0.0.3/32 | |
 |  | Ethernet3 | True | core |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do limited automated lab validation with Arista EOS or FRRouting running on Ext and PE1. You must run one of these network operating systems on all devices for a complete validation.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `ibgp/2-transit`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices (R1, R2) with **netlab connect** and verify that _netlab_ correctly configured their IP addresses, OSPF routing, and EBGP sessions.
 
 !!! Warning
@@ -346,11 +351,6 @@ This is the printout you would get after establishing the PE1-PE2 IBGP session (
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
 
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do limited automated lab validation with Arista EOS or FRRouting running on Ext and PE1. You must run one of these network operating systems on all devices for a complete validation. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-
 ### Lab Wiring
 
 This lab uses the [4-router lab topology](../external/4-router.md) with the following mapping between the routers in the 4-router lab topology and this lab:
@@ -395,4 +395,3 @@ This lab uses the [4-router lab topology](../external/4-router.md) with the foll
 | eth3 | Unnumbered |  | pe2 -> core |
 
 **Note**: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.
-

@@ -41,12 +41,19 @@ Your network is also running OSPF in the backbone area:
 | c2 | Loopback | 10.0.0.2/32 | |
 |  | Ethernet3 | 192.168.42.2/24 | c1 |
 
+## Device Requirements {#req}
+
+* Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS or FRRouting running on the customer router.
+* External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
+* If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/5-local-preference`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
 **Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. You'll have to manually configure your routers if you're not using *netlab*.
@@ -132,13 +139,6 @@ This lab uses the [4-router lab topology](../external/4-router.md). Some links a
 
 The following information might help you if you plan to build custom lab infrastructure:
 
-### Device Requirements {#req}
-
-* Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS or FRRouting running on the customer router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
-* If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
-
 ### Lab Wiring
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
@@ -170,4 +170,3 @@ The following information might help you if you plan to build custom lab infrast
 | swp1 |  |  | Unused link |
 | swp2 | 192.168.100.11/24 |  | ISP internal link |
 | swp3 | 10.1.0.6/30 |  | Backup uplink |
-

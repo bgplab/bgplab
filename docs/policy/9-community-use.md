@@ -25,12 +25,18 @@ Your router has these BGP neighbors:
 | | c | 65304 | 10.1.0.1 |
 | | x | 65207 | 10.1.0.6 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your router (ISP).
+* While you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, and FRRouting.
+* You can do automated lab validation with Arista EOS or FRRouting running on the lab routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/9-community-use`.
-* Execute **netlab up** ([device requirements](#req)). You can also [deploy the lab on some other lab infrastructure](../external/index.md).
+* Execute **netlab up**. You can also [deploy the lab on some other lab infrastructure](../external/index.md).
 * Log into your device (ISP) with **netlab connect** and verify its configurations.
 
 !!! Warning
@@ -115,12 +121,6 @@ BGP routing table entry for 172.17.207.0/24
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your router (ISP).
-* While you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, and FRRouting.
-* You can do automated lab validation with Arista EOS or FRRouting running on the lab routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

@@ -36,7 +36,7 @@ Your routers are running OSPF in the backbone area. They have these BGP neighbor
 | | x2 | 65100 | 10.1.0.18 |
 
  _netlab_ automatically configures IP addresses and routing protocols; if you're using some other lab infrastructure, you'll have to configure your devices manually.
- 
+
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
@@ -46,7 +46,7 @@ Your routers are running OSPF in the backbone area. They have these BGP neighbor
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `lb/3-ibgp`
-* Execute **netlab up** ([device requirements](#req))
+* Execute **netlab up**
 * Log into your routers and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem

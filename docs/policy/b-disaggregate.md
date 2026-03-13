@@ -30,13 +30,18 @@ Your router has these EBGP neighbors.  _netlab_ configures them automatically; i
 | | x1 | 65100 | 10.1.0.2 |
 | | x2 | 65101 | 10.1.0.6 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer routers.
+* Use any device on which [_netlab_ can configure BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support) for the provider routers.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2.
 
 ## Start the Lab
 
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Change directory to `policy/b-disaggregate`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -134,12 +139,6 @@ Displayed  3 routes and 5 total paths
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer routers.
-* Use any device on which [_netlab_ can configure BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support) for the provider routers.
-* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
 
 ### Lab Wiring
 

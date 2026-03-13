@@ -33,12 +33,18 @@ Your routers have these BGP neighbors:
 | **c2** | 10.0.0.2 | 65001 |
 | | x2 | 65304 | 10.1.0.14 |
 
+## Device Requirements {#req}
+
+* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* External routers: while you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support), X2 requires additional configuration that is only available for Arista EOS and FRRouting.
+* You can do automated lab validation with Arista EOS or FRRouting running on external routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/8-community-attach`
-* Execute **netlab up** ([device requirements](#req)). You can also [deploy the lab on some other lab infrastructure](../external/index.md).
+* Execute **netlab up**. You can also [deploy the lab on some other lab infrastructure](../external/index.md).
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
 **Note:** *netlab* will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must configure your routers manually.
@@ -155,12 +161,6 @@ Paths: (2 available, best #2, table default)
 This lab uses the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.
 
 The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* External routers: while you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support), X2 requires additional configuration that is only available for Arista EOS and FRRouting.
-* You can do automated lab validation with Arista EOS or FRRouting running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

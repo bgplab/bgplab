@@ -30,12 +30,18 @@ You will also have to establish IPv6 EBGP sessions with the upstream ISPs using 
 | rtr | x1 | 65100 | 2001:db8:42::2 |
 | rtr | x2 | 65101 | 2001:db8:42:1::2 |
 
+## Device Requirements {#req}
+
+* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** attribute from the lab topology.
+* You can do automated lab validation with Arista EOS or FRRouting running on the external router.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/4-ipv6`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and basic BGP configuration.
 
 *netlab* will configure IPv4 addressing, IPv6 addressing, and BGP for IPv4 on your router, resulting in a configuration similar to what you should have done in [Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md).
@@ -157,12 +163,6 @@ Displayed  3 routes and 3 total paths
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** attribute from the lab topology.
-* You can do automated lab validation with Arista EOS or FRRouting running on the external router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

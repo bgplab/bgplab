@@ -26,12 +26,17 @@ Your router has a single EBGP neighbor (the _customer_ router).  _netlab_ config
 |------|----------|------------:|--------------:|
 | **rtr** | customer | 65100 | 10.1.0.1 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
+* Use Arista EOS or FRRouting for the _customer_ router to use the provided configuration scripts. You'll have to manually configure the origination of excessive BGP prefixes if you use any other _netlab_-supported device for the customer router.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/b-max-prefix`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -150,11 +155,6 @@ rtr##clear ip bgp 10.1.0.1
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
-* Use Arista EOS or FRRouting for the _customer_ router to use the provided configuration scripts. You'll have to manually configure the origination of excessive BGP prefixes if you use any other _netlab_-supported device for the customer router.
 
 ### Lab Wiring
 

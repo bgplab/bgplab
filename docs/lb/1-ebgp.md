@@ -34,12 +34,16 @@ Your router has these EBGP neighbors. _netlab_ configures them automatically; if
 | | p2 | 65100 | 10.1.0.5 |
 | | p3 | 65101 | 10.1.0.9 | 
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `lb/1-ebgp`
-* Execute **netlab up** ([device requirements](#req))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## Configuration Tasks
@@ -99,10 +103,6 @@ B>* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
 
 ### Lab Wiring
 

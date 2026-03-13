@@ -63,7 +63,7 @@ _netlab_ automatically configures IP addresses, OSPF, and BGP on your devices; i
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `challenge/40-mpls-core`
-* Execute **netlab up** ([other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices with **netlab connect** and verify that the IP addresses, OSPF routing, and the BGP sessions are properly configured.
 
 ## The Problem

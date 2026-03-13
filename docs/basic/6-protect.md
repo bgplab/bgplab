@@ -27,12 +27,18 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
+## Device Requirements {#req}
+
+* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* _netlab_ has to configure default route origination, MD5 password, and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support).
+* You can do automated lab validation with Arista EOS or FRRouting running on the X1, and X2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/6-protect`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your device (RTR) with **netlab connect rtr** and verify that the IP addresses are configured on all its interfaces.
 
 If you're using *netlab*, you'll get a fully configured lab, including BGP prefix origination on RTR and EBGP sessions between RTR and X1/X2. If you're using some other lab platform, it's best if you do this lab exercise after the [Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md) one.
@@ -82,12 +88,6 @@ Finally, use a command similar to **show ip bgp** to display the prefixes your r
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
 
-### Device Requirements {#req}
-
-* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* _netlab_ has to configure default route origination, MD5 password, and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support).
-* You can do automated lab validation with Arista EOS or FRRouting running on the X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-
 ### Lab Wiring
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md):
@@ -108,4 +108,3 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md):
 | swp1 | 10.1.0.2/30 |  | x1 -> rtr |
 | **x2** |  192.168.101.1/24 |  | Loopback |
 | swp1 | 10.1.0.6/30 |  | x2 -> rtr |
-

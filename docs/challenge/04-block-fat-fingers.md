@@ -7,13 +7,18 @@
 In the ideal world, you'd use RPKI and accept only valid prefixes belonging to your customers. Failing that, you could get valid customer prefixes from internet routing registries, but that's extra unpaid work. There's no excuse, however, for not deploying basic sanity checks, and that's what you'll configure in this exercise.
 
 ![Lab topology](topology-fat-fingers.png)
-    
+
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
+* Use FRRouting for the customer- and peer routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `challenge/04-block-fat-fingers`
-* Execute **netlab up** ([device requirements](#req))
+* Execute **netlab up**
 * Log into your router (RTR) with the **netlab connect rtr** command and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -97,8 +102,3 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *> 100.78.43.0/24   10.1.0.5                 0             0 65101 i
 *> 198.51.100.0/24  10.1.0.9                 0             0 65107 i
 ```
-
-## Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
-* Use FRRouting for the customer- and peer routers.

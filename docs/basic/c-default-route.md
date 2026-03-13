@@ -25,12 +25,17 @@ Your router has these BGP neighbors and runs OSPF in area 0 with R2.  _netlab_ c
 | **r1** | r2 | 65000 | 10.0.0.2 |
 |  | x1 | 65100 | 10.1.0.2 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and R2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/c-default-route`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect r1** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -120,11 +125,6 @@ Displayed  2 routes and 2 total paths
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS or FRRouting running on X1 and R2.
 
 ### Lab Wiring
 

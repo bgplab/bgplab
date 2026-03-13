@@ -47,12 +47,18 @@ These BGP neighbors are configured in your lab. Please note that the Hub router 
 
 Hub, C1, and C2 also run OSPF in the backbone area.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the lab routers.
+* If you run Arista EOS or FRRouting on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
+* You can do automated lab validation with Arista EOS or FRRouting running on S1, S2, C1, and C2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `session/9-dynamic`
-* Execute **netlab up** ([device requirements](#req))
+* Execute **netlab up**
 * Log into the Hub router with the **netlab connect hub** command and verify its IP addresses and OSPF neighbors.
 
 ## Configuration Tasks
@@ -170,12 +176,6 @@ Neighbor Status Codes: m - Under maintenance
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the lab routers.
-* If you run Arista EOS or FRRouting on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
-* You can do automated lab validation with Arista EOS or FRRouting running on S1, S2, C1, and C2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 
