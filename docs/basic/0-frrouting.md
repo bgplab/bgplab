@@ -45,7 +45,7 @@ The list of FRRouting daemons you want to enable is stored in the `/etc/frr/daem
 * Add the `bgpd=yes` line to the `/etc/frr/daemons` file[^FRMD].
 * Restart FRRouting with the `sudo systemctl restart frr.service` command (see also: [using sudo](#sudo))
 
-[^FRMD]: See [Configuring FRRouting](https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-41/Layer-3/Configuring-FRRouting/) Cumulus Linux documentation for more details.
+[^FRMD]: See [FRRouting Daemons Configuration File](https://docs.frrouting.org/en/latest/setup.html#daemons-configuration-file) documentation for more details.
 
 You cannot change the FRR daemons in FRR containers. Restarting FRR would kill the container. _netlab_ takes care of that and enables all the daemons necessary to complete the lab exercises.
     
@@ -76,6 +76,19 @@ The FRRouting suite includes a virtual terminal shell (*vtysh*) that closely res
 
 [^ISC]: An euphemism for *Cisco IOS CLI* that is used when you try to avoid nasty encounters with Cisco's legal team.
 
+Starting **vtysh** on FRRouting virtual machines
+{.code-caption}
+```bash
+rtr(bash)$ sudo vtysh
+
+Hello, this is FRRouting (version 10.5.1_git).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
+rtr#
+```
+
+Starting vtysh on FRRouting containers
+{.code-caption}
 ```bash
 rtr(bash)# vtysh
 
@@ -108,7 +121,7 @@ Displayed  1 routes and 1 total paths
 ```
 
 !!! tip
-    You can use the `--show` option of the **netlab connect** command to execute a single command on a FRR/Cumulus Linux device. For example, to inspect the BGP table, use `netlab connect --show ip bgp`.
+    You can use the `--show` option of the **netlab connect** command to execute a single command on an FRRouting device. For example, to inspect the BGP table, use `netlab connect --show ip bgp`.
     
     You can quote the **show** commands when they include characters that would confuse **‌bash**, for example `netlab connect --show 'ip bgp regexp 65000$'`
 

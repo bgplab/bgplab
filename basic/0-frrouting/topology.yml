@@ -21,7 +21,7 @@ links:
   x1:
 
 message: |
-  The "Configuring FRRouting" lab is ready. Connect to the lab
+  The "Configuring BGP on FRRouting" lab is ready. Connect to the lab
   devices with the "netlab connect" command.
 
   Good luck!
