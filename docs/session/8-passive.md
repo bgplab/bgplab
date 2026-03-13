@@ -44,7 +44,7 @@ _netlab_ automatically configures device interfaces, IP addresses, and BGP routi
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for HUB and S1.
-* Use any device for which _netlab_ implements [passive BGP neighbors and BGP timers](https://netlab.tools/plugins/bgp.session/#platform-support) for the external routers (S2 and S3). The Git repository contains external router initial device configurations for Cumulus Linux.
+* Use any device for which _netlab_ implements [passive BGP neighbors and BGP timers](https://netlab.tools/plugins/bgp.session/#platform-support) for the external routers (S2 and S3).
 
 ## Start the Lab
 
@@ -86,7 +86,7 @@ We don't want that; we would like the hub router to ignore the unreachable neigh
 On the hub router, configure all EBGP neighbors as passive BGP neighbors with a configuration command similar to **neighbor passive**.
 
 !!! warning
-    Cumulus Linux or FRR might reset the BGP session when you configure the device to be a passive BGP neighbor.
+    FRRouting might reset the BGP session when you configure the device to be a passive BGP neighbor.
 
 ## Verification
 

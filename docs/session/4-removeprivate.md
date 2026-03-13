@@ -36,11 +36,9 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## The Problem
 
-Log into X2 and check its BGP table. You'll notice that the AS path for the prefix `192.168.42.0/24` contains a private AS number[^PAN] 65000 that should not be visible outside your autonomous system. For example, you would get the following printout when running Cumulus Linux on X2:[^NLS]
+Log into X2 and check its BGP table. You'll notice that the AS path for the prefix `192.168.42.0/24` contains a private AS number[^PAN] 65000 that should not be visible outside your autonomous system. For example, you would get the following printout when running FRRouting on X2:
 
 [^PAN]: AS numbers 64496-64511 are not private AS numbers. [RFC 5398](https://www.rfc-editor.org/rfc/rfc5398.html) reserved them for documentation. Private AS numbers start with AS 64512.
-
-[^NLS]: You need _netlab_ release 1.7.0 or later to use the **netlab connect --show** command. Read [this document](../basic/0-frrouting.md) if you use an older _netlab_ release and use Cumulus Linux or FRR as the external routers.
 
 ```
 $ netlab connect x2 -q --show ip bgp
@@ -72,7 +70,7 @@ Most BGP implementations have a nerd knob that removes private AS numbers from t
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers. The validation tests check:
 
 * The state of the EBGP session between RTR and X1/X2
 * Whether RTR sends the prefix received from X1 to X2
@@ -84,7 +82,7 @@ For example, this is the result you'd get if you forgot to remove the private AS
 
 If the **netlab validate** command fails or you're using another network operating system on the ISP routers, do manual validation.
 
-Check the BGP table on X2. None of the AS paths should contain private AS numbers. This is the printout you should get on Cumulus Linux:
+Check the BGP table on X2. None of the AS paths should contain private AS numbers. This is the printout you should get on FRRouting:
 
 ```
 $ netlab connect x2 -q --show ip bgp
@@ -110,7 +108,6 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* Git repository contains initial Cumulus Linux device configurations for X1 and X2.
 
 ### Lab Wiring
 
