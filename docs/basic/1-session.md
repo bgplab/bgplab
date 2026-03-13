@@ -9,8 +9,8 @@ We'll start with the simplest possible scenario: configure an EBGP session betwe
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for customer and external routers.
-* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for the external router.
-* You can do automated lab validation with Arista EOS or FRRouting running on the external router.
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1.
 
 ## Start the Lab
 

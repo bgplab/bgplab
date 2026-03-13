@@ -2,7 +2,7 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 name: ipv6
-plugin: [ bgp.session, check_validate ]
+plugin: [ bgp.session, check_validate, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -42,6 +42,20 @@ links:
 - rtr:
   x2:
     bgp.default_originate: True
+
+_adjust:
+- nodes: [ x1, x2 ]                  # Remove bgp.default_originate if the external routers don't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[0].interfaces[1].bgp
+  - links[1].interfaces[1].bgp
+  warning: BGP default route cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP default route on device {device} used for
+    external routers. Configure the BGP default route on {node_list} manually
+    if you want to get printouts matching the lab exercise.
 
 message: |
   The "Configure BGP for IPv6" lab is ready. Connect to your router
