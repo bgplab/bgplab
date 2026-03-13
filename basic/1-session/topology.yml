@@ -6,7 +6,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:
 
 name: session
-plugin: [ bgp.session, check_validate, fix_frr ]
+plugin: [ bgp.session, check_validate, fix_frr, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -27,6 +27,18 @@ links:
 - rtr:
   x1:
     bgp.default_originate: True
+
+_adjust:
+- nodes: [ x1 ]                     # Remove bgp.default_originate if the external router doesn't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[0].interfaces[1].bgp
+  message: >-
+    netlab cannot configure BGP default route on device {device} used for
+    external routers. Configure the BGP default route on {node_list} manually
+    if you want to get printouts matching the lab exercise.
 
 message: |
   The "Configure a Single EBGP Session" lab is ready. Connect to your router

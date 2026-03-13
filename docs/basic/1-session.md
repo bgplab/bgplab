@@ -8,8 +8,8 @@ We'll start with the simplest possible scenario: configure an EBGP session betwe
 
 ## Device Requirements {#req}
 
-* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* External router needs support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** attribute from the lab topology.
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for customer and external routers.
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for the external router.
 * You can do automated lab validation with Arista EOS or FRRouting running on the external router.
 
 ## Start the Lab
@@ -30,7 +30,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 | 10.1.0.2            | 65100              |
 
 !!! Tip
-    If you're using FRRouting on RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring FRRouting](0-frrouting.md) lab.
+    If you're using an FRRouting virtual machine for RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring FRRouting](0-frrouting.md) lab.
 
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on the EBGP session or your device won't accept updates from its EBGP neighbor(s).
@@ -44,7 +44,7 @@ Finally, it's always a good idea to configure:
 
 ## Verification
 
-You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers.
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external router.
 
 ![](basic-session-validate.png)
 
