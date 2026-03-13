@@ -1,1 +1,0 @@
-../../plugin/check_validate.py
