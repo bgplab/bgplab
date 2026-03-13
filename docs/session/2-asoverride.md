@@ -61,7 +61,7 @@ pe1>show ip bgp | begin Network
  * >      192.168.11.0/24        10.0.0.2              0       -          100     0       65000 i
 ```
 
-However, the customer routers do not accept the prefixes advertised by other customer sites because the local AS number appears in the AS path. You can see the difference between *received* and *accepted* routes if you're using Cumulus Linux or FRR on the CE routers[^NEOS]:
+However, the customer routers do not accept the prefixes advertised by other customer sites because the local AS number appears in the AS path. You can see the difference between *received* and *accepted* routes if you're using FRRouting on the CE routers[^NEOS]:
 
 [^NEOS]: Arista EOS does not display routes dropped by the BGP loop prevention logic even when the *BGP soft reconfiguration* is configured.
 
@@ -100,11 +100,11 @@ Many BGP implementations have a nerd knob that replaces the neighbor AS number i
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on CE routers. You'll get this printout if you configure **as-override** on PE1 but not PE2.
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on CE routers. You'll get this printout if you configure **as-override** on PE1 but not PE2.
 
 ![](session-asoverride-validate.png)
 
-If that command fails or you're using another network operating system on your CE routers, check the BGP tables on CE1 and CE2. This is the printout you should get on CE1 running Cumulus Linux:
+If that command fails or you're using another network operating system on your CE routers, check the BGP tables on CE1 and CE2. This is the printout you should get on CE1 running FRRouting:
 
 ```
 $ netlab connect ce1 --show ip bgp
@@ -132,9 +132,8 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 ### Device Requirements {#req}
 
 * Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). The device also has to support the *AS override* functionality.
-* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support). The lab topology configures *BGP soft reconfiguration* on Cumulus Linux and FRR; if you use other devices as CE routers, you might want to configure something similar on the EBGP sessions. 
-* You can perform automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the CE routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains initial CE router device configurations for Cumulus Linux.
+* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support). The lab topology configures *BGP soft reconfiguration* on FRRouting; if you use other devices as CE routers, you might want to configure something similar on the EBGP sessions. 
+* You can perform automated lab validation with Arista EOS or FRRouting running on the CE routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

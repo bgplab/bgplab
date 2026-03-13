@@ -160,10 +160,6 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* Git repository contains external router initial device configurations for Cumulus Linux.
-<!--
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
--->
 
 ### Lab Wiring
 

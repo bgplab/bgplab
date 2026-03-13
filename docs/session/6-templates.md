@@ -111,7 +111,7 @@ After creating the BGP templates, change the BGP configuration on S1 and S2 to u
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the leaf routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the leaf routers. The validation tests check:
 
 * The state of the IBGP session between L1/L2 and S1/S2
 * Whether S1 and S2 both propagate the L2 prefix to L1.
@@ -123,7 +123,7 @@ This is the printout you should get after completing the lab exercise:
 If the **netlab validate** command fails or you're using another network operating system on the leaf routers:
 
 * Log into the leaf routers
-* Check the state of the IBGP sessions with a command similar to **show ip bgp summary**. All sessions should be in the established state. For example, this is the printout you should get on FRRouting or Cumulus Linux:
+* Check the state of the IBGP sessions with a command similar to **show ip bgp summary**. All sessions should be in the established state. For example, this is the printout you should get on FRRouting:
 
 ```
 l1# show ip bgp summary
@@ -141,7 +141,7 @@ s2(10.0.0.2)    4      65000        78        77        2    0    0 00:03:42    
 Total number of neighbors 2
 ```
 
-* Check the BGP table with a command similar to **show ip bgp**. It should contain the local prefix and two paths to the remote prefix, resulting in a printout similar to the one you'd get on FRRouting or Cumulus Linux:
+* Check the BGP table with a command similar to **show ip bgp**. It should contain the local prefix and two paths to the remote prefix, resulting in a printout similar to the one you'd get on FRRouting:
 
 ```
 l1# show ip bgp
@@ -169,8 +169,7 @@ RPKI validation codes: V valid, I invalid, N Not found
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the leaf- and spine routers.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1 and S2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains leaf router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on S1 and S2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

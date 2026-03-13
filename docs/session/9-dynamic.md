@@ -80,7 +80,7 @@ Use the following IP address ranges:
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Arista EOS, Cumulus Linux, or FRR on S1, S2, C1, and C2. The validation tests check:
+You can use the **netlab validate** command if you use Arista EOS or FRRouting on S1, S2, C1, and C2. The validation tests check:
 
 * The state of the BGP session between those routers and the Hub router.
 * Whether those routers receive the loopback IPv4 prefix from the Hub router.
@@ -134,10 +134,10 @@ Displayed 3 routes and 3 total paths
 
 ## Impact of BGP Session Loss
 
-A router using dynamic BGP neighbors usually removes all neighbor-related information once a BGP session with the neighbor is lost. You can shut down a BGP neighbor on one of the other routers to explore how the hub router reacts to the BGP session loss.
+A router using dynamic BGP neighbors usually removes all neighbor-related information once a BGP session with the neighbor is lost. You can shut down a BGP neighbor on another router to see how the hub router responds to BGP session loss.
 
 !!! tip
-    You can use the **netlab config** command to shut down the BGP session with the Hub router if you're running Cumulus Linux, FRR, or Arista EOS on the other routers:
+    You can use the **netlab config** command to shut down the BGP session with the Hub router if you're running FRRouting or Arista EOS on the other routers:
     
     * Use `netlab config disable --limit C1`[^RC1] to shut down the BGP session
     * Use `netlab config enable --limit C1` to reenable it.
@@ -174,9 +174,8 @@ The following information might help you if you plan to build custom lab infrast
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the lab routers.
-* If you run Arista EOS, Cumulus Linux, or FRR on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on S1, S2, C1, and C2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains initial device configurations for Cumulus Linux.
+* If you run Arista EOS or FRRouting on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
+* You can do automated lab validation with Arista EOS or FRR running on S1, S2, C1, and C2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

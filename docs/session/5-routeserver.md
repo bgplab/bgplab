@@ -45,7 +45,7 @@ You can start the lab [on your own lab infrastructure](../1-setup.md) or in [Git
 * Log into your devices with `netlab connect` and verify their IP addresses and EBGP sessions.
 
 !!! tip
-    If the device you want to work with does not support the BGP Route Server functionality, use Cumulus Linux as the route server. Start the lab with `netlab up -s nodes.rs.device=cumulus` and (if you're not familiar with FRRouting configuration) configure the route server with `netlab config route_server -l rs`.
+    If the device you want to work with does not support the BGP Route Server functionality, use FRRouting as the route server. Start the lab with `netlab up -s nodes.rs.device=frr` and (if you're not familiar with FRRouting configuration) configure the route server with `netlab config route_server -l rs`.
 
 ## The Problem
 
@@ -86,7 +86,7 @@ After configuring the route server clients, the route server sends EBGP updates 
     
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Arista EOS, Cumulus Linux, or FRR on ISP2 and ISP3. The validation tests check:
+You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Arista EOS or FRRouting on ISP2 and ISP3. The validation tests check:
 
 * The state of the EBGP session between RS and ISP1/ISP2.
 * Whether RS propagates routing updates from ISP1 to ISP2/ISP3.
@@ -127,9 +127,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for ISP1 and RS routers.
-* Use Arista EOS, Cumulus Linux, or FRR for ISP2 and ISP3.
-* You can do automated lab validation with Arista, Cumulus Linux, or FRR running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains Cumulus Linux initial device configurations for RS, ISP2, and ISP3.
+* Use Arista EOS or FRRouting for ISP2 and ISP3.
+* You can do automated lab validation with Arista EOS or FRR running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 
