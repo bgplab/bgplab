@@ -5,7 +5,7 @@ name: noexport
 
 plugin: [ check_validate ]
 
-version: 1.8.3
+version: 2.0.0
 _include: [ validate.yml ]
 
 bgp.community: []

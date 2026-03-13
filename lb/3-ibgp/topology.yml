@@ -9,7 +9,7 @@ bgp.as: 65000
 bgp.advertise_loopback: False
 bgp.community: []
 
-version: 1.8.3
+version: 2.0.0
 
 groups:
   external:

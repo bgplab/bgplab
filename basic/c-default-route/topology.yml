@@ -6,7 +6,7 @@ name: default
 plugin: [ check_validate ]
 module: [ bgp, ospf ]
 
-version: 1.8.3
+version: 2.0.0
 _include: [ validate.yml ]
 
 groups:
