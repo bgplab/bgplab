@@ -8,7 +8,7 @@ defaults.attributes.node.bgp:
 name: session
 plugin: [ bgp.session, check_validate, fix_frr ]
 
-version: 25.12.03
+version: 2.0.0
 _include: [ validate.yml ]
 
 groups:
