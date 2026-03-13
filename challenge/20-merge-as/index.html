@@ -450,15 +450,15 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
       </li>
       <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
         <ul class="nav flex-column">
         </ul>
       </li>
@@ -700,11 +700,17 @@
 <li>Routers in AS 65000 run OSPF.</li>
 <li>Routers in AS 65003 run IS-IS.</li>
 </ul>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP, OSPF, and IS-IS configuration modules</a> for the customer routers.</li>
+<li>If your preferred device does not support IS-IS, replace the <strong>org_2</strong> group setting <code>module: [ bgp, isis ]</code> in the lab topology file with <code>module: [ bgp, ospf ]</code>.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the BGP configuration module</a> for the external routers.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>challenge/20-merge-as</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your devices with <strong>netlab connect</strong> and verify that the IP addresses and the BGP sessions are properly configured.</li>
 </ul>
 <h2 id="verification">Verification</h2>
@@ -751,13 +757,7 @@ BGP routing table entry for 192.168.3.0/24
       Origin INCOMPLETE, metric 0, localpref 100, IGP metric 0, weight 0, tag 0
       Received 00:06:14 ago, valid, internal, best
 ...
-</code></pre>
-<h2 id="req">Device Requirements</h2>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP, OSPF, and IS-IS configuration modules</a> for the customer routers.</li>
-<li>If your preferred device does not support IS-IS (for example, Cumulus Linux), replace the <strong>org_2</strong> group setting <code>module: [ bgp, isis ]</code> in the lab topology file with <code>module: [ bgp, ospf ]</code>.</li>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the BGP configuration module</a> for the external routers.</li>
-</ul></div>
+</code></pre></div>
             </div>
         </div>
 

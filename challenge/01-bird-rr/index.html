@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -472,10 +476,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -691,12 +691,21 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>BIRD daemon is running in a container; your <em>netlab</em> environment has to include Docker and containerlab installation (use <strong>netlab install containerlab</strong> on Ubuntu to install them).</li>
+<li>You must build a BIRD container with the <strong>netlab clab build bird</strong> command.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> as your routers.</li>
+</ul>
+<!--
+* You can do automated lab validation with Arista EOS or FRRouting running on lab routers.
+-->
+
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>You can start the lab <a href="../../1-setup/">on your own lab infrastructure</a> or in <a href="https://github.com/codespaces/new/bgplab/bgplab">GitHub Codespaces</a> (<a href="https://bgplabs.net/4-codespaces/">more details</a>):</p>
 <ul>
-<li>Check the <a href="#req">device requirements</a>.</li>
 <li>If needed, <a href="https://netlab.tools/labs/clab/">install containerlab</a> (it&rsquo;s preinstalled in GitHub Codespace) and build the BIRD container image with <strong>netlab clab build bird</strong>.</li>
-<li>Change directory to <code>challenge/01-bird</code></li>
+<li>Change directory to <code>challenge/01-bird-rr</code></li>
 <li>Execute <strong>netlab up</strong></li>
 <li>Log into your devices with <strong>netlab connect</strong> and verify that the IP addresses, OSPF, and the EBGP sessions are properly configured.</li>
 </ul>
@@ -821,8 +830,8 @@ bgp_pe1_ipv4 BGP        ---        start  07:52:58.277  Active        Socket: Co
 <li>The BGP table on all routers contains exactly two prefixes, and they&rsquo;re both selected as the <em>best</em> routes.</li>
 <li>X1 can ping X2 from its loopback interface.</li>
 </ul>
-<p>This is the BGP table you should see on the CORE router running FRR:</p>
-<p class="code-caption">BGP table on the CORE router running FRR<br /></p>
+<p>This is the BGP table you should see on the CORE router running FRRouting:</p>
+<p class="code-caption">BGP table on the CORE router running FRRouting<br /></p>
 <pre><code>BGP table version is 8, local router ID is 10.0.0.2, vrf id 0
 Default local pref 100, local AS 65000
 Status codes:  s suppressed, d damped, h history, u unsorted, * valid, &gt; best, = multipath,
@@ -837,7 +846,7 @@ RPKI validation codes: V valid, I invalid, N Not found
 
 Displayed 2 routes and 2 total paths
 </code></pre>
-<p>And this is how you can ping X2 from X1 running FRR:</p>
+<p>And this is how you can ping X2 from X1 running FRRouting:</p>
 <p class="code-caption">Pinging between X1 and X2<br /></p>
 <pre><code>netlab connect x1 ping x2 -I 192.168.100.1
 Connecting to container clab-bird-x1, executing ping x2 -I 192.168.100.1
@@ -850,15 +859,6 @@ PING x2 (192.168.101.1) from 192.168.100.1: 56 data bytes
 round-trip min/avg/max = 0.078/0.078/0.079 ms
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>BIRD daemon is running in a container; your <em>netlab</em> environment has to include Docker and containerlab installation (use <strong>netlab install containerlab</strong> on Ubuntu to install them).</li>
-<li>You must build a BIRD container with the <strong>netlab clab build bird</strong> command.</li>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> as your routers.</li>
-</ul>
-<!--
-* You can do automated lab validation with Arista EOS or FRR running on lab routers.
--->
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>

@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -480,10 +484,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -519,11 +519,16 @@
 <p class="admonition-title">Tip</p>
 <p>Please note there&rsquo;s still an IBGP session between the two spine routers. Removing it would reduce the resiliency of BGP routing in your network.</p>
 </div>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> as leaf- or spine routers.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on leaf devices.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>, change directory to <code>ibgp/3-rr</code></p>
 <p>You can choose between these lab topologies:</p>
 <ul>
-<li><code>topology.yml</code>: 6-router topology with a full mesh of IBGP sessions. Start with <strong>netlab up</strong> (<a href="#req">device requirements</a>)</li>
+<li><code>topology.yml</code>: 6-router topology with a full mesh of IBGP sessions. Start with <strong>netlab up</strong></li>
 <li><code>hub-spoke.yml</code>: 6-router topology with hub-and-spoke IBGP sessions. Start with <strong>netlab up hub-spoke.yml</strong>.</li>
 <li><code>4-router.yml</code>: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and FRRouting running on the leaf routers. Use this topology when you&rsquo;re low on memory; start it with <strong>netlab up 4-router.yml</strong>.</li>
 </ul>
@@ -898,7 +903,7 @@ Paths: (2 available, best #1, table default)
 <li>Configure a <a href="../../session/5-routeserver/">BGP Route Server</a> &ndash; functionality similar to BGP Route Reflectors, but for EBGP sessions.</li>
 </ul>
 <h2 id="automated-verification">Automated Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on leaf devices. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on leaf devices. The validation tests check:</p>
 <ul>
 <li>Whether the leaf devices get BGP prefixes directly from other leaf devices (you forgot to remove the leaf-to-leaf IBGP sessions)</li>
 <li>Whether the leaf devices get BGP prefixes from both spine devices (spine devices work as route reflectors).</li>
@@ -913,11 +918,6 @@ Paths: (2 available, best #1, table default)
 <li>Configure an aggregate prefix on both spine routers (see <a href="../../basic/8-aggregate/">BGP Route Aggregation</a> exercise for more details) or configure default route advertisement on spine routers with a configuration command similar to <strong>neighbor default-originate always</strong>.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> as leaf- or spine routers.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on leaf devices. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p><strong>6-router topology</strong></p>
 <table>

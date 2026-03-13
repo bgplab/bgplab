@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -472,10 +476,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -598,17 +598,23 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>.</li>
+<li>External routers: while you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>, X2 requires additional configuration that is only available for Arista EOS and FRRouting.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on external routers.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/8-community-attach</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>). You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
+<li>Execute <strong>netlab up</strong>. You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
 <li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must configure your routers manually.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This lab requires additional configuration on X2. That configuration is currently available only for Arista EOS, Cumulus Linux, and FRR &ndash; you have to use one of those devices as the external BGP router(s).</p>
+<p>This lab requires additional configuration on X2. That configuration is currently available only for Arista EOS and FRRouting &ndash; you have to use one of those devices as the external BGP router(s).</p>
 </div>
 <h2 id="default-traffic-flow">Default Traffic Flow</h2>
 <p>After starting the lab, log into C2 and examine its BGP table, looking for prefixes advertised by C1. You should get a printout similar to this one (generated on Arista cEOS)<sup id="fnref:RAI"><a class="footnote-ref" href="#fn:RAI">1</a></sup>:</p>
@@ -668,7 +674,7 @@
 </ul>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on X1 and X2. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between RTR and X1/X2.</li>
 <li>Whether C1 is advertising its IPv4 prefix</li>
@@ -682,7 +688,7 @@
 <pre><code>c2&gt;show ip bgp | include 192.168.42.0
  * &gt;      192.168.42.0/24        10.1.0.14             0       -          100     0       65304 65207 65000 ?
 </code></pre>
-<p>Want to know how the magic works behind the scenes? Log into X2 and inspect its BGP table. This is how you would do it on Cumulus Linux<sup id="fnref:GHU"><a class="footnote-ref" href="#fn:GHU">4</a></sup> (this command also comes in handy if you did something wrong and have to figure out what&rsquo;s going on):</p>
+<p>Want to know how the magic works behind the scenes? Log into X2 and inspect its BGP table. This is how you would do it on FRRouting<sup id="fnref:GHU"><a class="footnote-ref" href="#fn:GHU">4</a></sup> (this command also comes in handy if you did something wrong and have to figure out what&rsquo;s going on):</p>
 <pre><code>$ netlab connect x2 vtysh -c 'show ip bgp 192.168.42.0'
 Connecting to container clab-a_community-x2, executing vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
@@ -708,13 +714,6 @@ Paths: (2 available, best #2, table default)
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <p>The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>.</li>
-<li>External routers: while you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>, X2 requires additional configuration that is only available for Arista EOS, Cumulus Linux, and FRR.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>

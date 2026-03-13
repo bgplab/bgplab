@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -468,10 +472,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -570,18 +570,24 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for your router (ISP).</li>
+<li>While you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, and FRRouting.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on the lab routers.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/9-community-use</code>.</li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>). You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
+<li>Execute <strong>netlab up</strong>. You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
 <li>Log into your device (ISP) with <strong>netlab connect</strong> and verify its configurations.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
 <li><em>netlab</em> will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on all devices in your lab. If you&rsquo;re not using <em>netlab</em>, use the device configurations supplied in the GitHub repository to configure C and X and configure ISP manually.</li>
-<li>This lab requires additional configuration on C. That configuration is currently available for Arista EOS, Cumulus Linux, and FRR &ndash; you have to use one of those devices as the external BGP router(s).</li>
+<li>This lab requires additional configuration on C. That configuration is currently available for Arista EOS and FRRouting &ndash; you have to use one of those devices as the external BGP router(s).</li>
 </ul>
 </div>
 <h2 id="default-traffic-flow">Default Traffic Flow</h2>
@@ -622,7 +628,7 @@ BGP routing table entry for 172.17.207.0/24
 <p>Applying routing policy parameters to BGP neighbors doesn&rsquo;t necessarily change the BGP table, as the new routing policy might be evaluated only on new incoming updates. You might have to use a command similar to <code>clear ip bgp * soft in</code> to tell your BGP neighbors to resend their updates.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on your router. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between ISP and C/X.</li>
 <li>Whether RTR receives the prefix <code>172.17.207.1/24</code> from C and X.</li>
@@ -650,13 +656,6 @@ BGP routing table entry for 172.17.207.0/24
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for your router (ISP).</li>
-<li>While you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, Cumulus Linux, and FRR.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the lab routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>

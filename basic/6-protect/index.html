@@ -446,6 +446,10 @@
           
       <li class="nav-item" data-level="1"><a href="#protect-bgp-sessions-with-passwords-and-gtsm" class="nav-link">Protect BGP Sessions with Passwords and GTSM</a>
         <ul class="nav flex-column">
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -460,10 +464,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -540,11 +540,17 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li><em>netlab</em> has to configure default route origination, MD5 password, and GTSM on the external routers. You&rsquo;ll find the supported devices in the <strong>bgp.session</strong> <a href="https://netlab.tools/plugins/bgp.session/#platform-support">platform support table</a>.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on the X1, and X2.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/6-protect</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses are configured on all its interfaces.</li>
 </ul>
 <p>If you&rsquo;re using <em>netlab</em>, you&rsquo;ll get a fully configured lab, including BGP prefix origination on RTR and EBGP sessions between RTR and X1/X2. If you&rsquo;re using some other lab platform, it&rsquo;s best if you do this lab exercise after the <a href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> one.</p>
@@ -564,7 +570,7 @@ Neighbor Status Codes: m - Under maintenance
 <li>Configure MD5 TCP checksum on the EBGP session with X2. The password used by X2 is <code>GuessWhat</code>.</li>
 </ul>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2.</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on X1 and X2.</p>
 <p><img alt="" src="../basic-protect-validate.png" /></p>
 <p>Do manual verification if the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on those routers.</p>
 <p>Check the state of the BGP sessions with a command similar to <strong>show ip bgp summary</strong>. This is a printout taken from Arista EOS:</p>
@@ -579,13 +585,6 @@ Neighbor Status Codes: m - Under maintenance
 <p>Finally, use a command similar to <strong>show ip bgp</strong> to display the prefixes your router received from its EBGP neighbors.</p>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
-<li><em>netlab</em> has to configure default route origination, MD5 password, and GTSM on the external routers. You&rsquo;ll find the supported devices in the <strong>bgp.session</strong> <a href="https://netlab.tools/plugins/bgp.session/#platform-support">platform support table</a>.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the X1, and X2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>
@@ -671,7 +670,7 @@ Neighbor Status Codes: m - Under maintenance
 <hr />
 <ol>
 <li id="fn:NOL">
-<p>I would love to add a TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it&rsquo;s not yet (as of September 2023) implemented in the Linux kernel. That&rsquo;s the price you&rsquo;re paying for riding on top of other people&rsquo;s infrastructure.&#160;<a class="footnote-backref" href="#fnref:NOL" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:NOL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>I would love to add a TCP-AO-protected session to this lab, but you cannot use TCP-AO on FRRouting because it&rsquo;s not yet (as of September 2023) implemented in the Linux kernel. That&rsquo;s the price you&rsquo;re paying for riding on top of other people&rsquo;s infrastructure.&#160;<a class="footnote-backref" href="#fnref:NOL" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:NOL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

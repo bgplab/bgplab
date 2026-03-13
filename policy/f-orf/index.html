@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -468,10 +472,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -575,10 +575,17 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> that implements prefix-based ORF (for example, FRRouting)</li>
+<li>If you want to use the <strong>terminal monitor</strong> command on FRRouting, you must use a newer image<sup id="fnref:FIL"><a class="footnote-ref" href="#fn:FIL">1</a></sup> than the one used by other BGP labs<sup id="fnref:FRO"><a class="footnote-ref" href="#fn:FRO">2</a></sup>. You can <a href="../../1-setup/#defaults">change the lab defaults</a> or change the FRRouting image with an environment variable before executing <strong>netlab up</strong>, for example:</li>
+</ul>
+<pre><code>export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
+</code></pre>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
-<li>Find a <a href="#req">device that supports prefix-based ORF</a> (for example, Cumulus Linux or FRR)</li>
+<li>Find a <a href="#req">device that supports prefix-based ORF</a> (for example, FRRouting)</li>
 <li>If needed, temporarily change the lab device type with the <code>NETLAB_DEVICE</code> environment variable, for example:</li>
 </ul>
 <pre><code>$ export NETLAB_DEVICE=cumulus
@@ -611,12 +618,12 @@ RPKI validation codes: V valid, I invalid, N Not found
 Displayed 3 routes and 3 total paths
 </code></pre>
 <ul>
-<li>Turn on BGP update debugging and clear the BGP session between RTR and X1 (use <strong>terminal monitor</strong>, followed by <strong>debug bgp updates in</strong> and <strong>clear ip bgp *</strong> on recent FRR releases). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:</li>
+<li>Turn on BGP update debugging and clear the BGP session between RTR and X1 (use <strong>terminal monitor</strong>, followed by <strong>debug bgp updates in</strong> and <strong>clear ip bgp *</strong> on recent FRRouting releases). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:</li>
 </ul>
 <p><a href="../policy-orf-printout-prefix-list.png"><img alt="" src="../policy-orf-printout-prefix-list.png" /></a></p>
 <h2 id="enable-outbound-route-filters">Enable Outbound Route Filters</h2>
 <p>With the inbound prefix list configured on RTR, it&rsquo;s time to get ORF working on X1. ORF is a negotiated BGP capability that is usually not enabled by default. You must enable it on both ends of a BGP session with a configuration command similar to <strong>neighbor capability</strong> within the BGP routing process configuration or the BGP address family configuration.</p>
-<p>Use a command similar to <strong>show bgp neighbors</strong> to verify that the routers in your lab agreed to use ORF. You should get a printout like this one on FRR (ORF capability is negotiated within a BGP address family):</p>
+<p>Use a command similar to <strong>show bgp neighbors</strong> to verify that the routers in your lab agreed to use ORF. You should get a printout like this one on FRRouting (ORF capability is negotiated within a BGP address family):</p>
 <pre><code>rtr# show bgp neighbors 10.1.0.2
 BGP neighbor is 10.1.0.2, remote AS 65100, local AS 65000, external link
 ...
@@ -637,9 +644,9 @@ BGP neighbor is 10.1.0.2, remote AS 65100, local AS 65000, external link
 <p><a href="../policy-orf-printout-orf.png"><img alt="" src="../policy-orf-printout-orf.png" /></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The BGP daemon in FRR release 10.0.1 resends the BGP prefixes permitted by the ORF filter three times. That&rsquo;s probably a bug that might be fixed when you do this lab exercise.</p>
+<p>The BGP daemon in FRRouting release 10.0.1 resends the BGP prefixes permitted by the ORF filter three times. That&rsquo;s probably a bug that might be fixed when you do this lab exercise.</p>
 </div>
-<p>Some devices have <strong>show</strong> commands that display installed ORF entries. For example, you can use the <strong>show bgp <em>af</em> neighbor <em>address</em> received prefix-filter</strong> command on FRR to display them:</p>
+<p>Some devices have <strong>show</strong> commands that display installed ORF entries. For example, you can use the <strong>show bgp <em>af</em> neighbor <em>address</em> received prefix-filter</strong> command on FRRouting to display them:</p>
 <pre><code>x1# show bgp ipv4 nei 10.1.0.1 received prefix-filter
 Address Family: IPv4 Unicast
 ip prefix-list 10.1.0.1.1.1: 2 entries
@@ -647,17 +654,9 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
    seq 10 permit 172.0.0.0/8 le 23
 </code></pre>
 <h2 id="dynamic-changes-in-orf-prefix-filters">Dynamic Changes in ORF Prefix Filters</h2>
-<p>Finally, add another entry to the inbound prefix list on RTR and use the <strong>debug bgp updates</strong> together with <strong>debug bgp neighbor-events</strong> on FRR (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.</p>
+<p>Finally, add another entry to the inbound prefix list on RTR and use the <strong>debug bgp updates</strong> together with <strong>debug bgp neighbor-events</strong> on FRRouting (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.</p>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab can run on a subset of the <a href="../../external/4-router/">4-router lab topology</a>.</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> that implements prefix-based ORF (for example, Cumulus Linux or FRR)</li>
-<li>Git repository contains initial device configurations for Cumulus Linux.</li>
-<li>If you want to use the <strong>terminal monitor</strong> command on FRR, you must use a newer image<sup id="fnref:FIL"><a class="footnote-ref" href="#fn:FIL">1</a></sup> than the one used by other BGP labs<sup id="fnref:FRO"><a class="footnote-ref" href="#fn:FRO">2</a></sup>. You can <a href="../../1-setup/#defaults">change the lab defaults</a> or change the FRR image with an environment variable before executing <strong>netlab up</strong>, for example:</li>
-</ul>
-<pre><code>export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
-</code></pre>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>
@@ -736,10 +735,10 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 <hr />
 <ol>
 <li id="fn:FIL">
-<p>Inspect the <a href="https://quay.io/repository/frrouting/frr?tab=tags&amp;tag=latest">list of available FRR containers</a> to select a recent image.&#160;<a class="footnote-backref" href="#fnref:FIL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Inspect the <a href="https://quay.io/repository/frrouting/frr?tab=tags&amp;tag=latest">list of available FRRouting containers</a> to select a recent image.&#160;<a class="footnote-backref" href="#fnref:FIL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:FRO">
-<p>We have to use an older version of FRR due to the <a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">undesired OSPF/BGP interaction behavior in recent FRR versions</a>.&#160;<a class="footnote-backref" href="#fnref:FRO" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>We have to use an older version of FRRouting due to the <a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">undesired OSPF/BGP interaction behavior in recent FRRouting versions</a>.&#160;<a class="footnote-backref" href="#fnref:FRO" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

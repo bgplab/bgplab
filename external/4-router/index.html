@@ -469,11 +469,10 @@
 <p>The exercises that have one or two configurable devices use the following 4-router lab topology:</p>
 <p><img alt="Lab topology" src="../4-router.png" /></p>
 <ul>
-<li>C1 and C2 are the lab devices you&rsquo;ll configure in the hands-on labs. C1 is usually named <em>rtr</em>; when a lab uses both routers they&rsquo;re usually named <em>r1</em> and <em>r2</em>.</li>
+<li>C1 and C2 are the lab devices you&rsquo;ll configure in the hands-on labs. C1 is usually named <em>rtr</em>; when a lab uses both routers, they&rsquo;re usually named <em>r1</em> and <em>r2</em>.</li>
 <li>X1 and X2 are external BGP routers.</li>
 </ul>
-<p>The individual labs assume you&rsquo;re using Cumulus Linux 4.x as external BGP routers (FRR running on a Ubuntu VM/container would work as well) and provide initial interface- and FRR configurations for them as well as extra configuration needed in your lab.</p>
-<p>You can use any device you want for the external BGP routers, but you&rsquo;ll have to create your own initial configuration files (if you&rsquo;re not using <em>netlab</em>) and <em>extra device configuration</em> templates. Should you decide to go down this route, we&rsquo;d appreciate if you&rsquo;d submit your changes as a pull request.</p>
+<p>You can use any device you want for the external BGP routers, but you&rsquo;ll have to create your own initial configuration files (if you&rsquo;re not using <em>netlab</em>) and <em>extra device configuration</em> templates. Should you decide to go down this route, we&rsquo;d appreciate it if you&rsquo;d submit your changes as a pull request.</p>
 <h2 id="lab-wiring">Lab Wiring</h2>
 <p>Creating a full mesh of links between four devices is not hard, but please do retain the interface sequence if you plan to use <em>netlab</em> to configure the devices.</p>
 <table>

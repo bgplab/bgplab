@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -468,10 +472,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -572,16 +572,21 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Customer- and external routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on external routers.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/7-prepend</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, EBGP sessions, and BGP prefix advertisements on your router. If you&rsquo;re not using <em>netlab</em>, continue with the configuration you made during the <a href="../../basic/3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a> or <a href="../1-weights/">Select Preferred EBGP Peer with Weights</a> exercises.</p>
 <h2 id="wtf">What Do We Have to Fix?</h2>
-<p>Log into X2 and check its BGP table. Use the <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running Cumulus Linux on X2:</p>
+<p>Log into X2 and check its BGP table. Use the <code>sudo vtysh -c 'show ip bgp'</code> command if you&rsquo;re running FRRouting on X2:</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp'
 Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp&quot;
 BGP table version is 3, local router ID is 10.0.0.11, vrf id 0
@@ -600,7 +605,7 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 
 Displayed  3 routes and 5 total paths
 </code></pre>
-<p>As expected, while X2 receives a route to <code>192.168.42.0/24</code> from X1, it prefers the one received from your router over the RTR-X2 link. Cumulus Linux explains how it selected the best BGP route in its <em>detailed BGP prefix information</em> printout &ndash; in this case, X2 chose the path with the shorter AS-path length:</p>
+<p>As expected, while X2 receives a route to <code>192.168.42.0/24</code> from X1, it prefers the one received from your router over the RTR-X2 link. FRRouting explains how it selected the best BGP route in its <em>detailed BGP prefix information</em> printout &ndash; in this case, X2 chose the path with the shorter AS-path length:</p>
 <pre><code>$ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
 Connecting to container clab-prepend-x2, executing sudo vtysh -c &quot;show ip bgp 192.168.42.0&quot;
 BGP routing table entry for 192.168.42.0/24
@@ -632,7 +637,7 @@ Paths: (2 available, best #2, table default)
 </ul>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on X1 and X2. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between RTR and X1/X2.</li>
 <li>The AS path of IPv4 prefix 192.168.42.0/24 advertised to X2 from RTR and X1.</li>
@@ -658,12 +663,6 @@ Paths: (2 available, best #1, table default)
 </code></pre>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Customer- and external routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>

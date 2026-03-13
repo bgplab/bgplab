@@ -446,6 +446,10 @@
           
       <li class="nav-item" data-level="1"><a href="#stop-the-propagation-of-configuration-errors" class="nav-link">Stop the Propagation of Configuration Errors</a>
         <ul class="nav flex-column">
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -459,10 +463,6 @@
         </ul>
       </li>
       <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
         <ul class="nav flex-column">
         </ul>
       </li>
@@ -481,11 +481,16 @@
 <p><em>Nobody is perfect</em>, including the networking engineers configuring BGP in your customers&rsquo; networks. Still, it&rsquo;s your job as a responsible Internet Service Provider to filter the results of those mistakes before they reach the wider Internet.<sup id="fnref:VZ"><a class="footnote-ref" href="#fn:VZ">1</a></sup></p>
 <p>In the ideal world, you&rsquo;d use RPKI and accept only valid prefixes belonging to your customers. Failing that, you could get valid customer prefixes from internet routing registries, but that&rsquo;s extra unpaid work. There&rsquo;s no excuse, however, for not deploying basic sanity checks, and that&rsquo;s what you&rsquo;ll configure in this exercise.</p>
 <p><img alt="Lab topology" src="../topology-fat-fingers.png" /></p>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for your router.</li>
+<li>Use FRRouting for the customer- and peer routers.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>challenge/04-block-fat-fingers</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your router (RTR) with the <strong>netlab connect rtr</strong> command and verify that the IP addresses and the EBGP sessions are properly configured.</li>
 </ul>
 <h2 id="the-problem">The Problem</h2>
@@ -497,7 +502,7 @@
 <li>Prefixes with too-long AS paths</li>
 <li>A default route</li>
 </ul>
-<p>Log into your router and explore its BGP table. You&rsquo;ll find at least one prefix matching one of the above criteria. This is the BGP table on RTR as displayed by Cumulus Linux:</p>
+<p>Log into your router and explore its BGP table. You&rsquo;ll find at least one prefix matching one of the above criteria. This is the BGP table on RTR as displayed by FRRouting:</p>
 <pre><code>rtr# show ip bgp
 BGP table version is 14, local router ID is 10.0.0.1, vrf id 0
 Default local pref 100, local AS 65000
@@ -560,12 +565,6 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *&gt; 100.78.43.0/24   10.1.0.5                 0             0 65101 i
 *&gt; 198.51.100.0/24  10.1.0.9                 0             0 65107 i
 </code></pre>
-<h2 id="req">Device Requirements</h2>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for your router.</li>
-<li>Use Cumulus Linux or FRR for the customer- and peer routers.</li>
-<li>Git repository contains initial device configurations for Cumulus Linux.</li>
-</ul>
 <div class="footnote">
 <hr />
 <ol>

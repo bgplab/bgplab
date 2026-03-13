@@ -620,7 +620,7 @@ default via 192.168.121.1 dev eth0
 <p>Please note that you can&rsquo;t use fake (overly large) IP subnets on INT and EXT to make them believe the neighbor is directly connected. The EBGP session would still not be established because the firewall decreases the TTL of forwarded IP packets, and most BGP implementations send EBGP IP packets with TTL=1.</p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your routers. The validation tests check:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on your routers. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between INT and EXT</li>
 <li>Whether EXT receives the prefix 192.168.42.0/24 from INT</li>

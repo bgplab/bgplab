@@ -462,6 +462,10 @@
       </li>
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -476,10 +480,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#alt" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -691,11 +691,16 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Customer- and provider routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on the S1, S2, X1, and X2.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/5-redistribute</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your devices with <strong>netlab connect</strong> and verify IP addresses, OSPF routing, and basic BGP configuration.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF routing, and EBGP sessions on your routers. If you&rsquo;re not using <em>netlab</em>, you must manually configure them.</p>
@@ -710,7 +715,7 @@
 <p>Two-way redistribution between routing protocols could quickly become exceedingly complex. Advertising the default route into the edge routing protocol is often better than redistributing core routes. You should test this alternative as an optional part of the lab exercise. </p>
 </div>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on S1, S2, X1, and X2. The following screenshot shows the validation results before the two-way redistribution was configured:</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on S1, S2, X1, and X2. The following screenshot shows the validation results before the two-way redistribution was configured:</p>
 <p><img alt="" src="../basic-redistribute-validate.png" /></p>
 <p>Do manual verification if the <strong>netlab validate</strong> command fails or you&rsquo;re using another network operating system on those routers.</p>
 <p>The local OSPF prefixes you want to advertise to the remote site must be in your router&rsquo;s BGP table first. A command similar to <strong>show ip bgp</strong> is thus a good starting point; it&rsquo;s even better to use a command that displays only the locally-originated prefixes, such as <strong>show ip bgp regexp ^$</strong>. The following printout contains the information displayed on C1 running Arista EOS:</p>
@@ -763,7 +768,7 @@ Gateway of last resort:
 </code></pre>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Use the <code>netlab connect --show ip route</code> and <code>netlab connect --show ip ospf route</code> commands on FRR or Cumulus Linux.</p>
+<p>Use the <code>netlab connect --show ip route</code> and <code>netlab connect --show ip ospf route</code> commands on FRRouting.</p>
 </div>
 <p><strong>Next:</strong></p>
 <ul>
@@ -772,12 +777,6 @@ Gateway of last resort:
 <h2 id="alt">Reference Information</h2>
 <p>This lab uses a superset of the <a href="../../external/4-router/">4-router lab topology</a>. You can still use that topology without the S1/S2 routers and redistribute <em>connected</em> prefixes into BGP.</p>
 <p>The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Customer- and provider routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the S1, S2, X1, and X2. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains provider router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <h4 id="point-to-point-links">Point-to-Point Links</h4>
 <table>

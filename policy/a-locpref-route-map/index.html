@@ -454,6 +454,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -472,10 +476,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -684,12 +684,17 @@
 </tr>
 </tbody>
 </table>
-<p>The virtual lab topology uses three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use <a href="../../external/">lab infrastructure that is not managed by <em>netlab</em></a>, you can use the <a href="../../external/4-router/">common 4-router lab topology</a> with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).</p>
+<p>The virtual lab topology uses three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use <a href="../../external/">lab infrastructure that is not managed by <em>netlab</em></a>, you can use the <a href="../../external/4-router/">common 4-router lab topology</a> with FRRouting as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).</p>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Customer- and external routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>The 4-router topology requires additional configuration on X1 and X2. That configuration is only available for Arista EOS and FRRouting.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>policy/a-locpref-route-map</code></li>
-<li>Execute <strong>netlab up</strong> if you have enough memory to start a 7-node lab (<a href="#req">device requirements</a>) or <strong>netlab up topology.4-router.yml</strong> if you want to create a 4-node lab<sup id="fnref:XC"><a class="footnote-ref" href="#fn:XC">1</a></sup>. You can also <a href="../../external/">deploy the lab on your lab infrastructure</a>.</li>
+<li>Execute <strong>netlab up</strong> if you have enough memory to start a 7-node lab or <strong>netlab up topology.4-router.yml</strong> if you want to create a 4-node lab<sup id="fnref:XC"><a class="footnote-ref" href="#fn:XC">1</a></sup>. You can also <a href="../../external/">deploy the lab on your lab infrastructure</a>.</li>
 <li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
 <p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must manually configure your routers.</p>
@@ -762,12 +767,6 @@
 <p>C2 does not advertise routes it does not use to C1, so you won&rsquo;t be able to see any other routes from the C2 BGP table on C1.</p>
 </div>
 <h2 id="reference-information">Reference Information</h2>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Customer- and external routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
-<li>The 4-router topology requires additional configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>The minimized version of this lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
 <table>
@@ -938,7 +937,7 @@
 <hr />
 <ol>
 <li id="fn:XC">
-<p>The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.&#160;<a class="footnote-backref" href="#fnref:XC" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS and FRRouting.&#160;<a class="footnote-backref" href="#fnref:XC" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:RA">
 <p>Some devices (example: Arista cEOS) can display routes <em>received</em> from a neighbor (before being processed by inbound routing policies) and routes <em>received and accepted</em> from a neighbor (after the routing policies). Make sure you use the correct form of the <strong>show</strong> command.&#160;<a class="footnote-backref" href="#fnref:RA" title="Jump back to footnote 2 in the text">&#8617;</a></p>

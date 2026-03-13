@@ -504,14 +504,13 @@
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the external routers.</li>
 <li>Use any router/switch <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a> for your devices. Check that the device you plan to use supports MPLS. </li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
 <li>Use cEOS release 4.31.2F or later and netlab release 1.9.0 or later to use MPLS with Arista EOS containers.</li>
 <li>SR Linux needs a license file to run MPLS.</li>
-<li>You cannot use MPLS with FRRouting, Cumulus Linux, or VyOS containers within Github Codespaces.</li>
+<li>You cannot use MPLS with FRRouting or VyOS containers within Github Codespaces.</li>
 </ul>
 </div>
 <h2 id="existing-routing-protocol-configuration">Existing Routing Protocol Configuration</h2>
@@ -671,7 +670,7 @@
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>challenge/40-mpls-core</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your devices with <strong>netlab connect</strong> and verify that the IP addresses, OSPF routing, and the BGP sessions are properly configured.</li>
 </ul>
 <h2 id="the-problem">The Problem</h2>

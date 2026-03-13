@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -464,10 +468,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -592,11 +592,15 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>lb/1-ebgp</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your router (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses and the EBGP sessions are properly configured.</li>
 </ul>
 <h2 id="configuration-tasks">Configuration Tasks</h2>
@@ -629,7 +633,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *  ec    10.7.5.0/24            10.1.0.1              0       -          100     0       65100 65001 i
  *  ec    10.7.5.0/24            10.1.0.9              0       -          100     0       65101 65001 i
 </code></pre>
-<p>If your device does not provide that information, look into the IP routing table. It should contain two entries for 10.1.3.0/24 and three entries for 10.7.5.0/24. For example, these are the BGP entries in the IP routing table on a Cumulus Linux device:</p>
+<p>If your device does not provide that information, look into the IP routing table. It should contain two entries for 10.1.3.0/24 and three entries for 10.7.5.0/24. For example, these are the BGP entries in the IP routing table on a FRRouting device:</p>
 <pre><code>rtr# show ip route bgp
 Codes: K - kernel route, C - connected, S - static, R - RIP,
        O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
@@ -646,11 +650,6 @@ B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 <p><strong>Next:</strong> <a href="../2-dmz-bw/">EBGP Load Balancing with BGP Link Bandwidth</a></p>
 <h2 id="reference-information">Reference Information</h2>
 <p>The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for the customer- and provider routers.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>
 <thead>

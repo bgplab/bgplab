@@ -450,6 +450,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
         <ul class="nav flex-column">
         </ul>
@@ -464,10 +468,6 @@
       </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
         <ul class="nav flex-column">
         </ul>
@@ -585,11 +585,17 @@
 </tr>
 </tbody>
 </table>
+<h2 id="req">Device Requirements</h2>
+<ul>
+<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
+<li>You can do automated lab validation with Arista EOS or FRRouting running on the external router.</li>
+</ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Change directory to <code>basic/4-ipv6</code></li>
-<li>Execute <strong>netlab up</strong> (<a href="#req">device requirements</a>, <a href="../../external/">other options</a>)</li>
+<li>Execute <strong>netlab up</strong></li>
 <li>Log into your device (RTR) with <strong>netlab connect rtr</strong> and verify IP addresses and basic BGP configuration.</li>
 </ul>
 <p><em>netlab</em> will configure IPv4 addressing, IPv6 addressing, and BGP for IPv4 on your router, resulting in a configuration similar to what you should have done in <a href="../3-originate/">Advertise IPv4 Prefixes to BGP Neighbors</a>.</p>
@@ -602,13 +608,13 @@
 </ul>
 <p>Most BGP implementations treat IPv4 and IPv6 in almost the same way and use <strong>address families</strong> within BGP configuration to configure them. The details vary:</p>
 <ul>
-<li>On many devices (including Cisco IOS, Arista EOS, Cumulus Linux, and FRR), you must configure IPv4 and IPv6 BGP sessions within the BGP configuration and then <em>activate</em> those sessions within individual address families.</li>
+<li>On many devices (including Cisco IOS, Arista EOS and FRRouting), you must configure IPv4 and IPv6 BGP sessions within the BGP configuration and then <em>activate</em> those sessions within individual address families.</li>
 <li>Some devices (for example, Nexus OS) expect you to configure BGP neighbors <em>within the address families</em></li>
 <li>You might encounter older implementations (for example, old Cisco IOS versions) that configure IPv4 parameters within BGP configuration and IPv6 parameters within the IPv6 address family.</li>
 </ul>
 <p>I know you&rsquo;ll figure out those details. Just keep in mind that there&rsquo;s not much difference (usually) between IPv4 and IPv6, and you already know how to <a href="../2-multihomed/">setup EBGP sessions</a> and <a href="../3-originate/">advertise IPv4 prefixes in BGP</a>. Just do the same thing for IPv6.</p>
 <h2 id="verification">Verification</h2>
-<p>You can use the <strong>netlab validate</strong> command if you&rsquo;ve installed <em>netlab</em> release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.</p>
+<p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on the external routers.</p>
 <p><img alt="" src="../basic-ipv6-validate.png" /></p>
 <p>If that command fails or you&rsquo;re using another network operating system on the external routers, it&rsquo;s time to start a troubleshooting session.</p>
 <p>Before digging into the details, check that the IPv6 BGP sessions are up. Use a command similar to <strong>show bgp ipv6 summary</strong> to verify that:</p>
@@ -657,10 +663,10 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * &gt;      2001:db8:1::/48        2001:db8:42::1        -       -          -       -       65000 ?
  * &gt;      2001:db8:101::/48      2001:db8:42::1        -       -          -       -       65000 65101 i
 </code></pre>
-<p>Check the BGP table on the remote router to ensure everything is okay. While that&rsquo;s a bit hard to do in real life, it&rsquo;s trivial in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> (if you&rsquo;re using Cumulus Linux or FRR) and execute the <strong>show ip bgp</strong> command:</p>
+<p>Check the BGP table on the remote router to ensure everything is okay. While that&rsquo;s a bit hard to do in real life, it&rsquo;s trivial in a lab &ndash; connect to X1 or X2 with <strong>netlab connect</strong> (or SSH into them if you&rsquo;re not using <em>netlab</em>), start <code>vtysh</code> (if you&rsquo;re using FRRouting) and execute the <strong>show ip bgp</strong> command:</p>
 <pre><code>$ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
-Use vtysh to connect to FRR daemon
+Use vtysh to connect to FRRouting daemon
 
 x1(bash)#sudo vtysh
 
@@ -691,13 +697,6 @@ Displayed  3 routes and 3 total paths
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
-<h3 id="req">Device Requirements</h3>
-<ul>
-<li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
-<li>External routers need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.originate</strong> attribute from the lab topology.</li>
-<li>You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the external router. Automated lab validation requires <em>netlab</em> release 1.8.3 or higher.</li>
-<li>Git repository contains external router initial device configurations for Cumulus Linux.</li>
-</ul>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>:</p>
 <table>

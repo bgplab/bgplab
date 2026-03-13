@@ -613,8 +613,7 @@
 <h2 id="device-requirements">Device Requirements</h2>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for AC1 and RR.</li>
-<li>Use a device on which <a href="https://netlab.tools/plugins/bgp.policy/#platform-support"><em>netlab</em> supports BGP link bandwidth attribute</a> (for example, FRR, Cumulus Linux, or Arista EOS) for external devices (X1, X2, WE1, WE2)</li>
-<li>Git repository contains Cumulus Linux configurations for X1, X2, WE1, and WE2.</li>
+<li>Use a device on which <a href="https://netlab.tools/plugins/bgp.policy/#platform-support"><em>netlab</em> supports BGP link bandwidth attribute</a> (for example, FRRouting, or Arista EOS) for external devices (X1, X2, WE1, WE2)</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
@@ -710,7 +709,7 @@ BGP routing table entry for 192.168.42.0/24
 <li>BGP Additional Paths <em>receive</em> capability should be <em>advertised</em> to all neighbors but not negotiated with any of them (because they are not expected to send additional paths)</li>
 <li>BGP Additional Paths <em>send</em> capability should be <em>negotiated</em> with AC1 and might be negotiated with WE1 and WE2 based on their default settings.</li>
 </ul>
-<p>This is the printout you would get on Arista EOS when using Cumulus Linux on WE1 and WE2 (the printout was significantly shortened and includes only the relevant information):</p>
+<p>This is the printout you would get on Arista EOS when using FRRouting on WE1 and WE2 (the printout was significantly shortened and includes only the relevant information):</p>
 <pre><code>rr#show ip bgp neighbors
 BGP neighbor is 10.0.0.1, remote AS 65000, internal link
  Description: we1
