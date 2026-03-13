@@ -38,12 +38,17 @@ Your routers run OSPF in area 0. They have these EBGP neighbors:
 
 _netlab_ configures your routers when you start the lab; if you're using some other lab infrastructure, you'll have to configure them manually.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and external routers.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2.
+
 ## Start the Lab
 
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Change directory to `policy/d-no-export`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your routers with **netlab connect** and verify they are properly configured.
 
 ## The Problem
@@ -161,11 +166,6 @@ RPKI validation codes: V valid, I invalid, N Not found
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
 
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and external routers.
-* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-
 ### Lab Wiring
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
@@ -197,4 +197,3 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 | swp1 |  |  | Unused link |
 | swp2 |  |  | Unused link |
 | swp3 | 10.1.0.6/30 |  | Link to AS 65101 |
-

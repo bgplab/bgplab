@@ -43,13 +43,17 @@ However, X2 (belonging to ISP-2) thinks your router should have AS number 65007:
 
 _netlab_ automatically configures device interfaces, OSPF, and BGP; if you're using another lab infrastructure, you'll have to configure lab devices manually.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2.
 
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `session/3-localas`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -144,11 +148,6 @@ Displayed  3 routes and 3 total paths
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
 
 ### Lab Wiring
 

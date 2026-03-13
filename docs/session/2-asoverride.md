@@ -37,12 +37,18 @@ PE1 and PE2 also run OSPF in the backbone area.
 | pe2 | Loopback | 10.0.0.2/32 | |
 |  | swp3 | 10.1.0.10/30 | pe1 |
 
+## Device Requirements {#req}
+
+* Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). The device also has to support the *AS override* functionality.
+* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support). The lab topology configures *BGP soft reconfiguration* on FRRouting; if you use other devices as CE routers, you might want to configure something similar on the EBGP sessions. 
+* You can perform automated lab validation with Arista EOS or FRRouting running on the CE routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `session/2-asoverride`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices (PE1, PE2) with **netlab connect** and verify that they have established OSPF adjacency, an IBGP session between themselves, and the EBGP sessions with the CE routers.
 
 **Note:** *netlab* will configure IP addressing, OSPF routing, BGP sessions, and BGP prefix advertisements on all routers. You must manually configure your routers if you're not using *netlab*.
@@ -128,12 +134,6 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). The device also has to support the *AS override* functionality.
-* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support). The lab topology configures *BGP soft reconfiguration* on FRRouting; if you use other devices as CE routers, you might want to configure something similar on the EBGP sessions. 
-* You can perform automated lab validation with Arista EOS or FRRouting running on the CE routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

@@ -20,12 +20,18 @@ The routers in your lab use the following BGP AS numbers. Your routers advertise
 | **AS65100** ||
 | x1 | 10.0.0.10 |  |
 
+## Device Requirements {#req}
+
+* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* _netlab_ has to configure BFD and BGP timers on the external routers. The device you want to use as an external router has to be supported by the [BFD configuration module](https://netlab.tools/platforms/#platform-routing-support) and the [**bgp.session** plugin](https://netlab.tools/plugins/bgp.session/#platform-support).
+* You can do automated lab validation with FRRouting running on X1.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/7-bfd`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices (R1,R2) with **netlab connect _node_** and verify their configuration.
 
 If you're using *netlab*, you'll get a fully configured lab, including BGP prefix origination on R1 and R2 and EBGP sessions between R1/R2 and X1. If you're using another lab platform, you'll have to do a fair amount of prep work[^PW].
@@ -91,12 +97,6 @@ This is the printout you should get after completing the lab exercise:
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* _netlab_ has to configure BFD and BGP timers on the external routers. The device you want to use as an external router has to be supported by the [BFD configuration module](https://netlab.tools/platforms/#platform-routing-support) and the [**bgp.session** plugin](https://netlab.tools/plugins/bgp.session/#platform-support).
-* You can do automated lab validation with FRRouting running on X1. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

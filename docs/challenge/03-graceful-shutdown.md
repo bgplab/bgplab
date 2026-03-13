@@ -55,12 +55,17 @@ The routers you're configuring run OSPF in the backbone area with the other rout
 
 _netlab_ automatically configures all lab devices; if you're using another lab infrastructure, you'll have to manually configure C1 and X1.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration module](https://netlab.tools/platforms/#platform-routing-support) for the C1 and X1.
+* Use devices [supported by the _netlab_ **bgp.policy** plugin](https://netlab.tools/plugins/bgp.policy/#platform-support) for C2 and X2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `challenge/03-graceful-shutdown`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your routers with **netlab connect** and verify that their IP addresses and routing protocols are properly configured.
 
 ## The Problem
@@ -182,11 +187,6 @@ Paths: (2 available, best #1, table default)
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP and OSPF configuration module](https://netlab.tools/platforms/#platform-routing-support) for the C1 and X1.
-* Use devices [supported by the _netlab_ **bgp.policy** plugin](https://netlab.tools/plugins/bgp.policy/#platform-support) for C2 and X2.
 
 ### Lab Wiring
 

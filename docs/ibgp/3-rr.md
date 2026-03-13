@@ -21,13 +21,18 @@ During the lab exercise, you'll remove all IBGP sessions between leaf routers an
 !!! tip
     Please note there's still an IBGP session between the two spine routers. Removing it would reduce the resiliency of BGP routing in your network.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as leaf- or spine routers.
+* You can do automated lab validation with Arista EOS or FRRouting running on leaf devices.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md), change directory to `ibgp/3-rr`
 
 You can choose between these lab topologies:
 
-* `topology.yml`: 6-router topology with a full mesh of IBGP sessions. Start with **netlab up** ([device requirements](#req))
+* `topology.yml`: 6-router topology with a full mesh of IBGP sessions. Start with **netlab up**
 * `hub-spoke.yml`: 6-router topology with hub-and-spoke IBGP sessions. Start with **netlab up hub-spoke.yml**.
 * `4-router.yml`: 4-router topology (two leaves, two spines) with hub-and-spoke IBGP sessions and FRRouting running on the leaf routers. Use this topology when you're low on memory; start it with **netlab up 4-router.yml**.
 
@@ -224,11 +229,6 @@ You can easily try out both solutions:
 
 ## Reference Information
 
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as leaf- or spine routers.
-* You can do automated lab validation with Arista EOS or FRRouting running on leaf devices. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-
 ### Lab Wiring 
 
 **6-router topology**
@@ -308,4 +308,3 @@ You can easily try out both solutions:
 | Ethernet3 |  |  | Unused link |
 
 **Note**: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.
-

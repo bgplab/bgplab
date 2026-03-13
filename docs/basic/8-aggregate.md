@@ -45,12 +45,17 @@ If you're using *netlab, *you'll start with a preconfigured lab -- *netlab* 
 |  | swp1 | 10.1.0.6/30 | ce1 |
 |  | swp3 | 10.42.42.129/25 | passive |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* You can do automated lab validation with Arista EOS or FRRouting running on X1.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `basic/8-aggregate`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your devices with **netlab connect** and verify IP addresses, OSPF routing, and basic BGP configuration.
 
 !!! Note
@@ -174,11 +179,6 @@ This is the printout you could get after configuring route aggregation but befor
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS or FRRouting running on X1. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

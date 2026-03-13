@@ -33,12 +33,18 @@ Your router has these EBGP neighbors.  _netlab_ configures them automatically; i
 | | p1 | 65207 | 10.1.0.2 |
 | | p2 | 65304 | 10.1.0.6 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for C1, P1, U1, and U2.
+* P2 requires additional configuration that sets BGP local preference based on BGP communities. The lab exercise includes configuration templates for Arista EOS and FRRouting. If you decide to use any other device for P2, you'll have to configure it manually.
+* You can do automated lab validation with Arista EOS or FRRouting running on P1, P2, U1, and U2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `policy/e-wedgies`
-* Execute **netlab up** ([device requirements](#req))
+* Execute **netlab up**
 * Log into your router (RTR) with **netlab connect c1** and verify that the IP addresses and the EBGP sessions are properly configured.
 
 !!! warning
@@ -174,12 +180,6 @@ Paths: (1 available, best #1, table default)
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for C1, P1, U1, and U2.
-* P2 requires additional configuration that sets BGP local preference based on BGP communities. The lab exercise includes configuration templates for Arista EOS and FRRouting. If you decide to use any other device for P2, you'll have to configure it manually.
-* You can do automated lab validation with Arista EOS or FRRouting running on P1, P2, U1, and U2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

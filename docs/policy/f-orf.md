@@ -32,6 +32,19 @@ There is a single EBGP session between RTR and X2. _netlab_ configures it automa
 | **x1** | 10.0.0.2 | 65100 |
 | | rtr | 65000 | 10.1.0.1 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) that implements prefix-based ORF (for example, FRRouting)
+* If you want to use the **terminal monitor** command on FRRouting, you must use a newer image[^FIL] than the one used by other BGP labs[^FRO]. You can [change the lab defaults](../1-setup.md#defaults) or change the FRRouting image with an environment variable before executing **netlab up**, for example:
+
+```
+export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
+```
+
+[^FIL]: Inspect the [list of available FRRouting containers](https://quay.io/repository/frrouting/frr?tab=tags&tag=latest) to select a recent image.
+
+[^FRO]: We have to use an older version of FRRouting due to the [undesired OSPF/BGP interaction behavior in recent FRRouting versions](https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html).
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
@@ -123,19 +136,6 @@ Finally, add another entry to the inbound prefix list on RTR and use the **debug
 ## Reference Information
 
 This lab can run on a subset of the [4-router lab topology](../external/4-router.md).
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) that implements prefix-based ORF (for example, FRRouting)
-* If you want to use the **terminal monitor** command on FRRouting, you must use a newer image[^FIL] than the one used by other BGP labs[^FRO]. You can [change the lab defaults](../1-setup.md#defaults) or change the FRRouting image with an environment variable before executing **netlab up**, for example:
-
-```
-export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
-```
-
-[^FIL]: Inspect the [list of available FRRouting containers](https://quay.io/repository/frrouting/frr?tab=tags&tag=latest) to select a recent image.
-
-[^FRO]: We have to use an older version of FRRouting due to the [undesired OSPF/BGP interaction behavior in recent FRRouting versions](https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html).
 
 ### Lab Wiring
 

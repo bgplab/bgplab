@@ -26,12 +26,16 @@ Node | Neighbor | Neighbor AS | Neighbor IPv4 |
 | **rtr** | x1 | 65000 | 10.1.0.2 |
 |  | x2 | 64507 | 10.1.0.6 |
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `session/4-removeprivate`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into your router (RTR) with the **netlab connect rtr** command and verify that the IP addresses and the EBGP sessions are properly configured.
 
 ## The Problem
@@ -104,10 +108,6 @@ Displayed  3 routes and 3 total paths
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
 
 ### Lab Wiring
 

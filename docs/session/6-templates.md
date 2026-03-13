@@ -56,12 +56,17 @@ All four routers are running OSPF in area 0:
 
 When starting the lab, _netlab_ configures IP addresses, OSPF, BGP, IBGP neighbors, and the advertised prefixes. If you're using another lab infrastructure, you'll have to configure all that manually.
 
+## Device Requirements {#req}
+
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the leaf- and spine routers.
+* You can do automated lab validation with Arista EOS or FRRouting running on S1 and S2.
+
 ## Start the Lab
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 * Change directory to `session/6-templates`
-* Execute **netlab up** ([device requirements](#req), [other options](../external/index.md))
+* Execute **netlab up**
 * Log into the lab routers with **netlab connect** and verify that the IP addresses, OSPF routing, and the IBGP sessions are properly configured.
 
 ## The Problem
@@ -165,11 +170,6 @@ RPKI validation codes: V valid, I invalid, N Not found
 * Use BGP peer groups to set up [dynamic BGP neighbors](../session/9-dynamic.md).
 
 ## Reference Information
-
-### Device Requirements {#req}
-
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the leaf- and spine routers.
-* You can do automated lab validation with Arista EOS or FRRouting running on S1 and S2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

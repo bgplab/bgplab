@@ -52,11 +52,19 @@ The routers in AS 65000 are running OSPF in area 0:
 |  | eth1 | 10.1.0.10/30 | core |
 | rr | eth1 | 172.16.0.1/24 | core |
 
+## Device Requirements {#req}
+
+* BIRD daemon is running in a container; your *netlab* environment has to include Docker and containerlab installation (use **netlab install containerlab** on Ubuntu to install them).
+* You must build a BIRD container with the **netlab clab build bird** command.
+* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as your routers.
+<!--
+* You can do automated lab validation with Arista EOS or FRRouting running on lab routers.
+-->
+
 ## Start the Lab
 
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
-* Check the [device requirements](#req).
 * If needed, [install containerlab](https://netlab.tools/labs/clab/) (it's preinstalled in GitHub Codespace) and build the BIRD container image with **netlab clab build bird**.
 * Change directory to `challenge/01-bird`
 * Execute **netlab up**
@@ -202,14 +210,6 @@ round-trip min/avg/max = 0.078/0.078/0.079 ms
 
 ## Reference Information
 
-### Device Requirements {#req}
-
-* BIRD daemon is running in a container; your *netlab* environment has to include Docker and containerlab installation (use **netlab install containerlab** on Ubuntu to install them).
-* You must build a BIRD container with the **netlab clab build bird** command.
-* Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as your routers.
-<!--
-* You can do automated lab validation with Arista EOS or FRRouting running on lab routers.
--->
 ### Lab Wiring
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
