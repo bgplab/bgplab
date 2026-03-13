@@ -22,7 +22,7 @@ The following tables summarize the existing lab configuration.
     
 ### BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix; your PE routers advertise their loopback IPv4 addresses.
+The routers in your lab use the following BGP AS numbers. The external router advertises an IPv4 prefix and a default route; your PE routers advertise their loopback IPv4 addresses.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
@@ -30,7 +30,7 @@ The routers in your lab use the following BGP AS numbers. The external router ad
 | pe1 | 10.0.0.2 |  |
 | pe2 | 10.0.0.3 | 192.168.43.0/24 |
 | **AS65100** ||
-| ext | 10.0.0.10 | 172.16.42.0/24 |
+| ext | 10.0.0.10 | 172.16.42.0/24, 0.0.0.0/0 |
 
 _netlab_ also configures the EBGP session between PE1 and EXT routers.
 
@@ -56,6 +56,7 @@ OSPF backbone area is configured on the following routers in AS 65000:
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for Ext.
 * You can do limited automated lab validation with Arista EOS or FRRouting running on Ext and PE1. You must run one of these network operating systems on all devices for a complete validation.
 
 ## Start the Lab

@@ -2,7 +2,7 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 
-plugin: [ check_validate ]
+plugin: [ bgp.session, check_validate, adjust ]
 version: 2.0.0
 _include: [ validate.yml ]
 
@@ -36,6 +36,7 @@ nodes:
 links:
 - r1:
   x1:
+    bgp.default_originate: True
   name: WAN uplink R1-to-X1
 - r1:
   x2:
@@ -50,6 +51,7 @@ links:
   pool: l2only
 - r2:
   x2:
+    bgp.default_originate: True
   name: WAN uplink R2-to-X2
 - r1:
   r2:
@@ -57,6 +59,20 @@ links:
   name: Intra-site LAN C1-C2
   prefix.ipv4: 10.0.100.0/24
   bgp.advertise: True
+
+_adjust:
+- nodes: [ x1, x2 ]                 # Remove bgp.default_originate if the external routers don't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[0].interfaces[1].bgp
+  - links[4].interfaces[1].bgp
+  warning: BGP default route cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP default route on device {device} used for
+    external routers. Configure the BGP default route on {node_list} manually
+    if you want to get printouts matching the lab exercise.
 
 message: |
   The "Establish an IBGP Session Between WAN Edge Routers" lab is ready.

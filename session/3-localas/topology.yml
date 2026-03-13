@@ -3,7 +3,7 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 name: localas
 
-plugin: [ check_validate, change_as ]
+plugin: [ bgp.session, check_validate, change_as, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -30,8 +30,24 @@ nodes:
 links:
 - rtr:
   x1:
+    bgp.default_originate: True
 - rtr:
   x2:
+    bgp.default_originate: True
+
+_adjust:
+- nodes: [ x1, x2 ]                 # Remove bgp.default_originate if the external routers don't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[0].interfaces[1].bgp
+  - links[1].interfaces[1].bgp
+  warning: BGP default route cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP default route on device {device} used for
+    external routers. Configure the BGP default route on {node_list} manually
+    if you want to get printouts matching the lab exercise.
 
 message: |
   The "Use Multiple AS Numbers on the Same Router" lab is ready.

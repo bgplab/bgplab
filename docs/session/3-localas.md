@@ -6,16 +6,16 @@ Some end-customers want to run BGP with their Internet Service Providers (ISPs) 
 
 ## Existing BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. Each router advertises an IPv4 prefix.
+The routers in your lab use the following BGP AS numbers. Each router advertises an IPv4 prefix; the upstream routers also advertise a default route.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
 | **AS65000** ||
 | rtr | 10.0.0.1 | 10.0.0.1/32 |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 192.168.100.1/24 |
+| x1 | 10.0.0.10 | 192.168.100.1/24, 0.0.0.0/0 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 192.168.101.1/24 |
+| x2 | 10.0.0.11 | 192.168.101.1/24, 0.0.0.0/0 |
 
 Your router has these EBGP neighbors.  _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
@@ -35,6 +35,7 @@ However, X2 (belonging to ISP-2) thinks your router should have AS number 65007:
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.
 * You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2.
 
 ## Start the Lab

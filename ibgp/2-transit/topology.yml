@@ -2,7 +2,7 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:           # Make BGP a valid node attribute regardless of what module is used
-plugin: [ fix_unnumbered, fix_frr, check_validate ]
+plugin: [ bgp.session, fix_unnumbered, fix_frr, check_validate, adjust ]
 
 name: transit
 
@@ -43,6 +43,7 @@ links:
   name: Unused link
 - pe1:
   ext:
+    bgp.default_originate: True
   name: Inter-AS link
 - pe2:
   pe1:
@@ -57,6 +58,19 @@ links:
 - core:
   pe2:
   prefix.ipv4: True
+
+_adjust:
+- nodes: [ ext ]                     # Remove bgp.default_originate if the external router doesn't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[2].interfaces[1].bgp
+  warning: BGP default route cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP default route on device {device} used for
+    external routers. Configure the BGP default route on {node_list} manually
+    if you want to get printouts matching the lab exercise.
 
 message: |
   The "Build a Transit Network with IBGP" lab is ready. Use "netlab connect"

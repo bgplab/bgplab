@@ -14,7 +14,7 @@ When starting the lab with _netlab_, you'll get a preconfigured lab with EBGP se
 
 ### BGP Configuration
 
-The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix; your routers advertise the IPv4 prefix of the LAN subnet connecting them.
+The routers in your lab use the following BGP AS numbers. Each upstream router advertises an IPv4 prefix and a default route; your routers advertise the IPv4 prefix of the LAN subnet connecting them.
 
 | Node/ASN | Router ID | Advertised prefixes |
 |----------|----------:|--------------------:|
@@ -22,9 +22,9 @@ The routers in your lab use the following BGP AS numbers. Each upstream router a
 | r1 | 10.0.0.1 | 10.0.100.0/24 |
 | r2 | 10.0.0.2 | 10.0.100.0/24 |
 | **AS65100** ||
-| x1 | 192.168.100.1 | 192.168.100.0/24 |
+| x1 | 192.168.100.1 | 192.168.100.0/24, 0.0.0.0/0 |
 | **AS65101** ||
-| x2 | 172.16.101.1 | 172.16.101.0/24 |
+| x2 | 172.16.101.1 | 172.16.101.0/24, 0.0.0.0/0 |
 
 _netlab_ configures these EBGP sessions when starting the lab; if you're using some other lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
@@ -52,6 +52,7 @@ OSPF running in the backbone area is configured on the following routers:
 
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
 * Provider routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.
 * You can do automated lab validation with Arista EOS or FRRouting running on R1 and R2.
 * Git repository contains provider routers' initial device configurations for FRRouting.
 
@@ -75,6 +76,7 @@ BGP table on R1
 ```
 r1>show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * >      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
  * >      10.0.100.0/24          -                     -       -          -       0       i
  * >      172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
  * >      192.168.100.0/24       10.1.0.2              0       -          100     0       65100 i
@@ -85,6 +87,7 @@ BGP table on R2
 ```
 r2>show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * >      0.0.0.0/0              10.1.0.10             0       -          100     0       65101 i
  * >      10.0.100.0/24          -                     -       -          -       0       i
  * >      172.16.101.0/24        10.1.0.10             0       -          100     0       65101 i
  * >      192.168.100.0/24       10.1.0.10             0       -          100     0       65101 65100 i
@@ -120,7 +123,7 @@ Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
   r2                       10.0.0.2 4 65000              0         0    0    0 00:06:03 Active
-  x1                       10.1.0.2 4 65100           2616      3068    0    0 02:10:34 Estab   2      2
+  x1                       10.1.0.2 4 65100           2616      3068    0    0 02:10:34 Estab   3      3
 ```
 
 ## Fix the Source IP Address of the IBGP Session
@@ -147,7 +150,7 @@ Router identifier 10.0.0.1, local AS number 65000
 Neighbor Status Codes: m - Under maintenance
   Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
   r2                       10.0.0.2 4 65000              8         8    0    0 00:00:07 Estab   2      2
-  x1                       10.1.0.2 4 65100           2795      3276    0    0 02:19:28 Estab   2      2
+  x1                       10.1.0.2 4 65100           2795      3276    0    0 02:19:28 Estab   3      3
 ```
 
 After the IBGP session has been established, R1 and R2 exchange BGP prefixes received from X1 and X2, but the prefixes advertised by R2 are not selected as the best routes by R1 (and vice versa):
@@ -157,6 +160,8 @@ BGP table on R1 with a working IBGP session
 ```
 r1#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * >      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
+          0.0.0.0/0              10.1.0.10             0       -          100     0       65101 i
  * >      10.0.100.0/24          -                     -       -          -       0       i
  *        10.0.100.0/24          10.0.0.2              0       -          100     0       i
  * >      172.16.101.0/24        10.1.0.2              0       -          100     0       65100 65101 i
@@ -222,6 +227,8 @@ BGP table on R1 with fixed BGP next hops
 ```
 r1#show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * >      0.0.0.0/0              10.1.0.2              0       -          100     0       65100 i
+ *        0.0.0.0/0              10.0.0.2              0       -          100     0       65101 i
  * >      10.0.100.0/24          -                     -       -          -       0       i
  *        10.0.100.0/24          10.0.0.2              0       -          100     0       i
  * >      172.16.101.0/24        10.0.0.2              0       -          100     0       65101 i
@@ -253,8 +260,9 @@ The final IP routing table on R1
 {.code-caption}
 ```
 r1#show ip route | begin Gateway
-Gateway of last resort is not set
+Gateway of last resort is 10.1.0.2 to network 0.0.0.0
 
+ B E      0.0.0.0/0 [200/0] via 10.1.0.2, Ethernet1
  C        10.0.0.1/32 is directly connected, Loopback0
  O        10.0.0.2/32 [110/20] via 10.0.100.2, Ethernet3
  C        10.0.100.0/24 is directly connected, Ethernet3
