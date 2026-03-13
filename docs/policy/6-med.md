@@ -43,9 +43,9 @@ Your network is also running OSPF in the backbone area:
 ## Device Requirements {#req}
 
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
+* External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.
 * You can do automated lab validation with Arista EOS or FRRouting running on external routers.
-* If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
 
 ## Start the Lab
 

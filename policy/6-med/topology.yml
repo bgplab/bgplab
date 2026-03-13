@@ -6,7 +6,7 @@ version: 2.0.0
 
 _include: [ validate.yml ]
 
-plugin: [ bgp.session, check_validate ]
+plugin: [ bgp.session, check_validate, adjust ]
 
 module: [ bgp, ospf ]
 
@@ -61,6 +61,20 @@ links:
   prefix:
     ipv4: 192.168.42.0/24
   bgp.advertise: True
+
+_adjust:
+- nodes: [ x1, x2 ]                 # Remove bgp.default_originate if the external routers don't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[0].interfaces[1].bgp
+  - links[4].interfaces[1].bgp
+  warning: BGP default route cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP default route on device {device} used for
+    external routers. Configure the BGP default route on {node_list} manually
+    if you want to get printouts matching the lab exercise.
 
 message: |
   The "Use MED to Influence Incoming Traffic Flow" lab is ready.

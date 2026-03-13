@@ -31,7 +31,7 @@ Your router has these EBGP neighbors. _netlab_ configures them automatically; if
 ## Device Requirements {#req}
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** attribute from the lab topology.
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.
 * You can do automated lab validation with Arista EOS or FRRouting running on the customer router.
 
 ## Start the Lab
