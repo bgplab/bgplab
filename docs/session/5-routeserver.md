@@ -128,7 +128,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for ISP1 and RS routers.
 * Use Arista EOS or FRRouting for ISP2 and ISP3.
-* You can do automated lab validation with Arista EOS or FRR running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* You can do automated lab validation with Arista EOS or FRRouting running on ISP2 and ISP3. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

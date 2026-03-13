@@ -160,7 +160,7 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 * Customer routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * Provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can perform automated lab validation with Arista EOS or FRR running on the customer routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* You can perform automated lab validation with Arista EOS or FRRouting running on the customer routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

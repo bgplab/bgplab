@@ -36,7 +36,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## The Problem
 
-Log into X2 and check its BGP table. You'll notice that the AS path for the prefix `192.168.42.0/24` contains a private AS number[^PAN] 65000 that should not be visible outside your autonomous system. For example, you would get the following printout when running FRRouting on X2:[^NLS]
+Log into X2 and check its BGP table. You'll notice that the AS path for the prefix `192.168.42.0/24` contains a private AS number[^PAN] 65000 that should not be visible outside your autonomous system. For example, you would get the following printout when running FRRouting on X2:
 
 [^PAN]: AS numbers 64496-64511 are not private AS numbers. [RFC 5398](https://www.rfc-editor.org/rfc/rfc5398.html) reserved them for documentation. Private AS numbers start with AS 64512.
 
