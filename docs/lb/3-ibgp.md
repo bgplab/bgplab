@@ -40,7 +40,6 @@ Your routers are running OSPF in the backbone area. They have these BGP neighbor
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ## Start the Lab
 

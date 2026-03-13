@@ -58,7 +58,7 @@ You can reduce BGP session timers to improve BGP convergence:
 [^ATD]: Some BGP implementations tear down BGP sessions when you change the BGP timers.
 
 !!! tip
-    FRRouting and Cumulus Linux using the *datacenter* profile already use low BGP timers. The lab configuration process returns those timers to the default 60/180 seconds.
+    FRRouting using the *datacenter* profile already uses low BGP timers. The lab configuration process returns those timers to the default 60/180 seconds.
 
 **Verification:**
 
@@ -73,7 +73,7 @@ While some BGP implementations allow you to use very small BGP timers (for examp
 * Clear the BGP session if needed
 
 !!! warning
-    Similarly to what you had to do to get BGP up and running, you have to modify the `/etc/frr/daemons` file and restart FRR on Culumus Linux and FRRouting virtual machines ([more details](0-frrouting.md)). The BFD daemon is already started in FRRouting containers.
+    Similarly to what you had to do to get BGP up and running, you have to modify the `/etc/frr/daemons` file and restart FRRouting on FRRouting virtual machines ([more details](0-frrouting.md)). The BFD daemon is already started in FRRouting containers.
      
 **Verification:**
 
@@ -82,7 +82,7 @@ While some BGP implementations allow you to use very small BGP timers (for examp
 
 ## Automated Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux or FRR on X1. The validation tests check the BGP timers on the R1-X1 EBGP session and the state of the R1-X1 BFD session. 
+You can use the **netlab validate** command if you use FRRouting on X1. The validation tests check the BGP timers on the R1-X1 EBGP session and the state of the R1-X1 BFD session. 
 
 This is the printout you should get after completing the lab exercise:
 
@@ -96,8 +96,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * _netlab_ has to configure BFD and BGP timers on the external routers. The device you want to use as an external router has to be supported by the [BFD configuration module](https://netlab.tools/platforms/#platform-routing-support) and the [**bgp.session** plugin](https://netlab.tools/plugins/bgp.session/#platform-support).
-* You can do automated lab validation with Cumulus Linux or FRR running on X1. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with FRRouting running on X1. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

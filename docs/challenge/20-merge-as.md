@@ -136,5 +136,5 @@ BGP routing table entry for 192.168.3.0/24
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP, OSPF, and IS-IS configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the customer routers.
-* If your preferred device does not support IS-IS (for example, Cumulus Linux), replace the **org_2** group setting `module: [ bgp, isis ]` in the lab topology file with `module: [ bgp, ospf ]`.
+* If your preferred device does not support IS-IS, replace the **org_2** group setting `module: [ bgp, isis ]` in the lab topology file with `module: [ bgp, ospf ]`.
 * Use any device [supported by the BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the external routers.

@@ -202,7 +202,7 @@ Paths: (2 available, best #1, table default)
 
 ## Automated Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on leaf devices. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on leaf devices. The validation tests check:
 
 * Whether the leaf devices get BGP prefixes directly from other leaf devices (you forgot to remove the leaf-to-leaf IBGP sessions)
 * Whether the leaf devices get BGP prefixes from both spine devices (spine devices work as route reflectors).
@@ -227,7 +227,7 @@ You can easily try out both solutions:
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as leaf- or spine routers.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on leaf devices. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* You can do automated lab validation with Arista EOS or FRRouting running on leaf devices. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring 
 

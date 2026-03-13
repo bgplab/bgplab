@@ -94,7 +94,7 @@ Most BGP implementations will refuse to establish the EBGP session you just conf
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on your routers. The validation tests check:
 
 * The state of the EBGP session between INT and EXT
 * Whether EXT receives the prefix 192.168.42.0/24 from INT

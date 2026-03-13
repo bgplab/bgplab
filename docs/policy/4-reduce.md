@@ -59,7 +59,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on your router. The validation tests check:
 
 * The state of the EBGP session between RTR and X1/X2.
 * Whether RTR has two default routes and whether the one advertised by X1 is the best default route.
@@ -110,9 +110,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* You can do automated lab validation with Arista EOS or FRRouting running on the customer router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) and [change of BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** and **bgp.locpref** attributes from the lab topology.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

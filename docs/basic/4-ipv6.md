@@ -51,7 +51,7 @@ You have to:
 
 Most BGP implementations treat IPv4 and IPv6 in almost the same way and use **address families** within BGP configuration to configure them. The details vary:
 
-* On many devices (including Cisco IOS, Arista EOS, Cumulus Linux, and FRR), you must configure IPv4 and IPv6 BGP sessions within the BGP configuration and then *activate* those sessions within individual address families.
+* On many devices (including Cisco IOS, Arista EOS and FRRouting), you must configure IPv4 and IPv6 BGP sessions within the BGP configuration and then *activate* those sessions within individual address families.
 * Some devices (for example, Nexus OS) expect you to configure BGP neighbors *within the address families*
 * You might encounter older implementations (for example, old Cisco IOS versions) that configure IPv4 parameters within BGP configuration and IPv6 parameters within the IPv6 address family.
 
@@ -59,7 +59,7 @@ I know you'll figure out those details. Just keep in mind that there's not much 
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers.
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers.
 
 ![](basic-ipv6-validate.png)
 
@@ -119,12 +119,12 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  * >      2001:db8:101::/48      2001:db8:42::1        -       -          -       -       65000 65101 i
 ```
 
-Check the BGP table on the remote router to ensure everything is okay. While that's a bit hard to do in real life, it's trivial in a lab -- connect to X1 or X2 with **netlab connect** (or SSH into them if you're not using _netlab_), start `vtysh` (if you're using Cumulus Linux or FRR) and execute the **show ip bgp** command:
+Check the BGP table on the remote router to ensure everything is okay. While that's a bit hard to do in real life, it's trivial in a lab -- connect to X1 or X2 with **netlab connect** (or SSH into them if you're not using _netlab_), start `vtysh` (if you're using FRRouting) and execute the **show ip bgp** command:
 
 ```
 $ netlab connect x1
 Connecting to container clab-originate-x1, starting bash
-Use vtysh to connect to FRR daemon
+Use vtysh to connect to FRRouting daemon
 
 x1(bash)#sudo vtysh
 
@@ -162,8 +162,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** attribute from the lab topology.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the external router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on the external router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

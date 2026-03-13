@@ -123,7 +123,7 @@ Prepend at least three copies of your AS number (65000) to the EBGP updates C1 s
 
 ## Verification {#validate}
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers. The validation tests check:
 
 * The state of the EBGP session between C1 and P1/P2
 * Whether C1 advertises its prefix to P1/P2 and whether that gets propagated to U1/U2.
@@ -178,9 +178,8 @@ The following information might help you if you plan to build custom lab infrast
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for C1, P1, U1, and U2.
-* P2 requires additional configuration that sets BGP local preference based on BGP communities. The lab exercise includes configuration templates for Arista EOS, Cumulus Linux, and FRR. If you decide to use any other device for P2, you'll have to configure it manually.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on P1, P2, U1, and U2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains initial device configurations for Cumulus Linux.
+* P2 requires additional configuration that sets BGP local preference based on BGP communities. The lab exercise includes configuration templates for Arista EOS and FRRouting. If you decide to use any other device for P2, you'll have to configure it manually.
+* You can do automated lab validation with Arista EOS or FRRouting running on P1, P2, U1, and U2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

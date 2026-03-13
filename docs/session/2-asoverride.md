@@ -68,7 +68,7 @@ However, the customer routers do not accept the prefixes advertised by other cus
 ```
 $ netlab connect ce1
 Connecting to container clab-allowas-ce1, starting bash
-Use vtysh to connect to FRR daemon
+Use vtysh to connect to FRRouting daemon
 
 ce1(bash)#sudo vtysh
 

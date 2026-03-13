@@ -36,7 +36,7 @@ There is a single EBGP session between RTR and X2. _netlab_ configures it automa
 
 Assuming you already [set up your lab infrastructure](../1-setup.md):
 
-* Find a [device that supports prefix-based ORF](#req) (for example, Cumulus Linux or FRR)
+* Find a [device that supports prefix-based ORF](#req) (for example, FRRouting)
 * If needed, temporarily change the lab device type with the `NETLAB_DEVICE` environment variable, for example:
 
 ```
@@ -71,7 +71,7 @@ RPKI validation codes: V valid, I invalid, N Not found
 Displayed 3 routes and 3 total paths
 ```
 
-* Turn on BGP update debugging and clear the BGP session between RTR and X1 (use **terminal monitor**, followed by **debug bgp updates in** and **clear ip bgp \*** on recent FRR releases). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:
+* Turn on BGP update debugging and clear the BGP session between RTR and X1 (use **terminal monitor**, followed by **debug bgp updates in** and **clear ip bgp \*** on recent FRRouting releases). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:
 
 [![](policy-orf-printout-prefix-list.png)](policy-orf-printout-prefix-list.png)
 
@@ -79,7 +79,7 @@ Displayed 3 routes and 3 total paths
 
 With the inbound prefix list configured on RTR, it's time to get ORF working on X1. ORF is a negotiated BGP capability that is usually not enabled by default. You must enable it on both ends of a BGP session with a configuration command similar to **neighbor capability** within the BGP routing process configuration or the BGP address family configuration.
 
-Use a command similar to **show bgp neighbors** to verify that the routers in your lab agreed to use ORF. You should get a printout like this one on FRR (ORF capability is negotiated within a BGP address family):
+Use a command similar to **show bgp neighbors** to verify that the routers in your lab agreed to use ORF. You should get a printout like this one on FRRouting (ORF capability is negotiated within a BGP address family):
 
 ```
 rtr# show bgp neighbors 10.1.0.2
@@ -104,9 +104,9 @@ Once you have verified your routers agreed to use ORF, clear the EBGP session an
 [![](policy-orf-printout-orf.png)](policy-orf-printout-orf.png)
 
 !!! note
-    The BGP daemon in FRR release 10.0.1 resends the BGP prefixes permitted by the ORF filter three times. That's probably a bug that might be fixed when you do this lab exercise.
+    The BGP daemon in FRRouting release 10.0.1 resends the BGP prefixes permitted by the ORF filter three times. That's probably a bug that might be fixed when you do this lab exercise.
 
-Some devices have **show** commands that display installed ORF entries. For example, you can use the **show bgp *af* neighbor *address* received prefix-filter** command on FRR to display them:
+Some devices have **show** commands that display installed ORF entries. For example, you can use the **show bgp *af* neighbor *address* received prefix-filter** command on FRRouting to display them:
 
 ```
 x1# show bgp ipv4 nei 10.1.0.1 received prefix-filter
@@ -118,7 +118,7 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 
 ## Dynamic Changes in ORF Prefix Filters
 
-Finally, add another entry to the inbound prefix list on RTR and use the **debug bgp updates** together with **debug bgp neighbor-events** on FRR (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.
+Finally, add another entry to the inbound prefix list on RTR and use the **debug bgp updates** together with **debug bgp neighbor-events** on FRRouting (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.
 
 ## Reference Information
 
@@ -126,17 +126,16 @@ This lab can run on a subset of the [4-router lab topology](../external/4-router
 
 ### Device Requirements {#req}
 
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) that implements prefix-based ORF (for example, Cumulus Linux or FRR)
-* Git repository contains initial device configurations for Cumulus Linux.
-* If you want to use the **terminal monitor** command on FRR, you must use a newer image[^FIL] than the one used by other BGP labs[^FRO]. You can [change the lab defaults](../1-setup.md#defaults) or change the FRR image with an environment variable before executing **netlab up**, for example:
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) that implements prefix-based ORF (for example, FRRouting)
+* If you want to use the **terminal monitor** command on FRRouting, you must use a newer image[^FIL] than the one used by other BGP labs[^FRO]. You can [change the lab defaults](../1-setup.md#defaults) or change the FRRouting image with an environment variable before executing **netlab up**, for example:
 
 ```
 export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
 ```
 
-[^FIL]: Inspect the [list of available FRR containers](https://quay.io/repository/frrouting/frr?tab=tags&tag=latest) to select a recent image.
+[^FIL]: Inspect the [list of available FRRouting containers](https://quay.io/repository/frrouting/frr?tab=tags&tag=latest) to select a recent image.
 
-[^FRO]: We have to use an older version of FRR due to the [undesired OSPF/BGP interaction behavior in recent FRR versions](https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html).
+[^FRO]: We have to use an older version of FRRouting due to the [undesired OSPF/BGP interaction behavior in recent FRRouting versions](https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html).
 
 ### Lab Wiring
 

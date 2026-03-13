@@ -11,12 +11,11 @@ In the *‌[Build a Transit Network with IBGP](../ibgp/2-transit.md)* lab exerci
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the external routers.
 * Use any router/switch [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your devices. Check that the device you plan to use supports MPLS. 
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 !!! Warning
     * Use cEOS release 4.31.2F or later and netlab release 1.9.0 or later to use MPLS with Arista EOS containers.
     * SR Linux needs a license file to run MPLS.
-    * You cannot use MPLS with FRRouting, Cumulus Linux, or VyOS containers within Github Codespaces.
+    * You cannot use MPLS with FRRouting or VyOS containers within Github Codespaces.
 
 ## Existing Routing Protocol Configuration
 

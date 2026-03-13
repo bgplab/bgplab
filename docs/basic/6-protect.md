@@ -12,7 +12,7 @@ In this lab, you'll use:
 
 If you want to practice BGP session protection with TCP-AO, check out the [TCP-AO lab](9-ao.md)[^NOL].
 
-[^NOL]: I would love to add a TCP-AO-protected session to this lab, but you cannot use TCP-AO on Cumulus Linux or FRR because it's not yet (as of September 2023) implemented in the Linux kernel. That's the price you're paying for riding on top of other people's infrastructure.
+[^NOL]: I would love to add a TCP-AO-protected session to this lab, but you cannot use TCP-AO on FRRouting because it's not yet (as of September 2023) implemented in the Linux kernel. That's the price you're paying for riding on top of other people's infrastructure.
 
 ![Lab topology](topology-protect.png)
 
@@ -58,7 +58,7 @@ To make the lab work:
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2.
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on X1 and X2.
 
 ![](basic-protect-validate.png)
 
@@ -86,8 +86,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * _netlab_ has to configure default route origination, MD5 password, and GTSM on the external routers. You'll find the supported devices in the **bgp.session** [platform support table](https://netlab.tools/plugins/bgp.session/#platform-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on the X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

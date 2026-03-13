@@ -164,9 +164,9 @@ You've completed the lab exercise when:
 * The BGP table on all routers contains exactly two prefixes, and they're both selected as the *best* routes.
 * X1 can ping X2 from its loopback interface.
 
-This is the BGP table you should see on the CORE router running FRR:
+This is the BGP table you should see on the CORE router running FRRouting:
 
-BGP table on the CORE router running FRR
+BGP table on the CORE router running FRRouting
 { .code-caption }
 ```
 BGP table version is 8, local router ID is 10.0.0.2, vrf id 0
@@ -184,7 +184,7 @@ RPKI validation codes: V valid, I invalid, N Not found
 Displayed 2 routes and 2 total paths
 ```
 
-And this is how you can ping X2 from X1 running FRR:
+And this is how you can ping X2 from X1 running FRRouting:
 
 Pinging between X1 and X2
 { .code-caption }
@@ -208,7 +208,7 @@ round-trip min/avg/max = 0.078/0.078/0.079 ms
 * You must build a BIRD container with the **netlab clab build bird** command.
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) as your routers.
 <!--
-* You can do automated lab validation with Arista EOS or FRR running on lab routers.
+* You can do automated lab validation with Arista EOS or FRRouting running on lab routers.
 -->
 ### Lab Wiring
 

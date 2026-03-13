@@ -35,7 +35,7 @@ Here are a few device selection guidelines:
 | VyOS | vyos |
 
 !!! tip
-    If you want to use the default settings but have never worked with FRRouting before, start with the [Configuring Cumulus Linux and FRRouting](basic/0-frrouting.md) exercise.
+    If you want to use the default settings but have never worked with FRRouting before, start with the [Configuring FRRouting](basic/0-frrouting.md) exercise.
 
 * Use FRRouting to use the 2 CPU/8 GB codespaces VM with more extensive labs. Other containers, like Arista cEOS or Nokia SR-Linux, need more memory.
 * Codespaces have persistent storage; you can download and install other containers.

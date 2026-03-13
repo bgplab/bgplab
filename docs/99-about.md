@@ -6,7 +6,7 @@ Now imagine having more than a dozen hands-on labs following the "_BGP from rook
 
 The project uses _[netlab](https://netlab.tools)_[^HT] to set up the labs and FRRouting containers or a [few other devices](1-setup.md#select-the-additional-devices-in-your-lab) as external BGP routers. You can use [whatever networking devices](1-setup.md#select-the-network-devices-you-will-work-with) you wish to work on[^XP], and if they happen to be supported by _netlab_, you'll get lab topology and basic device configuration for each lab set up in seconds[^XR]. Most lab exercises include device configurations for the external BGP routers for people who love wasting time with GUI.
 
-[^XP]: Including physical hardware if you have a few extra Cumulus switches and are willing to do some crazy stuff to set things up.
+[^XP]: Including physical hardware if you're willing to do some crazy stuff to set things up.
 
 You'll find the lab topology files and initial device configurations in a [GitHub repository](https://github.com/ipspace/bgplab), but you might [explore the lab exercises first](https://bgplabs.net/).
 

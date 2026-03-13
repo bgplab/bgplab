@@ -6,7 +6,7 @@ In a previous lab we [used MD5 checksum to password-protect EBGP sessions](6-pro
 
 ## Lab Requirements
 
-This lab uses a slightly different supporting infrastructure than all other BGP labs. Linux kernel does not support TCP-AO (as of September 2023), which means that we cannot use virtual machines or containers running Cumulus Linux or Ubuntu/FRR as the external BGP routers. It's also impossible to use Arista cEOS container as it relies on the TCP/IP stack of the underlying Linux kernel.
+This lab uses a slightly different supporting infrastructure than all other BGP labs. Linux kernel does not support TCP-AO (as of September 2023), which means that we cannot use virtual machines or containers running FRRouting as the external BGP routers. It's also impossible to use Arista cEOS container as it relies on the TCP/IP stack of the underlying Linux kernel.
 
 The only way to run this lab is to start external routers as virtual machines using Virtualbox or KVM/libvirt virtualization. _netlab_ currently [supports TCP-AO](https://netlab.tools/plugins/ebgp.utils/) on these devices:
 

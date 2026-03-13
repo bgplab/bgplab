@@ -15,7 +15,7 @@ FRRouting devices can be run in all [_netlab_-supported virtualization environme
 If you'd like to use a more traditional networking device, use any other [_netlab_-supported device](https://netlab.tools/platforms/) for which we implemented [basic BGP configuration](https://netlab.tools/module/bgp/#platform-support) as the device to practice with[^x86]. I recommend Arista cEOS or Nokia SR Linux containers; they are the easiest ones to install and use.
 
 !!! tip
-    You must use container-based network devices such as Arista cEOS, FRR, Nokia SR Linux, or VyOS to run the BGP labs in [GitHub Codespaces](4-codespaces.md).
+    You must use container-based network devices such as Arista cEOS, FRRouting, Nokia SR Linux, or VyOS to run the BGP labs in [GitHub Codespaces](4-codespaces.md).
 
 [^x86]: You will have to run the labs on a device with an x86 CPU (Intel or AMD).
 
@@ -23,16 +23,16 @@ If you'd like to use a more traditional networking device, use any other [_netla
 
 The labs heavily rely on external BGP feeds -- preconfigured devices with which your routers exchange routing information. You won't configure those devices, but you might have to log into them and execute **show** commands.
 
-It's best if you use FRR containers or virtual machines for external BGP feeds, but you can choose any one of these devices[^OPL]:
+It's best if you use FRRouting containers or virtual machines for external BGP feeds, but you can choose any one of these devices[^OPL]:
 
 | Environment | Devices that can be used<br>as external BGP feeds[^XF] |
 |-------------------|--------------------------------|
-| Containers (clab) | Arista EOS, FRR, Nokia SR Linux[^R164] |
-| Virtual machines (libvirt) | Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, FRR |
-| [ARM (Apple) CPU](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html) | Arista EOS, FRR, or SR Linux containers |
+| Containers (clab) | Arista EOS, FRRouting, Nokia SR Linux[^R164] |
+| Virtual machines (libvirt) | Arista EOS, Aruba AOS-CX, Cisco IOSv, Cisco IOS-XE, FRRouting |
+| [ARM (Apple) CPU](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html) | Arista EOS, FRRouting, or SR Linux containers |
 
 !!! Tip
-    * Several more complex labs require additional configuration on the external routers. That configuration is usually available for Arista EOS and FRR.
+    * Several more complex labs require additional configuration on the external routers. That configuration is usually available for Arista EOS and FRRouting.
     * Each lab description contains specific *device requirements* section. Consult those if you want to use less-popular devices in your labs.
 
 [^XF]: You can only use devices supported by **[bgp.session](https://netlab.tools/plugins/bgp.session/)** and **[bgp.policy](https://netlab.tools/plugins/bgp.policy/)** _netlab_ plugins as external BGP feeds.
@@ -63,7 +63,7 @@ Based on the choices you made, you'll find the installation instructions in one 
 * [Running netlab in a Public Cloud](https://netlab.tools/install/cloud/)
 * [Running netlab on Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)
 
-Once you have completed the software installation, you have to deal with the stupidities of downloading and installing network device images ([libvirt](https://netlab.tools/labs/libvirt/#vagrant-boxes), [containers](https://netlab.tools/labs/clab/#container-images)) unless you decided to use FRR, Nokia SR Linux, or Vyos.
+Once you have completed the software installation, you have to deal with the stupidities of downloading and installing network device images ([libvirt](https://netlab.tools/labs/libvirt/#vagrant-boxes), [containers](https://netlab.tools/labs/clab/#container-images)) unless you decided to use FRRouting, Nokia SR Linux, or Vyos.
 
 I would love to simplify the process, but the networking vendors refuse to play along. Even worse, their licenses prohibit me from downloading the images and creating a packaged VM with preinstalled network devices for you[^NPAL]. Fortunately, you only have to go through this colossal waste of time once.
 

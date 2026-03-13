@@ -60,7 +60,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 You must filter BGP prefixes sent to X1 and X2 and advertise only the 192.168.42.0/24 prefix. Most BGP implementations support *prefix lists* that match IP prefixes and subnet masks; you should match both to ensure you're not advertising more specific prefixes to your EBGP neighbors.
 
-On some BGP implementations (for example, Cisco IOS and IOS XE, Cumulus Linux, FRR, Arista EOS), you can apply a *prefix list* as an inbound or outbound filter on a BGP neighbor. 
+On some BGP implementations (for example, Cisco IOS and IOS XE, FRRouting, Arista EOS), you can apply a *prefix list* as an inbound or outbound filter on a BGP neighbor. 
 
 Some other implementations (for example, Arista EOS) might require a more convoluted approach using a *route map* as an intermediate step:
 
@@ -72,7 +72,7 @@ Some other implementations (for example, Arista EOS) might require a more convol
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on X1 and X2. The validation tests check:
 
 * The state of the EBGP session between RTR and X1/X2.
 * Whether RTR advertises the expected IPv4 prefix (192.168.42.0/24).
@@ -122,8 +122,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) and [change of BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** and **bgp.locpref** attributes from the lab topology.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

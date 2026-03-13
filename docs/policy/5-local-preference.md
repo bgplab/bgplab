@@ -79,7 +79,7 @@ Some BGP implementations allow you to change the default local preference value 
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on your router. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on your router. The validation tests check:
 
 * The state of the EBGP and IBGP sessions.
 * The value of BGP local preference for IBGP and EBGP routes received by C2.
@@ -135,10 +135,9 @@ The following information might help you if you plan to build custom lab infrast
 ### Device Requirements {#req}
 
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the customer router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* You can do automated lab validation with Arista EOS or FRRouting running on the customer router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
 * If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

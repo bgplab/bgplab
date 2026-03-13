@@ -66,7 +66,7 @@ Neighbor Status Codes: m - Under maintenance
   x2                       10.1.0.6 4 65101             12        12    0    0 00:00:17 Active 
 ```
 
-[^IS]: Most BGP implementations keep trying and show a BGP session that cannot be successfully established as `Active`. FRR (also used by Cumulus Linux) gives up and shows it as `Idle`. You have to clear the BGP session to tell FRR to retry.
+[^IS]: Most BGP implementations keep trying and show a BGP session that cannot be successfully established as `Active`. FRRouting gives up and shows it as `Idle`. You have to clear the BGP session to tell FRRouting to retry.
 
 You know that the BGP session with X2 is not established due to a BGP AS number mismatch, but you might not be so lucky in real life. Figure out how you'd discover that in a production environment.
 
@@ -78,7 +78,7 @@ For example, Arista EOS BGP logging messages tell you that the BGP neighbor (X2)
 
 ## Configuration Tasks
 
-Most BGP implementations have a nerd knob that changes the local BGP AS number on a single EBGP session. It's usually configured with a command similar to **neighbor local-as**. The syntax and capabilities of this command vary between implementations. Some implementations cannot do anything else but "_use a different AS number_" while others have configurable AS-path handling behavior.  For example, you can decide whether to include the node BGP AS number in the AS path on Cumulus Linux.
+Most BGP implementations have a nerd knob that changes the local BGP AS number on a single EBGP session. It's usually configured with a command similar to **neighbor local-as**. The syntax and capabilities of this command vary between implementations. Some implementations cannot do anything else but "_use a different AS number_" while others have configurable AS-path handling behavior.  For example, you can decide whether to include the node BGP AS number in the AS path on FRRouting.
 
 * Configure BGP local AS on the EBGP session between RTR and X2 to be 65007.
 * Ensure that the AS number 65000 never appears in the AS path advertised to X2.
@@ -88,13 +88,13 @@ Most BGP implementations have a nerd knob that changes the local BGP AS number o
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers. The validation tests check:
 
 * The state of the EBGP session between RTR and X2
 * Whether RTR sends any routing updates to X2
 * Whether RTR removes AS 65000 from the AS path before sending the updates to X2.
 
-For example, this is the result you'd get if you configured the BGP local AS number on Cumulus Linux but forgot to remove AS 65000 from the outbound AS path:
+For example, this is the result you'd get if you configured the BGP local AS number on FRRouting but forgot to remove AS 65000 from the outbound AS path:
 
 ![](session-localas-validate.png)
 
@@ -148,8 +148,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
 
 ### Lab Wiring
 

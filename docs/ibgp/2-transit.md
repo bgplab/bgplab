@@ -67,12 +67,12 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## Propagate External BGP Routes to PE2
 
-Try to ping the external router (`172.16.42.42`) from PE2. You have to check the connectivity between the advertised IP prefixes, so you should use a version of the **ping** command that specifies the source interface or the source IP address. For example, you must use `ping 172.16.42.42 source Ethernet2` on Arista EOS and `ping 172.16.42.42 -I 192.168.43.2` on FRRouting or Cumulus Linux.
+Try to ping the external router (`172.16.42.42`) from PE2. You have to check the connectivity between the advertised IP prefixes, so you should use a version of the **ping** command that specifies the source interface or the source IP address. For example, you must use `ping 172.16.42.42 source Ethernet2` on Arista EOS and `ping 172.16.42.42 -I 192.168.43.2` on FRRouting.
 
 !!! Tip
     * The extended **ping** command is often available only in privileged (**enable**) CLI mode.
 
-The **ping** command will most likely fail[^DP]. Cumulus Linux or FRRouting immediately gives up:
+The **ping** command will most likely fail[^DP]. FRRouting immediately gives up:
 
 Pinging Ext from PE2 (FRRouting)
 {.code-caption}
@@ -210,7 +210,7 @@ From 10.0.0.1 icmp_seq=1 Destination Net Unreachable
 5 packets transmitted, 0 received, +1 errors, 100% packet loss, time 30ms
 ```
 
-You can use **traceroute** on some other platforms (for example, Cumulus Linux or FRRouting) to get similar information:
+You can use **traceroute** on some other platforms (for example, FRRouting) to get similar information:
 
 Traceroute from PE2 toward Ext (FRRouting)
 {.code-caption}
@@ -266,7 +266,7 @@ There are at least four ways to fix the routing in the core of your autonomous s
 !!! Tip
     * Due to the IBGP loop avoidance mechanism (never advertise IBGP routes to other IBGP neighbors), you must configure a full mesh of IBGP sessions, adding PE1-CORE and PE2-CORE IBGP sessions. Your lab might work without the PE2-CORE IBGP session but would probably stop working when you connect an EBGP neighbor to PE2[^DLER].
     * The IBGP session between PE1 and CORE routers is preconfigured on PE1 and should be established as soon as you configure it on the CORE router. You'll have to configure the PE2-CORE IBGP session on both ends.
-    * If you're working with FRR or Cumulus Linux, save the CORE router's current configuration before enabling the BGP daemon and restarting FRR.
+    * If you're working with FRRouting, save the CORE router's current configuration before enabling the BGP daemon and restarting FRRouting.
 
 [^DLER]: Proving that is left as an exercise for the reader
 
@@ -330,7 +330,7 @@ round-trip min/avg/max = 0.377/0.533/0.689 ms
 
 ## Automated Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on Ext and PE1. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on Ext and PE1. The validation tests check:
 
 * Whether the PE2 prefix is propagated to Core, PE1, and Ext.
 * Whether the Ext prefix is propagated to Core and PE2
@@ -349,8 +349,7 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do limited automated lab validation with Arista EOS, Cumulus Linux, or FRR running on Ext and PE1. You must run one of these network operating systems on all devices for a complete validation. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains initial device configurations for Cumulus Linux.
+* You can do limited automated lab validation with Arista EOS or FRRouting running on Ext and PE1. You must run one of these network operating systems on all devices for a complete validation. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

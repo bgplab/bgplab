@@ -6,12 +6,12 @@ In the previous lab exercises, you [configured EBGP sessions](../basic/2-multiho
 
 With no additional configuration, BGP routers propagate every route known to them to all neighbors, which means that your device propagates routes between AS 65100 and AS 65101[^EF]. That wouldn't be so bad if the ISP-2 wouldn't prefer customer routes over peer routes. Well, it does, and you became a transit network between ISP-2 and ISP-1.
 
-You don't have to trust me. After starting the lab, log into X2. If you're running Cumulus Linux, execute `netlab connect x2 --show ip bgp` ([more details](../basic/0-frrouting.md#vtysh)) or an equivalent command for the device you use as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
+You don't have to trust me. After starting the lab, log into X2. If you're running FRRouting, execute `netlab connect x2 --show ip bgp` ([more details](../basic/0-frrouting.md#vtysh)) or an equivalent command for the device you use as the external router. You'll see that the best paths to AS 65100 (ISP-1) use next hop 10.1.0.5 and go through AS 65000 (your network).
 
 ```
 $ netlab connect x2 --show ip bgp
 Connecting to container clab-no_transit-x2, executing sudo vtysh -c "show ip bgp"
-Use vtysh to connect to FRR daemon
+Use vtysh to connect to FRRouting daemon
 
 BGP table version is 9, local router ID is 10.0.0.11, vrf id 0
 Default local pref 100, local AS 65101
@@ -72,7 +72,7 @@ You must filter BGP prefixes sent to X1 and X2 and advertise only prefixes with 
 
 [^FT]: Please note that all BGP implementations I've seen so far apply filters to the contents of the BGP table. Prefixes originated by your router have an empty AS path while in your router's BGP table.
 
-On some BGP implementations (for example, Cisco IOS and IOS XE, Cumulus Linux, FRR), you configure outbound AS-path filters in two steps:
+On some BGP implementations (for example, Cisco IOS and IOS XE, FRRouting), you configure outbound AS-path filters in two steps:
 
 * Configure an AS-path access list that matches an empty AS path[^RE].
 * Apply the AS-path access list as an outbound filter to all EBGP neighbors.
@@ -89,7 +89,7 @@ Some other implementations (for example, Arista EOS) might require a more convol
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on X1 and X2. The validation tests check:
 
 * The state of the EBGP session between RTR and X1/X2.
 * Whether RTR advertises the expected IPv4 prefix (192.168.42.0/24).
@@ -102,7 +102,7 @@ You can also examine the BGP table on X1 and X2 to verify that RTR advertises on
 ```
 $ netlab connect x2 --show ip bgp
 Connecting to container clab-no_transit-x2, executing sudo vtysh -c "show ip bgp"
-Use vtysh to connect to FRR daemon
+Use vtysh to connect to FRRouting daemon
 
 BGP table version is 11, local router ID is 10.0.0.11, vrf id 0
 Default local pref 100, local AS 65101
@@ -130,8 +130,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Customer router: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * External routers need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) and [change of BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support). If you want to use an unsupported device as an external router, remove the **bgp.originate** and **bgp.locpref** attributes from the lab topology.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

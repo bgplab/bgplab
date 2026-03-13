@@ -81,7 +81,7 @@ After completing the lab exercise, your router should:
 
 X2 should use the path through X1 to reach the 172.16.4.0/22 address space.
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.7.0 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers. The validation tests check:
 
 * The state of the EBGP session between RTR and X1/X2
 * The prefixes RTR advertises to X1/X2
@@ -139,8 +139,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer routers.
 * Use any device on which [_netlab_ can configure BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support) for the provider routers.
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2. Automated lab validation requires _netlab_ release 1.7.0 or higher.
 
 ### Lab Wiring
 
