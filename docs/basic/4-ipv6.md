@@ -34,7 +34,7 @@ You will also have to establish IPv6 EBGP sessions with the upstream ISPs using 
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for customer and external routers.
 * _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.
-* You can do automated lab validation with Arista EOS or FRRouting running on the external router.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and X2.
 
 ## Start the Lab
 
