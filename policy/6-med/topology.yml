@@ -2,7 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 name: med
-version: 1.8.3
+version: 2.0.0
 
 _include: [ validate.yml ]
 

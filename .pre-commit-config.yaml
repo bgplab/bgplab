@@ -8,3 +8,9 @@ repos:
     entry: yamllint
     language: system
     types: [file, yaml]
+  - id: check-topology-version
+    name: Check topology version
+    description: Check that topology.yml files have version >= 2.0.0
+    entry: python3 _tools/check_topology.py
+    language: system
+    files: topology\.yml$
