@@ -8,8 +8,8 @@ This series of BGP hands-on labs will help you master numerous aspects of EBGP, 
 * Arista EOS
 * Aruba AOS-CX
 * Cisco ASAv, IOSv, IOS XE, IOS XR and Nexus OS
-* Cumulus Linux and FRR
 * Dell OS10
+* FRRouting
 * Juniper vSRX, vMX and vPTX
 * Mikrotik RouterOS
 * Nokia SR OS and SR Linux
@@ -23,7 +23,7 @@ Dozens of labs are already waiting for you (with more [coming soon](3-upcoming.m
 
 In the first set of the BGP labs, you'll master these skills:
 
-* [Configure and monitor routing daemons on Cumulus Linux and FRRouting](basic/0-frrouting.md)
+* [Configure and monitor routing daemons on FRRouting](basic/0-frrouting.md)
 * [Configure BGP sessions and advertise IPv4 and IPv6 prefixes](basic/index.md#simple)
 * [Protect BGP sessions](basic/index.md#protect)
 * [Run BGP in networks with more than one BGP router](basic/index.md#ibgp)
@@ -51,15 +51,3 @@ Mastered the fundamentals and the nerd knobs? Want to tickle your gray cells? Tr
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as.md)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib.md)
 * [Implement BGP-Free Core in a Transit Network](challenge/40-mpls-core.md)
-
-<!-- all recent labs were advertised in blog posts
-## Recent Labs
-
-These are the most recent labs added to the BGP Labs project:
-
-* [Passive BGP Sessions](session/8-passive.md)
-* [IBGP Load Balancing with BGP Additional Paths](lb/4-ibgp-add-path.md)
-* [Running EBGP Across a Firewall](basic/e-ebgp-multihop.md)
-* [Use Disaggregated Prefixes to Select the Primary Link](policy/b-disaggregate.md)
-* [Use Outbound Route Filters (ORF) for IP Prefixes](policy/f-orf.md)
--->

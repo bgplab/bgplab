@@ -1,5 +1,5 @@
 {
-    "image": "ghcr.io/ipspace/netlab/devcontainer:25.09",
+    "image": "ghcr.io/ipspace/netlab/devcontainer:26.03",
     "hostRequirements": {
         "cpus": 2,
         "memory": "8gb",

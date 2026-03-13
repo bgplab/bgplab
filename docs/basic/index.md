@@ -5,9 +5,9 @@ The first set of the BGP labs focuses on the basics:
 * Configuring BGP sessions and advertising IPv4 and IPv6 prefixes
 * Protecting BGP sessions
 * Running BGP in networks with more than one BGP router
-* Other valuable topics like using BFD or BGP route aggregation.
+* Other valuable topics, like using BFD or BGP route aggregation.
 
-If you use Cumulus Linux or FRR in your labs (either as the customer routers or as the external routers), start with [Configuring Cumulus Linux and FRRouting](0-frrouting.md). Next, take the labs in this order:
+If you use FRRouting in your labs (either as the customer routers or as the external routers), start with [Configuring BGP on FRRouting](0-frrouting.md). Next, take the labs in this order:
 
 ## Simple BGP Deployments {#simple}
 

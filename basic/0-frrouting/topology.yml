@@ -1,13 +1,13 @@
-# Configure a BGP session with an external BGP speaker
+# Configure BGP on FRRouting
 
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ fix_arm ]
+plugin: [ fix_frr ]
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:
 
 name: frrouting
-defaults.device: cumulus
+defaults.device: frr
 
 nodes:
   rtr:
@@ -21,7 +21,7 @@ links:
   x1:
 
 message: |
-  The "Configuring Cumulus Linux or FRRouting" lab is ready. Connect to the lab
+  The "Configuring BGP on FRRouting" lab is ready. Connect to the lab
   devices with the "netlab connect" command.
 
   Good luck!
