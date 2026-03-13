@@ -67,12 +67,11 @@ def adjust_topology(a_entry: Box, topology: Box) -> None:
   if not miss_list:                               # All good (or no nodes to check)
     return                                        # ... so get out of here
 
-  # The n_name/n_data contain the first node with missing feature(s)
-  #
+  n_data = topology.nodes[miss_list[0]]           # Get a sample node data (we usually need just the device)
   w_text = a_entry.get('warning','')              # Do we have to add a warning?
   if w_text:                                      # Print the formatted warning
     w_fmt_text = strings.eval_format(w_text,n_data)
-    log.warning(text=w_fmt_text,module='adjust_test',once=True)
+    log.warning(text=w_fmt_text,module='adjust',once=True)
     if 'validate' in topology:                    # ... and add a warning-only validation test
       topology.validate.f_warning = {
         'wait': 0,
@@ -110,7 +109,7 @@ def adjust_topology(a_entry: Box, topology: Box) -> None:
       topology.pop(rp_key,None)
       topology[rp_key] = rp_value
     else:
-      log.warning(text=f'No replacement key defined in {rp_item}',module='adjust_test')
+      log.warning(text=f'No replacement key defined in {rp_item}',module='adjust')
 
 def pre_transform(topology: Box) -> None:
   for a_entry in topology.get('_adjust',[]):
