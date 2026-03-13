@@ -626,9 +626,9 @@
 <h2 id="req">Device Requirements</h2>
 <ul>
 <li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li>External routers must be <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>.</li>
+<li><em>netlab</em> can configure <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> on almost all supported devices. You&rsquo;ll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.</li>
 <li>You can do automated lab validation with Arista EOS or FRRouting running on the customer router.</li>
-<li>External routers must be <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP and OSPF configuration modules</a>. They also need support for <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a>.</li>
-<li>If you want to use a device that is not supported by the <strong>bgp.session</strong> plugin as an external router, remove the <strong>bgp.originate</strong> attributes from the lab topology.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>

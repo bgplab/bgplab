@@ -578,6 +578,7 @@
 <h2 id="req">Device Requirements</h2>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> that implements prefix-based ORF (for example, FRRouting)</li>
+<li><em>netlab</em> can configure <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> on almost all supported devices. You&rsquo;ll have to configure BGP default route origination yourself if you want to use an unsupported device for X1.</li>
 <li>If you want to use the <strong>terminal monitor</strong> command on FRRouting, you must use a newer image<sup id="fnref:FIL"><a class="footnote-ref" href="#fn:FIL">1</a></sup> than the one used by other BGP labs<sup id="fnref:FRO"><a class="footnote-ref" href="#fn:FRO">2</a></sup>. You can <a href="../../1-setup/#defaults">change the lab defaults</a> or change the FRRouting image with an environment variable before executing <strong>netlab up</strong>, for example:</li>
 </ul>
 <pre><code>export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
