@@ -144,7 +144,6 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer router.
 * This lab does not include automated validation.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

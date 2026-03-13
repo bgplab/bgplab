@@ -68,7 +68,7 @@ While it's relatively easy to filter the outbound BGP updates on R1 and send not
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on the external routers. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers. The validation tests check:
 
 * The state of the EBGP sessions between R1 and X1 and between R1 and R2
 * Whether R1 sends the default route to X1
@@ -124,8 +124,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on X1 and R2.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on X1 and R2.
 
 ### Lab Wiring
 

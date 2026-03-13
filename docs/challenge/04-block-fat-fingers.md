@@ -26,7 +26,7 @@ Your customers (C1 and C2) are advertising a plethora of prefixes that should no
 * Prefixes with too-long AS paths
 * A default route
 
-Log into your router and explore its BGP table. You'll find at least one prefix matching one of the above criteria. This is the BGP table on RTR as displayed by Cumulus Linux:
+Log into your router and explore its BGP table. You'll find at least one prefix matching one of the above criteria. This is the BGP table on RTR as displayed by FRRouting:
 
 ```
 rtr# show ip bgp
@@ -101,5 +101,4 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
-* Use Cumulus Linux or FRR for the customer- and peer routers.
-* Git repository contains initial device configurations for Cumulus Linux.
+* Use FRRouting for the customer- and peer routers.

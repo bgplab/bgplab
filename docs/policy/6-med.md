@@ -48,14 +48,14 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** to start the lab using the usual external devices for X1 and X2 ([device requirements](#req)), or **netlab up single.yml** to start the lab that uses only your chosen devices[^WS]. You can also  [run this lab without using _netlab_](../external/index.md)
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
-[^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (Cumulus Linux and FRR are very memory-efficient).
+[^WS]: Using your chosen devices in the ISP network might make it easier to check the status of the BGP tables on X1 and X2. It will also consume more memory (FRRouting is very memory-efficient).
 
 !!! Tip
     *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must manually configure your routers.
 
 ## Check the BGP Tables on External Routers
 
-Log into X1 and X2 and check their BGP tables. Use the `sudo vtysh -c 'show ip bgp'` command if you're running Cumulus Linux on external routers:
+Log into X1 and X2 and check their BGP tables. Use the `sudo vtysh -c 'show ip bgp'` command if you're running FRRouting on external routers:
 
 ```
 $ netlab connect x1 sudo vtysh -c 'show ip bgp 192.168.42.0'
@@ -117,7 +117,7 @@ You will probably have to configure a routing policy (often called a **route-ma
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on X1 and X2. The validation tests check:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on X1 and X2. The validation tests check:
 
 * The state of the EBGP sessions.
 * Whether C1 advertises the AS 65000 IPv4 prefix (192.168.42.0/24) with BGP MED set to 50.
@@ -128,7 +128,7 @@ This is the printout you should get after completing the lab exercise:
 
 ![](policy-med-validate.png)
 
-You can also examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running Cumulus Linux:
+You can also examine the BGP tables on X1 and X2 to verify that the routes from AS 65000 have the desired metric. This is a printout you should get on X2 running FRRouting:
 
 ```
 $ netlab connect x2 sudo vtysh -c 'show ip bgp 192.168.42.0'
@@ -169,9 +169,8 @@ The following information might help you if you plan to build custom lab infrast
 
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
 * External routers must be [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support). They also need support for [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* You can do automated lab validation with Arista EOS or FRRouting running on external routers. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 * If you want to use a device that is not supported by the **bgp.session** plugin as an external router, remove the **bgp.originate** attributes from the lab topology.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

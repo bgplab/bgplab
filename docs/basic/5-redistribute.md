@@ -83,7 +83,7 @@ You have to exchange OSPF routing information between the two sites using BGP. T
 
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on S1, S2, X1, and X2. The following screenshot shows the validation results before the two-way redistribution was configured:
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on S1, S2, X1, and X2. The following screenshot shows the validation results before the two-way redistribution was configured:
 
 ![](basic-redistribute-validate.png)
 
@@ -144,7 +144,7 @@ Gateway of last resort:
 ```
 
 !!! tip
-    Use the `netlab connect --show ip route` and `netlab connect --show ip ospf route` commands on FRR or Cumulus Linux.
+    Use the `netlab connect --show ip route` and `netlab connect --show ip ospf route` commands on FRRouting.
     
 **Next:**
 
@@ -159,8 +159,7 @@ The following information might help you if you plan to build custom lab infrast
 ### Device Requirements {#req}
 
 * Customer- and provider routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on the S1, S2, X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains provider router initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on the S1, S2, X1, and X2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ### Lab Wiring
 

@@ -86,7 +86,7 @@ After configuring the route server clients, the route server sends EBGP updates 
     
 ## Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Arista EOS or FRRouting on ISP2 and ISP3. The validation tests check:
+You can use the **netlab validate** command if you use Arista EOS or FRRouting on ISP2 and ISP3. The validation tests check:
 
 * The state of the EBGP session between RS and ISP1/ISP2.
 * Whether RS propagates routing updates from ISP1 to ISP2/ISP3.

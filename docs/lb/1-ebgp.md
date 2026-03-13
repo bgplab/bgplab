@@ -77,7 +77,7 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  *  ec    10.7.5.0/24            10.1.0.9              0       -          100     0       65101 65001 i
 ```
 
-If your device does not provide that information, look into the IP routing table. It should contain two entries for 10.1.3.0/24 and three entries for 10.7.5.0/24. For example, these are the BGP entries in the IP routing table on a Cumulus Linux device:
+If your device does not provide that information, look into the IP routing table. It should contain two entries for 10.1.3.0/24 and three entries for 10.7.5.0/24. For example, these are the BGP entries in the IP routing table on a FRRouting device:
 
 ```
 rtr# show ip route bgp
@@ -103,7 +103,6 @@ The following information might help you if you plan to build custom lab infrast
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for the customer- and provider routers.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

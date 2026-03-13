@@ -262,7 +262,7 @@ Gateway of last resort is not set
 
 ## Automated Verification
 
-You can use the **netlab validate** command if you've installed *netlab* release 1.8.3 or later and use Cumulus Linux, FRR, or Arista EOS on R1 and R2. The validation tests check whether R1 and R2 propagate the X1/X2 prefixes over the IBGP session and whether they change the BGP next hop to their loopback IPv4 addresses.
+You can use the **netlab validate** command if you use FRRouting or Arista EOS on R1 and R2. The validation tests check whether R1 and R2 propagate the X1/X2 prefixes over the IBGP session and whether they change the BGP next hop to their loopback IPv4 addresses.
 
 This is the printout you should get after completing the lab exercise:
 
@@ -276,8 +276,8 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
 * Provider routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
-* You can do automated lab validation with Arista EOS, Cumulus Linux, or FRR running on R1 and R2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains provider routers' initial device configurations for Cumulus Linux.
+* You can do automated lab validation with Arista EOS or FRRouting running on R1 and R2. Automated lab validation requires _netlab_ release 1.8.3 or higher.
+* Git repository contains provider routers' initial device configurations for FRRouting.
 
 ### Lab Wiring
 

@@ -187,7 +187,6 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration module](https://netlab.tools/platforms/#platform-routing-support) for the C1 and X1.
 * Use devices [supported by the _netlab_ **bgp.policy** plugin](https://netlab.tools/plugins/bgp.policy/#platform-support) for C2 and X2.
-* Git repository contains external router initial device configurations for Cumulus Linux.
 
 ### Lab Wiring
 

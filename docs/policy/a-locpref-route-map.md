@@ -60,7 +60,7 @@ The external autonomous systems advertise these prefixes:
 | **AS65207** ||
 | uc207 | 192.168.207.1 | 192.168.207.0/24 |
 
-The virtual lab topology uses three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use [lab infrastructure that is not managed by _netlab_](../external/index.md), you can use the [common 4-router lab topology](../external/4-router.md) with Cumulus Linux as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).
+The virtual lab topology uses three additional devices to implement the external autonomous systems. If your lab environment is low on memory, or if you want to use [lab infrastructure that is not managed by _netlab_](../external/index.md), you can use the [common 4-router lab topology](../external/4-router.md) with FRRouting as the external devices  (additional autonomous systems are emulated during BGP prefix origination on X1 and X2).
 
 ## Start the Lab
 
@@ -70,7 +70,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up** if you have enough memory to start a 7-node lab ([device requirements](#req)) or **netlab up topology.4-router.yml** if you want to create a 4-node lab[^XC]. You can also [deploy the lab on your lab infrastructure](../external/index.md).
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
-[^XC]: The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.
+[^XC]: The 4-node lab needs additional device configuration on X1 and X2. That configuration is only available for Arista EOS and FRRouting.
 
 **Note:** *netlab* will configure IP addressing, OSPF, BGP, IBGP sessions, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must manually configure your routers.
 
@@ -164,8 +164,7 @@ c1>show ip bgp neighbors 10.0.0.2 routes | begin Network
 ### Device Requirements {#req}
 
 * Customer- and external routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* The 4-router topology requires additional configuration on X1 and X2. That configuration is only available for Arista EOS, Cumulus Linux, and FRR.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* The 4-router topology requires additional configuration on X1 and X2. That configuration is only available for Arista EOS and FRRouting.
 
 ### Lab Wiring
 

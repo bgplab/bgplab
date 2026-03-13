@@ -46,7 +46,7 @@ The *interface EBGP* sessions are usually established between IPv6 link-local ad
 * Tweak the RA timer to a low value to ensure BGP does not wait too long for an RA message.
 * Some devices try to establish an IPv4 session if they find a /30 or a /31 subnet on the interface. Ensure the interface is an unnumbered IPv4 interface (on FRRouting, set the interface address to the loopback IPv4 address).
 
-The rest of the configuration process is reasonably simple on Cumulus Linux and FRR:
+The rest of the configuration process is reasonably simple on FRRouting:
 
 * Configure interface EBGP neighbors with **neighbor _name_ interface remote-as _asn_**
 * Add neighbor descriptions and BGP neighbor status logging
@@ -59,7 +59,7 @@ Other platforms might have more convoluted requirements. For example, you must [
 
 ## Verification
 
-You can use the **netlab validate** command if you use *netlab* release 1.8.3 or later and Cumulus Linux or FRR on the external routers.
+You can use the **netlab validate** command if you use FRRouting on the external routers.
 
 ![](basic-interface-ebgp-validate.png)
 
@@ -113,9 +113,8 @@ Gateway of last resort is not set
 ## Device Requirements {#req}
 
 * While you can use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) as the customer router, it does not make sense to try to do the lab with devices that do not support EBGP sessions over IPv6 link-local addresses
-* External routers have to support EBGP over IPv6 LLA and RFC 8950. *netlab* releases up to (and including) 1.8.0 can use Cumulus Linux, Dell OS10, FRR, Nokia SR Linux, or VyOS as external routers. Use the **netlab show modules -m bgp** command to display the BGP features supported by various network devices in your *netlab* release; the device you want to use as an external router has to support **ipv6_lla** and **rfc8950** features.
-* You can do automated lab validation when running Cumulus Linux or FRR on the external router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
-* Git repository contains external router initial device configurations for Cumulus Linux.
+* External routers have to support EBGP over IPv6 LLA and RFC 8950. *netlab* releases up to (and including) 1.8.0 can use FRRouting, Dell OS10, Nokia SR Linux, or VyOS as external routers. Use the **netlab show modules -m bgp** command to display the BGP features supported by various network devices in your *netlab* release; the device you want to use as an external router has to support **ipv6_lla** and **rfc8950** features.
+* You can do automated lab validation when running FRRouting on the external router. Automated lab validation requires _netlab_ release 1.8.3 or higher.
 
 ## Reference Information
 

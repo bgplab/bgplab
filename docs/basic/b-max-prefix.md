@@ -154,8 +154,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 ### Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
-* Use Arista EOS, Cumulus Linux, or FRR for the _customer_ router to use the provided configuration scripts. You'll have to manually configure the origination of excessive BGP prefixes if you use any other _netlab_-supported device for the customer router.
-* The Git repository contains the initial Cumulus Linux device configuration for the _customer_ router.
+* Use Arista EOS or FRRouting for the _customer_ router to use the provided configuration scripts. You'll have to manually configure the origination of excessive BGP prefixes if you use any other _netlab_-supported device for the customer router.
 
 ### Lab Wiring
 
