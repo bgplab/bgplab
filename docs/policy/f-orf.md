@@ -35,6 +35,7 @@ There is a single EBGP session between RTR and X2. _netlab_ configures it automa
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) that implements prefix-based ORF (for example, FRRouting)
+* _netlab_ can configure [default route origination](https://netlab.tools/plugins/bgp.session/#platform-support) on almost all supported devices. You'll have to configure BGP default route origination yourself if you want to use an unsupported device for X1.
 * If you want to use the **terminal monitor** command on FRRouting, you must use a newer image[^FIL] than the one used by other BGP labs[^FRO]. You can [change the lab defaults](../1-setup.md#defaults) or change the FRRouting image with an environment variable before executing **netlab up**, for example:
 
 ```
