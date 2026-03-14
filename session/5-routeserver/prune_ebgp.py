@@ -1,6 +1,8 @@
 import os
 
 from box import Box
+from netsim.augment import devices
+from netsim.data import append_to_list
 
 """
 netlab generates a full mesh of EBGP sessions between lab devices. This
@@ -13,3 +15,11 @@ def post_transform(topology: Box) -> None:
       continue
 
     n_data.bgp.neighbors = [ ngb for ngb in n_data.bgp.neighbors if 'rs' in ngb.name ]
+
+    if n_name not in topology.get('groups.external.members',[]):
+      continue
+
+    features = devices.get_device_features(n_data,topology.defaults)
+    if 'bgp.rs_client' in features:
+      n_data.bgp.neighbors[0].rs_client = True
+      append_to_list(n_data,'config','bgp.session')
