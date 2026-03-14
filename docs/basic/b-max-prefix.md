@@ -6,9 +6,6 @@ Numerous global BGP routing incidents are caused by fat fingers, including those
 
 ![Lab topology](topology-max-prefix.png)
 
-!!! Warning
-    Recent Ansible releases broke the Ansible playbook used within the **netlab config** command. You must use *netlab* release `1.7.2-post1` or later to run this lab. Upgrade _netlab_ with the `sudo pip3 install --upgrade networklab` command or a similar command, depending on your Python setup.
-
 ## Existing BGP Configuration
 
 The routers in your lab use the following BGP AS numbers. The _customer_ router advertises either a single prefix or over a dozen prefixes.
@@ -28,8 +25,8 @@ Your router has a single EBGP neighbor (the _customer_ router).  _netlab_ config
 
 ## Device Requirements {#req}
 
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
-* Use Arista EOS or FRRouting for the _customer_ router to use the provided configuration scripts. You'll have to manually configure the origination of excessive BGP prefixes if you use any other _netlab_-supported device for the customer router.
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* Use Arista EOS or FRRouting for the _customer_ router to use the provided custom configuration templates. You'll have to manually configure the origination of excessive BGP prefixes if you use any other _netlab_-supported device for the customer router.
 
 ## Start the Lab
 
@@ -41,7 +38,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 
 ## The Problem
 
-Log into your router and examine its BGP table. You should see two prefixes: a local one and one from the _customer_ router. This is the printout you would get on Arista cEOS:
+Examine the BGP table on RTR. You should see two prefixes: a local one and one from the _customer_ router. This is the printout you would get on Arista cEOS:
 
 ```
 rtr>show ip bgp | begin Network
@@ -50,7 +47,7 @@ rtr>show ip bgp | begin Network
  * >      192.168.100.0/24       10.1.0.1              0       -          100     0       65100 i
 ```
 
-Now emulate a *fat fingers* incident in the customer network. Use **sh** to execute the `start` script (outside the container), optionally specifying the number of prefixes you want the customer to generate:
+Now simulate a *fat-finger* incident in the customer network. Use **sh** to execute the `start` script in your lab directory, optionally specifying the number of prefixes you want the customer to generate:
 
 ```
 $ sh start 20
@@ -100,7 +97,7 @@ Let's make sure we're not affected by the customer's clumsiness. The best way to
 ## Configuration and Validation
 
 * Configure BGP session logging on your router and ensure the logging messages are sent to the terminal window you're using to connect to the router.
-* Limit the number of prefixes accepted from the _customer_ router to 10 using a router configuration command similar to **neighbor maximum-routes**. Generate a warning if the number of prefixes is exceeded.
+* Limit the number of prefixes accepted from the _customer_ router to 10 using a router configuration command similar to **neighbor maximum-routes**. Generate a warning if the number of prefixes exceeds the limit.
 * In another window, execute the **sh start 15** command [^NC15] and check whether you got the expected warning. This is what you should get on Arista cEOS:
 
 [^NC15]: Or `netlab config addprefixes --limit customer -e pfx=15`
@@ -138,7 +135,7 @@ Neighbor Status Codes: m - Under maintenance
   customer                 10.1.0.1 4 65100            257       288    0    0 00:01:02 Idle(MaxPath)
 ```
 
-* Reset the session with the _customer_ router with a command similar to **clear ip bgp 10.1.0.1**. You should see a log message when the session is re-established and another a few moments later when the number of received prefixes yet again exceeds the specified limits. Arista cEOS generates these messages:
+* Reset the session with the _customer_ router with a command similar to **clear ip bgp 10.1.0.1**. You should see a log message when the session is re-established, and another a few moments later when the number of received prefixes exceeds the specified limits again. Arista cEOS generates these messages:
 
 ```
 rtr##clear ip bgp 10.1.0.1
