@@ -35,8 +35,8 @@ Your routers have these BGP neighbors:
 
 ## Device Requirements {#req}
 
-* Customer routers: use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support).
-* External routers: while you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support), X2 requires additional configuration that is only available for Arista EOS and FRRouting.
+* Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* External router X2 has to set BGP local preference based on BGP communities. _netlab_ can configure that on [many devices](https://netlab.tools/module/routing/#id4), but if you want to use another device, you'll have to configure it yourself.
 * You can do automated lab validation with Arista EOS or FRRouting running on external routers.
 
 ## Start the Lab

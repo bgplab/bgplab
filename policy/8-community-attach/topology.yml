@@ -1,8 +1,7 @@
 # Attach BGP communities to EBGP updates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ check_extra_config, check_validate ]
-name: a_community
+plugin: [ check_validate, bgp.policy, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -32,16 +31,37 @@ nodes:
     loopback.ipv4: 172.17.207.1/24
   x2:
     id: 11
+    module: [ bgp, routing ]
     bgp.router_id: 10.0.0.11
     bgp.as: 65304
     loopback.ipv4: 172.23.4.1/24
-    config: [ extra-config ]
+    routing:
+      prefix.transit:
+      - action: deny
+        ipv4: 192.168.42.0/24
+      - action: permit
+      community:
+        low: "65304:100"
+        mh: "65304:102"
+        transit: "65304:101"
+      policy.customer:
+      - action: deny
+        match.prefix: transit
+      - match.community: low
+        set.locpref: 50
+      - match.community: transit
+        set.locpref: 100
+      - match.community: mh
+        set.locpref: 190
+      - set.locpref: 200
+
 links:
 - c1:
   x1:
   name: Primary uplink
 - c1:
   x2:
+    bgp.policy.in: customer
   name: Backup uplink
 - x1:
   x2:
@@ -53,6 +73,24 @@ links:
 - c2:
   x2:
   name: Site 2 uplink
+
+_adjust:
+- nodes: [ x2 ]                     # Check if the external router X2 supports all the required features
+  features:
+  - routing.prefix
+  - routing.community
+  - routing.policy.match.community
+  - routing.policy.set.locpref
+  remove:
+  - nodes.x2.routing
+  - links[1].interfaces[1].bgp.policy
+  replace:
+  - key: nodes.x2.module
+    value: [ bgp ]
+  warning: netlab cannot configure node x2 (device {device}) to set BGP local preference
+  message: >-
+    netlab cannot configure a route-map to set BGP local preference on {device} (node x2).
+    You'll have to do that yourself if you want this exercise to work.
 
 message: |
   The "Attach BGP Communities to Outgoing BGP Updates" lab is ready.
