@@ -1,7 +1,6 @@
 # Limit the Number of Accepted BGP Prefixes
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: maxprefix
 version: 2.0.0
 
 module: [ bgp ]

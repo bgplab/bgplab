@@ -3,7 +3,6 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ bgp.session, check_validate, adjust ]
 version: 2.0.0
-name: weights
 
 _include: [ validate.yml ]
 

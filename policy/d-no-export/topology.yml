@@ -1,7 +1,6 @@
 # Use local preference to select the primary uplink
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: noexport
 
 plugin: [ check_validate ]
 

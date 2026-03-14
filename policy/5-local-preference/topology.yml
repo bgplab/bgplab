@@ -1,7 +1,6 @@
 # Use local preference to select the primary uplink
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: locpref
 version: 2.0.0
 
 _include: [ validate.yml ]

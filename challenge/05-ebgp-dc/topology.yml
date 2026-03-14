@@ -1,7 +1,6 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: ebgp_dc
 version: 2.0.0
 
 plugin: [ frr_bgp ]

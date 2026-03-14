@@ -1,7 +1,6 @@
 # The baseline topology for small (4-router) labs
 #
 defaults.sources.extra: [ ../../defaults.yml ]
-name: aggregate
 
 version: 2.0.0
 _include: [ validate.yml ]

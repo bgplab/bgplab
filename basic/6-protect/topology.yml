@@ -1,7 +1,6 @@
 # Protect BGP sessions with MD5 passwords and GTSM
 
 defaults.sources.extra: [ ../../defaults.yml ]
-name: protect
 
 version: 2.0.0
 _include: [ validate.yml ]

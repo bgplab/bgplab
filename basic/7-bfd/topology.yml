@@ -1,7 +1,6 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-name: bfd
 
 module: [ bgp ]
 plugin: [ bgp.session, enable_fix_config, fix_frr, check_validate ]

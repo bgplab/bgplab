@@ -1,7 +1,6 @@
 # Filter transit routes
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: no_transit
 version: 2.0.0
 
 module: [ bgp ]
