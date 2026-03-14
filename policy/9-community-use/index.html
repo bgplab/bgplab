@@ -572,8 +572,8 @@
 </table>
 <h2 id="req">Device Requirements</h2>
 <ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for your router (ISP).</li>
-<li>While you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a> for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, and FRRouting.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>.</li>
+<li>External router C has to add a BGP community to its BGP update. <em>netlab</em> can configure that on <a href="https://netlab.tools/module/routing/#id4">many devices</a>, but if you want to use another device, you&rsquo;ll have to configure it yourself.</li>
 <li>You can do automated lab validation with Arista EOS or FRRouting running on the lab routers.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
@@ -583,13 +583,6 @@
 <li>Execute <strong>netlab up</strong>. You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
 <li>Log into your device (ISP) with <strong>netlab connect</strong> and verify its configurations.</li>
 </ul>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<ul>
-<li><em>netlab</em> will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on all devices in your lab. If you&rsquo;re not using <em>netlab</em>, use the device configurations supplied in the GitHub repository to configure C and X and configure ISP manually.</li>
-<li>This lab requires additional configuration on C. That configuration is currently available for Arista EOS and FRRouting &ndash; you have to use one of those devices as the external BGP router(s).</li>
-</ul>
-</div>
 <h2 id="default-traffic-flow">Default Traffic Flow</h2>
 <p>After starting the lab, log into ISP and examine its BGP table, looking for the IPv4 prefixes advertised by C (<code>172.17.207.9/24</code>). You should get a printout similar to this one (generated on Arista cEOS):</p>
 <pre><code>isp&gt;show ip bgp 172.17.207.0
@@ -631,8 +624,8 @@ BGP routing table entry for 172.17.207.0/24
 <p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on your router. The validation tests check:</p>
 <ul>
 <li>The state of the EBGP session between ISP and C/X.</li>
-<li>Whether RTR receives the prefix <code>172.17.207.1/24</code> from C and X.</li>
-<li>Whether the prefix received from C has a BGP local preference of 50 and the prefix received from X has a BGP local preference of 200.</li>
+<li>Whether RTR receives the prefix <code>172.17.207.0/24</code> from C and X.</li>
+<li>Whether the prefix received from C has a BGP local preference of 50, and the prefix received from X has a BGP local preference of 200.</li>
 </ul>
 <p>This is the printout you should get after completing the lab exercise:</p>
 <p><a href="../policy-c-use-validate.png"><img alt="" src="../policy-c-use-validate.png" /></a></p>

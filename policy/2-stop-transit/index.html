@@ -587,8 +587,7 @@ Displayed  4 routes and 6 total paths
 <h2 id="req">Device Requirements</h2>
 <ul>
 <li>Customer router: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
-<li>External routers need support for <a href="https://netlab.tools/plugins/bgp.policy/#platform-support">change of BGP local preference</a>. If you want to use an unsupported device as an external router, remove the <strong>bgp.locpref</strong> attribute from the lab topology.</li>
-<li><em>netlab</em> can configure <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> on almost all supported devices. You&rsquo;ll have to configure BGP default route origination yourself if you want to use an unsupported device for X1 or X2.</li>
+<li>External routers need support for <a href="https://netlab.tools/plugins/bgp.policy/#platform-support">change of BGP local preference</a> and <a href="https://netlab.tools/plugins/bgp.session/#platform-support">BGP default route origination</a>. <em>netlab</em> can configure these features on almost all supported devices, but if you want to use an unsupported device for X1 or X2, you&rsquo;ll have to configure them yourself.</li>
 <li>You can do automated lab validation with Arista EOS or FRRouting running on external routers.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>

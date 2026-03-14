@@ -499,7 +499,7 @@
 <li>The upstream router has to build BGP update messages containing all the prefixes it wants to advertise.</li>
 <li>The receiving router has to process all those prefixes and filter many of them.</li>
 </ul>
-<p>Wouldn&rsquo;t it be better if an inbound prefix list would automatically install an outbound prefix filter in the adjacent router? Welcome to the <em>Outbound Route Filters</em> (ORF), defined in <a href="https://datatracker.ietf.org/doc/html/rfc5292">RFC 5292</a> (prefix-based ORF) and <a href="https://datatracker.ietf.org/doc/html/rfc5291">RFC 5291</a> (ORF BGP capability).</p>
+<p>Wouldn&rsquo;t it be better if an inbound prefix list automatically installed an outbound prefix filter in the adjacent router? Welcome to the <em>Outbound Route Filters</em> (ORF), defined in <a href="https://datatracker.ietf.org/doc/html/rfc5292">RFC 5292</a> (prefix-based ORF) and <a href="https://datatracker.ietf.org/doc/html/rfc5291">RFC 5291</a> (ORF BGP capability).</p>
 <p><img alt="Lab topology" src="../topology-orf.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -534,11 +534,11 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.2</td>
-<td style="text-align: right;">192.168.100.1/24<br>172.16.8.0/22<br>172.16.1.0/24<br>10.0.0.2/32</td>
+<td style="text-align: right;">192.168.100.0/24<br>172.16.8.0/22<br>172.16.1.0/24<br>10.0.0.2/32</td>
 </tr>
 </tbody>
 </table>
-<p>There is a single EBGP session between RTR and X2. <em>netlab</em> configures it automatically; if you&rsquo;re using another lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
+<p>There is a single EBGP session between RTR and X1. <em>netlab</em> configures it automatically; if you&rsquo;re using another lab infrastructure, you&rsquo;ll have to configure EBGP neighbors and advertised prefixes manually.</p>
 <table>
 <thead>
 <tr>
@@ -579,17 +579,14 @@
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> that implements prefix-based ORF (for example, FRRouting)</li>
 <li><em>netlab</em> can configure <a href="https://netlab.tools/plugins/bgp.session/#platform-support">default route origination</a> on almost all supported devices. You&rsquo;ll have to configure BGP default route origination yourself if you want to use an unsupported device for X1.</li>
-<li>If you want to use the <strong>terminal monitor</strong> command on FRRouting, you must use a newer image<sup id="fnref:FIL"><a class="footnote-ref" href="#fn:FIL">1</a></sup> than the one used by other BGP labs<sup id="fnref:FRO"><a class="footnote-ref" href="#fn:FRO">2</a></sup>. You can <a href="../../1-setup/#defaults">change the lab defaults</a> or change the FRRouting image with an environment variable before executing <strong>netlab up</strong>, for example:</li>
 </ul>
-<pre><code>export NETLAB_DEVICES_FRR_CLAB_IMAGE=quay.io/frrouting/frr:10.0.1
-</code></pre>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
 <ul>
 <li>Find a <a href="#req">device that supports prefix-based ORF</a> (for example, FRRouting)</li>
 <li>If needed, temporarily change the lab device type with the <code>NETLAB_DEVICE</code> environment variable, for example:</li>
 </ul>
-<pre><code>$ export NETLAB_DEVICE=cumulus
+<pre><code>$ export NETLAB_DEVICE=frr
 </code></pre>
 <ul>
 <li>Change directory to <code>policy/f-orf</code></li>
@@ -598,7 +595,7 @@
 </ul>
 <h2 id="configure-an-inbound-prefix-list">Configure an Inbound Prefix List</h2>
 <ul>
-<li>Using the configuration commands you mastered in the <a href="../4-reduce/">Minimize the Size of Your BGP Table</a> lab exercise, create an inbound prefix list on RTR that will permit the default route and prefixes in the 172.16.0.0/16 address space with prefix length lower than /24.</li>
+<li>Using the configuration commands you mastered in the <a href="../4-reduce/">Minimize the Size of Your BGP Table</a> lab exercise, create an inbound prefix list on RTR that will permit the default route and prefixes in the 172.16.0.0/16 address space with a prefix length lower than /24.</li>
 <li>Apply that prefix list to inbound EBGP updates received from X1.</li>
 <li>Inspect the BGP table on RTR to verify the proper operation of the prefix list. You should get a printout similar to this one:</li>
 </ul>
@@ -619,11 +616,11 @@ RPKI validation codes: V valid, I invalid, N Not found
 Displayed 3 routes and 3 total paths
 </code></pre>
 <ul>
-<li>Turn on BGP update debugging and clear the BGP session between RTR and X1 (use <strong>terminal monitor</strong>, followed by <strong>debug bgp updates in</strong> and <strong>clear ip bgp *</strong> on recent FRRouting releases). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:</li>
+<li>Turn on BGP update debugging and clear the BGP session between RTR and X1 (use <strong>terminal monitor</strong>, followed by <strong>debug bgp updates in</strong> and <strong>clear ip bgp *</strong> on FRRouting). You should see incoming BGP updates for all prefixes known by X1, several of them filtered by the inbound prefix list on RTR:</li>
 </ul>
 <p><a href="../policy-orf-printout-prefix-list.png"><img alt="" src="../policy-orf-printout-prefix-list.png" /></a></p>
 <h2 id="enable-outbound-route-filters">Enable Outbound Route Filters</h2>
-<p>With the inbound prefix list configured on RTR, it&rsquo;s time to get ORF working on X1. ORF is a negotiated BGP capability that is usually not enabled by default. You must enable it on both ends of a BGP session with a configuration command similar to <strong>neighbor capability</strong> within the BGP routing process configuration or the BGP address family configuration.</p>
+<p>With the inbound prefix list configured on RTR, it&rsquo;s time to get ORF working on X1. ORF is a BGP capability that is usually not negotiated by default. You must enable it on both ends of a BGP session with a configuration command similar to <strong>neighbor capability</strong> within the BGP routing process configuration or the BGP address family configuration.</p>
 <p>Use a command similar to <strong>show bgp neighbors</strong> to verify that the routers in your lab agreed to use ORF. You should get a printout like this one on FRRouting (ORF capability is negotiated within a BGP address family):</p>
 <pre><code>rtr# show bgp neighbors 10.1.0.2
 BGP neighbor is 10.1.0.2, remote AS 65100, local AS 65000, external link
@@ -641,11 +638,11 @@ BGP neighbor is 10.1.0.2, remote AS 65100, local AS 65000, external link
   Incoming update prefix filter list is *inbound
   2 accepted prefixes
 </code></pre>
-<p>Once you have verified your routers agreed to use ORF, clear the EBGP session and observe the reduced number of inbound updates on RTR:</p>
+<p>Once you have verified your routers have agreed to use ORF, clear the EBGP session and observe the reduced number of inbound updates on RTR:</p>
 <p><a href="../policy-orf-printout-orf.png"><img alt="" src="../policy-orf-printout-orf.png" /></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The BGP daemon in FRRouting release 10.0.1 resends the BGP prefixes permitted by the ORF filter three times. That&rsquo;s probably a bug that might be fixed when you do this lab exercise.</p>
+<p>The FRRouting BGP daemon resends the BGP prefixes permitted by the ORF filter three times (tested with FRRouting release 10.5.1). That&rsquo;s probably a bug that might be fixed when you do this lab exercise.</p>
 </div>
 <p>Some devices have <strong>show</strong> commands that display installed ORF entries. For example, you can use the <strong>show bgp <em>af</em> neighbor <em>address</em> received prefix-filter</strong> command on FRRouting to display them:</p>
 <pre><code>x1# show bgp ipv4 nei 10.1.0.1 received prefix-filter
@@ -671,9 +668,9 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 <tbody>
 <tr>
 <td>rtr</td>
-<td>swp1</td>
+<td>eth1</td>
 <td>x1</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 </tbody>
 </table>
@@ -695,20 +692,14 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 <td>Loopback</td>
 </tr>
 <tr>
-<td>Ethernet1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
 <td>rtr -&gt; x1</td>
 </tr>
 <tr>
-<td>Ethernet2</td>
-<td style="text-align: right;">10.1.0.5/30</td>
-<td style="text-align: right;"></td>
-<td>rtr -&gt; x2</td>
-</tr>
-<tr>
 <td><strong>x1</strong></td>
-<td style="text-align: right;">192.168.100.1/24</td>
+<td style="text-align: right;">10.0.0.2/32</td>
 <td style="text-align: right;"></td>
 <td>Loopback</td>
 </tr>
@@ -718,31 +709,8 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 <td style="text-align: right;"></td>
 <td>x1 -&gt; rtr</td>
 </tr>
-<tr>
-<td><strong>x2</strong></td>
-<td style="text-align: right;">192.168.101.1/24</td>
-<td style="text-align: right;"></td>
-<td>Loopback</td>
-</tr>
-<tr>
-<td>eth1</td>
-<td style="text-align: right;">10.1.0.6/30</td>
-<td style="text-align: right;"></td>
-<td>x2 -&gt; rtr</td>
-</tr>
 </tbody>
-</table>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:FIL">
-<p>Inspect the <a href="https://quay.io/repository/frrouting/frr?tab=tags&amp;tag=latest">list of available FRRouting containers</a> to select a recent image.&#160;<a class="footnote-backref" href="#fnref:FIL" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:FRO">
-<p>We have to use an older version of FRRouting due to the <a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">undesired OSPF/BGP interaction behavior in recent FRRouting versions</a>.&#160;<a class="footnote-backref" href="#fnref:FRO" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></div>
+</table></div>
             </div>
         </div>
 

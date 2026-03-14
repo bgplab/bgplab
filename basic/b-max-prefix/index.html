@@ -490,12 +490,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="limit-the-number-of-accepted-bgp-prefixes">Limit the Number of Accepted BGP Prefixes</h1>
-<p>Numerous global BGP routing incidents are caused by fat fingers, including those in which a network running BGP starts advertising an enormous amount of BGP prefixes<sup id="fnref:RD"><a class="footnote-ref" href="#fn:RD">1</a></sup>. Most BGP implementations contain mechanisms that shut down BGP sessions with neighbors that advertise excessive BGP prefixes; you&rsquo;ll practice them in this lab exercise.</p>
+<p>Numerous global BGP routing incidents are caused by fat fingers, including those in which a BGP autonomous system starts advertising an enormous amount of BGP prefixes<sup id="fnref:RD"><a class="footnote-ref" href="#fn:RD">1</a></sup>. Most BGP implementations contain mechanisms that shut down BGP sessions with neighbors that advertise excessive BGP prefixes; you&rsquo;ll practice them in this lab exercise.</p>
 <p><img alt="Lab topology" src="../topology-max-prefix.png" /></p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Recent Ansible releases broke the Ansible playbook used within the <strong>netlab config</strong> command. You must use <em>netlab</em> release <code>1.7.2-post1</code> or later to run this lab. Upgrade <em>netlab</em> with the <code>sudo pip3 install --upgrade networklab</code> command or a similar command, depending on your Python setup.</p>
-</div>
 <h2 id="existing-bgp-configuration">Existing BGP Configuration</h2>
 <p>The routers in your lab use the following BGP AS numbers. The <em>customer</em> router advertises either a single prefix or over a dozen prefixes.</p>
 <table>
@@ -550,8 +546,8 @@
 </table>
 <h2 id="req">Device Requirements</h2>
 <ul>
-<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for your router.</li>
-<li>Use Arista EOS or FRRouting for the <em>customer</em> router to use the provided configuration scripts. You&rsquo;ll have to manually configure the origination of excessive BGP prefixes if you use any other <em>netlab</em>-supported device for the customer router.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a>.</li>
+<li>Use Arista EOS or FRRouting for the <em>customer</em> router to use the provided custom configuration templates. You&rsquo;ll have to manually configure the origination of excessive BGP prefixes if you use any other <em>netlab</em>-supported device for the customer router.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
@@ -561,13 +557,13 @@
 <li>Log into your router (RTR) with <strong>netlab connect rtr</strong> and verify that the IP addresses and the EBGP sessions are properly configured.</li>
 </ul>
 <h2 id="the-problem">The Problem</h2>
-<p>Log into your router and examine its BGP table. You should see two prefixes: a local one and one from the <em>customer</em> router. This is the printout you would get on Arista cEOS:</p>
+<p>Examine the BGP table on RTR. You should see two prefixes: a local one and one from the <em>customer</em> router. This is the printout you would get on Arista cEOS:</p>
 <pre><code>rtr&gt;show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      10.0.0.1/32            -                     -       -          -       0       i
  * &gt;      192.168.100.0/24       10.1.0.1              0       -          100     0       65100 i
 </code></pre>
-<p>Now emulate a <em>fat fingers</em> incident in the customer network. Use <strong>sh</strong> to execute the <code>start</code> script (outside the container), optionally specifying the number of prefixes you want the customer to generate:</p>
+<p>Now simulate a <em>fat-finger</em> incident in the customer network. From your host shell (outside any <code>netlab connect</code> session), use <strong>sh</strong> to execute the <code>start</code> script in your lab directory, optionally specifying the number of prefixes you want the customer to generate:</p>
 <pre><code>$ sh start 20
 Generating 20 prefixes on the customer router
 PLAY 1: DEPLOY DEVICE CONFIGURATION
@@ -596,7 +592,7 @@ Done
 
 ... The rest of the printout was deleted ...
 </code></pre>
-<p>To stop the <em>fat finger</em> incident, run <code>sh stop</code> or <code>netlab config removeprefixes --limit customer</code>.</p>
+<p>To stop the <em>fat-finger</em> incident, run <code>sh stop</code> or <code>netlab config removeprefixes --limit customer</code>.</p>
 <pre><code>$ sh stop
 Stop advertising extra BGP prefixes
 PLAY 1: DEPLOY DEVICE CONFIGURATION
@@ -608,7 +604,7 @@ Done
 <h2 id="configuration-and-validation">Configuration and Validation</h2>
 <ul>
 <li>Configure BGP session logging on your router and ensure the logging messages are sent to the terminal window you&rsquo;re using to connect to the router.</li>
-<li>Limit the number of prefixes accepted from the <em>customer</em> router to 10 using a router configuration command similar to <strong>neighbor maximum-routes</strong>. Generate a warning if the number of prefixes is exceeded.</li>
+<li>Limit the number of prefixes accepted from the <em>customer</em> router to 10 using a router configuration command similar to <strong>neighbor maximum-routes</strong>. Generate a warning if the number of prefixes exceeds the limit.</li>
 <li>In another window, execute the <strong>sh start 15</strong> command <sup id="fnref:NC15"><a class="footnote-ref" href="#fn:NC15">2</a></sup> and check whether you got the expected warning. This is what you should get on Arista cEOS:</li>
 </ul>
 <pre><code>%BGP-5-AFI_SAFI_MAX_ROUTES_WARNING: Peer 10.1.0.1 (VRF default AS 65100) has exceeded its configured maximum total number of routes (10) of address family IPv4 Unicast; ROUTING INFORMATION IS BEING LOST
@@ -618,7 +614,7 @@ Done
 <p>Some BGP implementations generate a warning message while accepting all incoming prefixes. Arista EOS generates a warning message and drops random extraneous prefixes.</p>
 </div>
 <ul>
-<li>Stop the <em>fat finger</em> incident with <strong>sh stop</strong></li>
+<li>Stop the <em>fat-finger</em> incident with <strong>sh stop</strong></li>
 <li>Limit the number of prefixes accepted from the <em>customer</em> router to 20, with a warning generated when the number of prefixes exceeds 10.</li>
 <li>Simulate a lower-impact incident with <strong>sh start 10</strong>. You should see a warning message on your router; this is the message generated by Arista cEOS:</li>
 </ul>
@@ -641,7 +637,7 @@ Neighbor Status Codes: m - Under maintenance
   customer                 10.1.0.1 4 65100            257       288    0    0 00:01:02 Idle(MaxPath)
 </code></pre>
 <ul>
-<li>Reset the session with the <em>customer</em> router with a command similar to <strong>clear ip bgp 10.1.0.1</strong>. You should see a log message when the session is re-established and another a few moments later when the number of received prefixes yet again exceeds the specified limits. Arista cEOS generates these messages:</li>
+<li>Reset the session with the <em>customer</em> router with a command similar to <strong>clear ip bgp 10.1.0.1</strong>. You should see a log message when the session is re-established, and another a few moments later when the number of received prefixes exceeds the specified limits again. Arista cEOS generates these messages:</li>
 </ul>
 <pre><code>rtr##clear ip bgp 10.1.0.1
 %BGP-5-PEER_CLEAR: BGP peering for neighbor 10.1.0.1 (vrf default) was hard reset by admin on vty8 (192.168.121.1)

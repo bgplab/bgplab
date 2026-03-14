@@ -600,8 +600,8 @@
 </table>
 <h2 id="req">Device Requirements</h2>
 <ul>
-<li>Customer routers: use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>.</li>
-<li>External routers: while you can use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>, X2 requires additional configuration that is only available for Arista EOS and FRRouting.</li>
+<li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration modules</a>.</li>
+<li>External router X2 has to set BGP local preference based on BGP communities. <em>netlab</em> can configure that on <a href="https://netlab.tools/module/routing/#id4">many devices</a>, but if you want to use another device, you&rsquo;ll have to configure it yourself.</li>
 <li>You can do automated lab validation with Arista EOS or FRRouting running on external routers.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
@@ -611,11 +611,6 @@
 <li>Execute <strong>netlab up</strong>. You can also <a href="../../external/">deploy the lab on some other lab infrastructure</a>.</li>
 <li>Log into your devices (C1 and C2) with <strong>netlab connect</strong> and verify their configurations.</li>
 </ul>
-<p><strong>Note:</strong> <em>netlab</em> will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on your routers. If you&rsquo;re not using <em>netlab</em>, you must configure your routers manually.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This lab requires additional configuration on X2. That configuration is currently available only for Arista EOS and FRRouting &ndash; you have to use one of those devices as the external BGP router(s).</p>
-</div>
 <h2 id="default-traffic-flow">Default Traffic Flow</h2>
 <p>After starting the lab, log into C2 and examine its BGP table, looking for prefixes advertised by C1. You should get a printout similar to this one (generated on Arista cEOS)<sup id="fnref:RAI"><a class="footnote-ref" href="#fn:RAI">1</a></sup>:</p>
 <pre><code>c2&gt;show ip bgp | include 192.168.42.0
