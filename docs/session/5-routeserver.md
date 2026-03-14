@@ -39,7 +39,7 @@ The routers have these EBGP sessions. _netlab_ configures them automatically; if
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for ISP1 and RS routers.
-* Use Arista EOS or FRRouting for ISP2 and ISP3.
+* ISP2 and ISP3 have to be configured as [route server clients](https://netlab.tools/plugins/bgp.session/#platform-support). _netlab_ can configure that nerd knob on many supported devices, but if you want to use another device, you'll have to configure it yourself.
 * You can do automated lab validation with Arista EOS or FRRouting running on ISP2 and ISP3.
 
 ## Start the Lab

@@ -5,14 +5,13 @@ name: rs
 
 version: 2.0.0
 
-plugin: [ check_extra_config, check_validate, prune_ebgp ]
+plugin: [ check_extra_config, check_validate, prune_ebgp, bgp.session, adjust ]
 
 module: [ bgp ]
 
 groups:
   external:
     members: [ isp2, isp3 ]
-    config: [ rs_client ]
 
 nodes:
   rs:
@@ -37,6 +36,17 @@ links:
   isp3:
   prefix.ipv4: 172.16.42.0/24
   name: IXP LAN
+
+_adjust:
+- nodes: [ isp2, isp3 ]                     # Warn if the external routers don't support bgp.rs_client
+  features:
+  - key: bgp.rs_client
+    value: true
+  warning: netlab cannot configure {device} nodes as route server clients
+  message: >-
+    netlab cannot configure {device} nodes {node_list} as route server
+    clients. Configure that feature manually if you want to get the full
+    functionality of this lab exercise.
 
 _include: [ validate.yml ]
 
