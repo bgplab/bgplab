@@ -53,7 +53,6 @@ OSPF running in the backbone area is configured on the following routers:
 * Customer routers: use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support).
 * Provider routers: use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
 * You can do automated lab validation with Arista EOS or FRRouting running on R1 and R2.
-* Git repository contains provider routers' initial device configurations for FRRouting.
 
 ## Start the Lab
 
