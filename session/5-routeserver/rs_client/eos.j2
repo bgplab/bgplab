@@ -1,6 +1,0 @@
-router bgp {{ bgp.as }}
-{% for af in ['ipv4','ipv6'] %}
-{%   for n in bgp.neighbors if n[af] is defined %}
-  no neighbor {{ n[af] }} enforce-first-as
-{%   endfor %}
-{% endfor %}
