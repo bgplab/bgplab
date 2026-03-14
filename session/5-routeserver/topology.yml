@@ -38,7 +38,7 @@ links:
   name: IXP LAN
 
 _adjust:
-- nodes: [ isp2, isp3 ]                     # Remove bgp.rs_client if the external routers don't support it
+- nodes: [ isp2, isp3 ]                     # Warn if the external routers don't support bgp.rs_client
   features:
   - key: bgp.rs_client
     value: true

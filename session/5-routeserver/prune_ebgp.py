@@ -1,5 +1,3 @@
-import os
-
 from box import Box
 from netsim.augment import devices
 from netsim.data import append_to_list
