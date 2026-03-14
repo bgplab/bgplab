@@ -27,8 +27,8 @@ Your router has these BGP neighbors:
 
 ## Device Requirements {#req}
 
-* Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your router (ISP).
-* While you can use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support) for other lab routers, router C requires additional configuration that is only available for Arista EOS, Cisco IOSv, Cisco IOS XE, and FRRouting.
+* Use any device [supported by the _netlab_ BGP configuration modules](https://netlab.tools/platforms/#platform-routing-support).
+* External router C has to add a BGP community to its BGP update. _netlab_ can configure that on [many devices](https://netlab.tools/module/routing/#id4), but if you want to use another device, you'll have to configure it yourself.
 * You can do automated lab validation with Arista EOS or FRRouting running on the lab routers.
 
 ## Start the Lab
@@ -38,10 +38,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Change directory to `policy/9-community-use`.
 * Execute **netlab up**. You can also [deploy the lab on some other lab infrastructure](../external/index.md).
 * Log into your device (ISP) with **netlab connect** and verify its configurations.
-
-!!! Warning
-    * *netlab* will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on all devices in your lab. If you're not using *netlab*, use the device configurations supplied in the GitHub repository to configure C and X and configure ISP manually.
-    * This lab requires additional configuration on C. That configuration is currently available for Arista EOS and FRRouting -- you have to use one of those devices as the external BGP router(s).
 
 ## Default Traffic Flow
 
@@ -90,8 +86,8 @@ You might have to use configuration commands similar to these to get the job don
 You can use the **netlab validate** command if you use FRRouting or Arista EOS on your router. The validation tests check:
 
 * The state of the EBGP session between ISP and C/X.
-* Whether RTR receives the prefix `172.17.207.1/24` from C and X.
-* Whether the prefix received from C has a BGP local preference of 50 and the prefix received from X has a BGP local preference of 200.
+* Whether RTR receives the prefix `172.17.207.0/24` from C and X.
+* Whether the prefix received from C has a BGP local preference of 50, and the prefix received from X has a BGP local preference of 200.
 
 This is the printout you should get after completing the lab exercise:
 
