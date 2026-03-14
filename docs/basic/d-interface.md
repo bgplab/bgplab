@@ -24,16 +24,13 @@ The routers in your lab use the following BGP AS numbers. Each router advertises
 | **AS65101** ||
 | x2 | 10.0.0.11 | 192.168.101.0/24 |
 
-X1 and X2 expect your router to initiate an EBGP over IPv6 link-local addresses and negotiate IPv4 address family over that session.
-
-!!! tip
-    Your router has an interface with an IPv4 address and an unnumbered IPv4 interface. X1 and X2 have unnumbered IPv4 interfaces ([more details](#addr)). EBGP over IPv6 LLA is thus the only way to establish BGP sessions between them.
+X1 and X2 expect your router to initiate an EBGP over IPv6 link-local addresses and negotiate the IPv4 address family over that session.
 
 ## Device Requirements {#req}
 
 * While you can use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) as the customer router, it does not make sense to try to do the lab with devices that do not support EBGP sessions over IPv6 link-local addresses
-* External routers have to support EBGP over IPv6 LLA and RFC 8950. *netlab* releases up to (and including) 1.8.0 can use FRRouting, Dell OS10, Nokia SR Linux, or VyOS as external routers. Use the **netlab show modules -m bgp** command to display the BGP features supported by various network devices in your *netlab* release; the device you want to use as an external router has to support **ipv6_lla** and **rfc8950** features.
-* You can do automated lab validation when running FRRouting on the external router.
+* External routers have to support EBGP over IPv6 LLA and RFC 8950. *netlab* can use Arista EOS, Dell OS10, FRRouting, Nokia SR Linux, or VyOS as external routers. Use the **netlab show modules -m bgp** command to display the BGP features supported by various network devices in your *netlab* release; the device you want to use as an external router has to support **ipv6_lla** and **rfc8950** features.
+* You can do automated lab validation when running FRRouting on X1 and X2.
 
 ## Start the Lab
 

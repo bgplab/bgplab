@@ -1,9 +1,7 @@
 # Configure EBGP sessions over IPv6 LLA
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: ebgp_intf
 
-# Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 plugin: [ check_validate, fix_unnumbered ]
 
 version: 2.0.0
@@ -31,9 +29,9 @@ nodes:
     id: 11
     loopback.ipv4: 192.168.101.1/24
 links:
-- rtr:
+- prefix.ipv4: True
+  rtr:
   x1:
-    ipv4: True
 - prefix.ipv4: True
   rtr:
   x2:
