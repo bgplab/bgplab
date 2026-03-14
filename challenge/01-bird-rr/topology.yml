@@ -4,7 +4,6 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.paths.plugin: [ "topology:../../plugin", "package:extra" ]
 defaults.daemons.bird.daemon_config.bird: /etc/bird/bird-netlab.conf
 
-
 plugin: [ check_validate ]
 version: 25.06
 

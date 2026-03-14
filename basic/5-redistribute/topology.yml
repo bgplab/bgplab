@@ -6,7 +6,6 @@ plugin: [ check_validate ]
 version: 2.0.0
 _include: [ validate.yml ]
 
-
 module: [ bgp, ospf ]
 
 groups:
