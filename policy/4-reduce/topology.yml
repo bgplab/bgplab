@@ -49,6 +49,17 @@ _adjust:
     netlab cannot configure BGP default route on device {device} used for
     external routers. Configure the BGP default route on {node_list} manually
     if you want to get printouts matching the lab exercise.
+- nodes: [ x2 ]                     # Remove bgp.locpref if the external routers don't support it
+  features:
+  - key: routing.policy.set.locpref
+    value: true
+  remove:
+  - links[1].interfaces[1].bgp.locpref
+  warning: BGP Local Preference cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP local preference on device {device} used for
+    external routers. Configure inbound BGP local preference on {node_list} manually
+    if you want to get the full functionality of this lab exercise.
 
 message: |
   The "Minimize the Size of Your BGP Table" lab is ready. Connect to your

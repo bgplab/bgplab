@@ -1,7 +1,7 @@
 # The baseline topology for small (4-router) labs
 #
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ bgp.policy ]
+plugin: [ bgp.policy, adjust ]
 version: 2.0.0
 
 name: gshut
@@ -54,6 +54,20 @@ links:
 - c1:
   x1:
   name: C1 uplink
+
+_adjust:
+- nodes: [ c2, x2 ]                 # Remove bgp.locpref if the external routers don't support it
+  features:
+  - key: routing.policy.set.locpref
+    value: true
+  remove:
+  - links[2].interfaces[0].bgp.locpref
+  - links[2].interfaces[1].bgp.locpref
+  warning: BGP Local Preference cannot be configured on {device} used for external routers
+  message: >-
+    netlab cannot configure BGP local preference on device {device} used for
+    external routers. Configure inbound BGP local preference on {node_list} manually
+    if you want to get the full functionality of this lab exercise.
 
 message: |
   The "BGP Graceful Shutdown" lab is ready.
