@@ -35,8 +35,8 @@ Your router has these EBGP neighbors.  _netlab_ configures them automatically; i
 
 ## Device Requirements {#req}
 
-* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for C1, P1, U1, and U2.
-* P2 requires additional configuration that sets BGP local preference based on BGP communities. The lab exercise includes configuration templates for Arista EOS and FRRouting. If you decide to use any other device for P2, you'll have to configure it manually.
+* Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support).
+* External router P2 has to set BGP local preference based on BGP communities. _netlab_ can configure that on [many devices](https://netlab.tools/module/routing/#id4), but if you want to use another device, you'll have to configure it yourself.
 * You can do automated lab validation with Arista EOS or FRRouting running on P1, P2, U1, and U2.
 
 ## Start the Lab
@@ -46,9 +46,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Change directory to `policy/e-wedgies`
 * Execute **netlab up**
 * Log into your router (RTR) with **netlab connect c1** and verify that the IP addresses and the EBGP sessions are properly configured.
-
-!!! warning
-    The `netlab connect --show` command used in the verification section was introduced in _netlab_ release 1.7.0. Automated lab validation requires _netlab_ release 1.8.3.
 
 ## The Problem
 
