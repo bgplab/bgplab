@@ -86,7 +86,7 @@ You might have to use configuration commands similar to these to get the job don
 You can use the **netlab validate** command if you use FRRouting or Arista EOS on your router. The validation tests check:
 
 * The state of the EBGP session between ISP and C/X.
-* Whether RTR receives the prefix `172.17.207.1/24` from C and X.
+* Whether RTR receives the prefix `172.17.207.0/24` from C and X.
 * Whether the prefix received from C has a BGP local preference of 50, and the prefix received from X has a BGP local preference of 200.
 
 This is the printout you should get after completing the lab exercise:
