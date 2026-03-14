@@ -1,7 +1,7 @@
 # Use BGP communities in a complex routing policy
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ check_validate, bgp.policy ]
+plugin: [ check_validate, bgp.policy, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -43,6 +43,23 @@ links:
 - c:
   x:
   name: Customer uplink to peer ISP
+
+_adjust:
+- nodes: [ c ]                      # Check if the external router C supports all the required features
+  features:
+  - routing.prefix
+  - routing.policy.match.prefix
+  - routing.policy.set.community
+  remove:
+  - nodes.c.routing
+  - links[0].interfaces[1].bgp.policy
+  replace:
+  - key: nodes.c.module
+    value: [ bgp ]
+  warning: netlab cannot configure BGP communities on node C (device {device})
+  message: >-
+    netlab cannot configure a route-map to set BGP community on {device} (node C).
+    You'll have to do that yourself if you want this exercise to work.
 
 message: |
   The "Use BGP Communities in Routing Policies" lab is ready. Connect to your
