@@ -58,7 +58,7 @@ _netlab_ automatically configures all lab devices; if you're using another lab i
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration module](https://netlab.tools/platforms/#platform-routing-support) for the C1 and X1.
-* Use devices [supported by the _netlab_ **bgp.policy** plugin](https://netlab.tools/plugins/bgp.policy/#platform-support) for C2 and X2.
+* Use devices [supported by the _netlab_ **bgp.policy** plugin](https://netlab.tools/plugins/bgp.policy/#platform-support) for C2 and X2. _netlab_ can configure [BGP local preference](https://netlab.tools/plugins/bgp.policy/#platform-support) on almost all supported devices, but if you want to use an unsupported device for C2 or X2, you'll have to configure it yourself.
 
 ## Start the Lab
 
