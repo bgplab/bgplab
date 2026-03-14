@@ -1,8 +1,7 @@
 # Attach BGP communities to EBGP updates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ check_extra_config, check_validate ]
-name: wedgies
+plugin: [ check_validate, bgp.policy, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -27,7 +26,19 @@ nodes:
   p2:
     bgp.as: 65304
     loopback.ipv4: 172.23.4.1/24
-    config: [ extra-config ]
+    module: [ bgp, routing ]
+    routing:
+      prefix.customer:
+      - ipv4: 192.168.42.0/24
+      - ipv4: 10.0.0.1/32
+      community:
+        low: "65304:100"
+      policy.customer:
+      - match.community: low
+        match.prefix: customer
+        set.locpref: 50
+      - match.prefix: customer
+        set.locpref: 200
   u1:
     bgp.as: 65101
     bgp.advertise_loopback: False
@@ -40,6 +51,7 @@ links:
   name: Primary uplink
 - c1:
   p2:
+    bgp.policy.in: customer
   name: Backup uplink
 - p1:
   u1:
@@ -50,6 +62,25 @@ links:
 - u1:
   u2:
   name: Upstream peering link
+
+_adjust:
+- nodes: [ p2 ]                     # Check if the external router P2 supports all the required features
+  features:
+  - routing.prefix
+  - routing.community
+  - routing.policy.match.community
+  - routing.policy.match.prefix
+  - routing.policy.set.locpref
+  remove:
+  - nodes.p2.routing
+  - links[1].interfaces[1].bgp.policy
+  replace:
+  - key: nodes.p2.module
+    value: [ bgp ]
+  warning: netlab cannot configure node p2 (device {device}) to change BGP local preference
+  message: >-
+    netlab cannot configure a route-map to change BGP local preference on {device} (node p2).
+    You'll have to do that yourself if you want this exercise to work.
 
 message: |
   The "Resolve BGP Wedgies" lab is ready. Use "netlab connect c1" to connect to
