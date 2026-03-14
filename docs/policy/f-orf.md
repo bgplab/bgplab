@@ -21,7 +21,7 @@ The routers in your lab use the following BGP AS numbers. X1 advertises several 
 | **AS65000** ||
 | rtr | 10.0.0.1 | 10.0.0.1/32 |
 | **AS65100** ||
-| x1 | 10.0.0.2 | 192.168.100.1/24<br>172.16.8.0/22<br>172.16.1.0/24<br>10.0.0.2/32 |
+| x1 | 10.0.0.2 | 192.168.100.0/24<br>172.16.8.0/22<br>172.16.1.0/24<br>10.0.0.2/32 |
 
 There is a single EBGP session between RTR and X1. _netlab_ configures it automatically; if you're using another lab infrastructure, you'll have to configure EBGP neighbors and advertised prefixes manually.
 
