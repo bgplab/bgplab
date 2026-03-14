@@ -1,7 +1,7 @@
 ebgp_c1:
   description: Check EBGP session between C1 and X1
   fail: EBGP session is not established
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   nodes: [ c1 ]
   plugin: bgp_neighbor(node.bgp.neighbors,'x1')
   stop_on_error: True

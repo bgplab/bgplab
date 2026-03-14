@@ -2,7 +2,7 @@ session:
   description: Check EBGP session with RTR
   fail: Some EBGP sessions are not established
   pass: RTR has all expected EBGP sessions
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   nodes: [ x1, x2 ]
   plugin: bgp_neighbor(node.bgp.neighbors,'rtr')
   stop_on_error: True

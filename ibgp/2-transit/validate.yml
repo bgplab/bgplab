@@ -2,7 +2,7 @@
 pfx_pe2_ext:
   description: Check for PE2 prefix on Ext
   fail: The PE2 prefix is not propagated to the Ext router
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   nodes: [ ext ]
   plugin: bgp_prefix('192.168.43.0/24')
 

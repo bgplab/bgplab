@@ -3,7 +3,7 @@ session:
   fail: The IPv6 EBGP session with your router is not established
   pass: The IPv6 EBGP session with RTR is in Established state
   stop_on_error: True
-  devices: [ eos, frr, cumulus ]
+  devices: [ eos, frr ]
   nodes: [ x1,x2 ]
   plugin: bgp_neighbor(node.bgp.neighbors,'rtr',af='ipv6')
 

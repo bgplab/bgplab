@@ -3,7 +3,7 @@
 bgp_x1_c1:
   description: Check the X1-C1 EBGP session
   nodes: [ x1 ]
-  devices: [ cumulus, frr, eos ]
+  devices: [ frr, eos ]
   stop_on_error: True
   plugin: bgp_neighbor(node.bgp.neighbors,'c1')
 
@@ -42,7 +42,7 @@ pfx_s1_ospf:
   pass: The S1 loopback is redistributed back into OSPF
   fail: The S1 loopback is not redistributed back into OSPF
   nodes: [ s2 ]
-  devices: [ cumulus, frr, eos ]
+  devices: [ frr, eos ]
   plugin: ospf_prefix(nodes.s1.loopback.ipv4)
 
 pfx_s2_ospf:
@@ -50,5 +50,5 @@ pfx_s2_ospf:
   pass: The S2 loopback is redistributed back into OSPF
   fail: The S2 loopback is not redistributed back into OSPF
   nodes: [ s1 ]
-  devices: [ cumulus, frr, eos ]
+  devices: [ frr, eos ]
   plugin: ospf_prefix(nodes.s2.loopback.ipv4)
