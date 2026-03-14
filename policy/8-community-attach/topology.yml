@@ -80,6 +80,7 @@ _adjust:
   - routing.prefix
   - routing.community
   - routing.policy.match.community
+  - routing.policy.match.prefix
   - routing.policy.set.locpref
   remove:
   - nodes.x2.routing

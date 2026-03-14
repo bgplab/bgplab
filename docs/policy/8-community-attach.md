@@ -47,11 +47,6 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Execute **netlab up**. You can also [deploy the lab on some other lab infrastructure](../external/index.md).
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 
-**Note:** *netlab* will configure IP addressing, BGP, EBGP sessions, and BGP prefix advertisements on your routers. If you're not using *netlab*, you must configure your routers manually.
-
-!!! Warning
-    This lab requires additional configuration on X2. That configuration is currently available only for Arista EOS and FRRouting -- you have to use one of those devices as the external BGP router(s).
-
 ## Default Traffic Flow
 
 After starting the lab, log into C2 and examine its BGP table, looking for prefixes advertised by C1. You should get a printout similar to this one (generated on Arista cEOS)[^RAI]:
