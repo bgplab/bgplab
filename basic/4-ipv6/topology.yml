@@ -1,7 +1,6 @@
 # Configure a BGP session with an external BGP speaker
 
 defaults.sources.extra: [ ../../defaults.yml ]
-name: ipv6
 plugin: [ bgp.session, check_validate, adjust ]
 
 version: 2.0.0

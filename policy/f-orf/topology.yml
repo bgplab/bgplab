@@ -1,7 +1,6 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: orf
 
 module: [ bgp ]
 plugin: [ bgp.session, adjust ]

@@ -1,7 +1,6 @@
 # Configure a BGP session using 'local-as'
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: localas
 
 plugin: [ check_validate, change_as ]
 

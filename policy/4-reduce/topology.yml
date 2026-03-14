@@ -1,7 +1,6 @@
 # Reduce the number of prefixes accepted from EBGP neighbors
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: reduce
 version: 2.0.0
 
 _include: [ validate.yml ]

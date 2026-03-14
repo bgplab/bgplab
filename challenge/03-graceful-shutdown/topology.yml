@@ -4,7 +4,6 @@ defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ bgp.policy, adjust ]
 version: 2.0.0
 
-name: gshut
 module: [ bgp, ospf ]
 
 bgp.advertise_loopback: false

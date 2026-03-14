@@ -1,7 +1,6 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: rs
 
 version: 2.0.0
 

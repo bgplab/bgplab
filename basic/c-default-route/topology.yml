@@ -1,7 +1,6 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: default
 
 plugin: [ check_validate ]
 module: [ bgp, ospf ]

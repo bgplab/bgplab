@@ -1,7 +1,6 @@
 # Configure EBGP sessions over IPv6 LLA
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: ebgp_intf
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 plugin: [ check_validate, fix_unnumbered ]

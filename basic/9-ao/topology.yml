@@ -1,7 +1,6 @@
 # Protect EBGP sessions with TCP-AO
 
 defaults.sources.extra: [ ../../defaults.yml ]
-name: protect
 version: 2.0.0
 
 module: [ bgp ]

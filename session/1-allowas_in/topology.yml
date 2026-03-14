@@ -2,7 +2,6 @@
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 
-name: allowas
 version: 2.0.0
 plugin: [ check_validate ]
 

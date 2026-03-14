@@ -1,7 +1,6 @@
 # Remove private AS from the AS path
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: privateas
 
 plugin: [ check_validate ]
 

@@ -1,7 +1,6 @@
 # Use MED to steer incoming traffic away from the backup link
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: med
 version: 2.0.0
 
 _include: [ validate.yml ]

@@ -2,7 +2,6 @@
 
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ bgp.session, check_validate, adjust ]
-name: originate
 
 module: [ bgp ]
 

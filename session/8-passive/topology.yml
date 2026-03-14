@@ -1,7 +1,6 @@
 # Passive BGP Sessions
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: passive
 
 version: 2.0.0
 

@@ -1,7 +1,6 @@
 # IBGP Load Balancing with BGP Additional Paths
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: add_path
 version: 2.0.0
 
 plugin: [ bgp.policy ]

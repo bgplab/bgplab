@@ -1,7 +1,6 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: lb_ibgp
 
 module: [ bgp, ospf ]
 

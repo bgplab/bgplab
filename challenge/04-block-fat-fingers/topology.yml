@@ -1,7 +1,6 @@
 # Stop the Propagation of Configuration Errors
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: localas
 
 plugin: [ check_extra_config ]
 version: 2.0.0

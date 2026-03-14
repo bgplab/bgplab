@@ -1,7 +1,6 @@
 # Configure a BGP route server
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-name: dmz_bw
 
 plugin: [ bgp.policy ]
 

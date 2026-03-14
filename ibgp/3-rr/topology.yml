@@ -6,7 +6,6 @@ version: 2.0.0
 plugin: [ check_validate ]
 _include: [ validate.yml ]
 
-name: rr
 module: [ bgp, ospf ]
 bgp.as: 65000
 bgp.next_hop_self: False

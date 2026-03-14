@@ -2,7 +2,6 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate ]
-name: prepend
 
 version: 2.0.0
 _include: [ validate.yml ]

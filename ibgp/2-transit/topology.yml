@@ -4,7 +4,6 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:           # Make BGP a valid node attribute regardless of what module is used
 plugin: [ fix_unnumbered, fix_frr, check_validate ]
 
-name: transit
 
 version: 2.0.0
 _include: [ validate.yml ]
