@@ -1,7 +1,7 @@
 # Attach BGP communities to EBGP updates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ check_extra_config, check_validate, bgp.policy, adjust ]
+plugin: [ check_validate, bgp.policy, adjust ]
 
 version: 2.0.0
 _include: [ validate.yml ]
@@ -64,7 +64,7 @@ links:
   name: Upstream peering link
 
 _adjust:
-- nodes: [ p2 ]                     # Check if the external router X2 supports all the required features
+- nodes: [ p2 ]                     # Check if the external router P2 supports all the required features
   features:
   - routing.prefix
   - routing.community
@@ -79,7 +79,7 @@ _adjust:
     value: [ bgp ]
   warning: netlab cannot configure node p2 (device {device}) to change BGP local preference
   message: >-
-    netlab cannot configure a route-map to change BGP local preference on {device} (node x2).
+    netlab cannot configure a route-map to change BGP local preference on {device} (node p2).
     You'll have to do that yourself if you want this exercise to work.
 
 message: |
