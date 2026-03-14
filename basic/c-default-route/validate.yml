@@ -5,7 +5,7 @@ session:
   fail: The EBGP session with your router is not established
   pass: The EBGP session with R1 is in Established state
   nodes: [ x1, r2 ]
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   plugin: bgp_neighbor(node.bgp.neighbors,'r1')
   stop_on_error: True
 

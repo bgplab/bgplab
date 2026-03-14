@@ -4,7 +4,7 @@ ebgp_ce1:
   fail: The PE1-CE1 EBGP session is not established
   pass: The EBGP session on CE1 works as expected
   nodes: [ ce1 ]
-  devices: [ cumulus, eos, frr ]
+  devices: [ eos, frr ]
   plugin: bgp_neighbor(node.bgp.neighbors,'pe1')
 
 ebgp_ce2:

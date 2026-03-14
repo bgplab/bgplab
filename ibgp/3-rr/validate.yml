@@ -1,7 +1,7 @@
 pfx_l1:
   description: Check that the L1 prefix is not advertised directly
   fail: There are still some leaf-to-leaf IBGP sessions
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   nodes: [ l2, l3, l4 ]
   plugin: bgp_prefix(nodes.l1.bgp.originate[0],peer=nodes.l1.bgp.router_id,state='missing')
 

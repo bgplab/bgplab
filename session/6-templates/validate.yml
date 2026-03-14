@@ -5,7 +5,7 @@ ibgp_s1:
   fail: The IBGP session with the router reflector S1 is not established
   pass: The IBGP session with the router reflector S1 is established
   nodes: [ l1, l2 ]
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   plugin: bgp_neighbor(node.bgp.neighbors,'s1')
 
 ibgp_s2:

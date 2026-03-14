@@ -1,7 +1,7 @@
 pfx_l1_s1:
   description: Check that S1 advertises the L1 prefix
   fail: S1 is not reflecting the L1 prefix
-  devices: [ frr, cumulus, eos ]
+  devices: [ frr, eos ]
   nodes: [ l2 ]
   plugin: bgp_prefix(nodes.l1.bgp.originate[0],peer=nodes.s1.bgp.router_id)
 
