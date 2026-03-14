@@ -129,7 +129,7 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
 | **rtr** |  10.0.0.1/32 |  | Loopback |
-| Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
+| Ethernet1 | True |  | rtr -> x1 |
 | Ethernet2 | True |  | rtr -> x2 |
 | **x1** |  192.168.100.1/24 |  | Loopback |
 | swp1 | True |  | x1 -> rtr |
