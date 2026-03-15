@@ -18,9 +18,9 @@ The routers in your lab use the following BGP AS numbers. Each router advertises
 | **AS65000** ||
 | rtr | 10.0.0.1 | 192.168.42.0/24<br>10.0.0.1/32 |
 | **AS65100** ||
-| x1 | 10.0.0.10 | 192.168.100.1/24<br>10.0.0.10/32 |
+| x1 | 10.0.0.10 | 192.168.100.0/24<br>10.0.0.10/32 |
 | **AS65101** ||
-| x2 | 10.0.0.11 | 192.168.101.1/24<br>10.0.0.11/32 |
+| x2 | 10.0.0.11 | 192.168.101.0/24<br>10.0.0.11/32 |
 
 Your router has these EBGP neighbors.  _netlab_ configures them automatically; if you're using some other lab infrastructure, you'll have to manually configure EBGP neighbors and advertised prefixes.
 
@@ -86,7 +86,7 @@ Once you have configured the necessary route filters:
 
 ## Verification
 
-* Inspect the BGP table on your router. You should see the /24 prefixes from X1 and X2 but not their /32 prefixes.
+* Inspect the BGP table on your router. You should see the /24 prefixes from X1 and X2, but not their /32 prefixes.
 
 ```
 rtr>show ip bgp | begin Network
@@ -113,7 +113,7 @@ BGP routing table entry for 192.168.100.0/24
       Rx SAFI: Unicast
 ```
 
-* Inspect the BGP table on X1. You should see the /24 prefixes from RTR and X2 but not their /32 prefixes.
+* Inspect the BGP table on X1. You should see the /24 prefixes from RTR and X2, but not their /32 prefixes.
 
 ```
 $ netlab connect x1 -q --show ip bgp | grep Network -A 100
