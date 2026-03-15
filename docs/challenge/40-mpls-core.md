@@ -70,7 +70,7 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Log into your devices with **netlab connect** and verify that the IP addresses, OSPF routing, and the BGP sessions are properly configured.
 
 !!! Warning
-    * FRRouting nodes have to start the LDP daemon. _netlab_ starts it for you, but you should still check whether it's enabled using [this procedure](../basic/0-frrouting.md#daemon) (looking for `ldpd`).
+    LDP daemon (`ldpd`) must be running on FRRouting MPLS core routers (PE1, PE2, and CORE in AS65000). _netlab_ starts it for you, but you should still check whether it's enabled using [this procedure](../basic/0-frrouting.md#daemon) (looking for `ldpd`).
 
 ## The Problem
 
