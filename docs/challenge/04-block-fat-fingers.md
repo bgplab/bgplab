@@ -11,7 +11,7 @@ In the ideal world, you'd use RPKI and accept only valid prefixes belonging to y
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your router.
-* Use FRRouting for the customer- and peer routers.
+* C1 and C2 have to [originate BGP default route](https://netlab.tools/plugins/bgp.session/#platform-support) and do [some AS-path prepending](https://netlab.tools/module/routing/#id4). _netlab_ can configure that on [many devices](https://netlab.tools/module/routing/#id4), but if you want to use another device, you'll have to configure it yourself.
 
 ## Start the Lab
 
@@ -33,7 +33,7 @@ Your customers (C1 and C2) are advertising a plethora of prefixes that should no
 
 Log into your router and explore its BGP table. You'll find at least one prefix matching one of the above criteria. This is the BGP table on RTR as displayed by FRRouting:
 
-```
+```text
 rtr# show ip bgp
 BGP table version is 14, local router ID is 10.0.0.1, vrf id 0
 Default local pref 100, local AS 65000
@@ -73,7 +73,7 @@ Using a *policy template*, create a generic customer-facing routing policy that 
 
 You should also only accept up to five prefixes from a customer.
 
-Once you created the policy template, apply it to all EBGP sessions with your customers.
+Once you have created the policy template, apply it to all EBGP sessions with your customers.
 
 Use these lab exercises to master individual filtering- or configuration mechanisms you'll need to complete the configuration tasks:
 
@@ -88,7 +88,7 @@ Use these lab exercises to master individual filtering- or configuration mechani
 
 Once you have deployed all the required input filters, you should see the following prefixes in the BGP table on your router:
 
-```
+```text
 rtr# show ip bgp
 BGP table version is 14, local router ID is 10.0.0.1, vrf id 0
 Default local pref 100, local AS 65000
