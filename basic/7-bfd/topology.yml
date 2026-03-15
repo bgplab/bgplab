@@ -3,9 +3,9 @@
 defaults.sources.extra: [ ../../defaults.yml ]
 
 module: [ bgp ]
-plugin: [ bgp.session, enable_fix_config, fix_frr, check_validate ]
+plugin: [ bgp.session, check_validate ]
 
-version: 2.0.0
+version: 25.12.03
 _include: [ validate.yml ]
 
 groups:
@@ -19,6 +19,8 @@ nodes:
   r1:
     bgp.as: 65000
     bgp.originate: [ 192.168.42.0/24 ]
+    frr.daemons: [ bfdd ]
+    netlab_frr_defaults: traditional
   r2:
     bgp.as: 65001
     bgp.originate: [ 192.168.43.0/24 ]

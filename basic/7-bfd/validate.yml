@@ -30,5 +30,8 @@ bfd:
   nodes: [ x1 ]
   show:
     frr: bfd peer 10.1.0.1 json
-  valid: |
-    status == 'up'
+    eos: "bfd peers | json"
+  valid:
+    eos: >-
+      vrfs.default.ipv4Neighbors["10.1.0.1"].peers.Ethernet1.types.normal.peerStats["10.1.0.2"].status == "up"
+    frr: status == 'up'
