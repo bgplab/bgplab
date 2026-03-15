@@ -1,8 +1,7 @@
-# Configure a BGP route server
+# BGP-Free Network Core
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ fix_frr ]
-version: 2.0.0
+version: 25.12.03
 
 groups:
   external:
@@ -13,9 +12,11 @@ groups:
     module: [ bgp, ospf ]
     bgp.as: 65000
     bgp.advertise_loopback: False
+    frr.daemons: [ ldpd ]
   p:
     members: [ core ]
     module: [ ospf ]
+    frr.daemons: [ ldpd ]
 
 nodes:
   pe1:
