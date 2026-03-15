@@ -2,7 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 
-plugin: [ adjust, bgp.session, bgp.policy ]
+plugin: [ bgp.session, bgp.policy, adjust ]
 version: 2.0.0
 
 module: [ bgp ]
@@ -65,7 +65,7 @@ _adjust:
   - key: bgp.default_originate
     value: true
   remove:
-  - links[0].interfaces[0].bgp
+  - links[0].interfaces[0].bgp.default_originate
   warning: BGP default route cannot be configured on {device} (node c1)
   message: >-
     netlab cannot configure BGP default route on {device} (node c1). Configure
