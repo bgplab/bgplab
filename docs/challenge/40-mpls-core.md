@@ -13,9 +13,12 @@ In the *‌[Build a Transit Network with IBGP](../ibgp/2-transit.md)* lab exerci
 * Use any router/switch [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for your devices. Check that the device you plan to use supports MPLS. 
 
 !!! Warning
-    * Use cEOS release 4.31.2F or later and netlab release 1.9.0 or later to use MPLS with Arista EOS containers.
+    * Use cEOS release 4.31.2F or later to use MPLS with Arista EOS containers.
     * SR Linux needs a license file to run MPLS.
-    * You cannot use MPLS with FRRouting or VyOS containers within Github Codespaces.
+    * You cannot use MPLS with FRRouting or VyOS containers within GitHub Codespaces.
+    * [Enabling MPLS data plane](https://docs.frrouting.org/en/latest/installation.html#linux-sysctl-settings-and-kernel-modules) on FRRouting interfaces is not exactly trivial[^LKM].
+
+[^LKM]: If you use FRRouting containers, you have to load the MPLS-related kernel modules *on the Linux host before starting the lab*. _netlab_ does that when you use the [**mpls** module](https://netlab.tools/module/mpls/), but doing that would defeat the purpose of this lab exercise.
 
 ## Existing Routing Protocol Configuration
 
@@ -65,6 +68,9 @@ Assuming you already [set up your lab infrastructure](../1-setup.md):
 * Change directory to `challenge/40-mpls-core`
 * Execute **netlab up**
 * Log into your devices with **netlab connect** and verify that the IP addresses, OSPF routing, and the BGP sessions are properly configured.
+
+!!! Warning
+    * FRRouting nodes have to start the LDP daemon. _netlab_ starts it for you, but you should still check whether it's enabled using [this procedure](../basic/0-frrouting.md#daemon) (looking for `ldpd`).
 
 ## The Problem
 
