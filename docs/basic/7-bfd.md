@@ -64,7 +64,7 @@ You can reduce BGP session timers to improve BGP convergence:
 [^ATD]: Some BGP implementations tear down BGP sessions when you change the BGP timers.
 
 !!! tip
-    FRRouting using the *datacenter* profile already uses low BGP timers. The lab configuration process returns those timers to the default 60/180 seconds.
+    FRRouting default BGP timers depend on its *profile*. The default profile (*datacenter*) already uses low BGP timers. _netlab_ changes the FRRouting profile to *traditional* to return those timers to the default 60/180 seconds.
 
 **Verification:**
 
@@ -79,11 +79,11 @@ While some BGP implementations allow you to use very small BGP timers (for examp
 * Clear the BGP session if needed
 
 !!! warning
-    Similarly to what you had to do to get BGP up and running, you have to modify the `/etc/frr/daemons` file and restart FRRouting on FRRouting virtual machines ([more details](0-frrouting.md)). The BFD daemon is already started in FRRouting containers.
+    Similarly to what you had to do to get BGP up and running, you have to modify the `/etc/frr/daemons` file and restart FRRouting to start the BFD daemon ([more details](0-frrouting.md)). _netlab_ starts the BFD daemon in FRRouting nodes when starting the lab, but you should still check whether it's running -- [use this procedure](0-frrouting.md#daemon), but check for `bfdd`.
      
 **Verification:**
 
-* Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the **show ip bgp neighbor details** (or similar) command. Some implementations have BFD-specific show commands like **show bfd neighbors** or **show bfd peers**.
+* Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the **show ip bgp neighbor details** (or similar) command. Some implementations have BFD-specific show commands, such as **show bfd neighbors** or **show bfd peers**.
 * Repeat the BGP convergence measurements -- X1 should revoke the BGP prefix advertised by R1 almost immediately.
 
 ## Automated Verification
