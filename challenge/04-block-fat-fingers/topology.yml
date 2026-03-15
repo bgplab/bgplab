@@ -2,7 +2,7 @@
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 
-plugin: [ check_extra_config ]
+plugin: [ bgp.session, bgp.policy, adjust ]
 version: 2.0.0
 
 module: [ bgp ]
@@ -21,9 +21,14 @@ nodes:
     - 192.168.1.0/24
     - 172.16.1.0/24
     - 100.73.16.0/22
-    - 0.0.0.0/0
     - 100.75.42.0/23
-    config: [ extra ]
+    module: [ bgp, routing ]
+    routing:
+      prefix.prepend.ipv4: 100.75.42.0/23
+      policy.prepend:
+      - match.prefix: prepend
+        set.prepend.path: "65303"
+      - action: permit
   c2:
     bgp.as: 65101
     bgp.originate:
@@ -33,17 +38,59 @@ nodes:
     - 100.68.0.0/15
     - 100.78.43.0/24
     - 100.75.142.0/24
-    config: [ extra ]
+    module: [ bgp, routing ]
+    routing:
+      prefix.prepend.ipv4: 100.75.142.0/24
+      policy.prepend:
+      - match.prefix: prepend
+        set.prepend.path: 65101 65101 65101 65101 65101 65101 65101 65101 65101 65101
+      - action: permit
   peer:
     bgp.as: 65107
     loopback.ipv4: 198.51.100.1/24
 
 links:
-- c1-rtr
-- c2-rtr
+- c1:
+    bgp.policy.out: prepend
+    bgp.default_originate: True
+  rtr:
+- c2:
+    bgp.policy.out: prepend
+  rtr:
 - peer-rtr
 
-#_include: [ validate.yml ]
+_adjust:
+- nodes: [ c1 ]                 # Remove bgp.default_originate if C1 doesn't support it
+  features:
+  - key: bgp.default_originate
+    value: true
+  remove:
+  - links[0].interfaces[0].bgp.default_originate
+  warning: BGP default route cannot be configured on {device} (node c1)
+  message: >-
+    netlab cannot configure BGP default route on {device} (node c1). Configure
+    the BGP default route origination manually if you want to get the full
+    functionality of the lab exercise.
+- nodes: [ c1, c2 ]             # Check if C1 and C2 support prefix matching and AS path prepending
+  features:
+  - routing.prefix
+  - routing.policy.match.prefix
+  - routing.policy.set.prepend
+  remove:
+  - nodes.c1.routing
+  - nodes.c2.routing
+  - links[0].interfaces[0].bgp.policy
+  - links[1].interfaces[0].bgp.policy
+  replace:
+  - key: nodes.c1.module
+    value: [ bgp ]
+  - key: nodes.c2.module
+    value: [ bgp ]
+  warning: netlab cannot configure BGP AS-path prepending on {device} (node c1/c2)
+  message: >-
+    netlab cannot configure a route-map to do AS-path prepending on {device}
+    (node c1/c2). You'll have to do that yourself if you want to get the full
+    functionality of the lab exercise.
 
 message: |
   The "Stop the Propagation of Configuration Errors" lab is ready.
