@@ -508,13 +508,14 @@
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
-<li>Use cEOS release 4.31.2F or later and netlab release 1.9.0 or later to use MPLS with Arista EOS containers.</li>
+<li>Use cEOS release 4.31.2F or later to use MPLS with Arista EOS containers.</li>
 <li>SR Linux needs a license file to run MPLS.</li>
-<li>You cannot use MPLS with FRRouting or VyOS containers within Github Codespaces.</li>
+<li>You cannot use MPLS with FRRouting or VyOS containers within GitHub Codespaces.</li>
+<li><a href="https://docs.frrouting.org/en/latest/installation.html#linux-sysctl-settings-and-kernel-modules">Enabling MPLS data plane</a> on FRRouting interfaces is not exactly trivial<sup id="fnref:LKM"><a class="footnote-ref" href="#fn:LKM">1</a></sup>.</li>
 </ul>
 </div>
 <h2 id="existing-routing-protocol-configuration">Existing Routing Protocol Configuration</h2>
-<p>The routers in your lab use the following BGP AS numbers. All routers advertise their loopbacks<sup id="fnref:FRRLB"><a class="footnote-ref" href="#fn:FRRLB">1</a></sup>.</p>
+<p>The routers in your lab use the following BGP AS numbers. All routers advertise their loopbacks<sup id="fnref:FRRLB"><a class="footnote-ref" href="#fn:FRRLB">2</a></sup>.</p>
 <table>
 <thead>
 <tr>
@@ -673,6 +674,10 @@
 <li>Execute <strong>netlab up</strong></li>
 <li>Log into your devices with <strong>netlab connect</strong> and verify that the IP addresses, OSPF routing, and the BGP sessions are properly configured.</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>LDP daemon (<code>ldpd</code>) must be running on FRRouting MPLS core routers (PE1, PE2, and CORE in AS65000). <em>netlab</em> starts it for you, but you should still check whether it&rsquo;s enabled using <a href="../../basic/0-frrouting/#daemon">this procedure</a> (looking for <code>ldpd</code>).</p>
+</div>
 <h2 id="the-problem">The Problem</h2>
 <p>After the OSPF adjacencies in the transit autonomous system are established, E1 receives the BGP prefix advertised by E2 (and vice versa):</p>
 <pre><code>e1# show ip bgp
@@ -878,8 +883,11 @@ traceroute to 192.168.102.1 (192.168.102.1), 30 hops max, 60 byte packets
 <div class="footnote">
 <hr />
 <ol>
+<li id="fn:LKM">
+<p>If you use FRRouting containers, you have to load the MPLS-related kernel modules <em>on the Linux host before starting the lab</em>. <em>netlab</em> does that when you use the <a href="https://netlab.tools/module/mpls/"><strong>mpls</strong> module</a>, but doing that would defeat the purpose of this lab exercise.&#160;<a class="footnote-backref" href="#fnref:LKM" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
 <li id="fn:FRRLB">
-<p>Loopbacks of PE1 and PE2 won&rsquo;t be advertised to adjacent autonomous systems if you&rsquo;re running a recent version of FRRouting (<a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">more details</a>).&#160;<a class="footnote-backref" href="#fnref:FRRLB" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Loopbacks of PE1 and PE2 won&rsquo;t be advertised to adjacent autonomous systems if you&rsquo;re running a recent version of FRRouting (<a href="https://blog.ipspace.net/2024/03/frr-ibgp-loopbacks.html">more details</a>).&#160;<a class="footnote-backref" href="#fnref:FRRLB" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>

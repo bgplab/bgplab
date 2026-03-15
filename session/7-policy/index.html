@@ -530,7 +530,7 @@
 <tr>
 <td>x1</td>
 <td style="text-align: right;">10.0.0.10</td>
-<td style="text-align: right;">192.168.100.1/24<br>10.0.0.10/32</td>
+<td style="text-align: right;">192.168.100.0/24<br>10.0.0.10/32</td>
 </tr>
 <tr>
 <td><strong>AS65101</strong></td>
@@ -540,7 +540,7 @@
 <tr>
 <td>x2</td>
 <td style="text-align: right;">10.0.0.11</td>
-<td style="text-align: right;">192.168.101.1/24<br>10.0.0.11/32</td>
+<td style="text-align: right;">192.168.101.0/24<br>10.0.0.11/32</td>
 </tr>
 </tbody>
 </table>
@@ -617,7 +617,7 @@
 </div>
 <h2 id="verification">Verification</h2>
 <ul>
-<li>Inspect the BGP table on your router. You should see the /24 prefixes from X1 and X2 but not their /32 prefixes.</li>
+<li>Inspect the BGP table on your router. You should see the /24 prefixes from X1 and X2, but not their /32 prefixes.</li>
 </ul>
 <pre><code>rtr&gt;show ip bgp | begin Network
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
@@ -642,7 +642,7 @@ BGP routing table entry for 192.168.100.0/24
       Rx SAFI: Unicast
 </code></pre>
 <ul>
-<li>Inspect the BGP table on X1. You should see the /24 prefixes from RTR and X2 but not their /32 prefixes.</li>
+<li>Inspect the BGP table on X1. You should see the /24 prefixes from RTR and X2, but not their /32 prefixes.</li>
 </ul>
 <pre><code>$ netlab connect x1 -q --show ip bgp | grep Network -A 100
    Network          Next Hop            Metric LocPrf Weight Path

@@ -484,7 +484,7 @@
 <h2 id="req">Device Requirements</h2>
 <ul>
 <li>Use any device <a href="https://netlab.tools/platforms/#platform-routing-support">supported by the <em>netlab</em> BGP configuration module</a> for your router.</li>
-<li>Use FRRouting for the customer- and peer routers.</li>
+<li>C1 and C2 have to <a href="https://netlab.tools/plugins/bgp.session/#platform-support">originate BGP default route</a> and do <a href="https://netlab.tools/module/routing/#id4">some AS-path prepending</a>. <em>netlab</em> can configure that on <a href="https://netlab.tools/module/routing/#id4">many devices</a>, but if you want to use another device, you&rsquo;ll have to configure it yourself.</li>
 </ul>
 <h2 id="start-the-lab">Start the Lab</h2>
 <p>Assuming you already <a href="../../1-setup/">set up your lab infrastructure</a>:</p>
@@ -503,7 +503,7 @@
 <li>A default route</li>
 </ul>
 <p>Log into your router and explore its BGP table. You&rsquo;ll find at least one prefix matching one of the above criteria. This is the BGP table on RTR as displayed by FRRouting:</p>
-<pre><code>rtr# show ip bgp
+<pre><code class="language-text">rtr# show ip bgp
 BGP table version is 14, local router ID is 10.0.0.1, vrf id 0
 Default local pref 100, local AS 65000
 Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
@@ -540,7 +540,7 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 <li>prefixes that have an AS path with more than five elements.</li>
 </ul>
 <p>You should also only accept up to five prefixes from a customer.</p>
-<p>Once you created the policy template, apply it to all EBGP sessions with your customers.</p>
+<p>Once you have created the policy template, apply it to all EBGP sessions with your customers.</p>
 <p>Use these lab exercises to master individual filtering- or configuration mechanisms you&rsquo;ll need to complete the configuration tasks:</p>
 <ul>
 <li><a href="../../basic/b-max-prefix/">Limit the Number of Accepted BGP Prefixes</a></li>
@@ -552,7 +552,7 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 </ul>
 <h2 id="verification">Verification</h2>
 <p>Once you have deployed all the required input filters, you should see the following prefixes in the BGP table on your router:</p>
-<pre><code>rtr# show ip bgp
+<pre><code class="language-text">rtr# show ip bgp
 BGP table version is 14, local router ID is 10.0.0.1, vrf id 0
 Default local pref 100, local AS 65000
 Status codes:  s suppressed, d damped, h history, * valid, &gt; best, = multipath,
