@@ -184,13 +184,13 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| we1 | swp1 | x1 | swp1 |
-| we2 | swp1 | x2 | swp1 |
-| ac1 | Ethernet1 | we1 | swp2 |
-| ac1 | Ethernet2 | we2 | swp2 |
-| rr | Ethernet1 | we1 | swp3 |
-| rr | Ethernet2 | we2 | swp3 |
-| x1 | swp2 | x2 | swp2 |
+| we1 | eth1 | x1 | eth1 |
+| we2 | eth1 | x2 | eth1 |
+| ac1 | Ethernet1 | we1 | eth2 |
+| ac1 | Ethernet2 | we2 | eth2 |
+| rr | Ethernet1 | we1 | eth3 |
+| rr | Ethernet2 | we2 | eth3 |
+| x1 | eth2 | x2 | eth2 |
 
 ### Lab Addressing
 
@@ -203,16 +203,16 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 | Ethernet1 | 10.1.0.17/30 |  | rr -> we1 |
 | Ethernet2 | 10.1.0.21/30 |  | rr -> we2 |
 | **we1** |  10.0.0.1/32 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | we1 -> x1 |
-| swp2 | 10.1.0.10/30 |  | we1 -> ac1 |
-| swp3 | 10.1.0.18/30 |  | we1 -> rr |
+| eth1 | 10.1.0.1/30 |  | we1 -> x1 |
+| eth2 | 10.1.0.10/30 |  | we1 -> ac1 |
+| eth3 | 10.1.0.18/30 |  | we1 -> rr |
 | **we2** |  10.0.0.2/32 |  | Loopback |
-| swp1 | 10.1.0.5/30 |  | we2 -> x2 |
-| swp2 | 10.1.0.14/30 |  | we2 -> ac1 |
-| swp3 | 10.1.0.22/30 |  | we2 -> rr |
+| eth1 | 10.1.0.5/30 |  | we2 -> x2 |
+| eth2 | 10.1.0.14/30 |  | we2 -> ac1 |
+| eth3 | 10.1.0.22/30 |  | we2 -> rr |
 | **x1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> we1 |
-| swp2 | 192.168.42.1/24 |  | x1 -> x2 |
+| eth1 | 10.1.0.2/30 |  | x1 -> we1 |
+| eth2 | 192.168.42.1/24 |  | x1 -> x2 |
 | **x2** |  10.0.0.11/32 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | x2 -> we2 |
-| swp2 | 192.168.42.2/24 |  | x2 -> x1 |
+| eth1 | 10.1.0.6/30 |  | x2 -> we2 |
+| eth2 | 192.168.42.2/24 |  | x2 -> x1 |

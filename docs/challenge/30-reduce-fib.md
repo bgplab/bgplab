@@ -69,27 +69,27 @@ Codes: K - kernel route, C - connected, S - static, R - RIP,
        F - PBR, f - OpenFabric,
        > - selected route, * - FIB route, q - queued, r - rejected, b - backup
        t - trapped, o - offload failure
-  *                     via 10.1.0.9, swp3, weight 1, 00:00:11
-B>* 10.15.3.0/24 [20/0] via 10.1.0.5, swp2, weight 1, 00:00:11
-B>* 10.17.1.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:11
+  *                     via 10.1.0.9, eth3, weight 1, 00:00:11
+B>* 10.15.3.0/24 [20/0] via 10.1.0.5, eth2, weight 1, 00:00:11
+B>* 10.17.1.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:11
 B>  10.22.2.0/24 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                        via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                        via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  172.18.3.0/24 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                         via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                         via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  172.18.12.0/22 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                          via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                          via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  172.18.32.0/21 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                          via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                          via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  172.19.7.0/24 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                         via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                         via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  172.19.40.0/21 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                          via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                          via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  172.20.32.0/22 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                          via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                          via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  192.168.77.0/24 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                           via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                           via 10.1.0.9, eth3, weight 1, 00:00:11
 B>  192.168.200.0/22 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:11
-  *                            via 10.1.0.9, swp3, weight 1, 00:00:11
+  *                            via 10.1.0.9, eth3, weight 1, 00:00:11
 ```
 
 ## Configuration Guidelines
@@ -112,11 +112,11 @@ Codes: K - kernel route, C - connected, S - static, R - RIP,
        > - selected route, * - FIB route, q - queued, r - rejected, b - backup
        t - trapped, o - offload failure
 B>  0.0.0.0/0 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:03
-  *                     via 10.1.0.9, swp3, weight 1, 00:00:03
-B>* 10.15.3.0/24 [20/0] via 10.1.0.5, swp2, weight 1, 00:00:03
-B>* 10.17.1.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:03
+  *                     via 10.1.0.9, eth3, weight 1, 00:00:03
+B>* 10.15.3.0/24 [20/0] via 10.1.0.5, eth2, weight 1, 00:00:03
+B>* 10.17.1.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:03
 B>  10.22.2.0/24 [200/0] via 10.0.0.1 (recursive), weight 1, 00:00:03
-  *                        via 10.1.0.9, swp3, weight 1, 00:00:03
+  *                        via 10.1.0.9, eth3, weight 1, 00:00:03
 ```
 
 * The BGP table on CE1 contains all prefixes from AS 65200 and AS 65201 but not the default route.

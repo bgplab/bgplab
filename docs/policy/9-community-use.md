@@ -122,20 +122,20 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| Customer uplink to ISP | isp | Ethernet1 | c | swp1 |
-| Link to peer ISP | isp | Ethernet2 | x | swp1 |
-| Customer uplink to peer ISP | c | swp2 | x | swp2 |
+| Customer uplink to ISP | isp | Ethernet1 | c | eth1 |
+| Link to peer ISP | isp | Ethernet2 | x | eth1 |
+| Customer uplink to peer ISP | c | eth2 | x | eth2 |
 
 ### Lab Addressing
 
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
 | **c** |  172.17.207.1/24 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | Customer uplink to ISP |
-| swp2 | 10.1.0.9/30 |  | Customer uplink to peer ISP |
+| eth1 | 10.1.0.1/30 |  | Customer uplink to ISP |
+| eth2 | 10.1.0.9/30 |  | Customer uplink to peer ISP |
 | **isp** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.2/30 |  | Customer uplink to ISP |
 | Ethernet2 | 10.1.0.5/30 |  | Link to peer ISP |
 | **x** |  10.0.0.11/32 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | Link to peer ISP |
-| swp2 | 10.1.0.10/30 |  | Customer uplink to peer ISP |
+| eth1 | 10.1.0.6/30 |  | Link to peer ISP |
+| eth2 | 10.1.0.10/30 |  | Customer uplink to peer ISP |

@@ -183,33 +183,33 @@ The following information might help you if you plan to build custom lab infrast
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| hub | Ethernet2 | c1 | swp1 |
-| hub | Ethernet3 | c2 | swp1 |
-| c1 | swp2 | c2 | swp2 |
+| hub | Ethernet2 | c1 | eth1 |
+| hub | Ethernet3 | c2 | eth1 |
+| c1 | eth2 | c2 | eth2 |
 
 **LAN Links**
 
 | Origin Device | Origin Port | Link Name (NET) | Description          |
 |---------------|-------------|-----------------|----------------------|
 | hub | Ethernet1 | rs_1 | Carrier Ethernet |
-| s1 | swp1 | rs_1 | Carrier Ethernet |
-| s2 | swp1 | rs_1 | Carrier Ethernet |
+| s1 | eth1 | rs_1 | Carrier Ethernet |
+| s2 | eth1 | rs_1 | Carrier Ethernet |
 
 ### Lab Addressing
 
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
 | **c1** |  10.0.0.4/32 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | c1 -> hub |
-| swp2 | 10.1.0.9/30 |  | c1 -> c2 |
+| eth1 | 10.1.0.1/30 |  | c1 -> hub |
+| eth2 | 10.1.0.9/30 |  | c1 -> c2 |
 | **c2** |  10.0.0.5/32 |  | Loopback |
-| swp1 | 10.1.0.5/30 |  | c2 -> hub |
-| swp2 | 10.1.0.10/30 |  | c2 -> c1 |
+| eth1 | 10.1.0.5/30 |  | c2 -> hub |
+| eth2 | 10.1.0.10/30 |  | c2 -> c1 |
 | **hub** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 172.16.42.1/24 |  | Carrier Ethernet |
 | Ethernet2 | 10.1.0.2/30 |  | hub -> c1 |
 | Ethernet3 | 10.1.0.6/30 |  | hub -> c2 |
 | **s1** |  10.0.0.2/32 |  | Loopback |
-| swp1 | 172.16.42.2/24 |  | Carrier Ethernet |
+| eth1 | 172.16.42.2/24 |  | Carrier Ethernet |
 | **s2** |  10.0.0.3/32 |  | Loopback |
-| swp1 | 172.16.42.3/24 |  | Carrier Ethernet |
+| eth1 | 172.16.42.3/24 |  | Carrier Ethernet |

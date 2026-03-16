@@ -167,9 +167,9 @@ The following information might help you if you plan to build custom lab infrast
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| c1 | Ethernet1 | x1 | swp1 |
-| x1 | swp2 | x2 | swp2 |
-| c2 | Ethernet1 | x2 | swp3 |
+| c1 | Ethernet1 | x1 | eth1 |
+| x1 | eth2 | x2 | eth2 |
+| c2 | Ethernet1 | x2 | eth3 |
 | c1 | Ethernet2 | s1 | Ethernet1 |
 | c2 | Ethernet2 | s2 | Ethernet1 |
 
@@ -191,11 +191,11 @@ The following information might help you if you plan to build custom lab infrast
 | Ethernet1 | 10.1.0.9/30 |  | c2 -> x2 |
 | Ethernet2 | 10.1.0.17/30 |  | c2 -> s2 |
 | **x1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> c1 |
-| swp2 | 10.1.0.5/30 |  | x1 -> x2 |
+| eth1 | 10.1.0.2/30 |  | x1 -> c1 |
+| eth2 | 10.1.0.5/30 |  | x1 -> x2 |
 | **x2** |  10.0.0.11/32 |  | Loopback |
-| swp2 | 10.1.0.6/30 |  | x2 -> x1 |
-| swp3 | 10.1.0.10/30 |  | x2 -> c2 |
+| eth2 | 10.1.0.6/30 |  | x2 -> x1 |
+| eth3 | 10.1.0.10/30 |  | x2 -> c2 |
 | **s1** |  10.0.0.3/32 |  | Loopback |
 | Ethernet1 | 10.1.0.14/30 |  | s1 -> c1 |
 | Ethernet2 | 172.16.0.3/24 |  | s1 -> stub |

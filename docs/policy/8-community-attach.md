@@ -161,11 +161,11 @@ The following information might help you if you plan to build custom lab infrast
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| Primary uplink | c1 | Ethernet1 | x1 | swp1 |
-| Backup uplink | c1 | Ethernet2 | x2 | swp1 |
-| Inter-ISP link | x1 | swp2 | x2 | swp2 |
-| Unused link | c2 | Ethernet1 | x1 | swp3 |
-| Site 2, uplink 2 | c2 | Ethernet2 | x2 | swp3 |
+| Primary uplink | c1 | Ethernet1 | x1 | eth1 |
+| Backup uplink | c1 | Ethernet2 | x2 | eth1 |
+| Inter-ISP link | x1 | eth2 | x2 | eth2 |
+| Unused link | c2 | Ethernet1 | x1 | eth3 |
+| Site 2, uplink 2 | c2 | Ethernet2 | x2 | eth3 |
 
 ### Lab Addressing
 
@@ -178,10 +178,10 @@ The following information might help you if you plan to build custom lab infrast
 | Ethernet1 |  |  | Unused link |
 | Ethernet2 | 10.1.0.13/30 |  | Site 2 uplink |
 | **x1** |  172.17.207.1/24 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | Primary uplink |
-| swp2 | 10.1.0.9/30 |  | Inter-ISP link |
-| swp3 |  |  | Unused link |
+| eth1 | 10.1.0.2/30 |  | Primary uplink |
+| eth2 | 10.1.0.9/30 |  | Inter-ISP link |
+| eth3 |  |  | Unused link |
 | **x2** |  172.23.4.1/24 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | Backup uplink |
-| swp2 | 10.1.0.10/30 |  | Inter-ISP link |
-| swp3 | 10.1.0.14/30 |  | Site 2 uplink |
+| eth1 | 10.1.0.6/30 |  | Backup uplink |
+| eth2 | 10.1.0.10/30 |  | Inter-ISP link |
+| eth3 | 10.1.0.14/30 |  | Site 2 uplink |

@@ -166,10 +166,10 @@ traceroute to 192.168.102.1 (192.168.102.1), 30 hops max, 60 byte packets
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| e1 | swp1 | pe1 | Ethernet1 |
+| e1 | eth1 | pe1 | Ethernet1 |
 | pe1 | Ethernet2 | core | Ethernet1 |
 | core | Ethernet2 | pe2 | Ethernet1 |
-| pe2 | Ethernet2 | e2 | swp1 |
+| pe2 | Ethernet2 | e2 | eth1 |
 
 ### Lab Addressing
 
@@ -179,9 +179,9 @@ traceroute to 192.168.102.1 (192.168.102.1), 30 hops max, 60 byte packets
 | Ethernet1 | 10.1.0.5/30 |  | core -> pe1 |
 | Ethernet2 | 10.1.0.9/30 |  | core -> pe2 |
 | **e1** |  192.168.101.1/24 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | e1 -> pe1 |
+| eth1 | 10.1.0.1/30 |  | e1 -> pe1 |
 | **e2** |  192.168.102.1/24 |  | Loopback |
-| swp1 | 10.1.0.13/30 |  | e2 -> pe2 |
+| eth1 | 10.1.0.13/30 |  | e2 -> pe2 |
 | **pe1** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.2/30 |  | pe1 -> e1 |
 | Ethernet2 | 10.1.0.6/30 |  | pe1 -> core |

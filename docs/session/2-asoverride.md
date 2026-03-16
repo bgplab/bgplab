@@ -33,9 +33,9 @@ PE1 and PE2 also run OSPF in the backbone area.
 | Router | Interface | IPv4 Address | Neighbor(s) |
 |--------|-----------|-------------:|-------------|
 | pe1 | Loopback | 10.0.0.1/32 | |
-|  | swp3 | 10.1.0.9/30 | pe2 |
+|  | eth3 | 10.1.0.9/30 | pe2 |
 | pe2 | Loopback | 10.0.0.2/32 | |
-|  | swp3 | 10.1.0.10/30 | pe1 |
+|  | eth3 | 10.1.0.10/30 | pe1 |
 
 ## Device Requirements {#req}
 
@@ -139,11 +139,11 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| PE1-to-CE1 | pe1 | eth1 | ce1 | swp1 |
-| Unused link | pe1 | eth2 | ce2 | swp1 |
-| Unused link | ce1 | swp2 | ce2 | swp2 |
-| Unused link | pe2 | eth1 | ce1 | swp3 |
-| PE2-to-CE2 | pe2 | eth2 | ce2 | swp3 |
+| PE1-to-CE1 | pe1 | eth1 | ce1 | eth1 |
+| Unused link | pe1 | eth2 | ce2 | eth1 |
+| Unused link | ce1 | eth2 | ce2 | eth2 |
+| Unused link | pe2 | eth1 | ce1 | eth3 |
+| PE2-to-CE2 | pe2 | eth2 | ce2 | eth3 |
 | SP internal link | pe1 | eth3 | pe2 | eth3 |
 
 ### Lab Addressing
@@ -151,13 +151,13 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
 | **ce1** |  192.168.10.1/24 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | PE1-to-CE1 |
-| swp2 |  |  | Unused link |
-| swp3 |  |  | Unused link |
+| eth1 | 10.1.0.1/30 |  | PE1-to-CE1 |
+| eth2 |  |  | Unused link |
+| eth3 |  |  | Unused link |
 | **ce2** |  192.168.11.1/24 |  | Loopback |
-| swp1 |  |  | Unused link |
-| swp2 |  |  | Unused link |
-| swp3 | 10.1.0.5/30 |  | PE2-to-CE2 |
+| eth1 |  |  | Unused link |
+| eth2 |  |  | Unused link |
+| eth3 | 10.1.0.5/30 |  | PE2-to-CE2 |
 | **pe1** |  10.0.0.1/32 |  | Loopback |
 | eth1 | 10.1.0.2/30 |  | PE1-to-CE1 |
 | eth2 |  |  | Unused link |

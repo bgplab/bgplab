@@ -248,11 +248,11 @@ You can easily try out both solutions:
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| S1-L1 | s1 | Ethernet1 | l1 | swp1 |
-| S1-L2 | s1 | Ethernet2 | l2 | swp1 |
-| Unused link | l1 | swp2 | l2 | swp2 |
-| S2-L1 | s2 | Ethernet1 | l1 | swp3 |
-| S2-L2 | s2 | Ethernet2 | l2 | swp3 |
+| S1-L1 | s1 | Ethernet1 | l1 | eth1 |
+| S1-L2 | s1 | Ethernet2 | l2 | eth1 |
+| Unused link | l1 | eth2 | l2 | eth2 |
+| S2-L1 | s2 | Ethernet1 | l1 | eth3 |
+| S2-L2 | s2 | Ethernet2 | l2 | eth3 |
 | Unused link | s1 | Ethernet3 | s2 | Ethernet3 |
 
 **Note**: Some interfaces are not used to conform with the predefined 4-router lab topology.
@@ -291,13 +291,13 @@ You can easily try out both solutions:
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
 | **l1** |  10.0.0.1/32 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | S1-L1 |
-| swp2 |  |  | Unused link |
-| swp3 | 10.1.0.9/30 |  | S2-L1 |
+| eth1 | 10.1.0.1/30 |  | S1-L1 |
+| eth2 |  |  | Unused link |
+| eth3 | 10.1.0.9/30 |  | S2-L1 |
 | **l2** |  10.0.0.2/32 |  | Loopback |
-| swp1 | 10.1.0.5/30 |  | S1-L2 |
-| swp2 |  |  | Unused link |
-| swp3 | 10.1.0.13/30 |  | S2-L2 |
+| eth1 | 10.1.0.5/30 |  | S1-L2 |
+| eth2 |  |  | Unused link |
+| eth3 | 10.1.0.13/30 |  | S2-L2 |
 | **s1** |  10.0.0.10/32 |  | Loopback |
 | Ethernet1 | 10.1.0.2/30 |  | S1-L1 |
 | Ethernet2 | 10.1.0.6/30 |  | S1-L2 |

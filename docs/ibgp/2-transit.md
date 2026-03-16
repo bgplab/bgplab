@@ -49,7 +49,7 @@ OSPF backbone area is configured on the following routers in AS 65000:
 |  | Ethernet1 | 10.1.0.1/30 | pe1 |
 |  | Ethernet3 | True | pe2 |
 | pe1 | Loopback | 10.0.0.2/32 | |
-|  | swp1 | 10.1.0.2/30 | core |
+|  | eth1 | 10.1.0.2/30 | core |
 | pe2 | Loopback | 10.0.0.3/32 | |
 |  | Ethernet3 | True | core |
 
