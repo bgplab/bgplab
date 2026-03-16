@@ -32,7 +32,7 @@ Node | Neighbor | Neighbor AS | Neighbor IPv4 |
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `session/4-removeprivate`
 * Execute **netlab up**

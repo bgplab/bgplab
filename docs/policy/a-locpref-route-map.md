@@ -69,7 +69,7 @@ The virtual lab topology uses three additional devices to implement the external
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `policy/a-locpref-route-map`
 * Execute **netlab up** if you have enough memory to start a 7-node lab or **netlab up topology.4-router.yml** if you want to create a 4-node lab[^XC]. You can also [deploy the lab on your lab infrastructure](../external/index.md).

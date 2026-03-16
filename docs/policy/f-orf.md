@@ -39,7 +39,7 @@ There is a single EBGP session between RTR and X1. _netlab_ configures it automa
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Find a [device that supports prefix-based ORF](#req) (for example, FRRouting)
 * If needed, temporarily change the lab device type with the `NETLAB_DEVICE` environment variable, for example:

@@ -51,7 +51,7 @@ While you can use any device [supported by the _netlab_ BGP configuration module
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `challenge/30-reduce-fib`
 * Execute **netlab up**

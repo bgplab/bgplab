@@ -39,7 +39,7 @@ However, X2 (belonging to ISP-2) thinks your router should have AS number 65007:
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `session/3-localas`
 * Execute **netlab up**
