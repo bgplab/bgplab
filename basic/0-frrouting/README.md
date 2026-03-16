@@ -1,3 +1,3 @@
-# Configuring Cumulus Linux and FRRouting
+# Configuring BGP on FRRouting
 
-This directory contains the *netlab* topology file for the **[Configuring Cumulus Linux and FRRouting](../../docs/basic/0-frrouting.md)** lab.
+This directory contains the *netlab* topology file for the **[Configuring BGP on FRRouting](../../docs/basic/0-frrouting.md)** lab.

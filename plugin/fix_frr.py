@@ -10,8 +10,7 @@ device because we want the user to start BGP configuration from scratch.
 
 That approach does not work for FRR containers because you cannot restart FRR
 after modifying /etc/frr/daemons -- restating FRR kills the top-level container
-process. Cumulus Linux does not have the same problem as it runs a different
-init process.
+process.
 
 This plugin is a fix for the FRR container initialization: if the user is using
 clab as primary or secondary provider and the RTR device is a FRR container, the

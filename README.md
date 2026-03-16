@@ -6,7 +6,7 @@ The labs cover:
 
 **Basic BGP Setup**
 
-* [Configuring and monitoring routing daemons on Cumulus Linux and FRRouting](basic/0-frrouting)
+* [Configuring BGP on FRRouting](basic/0-frrouting)
 * [Establish a BGP session](basic/1-session)
 * [Connect to two upstream providers](basic/2-multihomed)
 * [Advertise your IP prefixes](basic/3-originate)
@@ -79,4 +79,4 @@ The labs cover:
 
 See [lab documentation](https://bgplabs.net/) for more details and the complete list of planned labs.
 
-[^PC]: Some assembly required: while the Cumulus Linux VMs/containers used for external BGP speakers are easy to download, you'll have to build a Vagrant box or install a Docker container image for your platform.
+[^PC]: Some assembly required: while the FRRouting containers used for external BGP speakers are easy to download, you'll usually have to [build a Vagrant box](https://netlab.tools/labs/libvirt/#vagrant-boxes) or [install a Docker container image](https://netlab.tools/labs/clab/#container-images) for your platform.
