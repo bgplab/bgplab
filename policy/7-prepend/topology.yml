@@ -1,4 +1,4 @@
-# Use AS-path prepending to change incoming traffic flow
+# Use AS-Path Prepending to Influence Incoming Traffic Flow
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate ]

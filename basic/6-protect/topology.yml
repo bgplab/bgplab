@@ -1,4 +1,4 @@
-# Protect BGP sessions with MD5 passwords and GTSM
+# Protect BGP Sessions with Passwords and GTSM
 
 defaults.sources.extra: [ ../../defaults.yml ]
 

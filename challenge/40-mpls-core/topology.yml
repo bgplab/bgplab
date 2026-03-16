@@ -1,4 +1,4 @@
-# BGP-Free Network Core
+# BGP-Free Core in a Transit Network
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 25.12.03

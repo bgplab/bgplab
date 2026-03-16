@@ -1,4 +1,4 @@
-# AS-override lab
+# Fix AS-Path in Environments Reusing BGP AS Numbers
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 

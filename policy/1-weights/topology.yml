@@ -1,4 +1,4 @@
-# Configure BGP weights
+# Select Preferred EBGP Peer with Weights
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ bgp.session, check_validate, adjust ]

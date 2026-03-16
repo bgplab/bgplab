@@ -1,4 +1,4 @@
-# Configure a BGP session using 'local-as'
+# Use Multiple AS Numbers on the Same Router
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

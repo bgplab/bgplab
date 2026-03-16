@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# EBGP-Only Data Center Design
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 2.0.0

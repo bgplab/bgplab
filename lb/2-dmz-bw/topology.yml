@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# EBGP Load Balancing with BGP Link Bandwidth
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

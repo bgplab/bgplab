@@ -1,4 +1,4 @@
-# Configure EBGP sessions over IPv6 LLA
+# EBGP Sessions over IPv6 LLA Interfaces
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# Minimize the Forwarding Table on BGP Routers
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

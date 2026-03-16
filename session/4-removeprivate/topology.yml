@@ -1,4 +1,4 @@
-# Remove private AS from the AS path
+# Remove Private BGP AS Numbers from the AS Path
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

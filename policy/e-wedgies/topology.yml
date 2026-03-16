@@ -1,4 +1,4 @@
-# Attach BGP communities to EBGP updates
+# Resolve BGP Wedgies
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate, bgp.policy, adjust ]

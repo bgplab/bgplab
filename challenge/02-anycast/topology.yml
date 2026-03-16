@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# Implement Anycast Services with BGP
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 2.0.0

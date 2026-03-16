@@ -7,34 +7,34 @@ The labs cover:
 **Basic BGP Setup**
 
 * [Configuring BGP on FRRouting](basic/0-frrouting)
-* [Establish a BGP session](basic/1-session)
-* [Connect to two upstream providers](basic/2-multihomed)
-* [Advertise your IP prefixes](basic/3-originate)
+* [Configure a Single EBGP Session](basic/1-session)
+* [Configure Multiple EBGP Sessions](basic/2-multihomed)
+* [Advertise IPv4 Prefixes to BGP Neighbors](basic/3-originate)
 * [Configure BGP for IPv6](basic/4-ipv6)
 * [Redistribute IGP Information Into BGP](basic/5-redistribute)
 
 **Protecting BGP Sessions**
 
-* [Protect EBGP sessions](basic/6-protect) with MD5 passwords and TTL protection (GTSM)
-* Protect BGP sessions with [TCP Authentication Option (TCP-AO)](basic/9-ao)
+* [Protect BGP Sessions with Passwords and GTSM](basic/6-protect)
+* [Protect BGP Sessions with TCP Authentication Option (TCP-AO)](basic/9-ao)
 * [Limit the Number of Accepted BGP Prefixes](basic/b-max-prefix)
 
 **Running BGP in Larger Networks**
 
-* [Establish an IBGP session](ibgp/1-edge) between WAN edge routers
+* [Establish an IBGP Session Between WAN Edge Routers](ibgp/1-edge)
 * [Build a Transit Network with IBGP](ibgp/2-transit)
 * [Use BGP Route Reflectors](ibgp/3-rr)
-* [Use BGP Session Templates](session/6-templates)
-* [Use BGP Policy Templates](session/7-policy)
+* [BGP Session Templates](session/6-templates)
+* [BGP Policy Templates](session/7-policy)
 * [Dynamic BGP Peers](session/9-dynamic)
 
 **Simple BGP Routing Policies**
 
-* [Use BGP weights](policy/1-weights) to prefer one of the upstream providers
-* [Prevent route leaking between upstream providers](policy/2-stop-transit) with an AS-path filter
-* [Filter prefixes advertised by your autonomous system](policy/3-prefix) with a prefix list
-* [Minimize the size of your BGP table](policy/4-reduce) with inbound filters
-* [Implement a consistent AS-wide routing policy](policy/5-local-preference) with BGP local preference.
+* [Select Preferred EBGP Peer with Weights](policy/1-weights)
+* [Filter Transit Routes](policy/2-stop-transit)
+* [Filter Advertised Prefixes](policy/3-prefix)
+* [Minimize the Size of Your BGP Table](policy/4-reduce)
+* [Select Preferred Uplink with BGP Local Preference](policy/5-local-preference)
 * [Use MED to Influence Incoming Traffic Flow](policy/6-med)
 * [Use AS-Path Prepending to Influence Incoming Traffic Flow](policy/7-prepend)
 * [Attach BGP Communities to Outgoing BGP Updates](policy/8-community-attach)
@@ -44,8 +44,8 @@ The labs cover:
 **Complex BGP Routing Policies**
 
 * [Use BGP Communities in Routing Policies](policy/9-community-use)
-* [Using BGP Local Preference in a Complex Routing Policy](policy/a-locpref-route-map)
-* [Use BGP Policy Templates](session/7-policy)
+* [BGP Local Preference in a Complex Routing Policy](policy/a-locpref-route-map)
+* [BGP Policy Templates](session/7-policy)
 * [Resolve BGP Wedgies](policy/e-wedgies)
 
 **Load Balancing**
@@ -57,8 +57,8 @@ The labs cover:
 
 **Advanced Topics**
 
-* [Use BFD to Speed Up BGP Convergence](basic/7-bfd)
-* [BGP route aggregation](basic/8-aggregate)
+* [Use BGP Timers and BFD to Speed Up BGP Convergence](basic/7-bfd)
+* [BGP Route Aggregation](basic/8-aggregate)
 * [Running EBGP Across a Firewall](basic/e-ebgp-multihop)
 * [Reuse a BGP AS Number Across Multiple Sites](session/1-allowas_in)
 * [Fix AS-Path in Environments Reusing BGP AS Numbers](session/2-asoverride)
@@ -71,7 +71,7 @@ The labs cover:
 
 **Challenge Labs**
 
-* [Using Bird BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr)
+* [Using BIRD BGP Daemon as a BGP Route Reflector](challenge/01-bird-rr)
 * [Merge Networks Using Different BGP AS Numbers](challenge/20-merge-as)
 * [Stop the Propagation of Configuration Errors](challenge/04-block-fat-fingers/)
 * [Minimize the Forwarding Table on BGP Routers](challenge/30-reduce-fib)

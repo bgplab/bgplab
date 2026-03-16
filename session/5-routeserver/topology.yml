@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# BGP Route Server in an Internet Exchange Point
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

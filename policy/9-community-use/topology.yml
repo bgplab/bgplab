@@ -1,4 +1,4 @@
-# Use BGP communities in a complex routing policy
+# Use BGP Communities in Routing Policies
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate, bgp.policy, adjust ]

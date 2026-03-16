@@ -1,4 +1,4 @@
-# Attach BGP communities to EBGP updates
+# Attach BGP Communities to Outgoing BGP Updates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate, bgp.policy, adjust ]

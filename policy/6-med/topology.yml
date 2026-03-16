@@ -1,4 +1,4 @@
-# Use MED to steer incoming traffic away from the backup link
+# Use MED to Influence Incoming Traffic Flow
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 2.0.0

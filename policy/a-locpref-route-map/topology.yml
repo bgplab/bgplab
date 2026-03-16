@@ -1,4 +1,4 @@
-# Configure local preference in a complex environment
+# BGP Local Preference in a Complex Routing Policy
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 2.0.0

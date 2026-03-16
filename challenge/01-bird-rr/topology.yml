@@ -1,4 +1,4 @@
-# Using Bird BGP Daemon as a BGP Route Reflector
+# Using BIRD BGP Daemon as a BGP Route Reflector
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 defaults.paths.plugin: [ "topology:../../plugin", "package:extra" ]
