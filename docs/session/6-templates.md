@@ -42,11 +42,11 @@ All four routers are running OSPF in area 0:
 | Router | Interface | IPv4 Address | Neighbor(s) |
 |--------|-----------|-------------:|-------------|
 | l1 | Loopback | 10.0.0.3/32 | |
-|  | swp1 | 10.1.0.1/30 | s1 |
-|  | swp2 | 10.1.0.5/30 | s2 |
+|  | eth1 | 10.1.0.1/30 | s1 |
+|  | eth2 | 10.1.0.5/30 | s2 |
 | l2 | Loopback | 10.0.0.4/32 | |
-|  | swp1 | 10.1.0.9/30 | s1 |
-|  | swp2 | 10.1.0.13/30 | s2 |
+|  | eth1 | 10.1.0.9/30 | s1 |
+|  | eth2 | 10.1.0.13/30 | s2 |
 | s1 | Loopback | 10.0.0.1/32 | |
 |  | Ethernet1 | 10.1.0.2/30 | l1 |
 |  | Ethernet2 | 10.1.0.10/30 | l2 |
@@ -175,21 +175,21 @@ RPKI validation codes: V valid, I invalid, N Not found
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| l1 | swp1 | s1 | Ethernet1 |
-| l1 | swp2 | s2 | Ethernet1 |
-| l2 | swp1 | s1 | Ethernet2 |
-| l2 | swp2 | s2 | Ethernet2 |
+| l1 | eth1 | s1 | Ethernet1 |
+| l1 | eth2 | s2 | Ethernet1 |
+| l2 | eth1 | s1 | Ethernet2 |
+| l2 | eth2 | s2 | Ethernet2 |
 
 ### Lab Addressing
 
 | Node/Interface | IPv4 Address | IPv6 Address | Description |
 |----------------|-------------:|-------------:|-------------|
 | **l1** |  10.0.0.3/32 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | l1 -> s1 |
-| swp2 | 10.1.0.5/30 |  | l1 -> s2 |
+| eth1 | 10.1.0.1/30 |  | l1 -> s1 |
+| eth2 | 10.1.0.5/30 |  | l1 -> s2 |
 | **l2** |  10.0.0.4/32 |  | Loopback |
-| swp1 | 10.1.0.9/30 |  | l2 -> s1 |
-| swp2 | 10.1.0.13/30 |  | l2 -> s2 |
+| eth1 | 10.1.0.9/30 |  | l2 -> s1 |
+| eth2 | 10.1.0.13/30 |  | l2 -> s2 |
 | **s1** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.2/30 |  | s1 -> l1 |
 | Ethernet2 | 10.1.0.10/30 |  | s1 -> l2 |

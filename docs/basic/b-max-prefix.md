@@ -159,13 +159,13 @@ Point-to-Point links:
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| rtr | Ethernet1 | customer | swp1 |
+| rtr | Ethernet1 | customer | eth1 |
 
 Stub links:
 
 | Origin Device | Origin Port | Description          |
 |---------------|-------------|----------------------|
-| customer | swp2 | customer -> stub |
+| customer | eth2 | customer -> stub |
 
 ### Lab Addressing
 
@@ -174,5 +174,5 @@ Stub links:
 | **rtr** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 10.1.0.2/30 |  | rtr -> customer | 
 | **customer** |  192.168.100.1/24 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | customer -> rtr |
-| swp2 | 10.42.1.10/24 |  | customer -> stub |
+| eth1 | 10.1.0.1/30 |  | customer -> rtr |
+| eth2 | 10.42.1.10/24 |  | customer -> stub |

@@ -166,11 +166,11 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| Site_A-to-ISP | ce1 | Ethernet1 | pe1 | swp1 |
-| Unused link | ce1 | Ethernet2 | pe2 | swp1 |
-| Intra-ISP link | pe1 | swp2 | pe2 | swp2 |
-| Unused link | ce2 | Ethernet1 | pe1 | swp3 |
-| Site_B-to-ISP | ce2 | Ethernet2 | pe2 | swp3 |
+| Site_A-to-ISP | ce1 | Ethernet1 | pe1 | eth1 |
+| Unused link | ce1 | Ethernet2 | pe2 | eth1 |
+| Intra-ISP link | pe1 | eth2 | pe2 | eth2 |
+| Unused link | ce2 | Ethernet1 | pe1 | eth3 |
+| Site_B-to-ISP | ce2 | Ethernet2 | pe2 | eth3 |
 
 ### Lab Addressing
 
@@ -183,10 +183,10 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 | Ethernet1 |  |  | Unused link |
 | Ethernet2 | 10.1.0.9/30 |  | Site_B-to-ISP |
 | **pe1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | Site_A-to-ISP |
-| swp2 | 10.1.0.5/30 |  | Intra-ISP link |
-| swp3 |  |  | Unused link |
+| eth1 | 10.1.0.2/30 |  | Site_A-to-ISP |
+| eth2 | 10.1.0.5/30 |  | Intra-ISP link |
+| eth3 |  |  | Unused link |
 | **pe2** |  10.0.0.11/32 |  | Loopback |
-| swp1 |  |  | Unused link |
-| swp2 | 10.1.0.6/30 |  | Intra-ISP link |
-| swp3 | 10.1.0.10/30 |  | Site_B-to-ISP |
+| eth1 |  |  | Unused link |
+| eth2 | 10.1.0.6/30 |  | Intra-ISP link |
+| eth3 | 10.1.0.10/30 |  | Site_B-to-ISP |

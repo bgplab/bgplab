@@ -282,9 +282,9 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| WAN uplink R1-to-X1 | r1 | Ethernet1 | x1 | swp1 |
-| WAN uplink R2-to-X2 | r2 | Ethernet2 | x2 | swp3 |
-| Inter-ISP link X1-to-X2 | x1 | swp2 | x2 | swp2 |
+| WAN uplink R1-to-X1 | r1 | Ethernet1 | x1 | eth1 |
+| WAN uplink R2-to-X2 | r2 | Ethernet2 | x2 | eth3 |
+| Inter-ISP link X1-to-X2 | x1 | eth2 | x2 | eth2 |
 | Intra-site LAN C1-C2 | r1 | Ethernet3 | r2 | Ethernet3 |
 
 **Note**: Some interfaces are not used to conform with the predefined 4-router lab topology.
@@ -302,12 +302,12 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 | Ethernet2 | 10.1.0.9/30 |  | WAN uplink R2-to-X2 |
 | Ethernet3 | 10.0.100.2/24 |  | Intra-site LAN C1-C2 |
 | **x1** |  192.168.100.1/24 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | WAN uplink R1-to-X1 |
-| swp2 | 10.1.0.5/30 |  | Inter-ISP link X1-to-X2 |
-| swp3 |  |  | |
+| eth1 | 10.1.0.2/30 |  | WAN uplink R1-to-X1 |
+| eth2 | 10.1.0.5/30 |  | Inter-ISP link X1-to-X2 |
+| eth3 |  |  | |
 | **x2** |  172.16.101.1/24 |  | Loopback |
-| swp1 |  |  | |
-| swp2 | 10.1.0.6/30 |  | Inter-ISP link X1-to-X2 |
-| swp3 | 10.1.0.10/30 |  | WAN uplink R2-to-X2 |
+| eth1 |  |  | |
+| eth2 | 10.1.0.6/30 |  | Inter-ISP link X1-to-X2 |
+| eth3 | 10.1.0.10/30 |  | WAN uplink R2-to-X2 |
 
 **Note**: Some interfaces are not configured with IP addresses to conform with the predefined 4-router lab topology.

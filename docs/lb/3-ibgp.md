@@ -136,10 +136,10 @@ core#show ip route 10.1.3.0
 |---------------|-------------|--------------------|------------------|
 | core | Ethernet1 | we1 | Ethernet1 |
 | core | Ethernet2 | we2 | Ethernet1 |
-| we1 | Ethernet2 | x1 | swp1 |
-| we1 | Ethernet3 | x1 | swp2 |
-| we2 | Ethernet2 | x2 | swp1 |
-| x1 | swp3 | x2 | swp2 |
+| we1 | Ethernet2 | x1 | eth1 |
+| we1 | Ethernet3 | x1 | eth2 |
+| we2 | Ethernet2 | x2 | eth1 |
+| x1 | eth3 | x2 | eth2 |
 
 ### Lab Addressing
 
@@ -156,9 +156,9 @@ core#show ip route 10.1.3.0
 | Ethernet1 | 10.1.0.6/30 |  | we2 -> core |
 | Ethernet2 | 10.1.0.17/30 |  | we2 -> x2 |
 | **x1** |  10.0.0.4/32 |  | Loopback |
-| swp1 | 10.1.0.10/30 |  | x1 -> we1 |
-| swp2 | 10.1.0.14/30 |  | x1 -> we1 |
-| swp3 | 10.1.0.21/30 |  | x1 -> x2 |
+| eth1 | 10.1.0.10/30 |  | x1 -> we1 |
+| eth2 | 10.1.0.14/30 |  | x1 -> we1 |
+| eth3 | 10.1.0.21/30 |  | x1 -> x2 |
 | **x2** |  10.0.0.5/32 |  | Loopback |
-| swp1 | 10.1.0.18/30 |  | x2 -> we2 |
-| swp2 | 10.1.0.22/30 |  | x2 -> x1 |
+| eth1 | 10.1.0.18/30 |  | x2 -> we2 |
+| eth2 | 10.1.0.22/30 |  | x2 -> x1 |

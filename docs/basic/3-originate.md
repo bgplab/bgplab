@@ -157,8 +157,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| rtr | Ethernet1 | x1 | swp1 |
-| rtr | Ethernet2 | x2 | swp1 |
+| rtr | Ethernet1 | x1 | eth1 |
+| rtr | Ethernet2 | x2 | eth1 |
 
 ### Lab Addressing
 

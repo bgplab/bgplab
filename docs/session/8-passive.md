@@ -116,8 +116,8 @@ Now clear all BGP sessions on the hub router with a command similar to **clear i
 |---------------|-------------|-----------------|----------------------|
 | hub | Ethernet1 | passive_1 | Carrier Ethernet LAN |
 | s1 | Ethernet1 | passive_1 | Carrier Ethernet LAN |
-| s2 | swp1 | passive_1 | Carrier Ethernet LAN |
-| s3 | swp1 | passive_1 | Carrier Ethernet LAN |
+| s2 | eth1 | passive_1 | Carrier Ethernet LAN |
+| s3 | eth1 | passive_1 | Carrier Ethernet LAN |
 
 ### Lab Addressing
 
@@ -128,6 +128,6 @@ Now clear all BGP sessions on the hub router with a command similar to **clear i
 | **s1** |  10.0.0.2/32 |  | Loopback |
 | Ethernet1 | 172.16.0.2/24 |  | Carrier Ethernet LAN |
 | **s2** |  10.0.0.3/32 |  | Loopback |
-| swp1 | 172.16.0.3/24 |  | Carrier Ethernet LAN |
+| eth1 | 172.16.0.3/24 |  | Carrier Ethernet LAN |
 | **s3** |  10.0.0.4/32 |  | Loopback |
-| swp1 | 172.16.0.4/24 |  | Carrier Ethernet LAN |
+| eth1 | 172.16.0.4/24 |  | Carrier Ethernet LAN |

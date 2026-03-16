@@ -182,11 +182,11 @@ The following information might help you if you plan to build custom lab infrast
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| Primary uplink | c1 | Ethernet1 | p1 | swp1 |
-| Backup uplink | c1 | Ethernet2 | p2 | swp1 |
-| P1 uplink | p1 | swp2 | u1 | swp1 |
-| P2 uplink | p2 | swp2 | u2 | swp1 |
-| Upstream peering link | u1 | swp2 | u2 | swp2 |
+| Primary uplink | c1 | Ethernet1 | p1 | eth1 |
+| Backup uplink | c1 | Ethernet2 | p2 | eth1 |
+| P1 uplink | p1 | eth2 | u1 | eth1 |
+| P2 uplink | p2 | eth2 | u2 | eth1 |
+| Upstream peering link | u1 | eth2 | u2 | eth2 |
 
 ### Lab Addressing
 
@@ -196,14 +196,14 @@ The following information might help you if you plan to build custom lab infrast
 | Ethernet1 | 10.1.0.1/30 |  | Primary uplink |
 | Ethernet2 | 10.1.0.5/30 |  | Backup uplink |
 | **p1** |  172.17.207.1/24 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | Primary uplink |
-| swp2 | 10.1.0.9/30 |  | P1 uplink |
+| eth1 | 10.1.0.2/30 |  | Primary uplink |
+| eth2 | 10.1.0.9/30 |  | P1 uplink |
 | **p2** |  172.23.4.1/24 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | Backup uplink |
-| swp2 | 10.1.0.13/30 |  | P2 uplink |
+| eth1 | 10.1.0.6/30 |  | Backup uplink |
+| eth2 | 10.1.0.13/30 |  | P2 uplink |
 | **u1** |  10.0.0.4/32 |  | Loopback |
-| swp1 | 10.1.0.10/30 |  | P1 uplink |
-| swp2 | 10.1.0.17/30 |  | Upstream peering link |
+| eth1 | 10.1.0.10/30 |  | P1 uplink |
+| eth2 | 10.1.0.17/30 |  | Upstream peering link |
 | **u2** |  10.0.0.5/32 |  | Loopback |
-| swp1 | 10.1.0.14/30 |  | P2 uplink |
-| swp2 | 10.1.0.18/30 |  | Upstream peering link |
+| eth1 | 10.1.0.14/30 |  | P2 uplink |
+| eth2 | 10.1.0.18/30 |  | Upstream peering link |

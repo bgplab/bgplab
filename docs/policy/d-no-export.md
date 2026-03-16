@@ -170,11 +170,11 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| Link to AS 65100 | c1 | Ethernet1 | x1 | swp1 |
-| Unused link | c1 | Ethernet2 | x2 | swp1 |
-| Unused link | x1 | swp2 | x2 | swp2 |
-| Unused link | c2 | Ethernet1 | x1 | swp3 |
-| Link to AS 65101 | c2 | Ethernet2 | x2 | swp3 |
+| Link to AS 65100 | c1 | Ethernet1 | x1 | eth1 |
+| Unused link | c1 | Ethernet2 | x2 | eth1 |
+| Unused link | x1 | eth2 | x2 | eth2 |
+| Unused link | c2 | Ethernet1 | x1 | eth3 |
+| Link to AS 65101 | c2 | Ethernet2 | x2 | eth3 |
 | Customer internal link | c1 | Ethernet3 | c2 | Ethernet3 |
 
 ### Lab Addressing
@@ -190,10 +190,10 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 | Ethernet2 | 10.1.0.5/30 |  | Link to AS 65101 |
 | Ethernet3 | 172.16.0.2/24 |  | Customer internal link |
 | **x1** |  10.42.100.1/24 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | Link to AS 65100 |
-| swp2 |  |  | Unused link |
-| swp3 |  |  | Unused link |
+| eth1 | 10.1.0.2/30 |  | Link to AS 65100 |
+| eth2 |  |  | Unused link |
+| eth3 |  |  | Unused link |
 | **x2** |  10.43.101.1/24 |  | Loopback |
-| swp1 |  |  | Unused link |
-| swp2 |  |  | Unused link |
-| swp3 | 10.1.0.6/30 |  | Link to AS 65101 |
+| eth1 |  |  | Unused link |
+| eth2 |  |  | Unused link |
+| eth3 | 10.1.0.6/30 |  | Link to AS 65101 |

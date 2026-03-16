@@ -149,9 +149,9 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| rtr | Ethernet1 | x1 | swp1 |
-| rtr | Ethernet2 | x2 | swp1 |
-| x1 | swp2 | x2 | swp2 |
+| rtr | Ethernet1 | x1 | eth1 |
+| rtr | Ethernet2 | x2 | eth1 |
+| x1 | eth2 | x2 | eth2 |
 
 !!! note
     You don't have to use the X1-X2 link, but you'll have to adjust the initial device configurations for X1 and X2 if you decide not to use it.
@@ -164,8 +164,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
 | **x1** |  10.0.0.2/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> rtr |
-| swp2 | 10.1.0.9/30 |  | x1 -> x2 |
+| eth1 | 10.1.0.2/30 |  | x1 -> rtr |
+| eth2 | 10.1.0.9/30 |  | x1 -> x2 |
 | **x2** |  10.0.0.3/32 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | x2 -> rtr |
-| swp2 | 10.1.0.10/30 |  | x2 -> x1 |
+| eth1 | 10.1.0.6/30 |  | x2 -> rtr |
+| eth2 | 10.1.0.10/30 |  | x2 -> x1 |

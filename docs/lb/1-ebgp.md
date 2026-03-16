@@ -91,11 +91,11 @@ Codes: K - kernel route, C - connected, S - static, R - RIP,
        F - PBR, f - OpenFabric,
        > - selected route, * - FIB route, q - queued, r - rejected, b - backup
        t - trapped, o - offload failure
-B>* 10.1.3.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
-  *                    via 10.1.0.5, swp2, weight 1, 00:00:08
-B>* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
-  *                    via 10.1.0.5, swp2, weight 1, 00:00:08
-  *                    via 10.1.0.9, swp3, weight 1, 00:00:08
+B>* 10.1.3.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:08
+  *                    via 10.1.0.5, eth2, weight 1, 00:00:08
+B>* 10.7.5.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:08
+  *                    via 10.1.0.5, eth2, weight 1, 00:00:08
+  *                    via 10.1.0.9, eth3, weight 1, 00:00:08
 ```
 
 **Next:** [EBGP Load Balancing with BGP Link Bandwidth](2-dmz-bw.md)
@@ -108,12 +108,12 @@ The following information might help you if you plan to build custom lab infrast
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| rtr | Ethernet1 | p1 | swp1 |
-| rtr | Ethernet2 | p2 | swp1 |
-| rtr | Ethernet3 | p3 | swp1 |
-| p1 | swp2 | p2 | swp2 |
-| p2 | swp3 | c2 | swp1 |
-| p3 | swp2 | c2 | swp2 |
+| rtr | Ethernet1 | p1 | eth1 |
+| rtr | Ethernet2 | p2 | eth1 |
+| rtr | Ethernet3 | p3 | eth1 |
+| p1 | eth2 | p2 | eth2 |
+| p2 | eth3 | c2 | eth1 |
+| p3 | eth2 | c2 | eth2 |
 
 ### Lab Addressing
 
@@ -124,15 +124,15 @@ The following information might help you if you plan to build custom lab infrast
 | Ethernet2 | 10.1.0.6/30 |  | rtr -> p2 |
 | Ethernet3 | 10.1.0.10/30 |  | rtr -> p3 |
 | **c2** |  10.7.5.1/24 |  | Loopback |
-| swp1 | 10.1.0.17/30 |  | c2 -> p2 |
-| swp2 | 10.1.0.21/30 |  | c2 -> p3 |
+| eth1 | 10.1.0.17/30 |  | c2 -> p2 |
+| eth2 | 10.1.0.21/30 |  | c2 -> p3 |
 | **p1** |  10.0.0.2/32 |  | Loopback |
-| swp1 | 10.1.0.1/30 |  | p1 -> rtr |
-| swp2 | 10.1.0.13/30 |  | p1 -> p2 |
+| eth1 | 10.1.0.1/30 |  | p1 -> rtr |
+| eth2 | 10.1.0.13/30 |  | p1 -> p2 |
 | **p2** |  10.0.0.3/32 |  | Loopback |
-| swp1 | 10.1.0.5/30 |  | p2 -> rtr |
-| swp2 | 10.1.0.14/30 |  | p2 -> p1 |
-| swp3 | 10.1.0.18/30 |  | p2 -> c2 |
+| eth1 | 10.1.0.5/30 |  | p2 -> rtr |
+| eth2 | 10.1.0.14/30 |  | p2 -> p1 |
+| eth3 | 10.1.0.18/30 |  | p2 -> c2 |
 | **p3** |  10.0.0.4/32 |  | Loopback |
-| swp1 | 10.1.0.9/30 |  | p3 -> rtr |
-| swp2 | 10.1.0.22/30 |  | p3 -> c2 |
+| eth1 | 10.1.0.9/30 |  | p3 -> rtr |
+| eth2 | 10.1.0.22/30 |  | p3 -> c2 |

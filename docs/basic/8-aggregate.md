@@ -42,8 +42,8 @@ If you're using *netlab, *you'll start with a preconfigured lab -- *netlab* 
 | ce1 | Loopback | 10.0.0.1/32 | |
 |  | Ethernet2 | 10.1.0.5/30 | sw |
 | sw | Loopback | 10.42.42.1/32 | |
-|  | swp1 | 10.1.0.6/30 | ce1 |
-|  | swp3 | 10.42.42.129/25 | passive |
+|  | eth1 | 10.1.0.6/30 | ce1 |
+|  | eth3 | 10.42.42.129/25 | passive |
 
 ## Device Requirements {#req}
 
@@ -184,9 +184,9 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| ce1 | Ethernet1 | x1 | swp1 |
-| ce1 | Ethernet2 | sw | swp1 |
-| ce2 | Ethernet1 | x1 | swp3 |
+| ce1 | Ethernet1 | x1 | eth1 |
+| ce1 | Ethernet2 | sw | eth1 |
+| ce2 | Ethernet1 | x1 | eth3 |
 
 ### Lab Addressing
 
@@ -198,9 +198,9 @@ This lab uses the [4-router lab topology](../external/4-router.md). The followin
 | **ce2** |  10.0.0.2/32 |  | Loopback |
 | Ethernet1 | 10.1.0.9/30 |  | ce2 -> x1 |
 | **sw** |  10.0.0.3/32 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | sw -> ce1 |
+| eth1 | 10.1.0.6/30 |  | sw -> ce1 |
 | lo1 | 10.42.42.129/25 |  | Loopback |
 | lo2 | 10.42.42.17/28 |  | Loopback |
 | **x1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> ce1 |
-| swp3 | 10.1.0.10/30 |  | x1 -> ce2 |
+| eth1 | 10.1.0.2/30 |  | x1 -> ce1 |
+| eth3 | 10.1.0.10/30 |  | x1 -> ce2 |

@@ -136,9 +136,9 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 
 | Origin Device | Origin Port | Destination Device | Destination Port |
 |---------------|-------------|--------------------|------------------|
-| rtr | Ethernet1 | x1 | swp1 |
-| rtr | Ethernet2 | x2 | swp1 |
-| x1 | swp2 | x2 | swp2 |
+| rtr | Ethernet1 | x1 | eth1 |
+| rtr | Ethernet2 | x2 | eth1 |
+| x1 | eth2 | x2 | eth2 |
 
 ### Lab Addressing
 
@@ -148,8 +148,8 @@ This lab uses a subset of the [4-router lab topology](../external/4-router.md). 
 | Ethernet1 | 10.1.0.1/30 |  | rtr -> x1 |
 | Ethernet2 | 10.1.0.5/30 |  | rtr -> x2 |
 | **x1** |  192.168.100.1/24 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | x1 -> rtr |
-| swp2 | 10.1.0.9/30 |  | x1 -> x2 |
+| eth1 | 10.1.0.2/30 |  | x1 -> rtr |
+| eth2 | 10.1.0.9/30 |  | x1 -> x2 |
 | **x2** |  192.168.101.1/24 |  | Loopback |
-| swp1 | 10.1.0.6/30 |  | x2 -> rtr |
-| swp2 | 10.1.0.10/30 |  | x2 -> x1 |
+| eth1 | 10.1.0.6/30 |  | x2 -> rtr |
+| eth2 | 10.1.0.10/30 |  | x2 -> x1 |

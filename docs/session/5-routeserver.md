@@ -135,8 +135,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 | Origin Device | Origin Port | Link Name (NET) | Description          |
 |---------------|-------------|-----------------|----------------------|
 | isp1 | Ethernet1 | rs_1 | IXP LAN |
-| isp2 | swp1 | rs_1 | IXP LAN |
-| isp3 | swp1 | rs_1 | IXP LAN |
+| isp2 | eth1 | rs_1 | IXP LAN |
+| isp3 | eth1 | rs_1 | IXP LAN |
 | rs | Ethernet1 | rs_1 | IXP LAN |
 
 ### Lab Addressing
@@ -146,8 +146,8 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 | **isp1** |  192.168.100.1/24 |  | Loopback |
 | Ethernet1 | 172.16.42.2/24 |  | IXP LAN |
 | **isp2** |  192.168.103.1/24 |  | Loopback |
-| swp1 | 172.16.42.3/24 |  | IXP LAN |
+| eth1 | 172.16.42.3/24 |  | IXP LAN |
 | **isp3** |  192.168.107.1/24 |  | Loopback |
-| swp1 | 172.16.42.4/24 |  | IXP LAN |
+| eth1 | 172.16.42.4/24 |  | IXP LAN |
 | **rs** |  10.0.0.1/32 |  | Loopback |
 | Ethernet1 | 172.16.42.1/24 |  | IXP LAN |

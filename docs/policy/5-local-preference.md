@@ -143,11 +143,11 @@ The following information might help you if you plan to build custom lab infrast
 
 | Link Name       | Origin Device | Origin Port | Destination Device | Destination Port |
 |-----------------|---------------|-------------|--------------------|------------------|
-| Primary uplink | c1 | Ethernet1 | x1 | swp1 |
-| Unused link | c1 | Ethernet2 | x2 | swp1 |
-| ISP internal link | x1 | swp2 | x2 | swp2 |
-| Unused link | c2 | Ethernet1 | x1 | swp3 |
-| Backup uplink | c2 | Ethernet2 | x2 | swp3 |
+| Primary uplink | c1 | Ethernet1 | x1 | eth1 |
+| Unused link | c1 | Ethernet2 | x2 | eth1 |
+| ISP internal link | x1 | eth2 | x2 | eth2 |
+| Unused link | c2 | Ethernet1 | x1 | eth3 |
+| Backup uplink | c2 | Ethernet2 | x2 | eth3 |
 | Customer internal link | c1 | Ethernet3 | c2 | Ethernet3 |
 
 ### Lab Addressing
@@ -163,10 +163,10 @@ The following information might help you if you plan to build custom lab infrast
 | Ethernet2 | 10.1.0.5/30 |  | Backup uplink |
 | Ethernet3 | 192.168.42.2/24 |  | Customer internal link |
 | **x1** |  10.0.0.10/32 |  | Loopback |
-| swp1 | 10.1.0.2/30 |  | Primary uplink |
-| swp2 | 192.168.100.10/24 |  | ISP internal link |
-| swp3 |  |  | Unused link |
+| eth1 | 10.1.0.2/30 |  | Primary uplink |
+| eth2 | 192.168.100.10/24 |  | ISP internal link |
+| eth3 |  |  | Unused link |
 | **x2** |  10.0.0.11/32 |  | Loopback |
-| swp1 |  |  | Unused link |
-| swp2 | 192.168.100.11/24 |  | ISP internal link |
-| swp3 | 10.1.0.6/30 |  | Backup uplink |
+| eth1 |  |  | Unused link |
+| eth2 | 192.168.100.11/24 |  | ISP internal link |
+| eth3 | 10.1.0.6/30 |  | Backup uplink |
