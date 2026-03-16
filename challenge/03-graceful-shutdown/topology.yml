@@ -1,4 +1,4 @@
-# The baseline topology for small (4-router) labs
+# BGP Graceful Shutdown
 #
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ bgp.policy, adjust ]

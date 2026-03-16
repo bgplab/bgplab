@@ -1,4 +1,4 @@
-# Configure BGP session templates
+# BGP Session Templates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

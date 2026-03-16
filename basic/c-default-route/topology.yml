@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# Advertise Default Route in BGP
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

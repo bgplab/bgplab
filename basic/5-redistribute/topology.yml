@@ -1,4 +1,4 @@
-# Configure a BGP session with an external BGP speaker
+# Redistribute IGP Information Into BGP
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate ]

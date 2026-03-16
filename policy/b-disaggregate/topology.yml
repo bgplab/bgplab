@@ -1,4 +1,4 @@
-# Configure BGP weights
+# Use Disaggregated Prefixes to Select the Primary Link
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ bgp.policy, check_validate ]

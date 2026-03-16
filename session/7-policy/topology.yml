@@ -1,4 +1,4 @@
-# Configure BGP policy template
+# BGP Policy Templates
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ check_validate ]

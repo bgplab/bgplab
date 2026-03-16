@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# Dynamic BGP Peers
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

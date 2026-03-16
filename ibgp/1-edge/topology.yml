@@ -1,4 +1,4 @@
-# Configure a BGP session with an external BGP speaker
+# Establish an IBGP Session Between WAN Edge Routers
 
 defaults.sources.extra: [ ../../defaults.yml ]
 

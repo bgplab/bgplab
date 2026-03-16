@@ -1,4 +1,4 @@
-# Configure a BGP session with an external BGP speaker
+# Build a Transit Network with IBGP
 
 defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:           # Make BGP a valid node attribute regardless of what module is used

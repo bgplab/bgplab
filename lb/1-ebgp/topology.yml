@@ -1,4 +1,4 @@
-# Configure a BGP route server
+# Load Balancing across External BGP Paths
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 2.0.0

@@ -1,4 +1,4 @@
-# Use local preference to select the primary uplink
+# Select Preferred Uplink with BGP Local Preference
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 version: 2.0.0

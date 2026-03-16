@@ -1,4 +1,4 @@
-# Configure BGP on FRRouting
+# Configuring BGP on FRRouting
 
 defaults.sources.extra: [ ../../defaults.yml ]
 plugin: [ fix_frr ]

@@ -1,4 +1,4 @@
-# Use local preference to select the primary uplink
+# Using No-Export Community to Filter Transit Routes
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

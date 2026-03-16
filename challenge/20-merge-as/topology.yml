@@ -1,4 +1,4 @@
-# Configure a BGP session using 'local-as'
+# Merge Networks Using Different BGP AS Numbers
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
 

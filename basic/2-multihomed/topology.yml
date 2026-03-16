@@ -1,4 +1,4 @@
-# Configure a BGP session with an external BGP speaker
+# Configure Multiple EBGP Sessions
 
 defaults.sources.extra: [ ../../defaults.yml ]
 
