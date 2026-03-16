@@ -641,11 +641,11 @@ Codes: K - kernel route, C - connected, S - static, R - RIP,
        F - PBR, f - OpenFabric,
        &gt; - selected route, * - FIB route, q - queued, r - rejected, b - backup
        t - trapped, o - offload failure
-B&gt;* 10.1.3.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
-  *                    via 10.1.0.5, swp2, weight 1, 00:00:08
-B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
-  *                    via 10.1.0.5, swp2, weight 1, 00:00:08
-  *                    via 10.1.0.9, swp3, weight 1, 00:00:08
+B&gt;* 10.1.3.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:08
+  *                    via 10.1.0.5, eth2, weight 1, 00:00:08
+B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:08
+  *                    via 10.1.0.5, eth2, weight 1, 00:00:08
+  *                    via 10.1.0.9, eth3, weight 1, 00:00:08
 </code></pre>
 <p><strong>Next:</strong> <a href="../2-dmz-bw/">EBGP Load Balancing with BGP Link Bandwidth</a></p>
 <h2 id="reference-information">Reference Information</h2>
@@ -665,37 +665,37 @@ B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 <td>rtr</td>
 <td>Ethernet1</td>
 <td>p1</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 <tr>
 <td>rtr</td>
 <td>Ethernet2</td>
 <td>p2</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 <tr>
 <td>rtr</td>
 <td>Ethernet3</td>
 <td>p3</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 <tr>
 <td>p1</td>
-<td>swp2</td>
+<td>eth2</td>
 <td>p2</td>
-<td>swp2</td>
+<td>eth2</td>
 </tr>
 <tr>
 <td>p2</td>
-<td>swp3</td>
+<td>eth3</td>
 <td>c2</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 <tr>
 <td>p3</td>
-<td>swp2</td>
+<td>eth2</td>
 <td>c2</td>
-<td>swp2</td>
+<td>eth2</td>
 </tr>
 </tbody>
 </table>
@@ -741,13 +741,13 @@ B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.17/30</td>
 <td style="text-align: right;"></td>
 <td>c2 -&gt; p2</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">10.1.0.21/30</td>
 <td style="text-align: right;"></td>
 <td>c2 -&gt; p3</td>
@@ -759,13 +759,13 @@ B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
 <td>p1 -&gt; rtr</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">10.1.0.13/30</td>
 <td style="text-align: right;"></td>
 <td>p1 -&gt; p2</td>
@@ -777,19 +777,19 @@ B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
 <td>p2 -&gt; rtr</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">10.1.0.14/30</td>
 <td style="text-align: right;"></td>
 <td>p2 -&gt; p1</td>
 </tr>
 <tr>
-<td>swp3</td>
+<td>eth3</td>
 <td style="text-align: right;">10.1.0.18/30</td>
 <td style="text-align: right;"></td>
 <td>p2 -&gt; c2</td>
@@ -801,13 +801,13 @@ B&gt;* 10.7.5.0/24 [20/0] via 10.1.0.1, swp1, weight 1, 00:00:08
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.9/30</td>
 <td style="text-align: right;"></td>
 <td>p3 -&gt; rtr</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">10.1.0.22/30</td>
 <td style="text-align: right;"></td>
 <td>p3 -&gt; c2</td>

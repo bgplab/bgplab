@@ -753,45 +753,45 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 <tbody>
 <tr>
 <td>we1</td>
-<td>swp1</td>
+<td>eth1</td>
 <td>x1</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 <tr>
 <td>we2</td>
-<td>swp1</td>
+<td>eth1</td>
 <td>x2</td>
-<td>swp1</td>
+<td>eth1</td>
 </tr>
 <tr>
 <td>ac1</td>
 <td>Ethernet1</td>
 <td>we1</td>
-<td>swp2</td>
+<td>eth2</td>
 </tr>
 <tr>
 <td>ac1</td>
 <td>Ethernet2</td>
 <td>we2</td>
-<td>swp2</td>
+<td>eth2</td>
 </tr>
 <tr>
 <td>rr</td>
 <td>Ethernet1</td>
 <td>we1</td>
-<td>swp3</td>
+<td>eth3</td>
 </tr>
 <tr>
 <td>rr</td>
 <td>Ethernet2</td>
 <td>we2</td>
-<td>swp3</td>
+<td>eth3</td>
 </tr>
 <tr>
 <td>x1</td>
-<td>swp2</td>
+<td>eth2</td>
 <td>x2</td>
-<td>swp2</td>
+<td>eth2</td>
 </tr>
 </tbody>
 </table>
@@ -849,19 +849,19 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.1/30</td>
 <td style="text-align: right;"></td>
 <td>we1 -&gt; x1</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">10.1.0.10/30</td>
 <td style="text-align: right;"></td>
 <td>we1 -&gt; ac1</td>
 </tr>
 <tr>
-<td>swp3</td>
+<td>eth3</td>
 <td style="text-align: right;">10.1.0.18/30</td>
 <td style="text-align: right;"></td>
 <td>we1 -&gt; rr</td>
@@ -873,19 +873,19 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.5/30</td>
 <td style="text-align: right;"></td>
 <td>we2 -&gt; x2</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">10.1.0.14/30</td>
 <td style="text-align: right;"></td>
 <td>we2 -&gt; ac1</td>
 </tr>
 <tr>
-<td>swp3</td>
+<td>eth3</td>
 <td style="text-align: right;">10.1.0.22/30</td>
 <td style="text-align: right;"></td>
 <td>we2 -&gt; rr</td>
@@ -897,13 +897,13 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.2/30</td>
 <td style="text-align: right;"></td>
 <td>x1 -&gt; we1</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">192.168.42.1/24</td>
 <td style="text-align: right;"></td>
 <td>x1 -&gt; x2</td>
@@ -915,13 +915,13 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
 <td>Loopback</td>
 </tr>
 <tr>
-<td>swp1</td>
+<td>eth1</td>
 <td style="text-align: right;">10.1.0.6/30</td>
 <td style="text-align: right;"></td>
 <td>x2 -&gt; we2</td>
 </tr>
 <tr>
-<td>swp2</td>
+<td>eth2</td>
 <td style="text-align: right;">192.168.42.2/24</td>
 <td style="text-align: right;"></td>
 <td>x2 -&gt; x1</td>
