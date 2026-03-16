@@ -579,7 +579,7 @@
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>FRRouting using the <em>datacenter</em> profile already uses low BGP timers. The lab configuration process returns those timers to the default 60/180 seconds.</p>
+<p>FRRouting default BGP timers depend on its <em>profile</em>. The default profile (<em>datacenter</em>) already uses low BGP timers. <em>netlab</em> changes the FRRouting profile to <em>traditional</em> to return those timers to the default 60/180 seconds.</p>
 </div>
 <p><strong>Verification:</strong></p>
 <ul>
@@ -594,11 +594,11 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Similarly to what you had to do to get BGP up and running, you have to modify the <code>/etc/frr/daemons</code> file and restart FRRouting on FRRouting virtual machines (<a href="../0-frrouting/">more details</a>). The BFD daemon is already started in FRRouting containers.</p>
+<p>Similarly to what you had to do to get BGP up and running, you have to modify the <code>/etc/frr/daemons</code> file and restart FRRouting to start the BFD daemon (<a href="../0-frrouting/">more details</a>). <em>netlab</em> starts the BFD daemon in FRRouting nodes when starting the lab, but you should still check whether it&rsquo;s running &ndash; <a href="../0-frrouting/#daemon">use this procedure</a>, but check for <code>bfdd</code>.</p>
 </div>
 <p><strong>Verification:</strong></p>
 <ul>
-<li>Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the <strong>show ip bgp neighbor details</strong> (or similar) command. Some implementations have BFD-specific show commands like <strong>show bfd neighbors</strong> or <strong>show bfd peers</strong>.</li>
+<li>Verify that you have a working BFD session between R1 and X1. Most implementations display the BFD status of a BGP neighbor somewhere within the <strong>show ip bgp neighbor details</strong> (or similar) command. Some implementations have BFD-specific show commands, such as <strong>show bfd neighbors</strong> or <strong>show bfd peers</strong>.</li>
 <li>Repeat the BGP convergence measurements &ndash; X1 should revoke the BGP prefix advertised by R1 almost immediately.</li>
 </ul>
 <h2 id="automated-verification">Automated Verification</h2>
