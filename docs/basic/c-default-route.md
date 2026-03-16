@@ -32,7 +32,7 @@ Your router has these BGP neighbors and runs OSPF in area 0 with R2.  _netlab_ c
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `basic/c-default-route`
 * Execute **netlab up**

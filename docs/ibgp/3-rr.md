@@ -28,7 +28,9 @@ During the lab exercise, you'll remove all IBGP sessions between leaf routers an
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md), change directory to `ibgp/3-rr`
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
+
+* Change directory to `ibgp/3-rr`
 
 You can choose between these lab topologies:
 

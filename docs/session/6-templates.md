@@ -63,7 +63,7 @@ When starting the lab, _netlab_ configures IP addresses, OSPF, BGP, IBGP neighbo
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `session/6-templates`
 * Execute **netlab up**

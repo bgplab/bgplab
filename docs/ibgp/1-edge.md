@@ -56,7 +56,7 @@ OSPF running in the backbone area is configured on the following routers:
 
 ## Start the Lab
 
-Assuming you already [set up your lab infrastructure](../1-setup.md):
+You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `ibgp/1-edge`
 * Execute **netlab up**
