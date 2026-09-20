@@ -39,21 +39,6 @@ body > .container {
     float: right;
 }
 
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1140px;
-    }
-}
-@media (min-width: 992px) {
-    .col-md-9 {
-        padding-left: 35px;
-    }
-
-    h1, h2, h3, h4 {
-        margin-left: -20px;
-    }
-}
-
 .col-md-9 img {
     max-width: 100%;
     display: inline-block;
@@ -105,6 +90,16 @@ h4 {
     font-size: 1rem;
 }
 
+.author-byline {
+    margin-top: -0.75rem;
+}
+
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
 @media (min-width: 992px) {
     h1 {
         font-size: 2.25rem;
@@ -120,6 +115,17 @@ h4 {
 
     h4 {
         font-size: 1.1rem;
+    }
+    .col-md-9 {
+        padding-left: 35px;
+    }
+
+    h1, h2, h3, h4, .author-byline {
+        margin-left: -20px;
+    }
+
+    .author-byline {
+        margin-top: -1.1rem;
     }
 }
 
