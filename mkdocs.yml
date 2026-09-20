@@ -9,7 +9,11 @@ site_description: Hands-on BGP labs using virtual devices
 site_author: Ivan Pepelnjak, ipSpace.net AG
 extra:
   toc_sidebar: False
-copyright: (C) 2023–2025 Ivan Pepelnjak (ipSpace.net AG)
+  other:
+    'IS-IS': 'https://isis.bgplabs.net/'
+    'EVPN/VXLAN': 'https://evpn.bgplabs.net/'
+    'SR-MPLS': 'https://github.com/ipspace/sr-workshop'
+copyright: (C) 2023–2026 Ivan Pepelnjak (ipSpace.net AG)
 plugins:
 - search
 - include_dir_to_nav
