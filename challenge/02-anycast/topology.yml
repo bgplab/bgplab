@@ -1,15 +1,16 @@
 # Implement Anycast Services with BGP
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-version: 2.0.0
-
-plugin: [ frr_bgp ]
+version: 25.12.03
 
 groups:
   external:
     members: [ s1, s2, s3, c ]
     device: frr
     role: host
+  fix_frr:
+    members: [ '*' ]
+    frr.daemons: [ bgpd, ospfd, ospf6d ]
 
 module: [ bgp ]
 
@@ -24,6 +25,7 @@ nodes:
     id: 18
   c:
     id: 2
+    module: [ bgp ]
     bgp.as: 65100
 
 links:

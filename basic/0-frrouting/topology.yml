@@ -1,8 +1,7 @@
 # Configuring BGP on FRRouting
 
 defaults.sources.extra: [ ../../defaults.yml ]
-plugin: [ fix_frr ]
-version: 2.0.0
+version: 25.12.03
 
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:
@@ -12,6 +11,7 @@ defaults.device: frr
 nodes:
   rtr:
     bgp.as: 65000
+    frr.daemons: [ bgpd, ospfd, ospf6d ]
   x1:
     module: [ bgp ]
     bgp.as: 65100
