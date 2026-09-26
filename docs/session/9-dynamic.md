@@ -50,7 +50,7 @@ Hub, C1, and C2 also run OSPF in the backbone area.
 ## Device Requirements {#req}
 
 * Use any device [supported by the _netlab_ BGP and OSPF configuration modules](https://netlab.tools/platforms/#platform-routing-support) for the lab routers.
-* If you run Arista EOS or FRRouting on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
+* If you run Arista EOS, Cisco IOS, or FRRouting on S1, S2, C1, and C2, you can use the **netlab config** command to turn BGP sessions on or off. You will have to do that manually on other devices.
 * You can do automated lab validation with Arista EOS or FRRouting running on S1, S2, C1, and C2.
 
 ## Start the Lab
@@ -73,7 +73,7 @@ Configuring dynamic BGP neighbors is usually a two-step process:
     * [Establish an IBGP Session](../ibgp/1-edge.md) lab if you have a problem configuring IBGP sessions.
     * [BGP Session Templates](6-templates.md) lab if you're struggling with peer groups.
     
-    Also, you might have to activate the peer groups for the IPv4 address family.
+    You may also need to activate the IPv4 address family in the newly created peer groups.
 
 * Configure the BGP router to accept incoming TCP sessions on port 179 from an IP address range with a configuration command similar to **bgp listen**. You'll have to tie the allowed IP address range to a peer group to tell your router which parameters to use for a dynamic BGP neighbor.
 
@@ -143,12 +143,12 @@ Displayed 3 routes and 3 total paths
 A router using dynamic BGP neighbors usually removes all neighbor-related information once a BGP session with the neighbor is lost. You can shut down a BGP neighbor on another router to see how the hub router responds to BGP session loss.
 
 !!! tip
-    You can use the **netlab config** command to shut down the BGP session with the Hub router if you're running FRRouting or Arista EOS on the other routers:
+    You can use the **netlab config** command to shut down the BGP session with the Hub router if you're running Arista EOS, Cisco IOS, or FRRouting on the other routers:
     
-    * Use `netlab config disable --limit C1`[^RC1] to shut down the BGP session
-    * Use `netlab config enable --limit C1` to reenable it.
+    * Use `netlab config disable --limit c1`[^RC1] to shut down the BGP session
+    * Use `netlab config enable --limit c1` to reenable it.
 
-[^RC1]: Replace **C1** with any other node name if needed
+[^RC1]: Replace **c1** with any other node name if needed
 
 For example, after shutting down the BGP session with the Hub router on C1, you could observe the following BGP logging messages on the Hub router running Arista EOS:
 
