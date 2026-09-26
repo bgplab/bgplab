@@ -6,7 +6,7 @@ title: Installation and Setup
 It's easiest to use the BGP labs with _[netlab](https://netlab.tools/)_. Still, you can use most of them (potentially with slightly reduced functionality) with any other virtual lab environment or on physical gear. For the rest of this document, we'll assume you decided to use _netlab_; if you want to set up your lab in some other way, read the [Manual Setup](external/index.md) document.
 
 !!! Warning
-    While BGP labs work with _netlab_ release 1.8.3 or later, we recommend using a recent release (for example, 25.09). If you're using an earlier _netlab_ release, please upgrade with `pip3 install --upgrade networklab`.
+    While BGP labs work with _netlab_ release 2.0 or later (some labs require a newer release), we recommend using a recent release (for example, 26.09). If you're using an earlier _netlab_ release, please upgrade with `pip3 install --upgrade networklab`.
 
 ## Select the Network Devices You Will Work With
 

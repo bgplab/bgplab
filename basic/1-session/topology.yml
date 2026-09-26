@@ -5,9 +5,9 @@ defaults.sources.extra: [ ../../defaults.yml ]
 # Make BGP a valid node attribute so we can configure bgp.as on the node not running BGP
 defaults.attributes.node.bgp:
 
-plugin: [ bgp.session, check_validate, fix_frr, adjust ]
+plugin: [ bgp.session, check_validate, adjust ]
 
-version: 2.0.0
+version: 25.12.03
 _include: [ validate.yml ]
 
 groups:
@@ -18,6 +18,7 @@ groups:
 nodes:
   rtr:
     bgp.as: 65000
+    frr.daemons: [ bgpd, ospfd, ospf6d ]
   x1:
     bgp.as: 65100
     id: 10

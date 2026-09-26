@@ -1,20 +1,21 @@
 # EBGP-Only Data Center Design
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-version: 2.0.0
-
-plugin: [ frr_bgp ]
+version: 25.12.03
 
 groups:
   external:
     members: [ h1, h2, h3, h4 ]
     device: frr
+  fix_frr:
+    members: [ '*' ]
+    frr.daemons: [ bgpd, ospfd, ospf6d ]
 
 nodes: [ l1, l2, l3, l4, s1, s2, h1, h2, h3, h4 ]
 
 links: [
   l1-s1, l1-s2, l2-s1, l2-s2, l3-s1, l3-s2, l4-s1, l4-s2,
-  h1-l1, h1-s2, h2-s1, h2-s2, h3-s3, h3-s4, h4-s3, h4-s4 ]
+  h1-l1, h1-l2, h2-l1, h2-l2, h3-l3, h3-l4, h4-l3, h4-l4 ]
 
 message: |
   The "EBGP-Only Data Center Design" lab is ready.
