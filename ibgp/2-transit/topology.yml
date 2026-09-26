@@ -4,7 +4,7 @@ defaults.sources.extra: [ ../../defaults.yml ]
 defaults.attributes.node.bgp:           # Make BGP a valid node attribute regardless of what module is used
 plugin: [ fix_unnumbered, check_validate ]
 
-version: 2.0.0
+version: 25.12.03
 _include: [ validate.yml ]
 
 groups:
@@ -18,6 +18,7 @@ nodes:
   core:                                 # Customer router (C1) - core router in the customer network
     module: [ ospf ]                    # ... running OSPF only
     bgp.as: 65000
+    frr.daemons: [ bgpd, ospfd, ospf6d ]
   pe1:                                  # Lab router (X1) - WAN edge router in customer network
     module: [ bgp, ospf ]               # ... running BGP and OSPF
     bgp.as: 65000
