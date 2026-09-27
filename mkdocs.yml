@@ -9,6 +9,13 @@ site_description: Hands-on BGP labs using virtual devices
 site_author: Ivan Pepelnjak, ipSpace.net AG
 extra:
   toc_sidebar: False
+  nav:
+    'Overview': ''
+    'Installation': '1-setup'
+    'GitHub Codespaces': '4-codespaces'
+    'Upcoming Labs': '3-upcoming'
+    'About': '99-about'
+  min_extra_toc: 3
   other:
     'IS-IS': 'https://isis.bgplabs.net/'
     'EVPN/VXLAN': 'https://evpn.bgplabs.net/'
