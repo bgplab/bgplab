@@ -12,7 +12,7 @@ c_pfx:
   pass: RTR is advertising its IPv4 prefix
   fail: RTR is not advertising its IPv4 prefix
   nodes: [ x1, x2 ]
-  plugin: bgp_prefix(nodes.rtr.bgp.originate[0],peer=nodes.rtr.bgp.router_id)
+  plugin: bgp_prefix(nodes.rtr.bgp.advertise[0].ipv4,peer=nodes.rtr.bgp.router_id)
 
 prepend:
   description: Check the AS path of the prefix advertised by RTR to X2
@@ -20,7 +20,7 @@ prepend:
   nodes: [ x2 ]
   plugin: >-
     bgp_prefix(
-      nodes.rtr.bgp.originate[0],
+      nodes.rtr.bgp.advertise[0].ipv4,
       peer=nodes.rtr.bgp.router_id,
       aspath='65000 65000 65000')
 
@@ -29,7 +29,7 @@ t_pfx:
   nodes: [ x2 ]
   plugin: >-
     bgp_prefix(
-      nodes.rtr.bgp.originate[0],
+      nodes.rtr.bgp.advertise[0].ipv4,
       peer=nodes.x1.bgp.router_id,
       aspath='65100 65000',
       best=True)

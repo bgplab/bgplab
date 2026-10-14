@@ -21,10 +21,10 @@ x1_p1:
   description: Check the /24 prefix advertised by X1
   nodes: [ rtr ]
   fail: The prefix should not be in the BGP table on RTR
-  plugin: bgp_prefix(nodes.x1.bgp.originate[0],state='missing')
+  plugin: bgp_prefix(nodes.x1.bgp.advertise[0].ipv4,state='missing')
 
 x2_p1:
   description: Check the /24 prefix advertised by X2
   nodes: [ rtr ]
   fail: The prefix be in the BGP table on RTR with next hop = X2
-  plugin: bgp_prefix(nodes.x2.bgp.originate[0],nh=nodes.x2.interfaces[0].ipv4)
+  plugin: bgp_prefix(nodes.x2.bgp.advertise[0].ipv4,nh=nodes.x2.interfaces[0].ipv4)

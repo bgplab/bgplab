@@ -20,18 +20,18 @@ lb_pfx:
   fail: L2 prefix is not propagated to L1 by S1 or S2
   pass: L2 prefix is propagated to L1 by S1 and S2
   nodes: [ l1 ]
-  plugin: bgp_prefix(nodes.l2.bgp.originate[0])
+  plugin: bgp_prefix(nodes.l2.bgp.advertise[0].ipv4)
 
 lb_pfx_s1:
   description: Check whether S1 advertises L2 prefix to L1
   fail: S1 does not propagate L2 prefix to L1
   pass: S1 propagates L2 prefix to L1
   nodes: [ l1 ]
-  plugin: bgp_prefix(nodes.l2.bgp.originate[0],peer=nodes.s1.bgp.router_id)
+  plugin: bgp_prefix(nodes.l2.bgp.advertise[0].ipv4,peer=nodes.s1.bgp.router_id)
 
 lb_pfx_s2:
   description: Check whether S2 advertises L2 prefix to L1
   fail: S2 does not propagate L2 prefix to L1
   pass: S2 propagates L2 prefix to L1
   nodes: [ l1 ]
-  plugin: bgp_prefix(nodes.l2.bgp.originate[0],peer=nodes.s2.bgp.router_id)
+  plugin: bgp_prefix(nodes.l2.bgp.advertise[0].ipv4,peer=nodes.s2.bgp.router_id)
