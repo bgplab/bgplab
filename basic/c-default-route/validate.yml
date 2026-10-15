@@ -20,10 +20,10 @@ filter:
   description: Check whether R1 filters other BGP prefixes
   fail: R1 is sending more than just the default route to X1
   nodes: [ x1 ]
-  plugin: bgp_prefix(nodes.r2.bgp.originate[0],state='missing')
+  plugin: bgp_prefix(nodes.r2.bgp.advertise[0].ipv4,state='missing')
 
 propagate:
   description: Check the propagation of external prefix to R2
   fail: R1 is not sending the external prefix to R2
   nodes: [ r2 ]
-  plugin: bgp_prefix(nodes.x1.bgp.originate[0])
+  plugin: bgp_prefix(nodes.x1.bgp.advertise[0].ipv4)
