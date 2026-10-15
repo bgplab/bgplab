@@ -1,7 +1,7 @@
 # Minimize the Size of Your BGP Table
 ---
 defaults.sources.extra: [ ../../defaults.yml ]
-version: 2.0.0
+version: 26.06
 
 _include: [ validate.yml ]
 
