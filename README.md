@@ -2,6 +2,8 @@
 
 This repository contains _netlab_ topology files for a series of hands-on labs that will help you master numerous aspects of EBGP,  IBGP, and BGP routing policy configuration on a platform of your choice[^PC]. You can run them on [your laptop](https://netlab.tools/install/ubuntu-vm/) (including [Apple silicon](https://blog.ipspace.net/2024/03/netlab-bgp-apple-silicon.html)), on a [local server](https://netlab.tools/install/ubuntu/), in the [cloud](https://netlab.tools/install/cloud/), or in a (free) [GitHub codespace](https://bgplabs.net/4-codespaces/).
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/bgplab/bgplab)
+
 The labs cover:
 
 **Basic BGP Setup**
