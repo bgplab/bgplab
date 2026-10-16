@@ -6,3 +6,24 @@ groups:
     device: frr                                       # Change to your preferred external router
 
 paths.plugin: [ "topology:.", "topology:../../plugin", "package:extra" ]
+
+# network-xray external tool (https://github.com/rclab-dev/network-xray):
+# add 'tools: network-xray:' to a lab topology to see the routers' OSPF/BGP
+# state on a web page (http://<host>:8600/). This definition lets you use the
+# tool with netlab releases that do not include it yet.
+tools:
+  network-xray:
+    runtime: docker
+    docker:
+      up:
+        docker run -d --rm
+          --name "{name}_network_xray"
+          -v /var/run/docker.sock:/var/run/docker.sock
+          -v "$(pwd)":/lab:ro
+          -p { 8600 + defaults.multilab.id if defaults.multilab.id else 8600 }:8600
+          ghcr.io/rclab-dev/network-xray:1
+          --topo /lab/clab.yml
+      message: >-
+        Open http://{sys.ipurl}:{ 8600 + defaults.multilab.id if defaults.multilab.id else 8600 }/ in your browser
+      down:
+        docker kill '{name}_network_xray'
