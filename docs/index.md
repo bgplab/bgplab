@@ -11,13 +11,15 @@ This series of BGP hands-on labs will help you master numerous aspects of EBGP, 
 * Dell OS10
 * FRRouting
 * Juniper vSRX, vMX and vPTX
-* Mikrotik RouterOS
+* MikroTik RouterOS
 * Nokia SR OS and SR Linux
 * Vyatta VyOS
 
 [^PC]: Some assembly required: the virtual machines or containers that we recommend to use as external BGP speakers are easy to download, but you'll have to build a Vagrant box or install a vendor-supplied Vagrant box or Docker container image for most other platforms. See [installation and setup](1-setup.md) for details.
 
-Dozens of labs are already waiting for you (with more [coming soon](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation or [run BGP labs in GitHub codespaces](4-codespaces.md).
+Dozens of labs are already waiting for you (with more [coming soon](3-upcoming.md)), but if this is your first visit to this site, you should start with the [Installation and Setup](1-setup.md) documentation or [run BGP labs in GitHub Codespaces](4-codespaces.md).
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/bgplab/bgplab)
 
 ## Deploy BGP in Your Network
 
@@ -39,7 +41,7 @@ These lab exercises will help you master the basic tools you can use to build BG
 * [Adjust Outgoing Traffic Flow](policy/index.md#egress)
 * [Influence Incoming Traffic Flow](policy/index.md#ingress)
 
-Once you mastered the basics, continue with [more complex routing policies](policy/index.md#complex).
+Once you've mastered the basics, continue with [more complex routing policies](policy/index.md#complex).
 
 ## Challenge Labs
 
