@@ -67,6 +67,10 @@
     <a href="./" class="dropdown-item active" aria-current="page">Use GitHub Codespaces</a>
 </li>
                                     
+<li>
+    <a href="../5-tools/" class="dropdown-item">Additional Tools</a>
+</li>
+                                    
   <li class="dropdown-submenu">
     <a href="#" class="dropdown-item">Custom Lab Infrastructure</a>
     <ul class="dropdown-menu">
@@ -416,7 +420,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../external/" class="nav-link">
+                                <a rel="next" href="../5-tools/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -561,10 +565,11 @@ device set to srlinux in /home/user/bgp/defaults.yml
 <li>While it looks like the Codespaces environment supports nested virtualization, the environment does not include the <code>kvm</code> kernel module, so you cannot start virtual machines in Codespaces. That also precludes running VMs in virtual machines (the <em>vrnetlab</em> approach).</li>
 </ul>
 <h2 id="start-a-lab">Start a Lab</h2>
-<p>Once you have the codespaces up and running:</p>
+<p>Once you have the Codespaces up and running:</p>
 <ul>
 <li>Click on the desired lab exercise in the README.md preview window to select the exercise folder.</li>
 <li>Right-click on the exercise folder and select &ldquo;<em>Open in Integrated Terminal</em>&rdquo; to launch a <strong>bash</strong> session in the desired directory.</li>
+<li>(Optional) Enable the <a href="../5-tools/">extra tools you want to use</a></li>
 <li>Execute <strong>netlab up</strong> to start the lab.</li>
 <li>Expand the exercise folder in the Explorer tab.</li>
 <li>Right-click on the <code>README.md</code> file and select &ldquo;<em>Open Preview</em>&rdquo; to open the rendered version of the file.</li>
