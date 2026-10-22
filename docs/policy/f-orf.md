@@ -49,6 +49,7 @@ $ export NETLAB_DEVICE=frr
 ```
 
 * Change directory to `policy/f-orf`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into the lab devices with the **netlab connect** command and verify that the IP addresses and the EBGP sessions are properly configured.
 

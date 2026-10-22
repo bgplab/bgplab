@@ -37,6 +37,7 @@ X1 and X2 expect your router to initiate an EBGP over IPv6 link-local addresses 
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `basic/d-interface`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your device (RTR) with **netlab connect rtr** and verify its configuration.
 

@@ -65,6 +65,7 @@ _netlab_ automatically configures all lab devices; if you're using another lab i
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `challenge/03-graceful-shutdown`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your routers with **netlab connect** and verify that their IP addresses and routing protocols are properly configured.
 

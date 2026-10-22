@@ -19,6 +19,7 @@ The Linux interfaces and IP addresses will be automatically configured when you 
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `basic/0-frrouting`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up** to start a lab with two FRRouting virtual machines or containers (depending on your lab setup).
 * Log into the devices (`rtr` and `x1`) with the **netlab connect** command.
 

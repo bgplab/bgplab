@@ -53,6 +53,7 @@ _netlab_ automatically configures device interfaces, OSPF, and BGP; if you're us
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `session/3-localas`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your router (RTR) with **netlab connect rtr** and verify that the IP addresses and the EBGP sessions are properly configured.
 
