@@ -13,6 +13,7 @@ extra:
     'Overview': ''
     'Installation': '1-setup'
     'GitHub Codespaces': '4-codespaces'
+    'Additional Tools': '5-tools'
     'Upcoming Labs': '3-upcoming'
     'About': '99-about'
   min_extra_toc: 3
@@ -33,6 +34,7 @@ nav:
 - Installation:
   - 1-setup.md
   - 4-codespaces.md
+  - 5-tools.md
   - "Custom Lab Infrastructure":
     - external/index.md
     - external/4-router.md
