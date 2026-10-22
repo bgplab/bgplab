@@ -8,7 +8,7 @@ groups:
 paths.plugin: [ "topology:.", "topology:../../plugin", "package:extra" ]
 
 # network-xray external tool (https://github.com/rclab-dev/network-xray):
-# add 'tools: network-xray:' to a lab topology to see the routers' OSPF/BGP
+# add 'tools: network_xray:' to a lab topology to see the routers' OSPF/BGP
 # state on a web page (http://<host>:8600/). This definition lets you use the
 # tool with netlab releases that do not include it yet.
 tools:
