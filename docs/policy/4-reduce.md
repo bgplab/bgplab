@@ -45,6 +45,7 @@ Your router has these EBGP neighbors. _netlab_ configures them automatically; if
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `policy/4-reduce`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your device (RTR) with **netlab connect rtr** and verify IP addresses and BGP configuration.
 

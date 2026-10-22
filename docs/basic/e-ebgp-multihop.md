@@ -57,6 +57,7 @@ You can start the lab [on your own lab infrastructure](../1-setup.md) or in [Git
 
 * Use any device [supported by the _netlab_ BGP configuration module](https://netlab.tools/platforms/#platform-routing-support) for your routers.
 * Change directory to `basic/e-ebgp-multihop`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your devices with **netlab connect** and verify that the IP addresses and the EBGP sessions are properly configured.
 

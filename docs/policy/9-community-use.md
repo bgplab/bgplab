@@ -36,6 +36,7 @@ Your router has these BGP neighbors:
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `policy/9-community-use`.
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**. You can also [deploy the lab on some other lab infrastructure](../external/index.md).
 * Log into your device (ISP) with **netlab connect** and verify its configurations.
 

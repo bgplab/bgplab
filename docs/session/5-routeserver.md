@@ -47,6 +47,7 @@ The routers have these EBGP sessions. _netlab_ configures them automatically; if
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](https://bgplabs.net/4-codespaces/)):
 
 * Change directory to `session/5-routeserver`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute `netlab up`.
 * Log into your devices with `netlab connect` and verify their IP addresses and EBGP sessions.
 

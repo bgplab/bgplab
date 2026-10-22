@@ -44,10 +44,11 @@ Here are a few device selection guidelines:
 
 ## Start a Lab
 
-Once you have the codespaces up and running:
+Once you have the Codespaces up and running:
 
 * Click on the desired lab exercise in the README.md preview window to select the exercise folder.
 * Right-click on the exercise folder and select "*Open in Integrated Terminal*" to launch a **bash** session in the desired directory.
+* (Optional) Enable the [extra tools you want to use](5-tools.md)
 * Execute **netlab up** to start the lab.
 * Expand the exercise folder in the Explorer tab.
 * Right-click on the `README.md` file and select "_Open Preview_" to open the rendered version of the file.

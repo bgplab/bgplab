@@ -66,6 +66,7 @@ When starting the lab, _netlab_ configures IP addresses, OSPF, BGP, IBGP neighbo
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `session/6-templates`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into the lab routers with **netlab connect** and verify that the IP addresses, OSPF routing, and the IBGP sessions are properly configured.
 

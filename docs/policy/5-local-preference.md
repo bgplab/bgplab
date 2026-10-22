@@ -53,6 +53,7 @@ Your network is also running OSPF in the backbone area:
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `policy/5-local-preference`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your devices (C1 and C2) with **netlab connect** and verify their configurations.
 

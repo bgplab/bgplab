@@ -41,6 +41,7 @@ PE1 and PE2 run OSPF and exchange BGP routes over an IBGP session.
 You can start the lab [on your own lab infrastructure](../1-setup.md) or in [GitHub Codespaces](https://github.com/codespaces/new/bgplab/bgplab) ([more details](../4-codespaces.md)):
 
 * Change directory to `session/1-allowas_in`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your devices (CE1, CE2) with **netlab connect** and verify that they have established EBGP sessions with the PE routers.
 

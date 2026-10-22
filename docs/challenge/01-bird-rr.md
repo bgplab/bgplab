@@ -67,6 +67,7 @@ You can start the lab [on your own lab infrastructure](../1-setup.md) or in [Git
 
 * If needed, [install containerlab](https://netlab.tools/labs/clab/) (it's preinstalled in GitHub Codespace) and build the BIRD container image with **netlab clab build bird**.
 * Change directory to `challenge/01-bird-rr`
+* (Optional) enable the [extra tools you want to use](../5-tools.md)
 * Execute **netlab up**
 * Log into your devices with **netlab connect** and verify that the IP addresses, OSPF, and the EBGP sessions are properly configured.
 
