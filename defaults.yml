@@ -12,7 +12,7 @@ paths.plugin: [ "topology:.", "topology:../../plugin", "package:extra" ]
 # state on a web page (http://<host>:8600/). This definition lets you use the
 # tool with netlab releases that do not include it yet.
 tools:
-  network-xray:
+  network_xray:
     runtime: docker
     docker:
       up:
