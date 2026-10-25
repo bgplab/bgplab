@@ -31,7 +31,8 @@ You can start the lab [on your own lab infrastructure](../1-setup.md) or in [Git
 | 10.1.0.2            | 65100              |
 
 !!! Tip
-    If you're using an FRRouting virtual machine for RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring FRRouting](0-frrouting.md) lab.
+    * If you're using an FRRouting virtual machine for RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring FRRouting](0-frrouting.md) lab.
+    * Not sure how to configure BGP on your device? You'll find pointers to the relevant vendor documentation in the [Further Reading](#further) section.
 
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on the EBGP session or your device won't accept updates from its EBGP neighbor(s).
@@ -83,6 +84,18 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 **Next:**
 
 * [Connect with the second upstream provider](2-multihomed.md) and advertise your address space.
+
+## Further Reading {#further}
+
+The following documents describe how to start a BGP routing process and configure EBGP neighbors on commonly used network devices. FRRouting and Cisco IOS XR also require EBGP routing policies by default.
+
+| Platform | Configuration guidelines |
+|----------|--------------------------|
+| Cisco IOS XE | <ul><li>[Configure a BGP routing process](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-basic-net-0.html#:~:text=Perform%20this%20task%20to%20configure%20a%20BGP%20routing%20process)</li><li>[Configure a BGP peer](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-basic-net-0.html#:~:text=Perform%20this%20task%20to%20configure%20BGP%20between%20two%20IPv4%20routers%20%28peers%29)</li></ul> |
+| Arista EOS | <ul><li>[Configure a BGP instance](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Creating%20an%20Instance%20and%20Entering%20BGP%20Configuration%20Mode)</li><li>[Establish BGP neighbors](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Establishing%20BGP%20Neighbors)</li></ul> |
+| FRRouting | <ul><li>[Start a BGP process](https://docs.frrouting.org/en/latest/bgp.html#:~:text=Enable%20a%20BGP%20protocol%20process%20with%20the%20specified%20ASN)</li><li>[Define a BGP peer](https://docs.frrouting.org/en/latest/bgp.html#:~:text=Creates%20a%20new%20neighbor%20whose%20remote%2Das%20is%20ASN)</li><li>[EBGP policy requirements](https://docs.frrouting.org/en/latest/bgp.html#:~:text=This%20command%20requires%20incoming%20and%20outgoing%20filters%20to%20be%20applied)</li></ul> |
+| Cisco IOS XR (release 26.x) | <ul><li>[Enable BGP routing](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=Perform%20this%20task%20to%20enable%20BGP%20routing%20and%20establish%20a%20BGP%20routing%20process)</li><li>[Configure a BGP neighbor](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=configures%20the%20neighbor%20IP%20address%20as%20a%20BGP%20peer)</li><li>[EBGP policy requirements](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=you%20must%20configure%20an%20inbound%20and%20outbound%20route%20policy%20on%20the%20neighbor)</li></ul> |
+| Junos | <ul><li>[Set the autonomous system number](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#:~:text=Set%20the%20autonomous%20system%20%28AS%29%20number)</li><li>[Configure EBGP neighbors](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#id-example-configuring-external-bgp-point-to-point-peer-sessions)</li></ul> |
 
 ## Reference Information
 
