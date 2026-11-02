@@ -482,6 +482,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#alt" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -731,6 +735,10 @@
 <p class="admonition-title">Warning</p>
 <p>Two-way redistribution between routing protocols could quickly become exceedingly complex. Advertising the default route into the edge routing protocol is often better than redistributing core routes. You should test this alternative as an optional part of the lab exercise. </p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Not sure how to configure route redistribution on your device? You&rsquo;ll find pointers to the relevant vendor documentation in the <a href="#further">Further Reading</a> section.</p>
+</div>
 <h2 id="verification">Verification</h2>
 <p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on S1, S2, X1, and X2. The following screenshot shows the validation results before the two-way redistribution was configured:</p>
 <p><img alt="" src="../basic-redistribute-validate.png" /></p>
@@ -790,6 +798,44 @@ Gateway of last resort:
 <p><strong>Next:</strong></p>
 <ul>
 <li>You might encounter service providers that will give you the same BGP AS number for all sites. You can practice that scenario in the <a href="../../session/1-allowas_in/">Reuse a BGP AS Number Across Multiple Sites</a> exercise.</li>
+</ul>
+<h2 id="further">Further Reading</h2>
+<p>The following documents describe how to redistribute routes between routing protocols (you&rsquo;ll need that to redistribute OSPF routes into BGP and BGP routes into OSPF) and how to originate a default route into OSPF (the optional part of this lab exercise) on commonly used network devices. Junos does not have <strong>redistribute</strong> commands; you have to use export routing policies instead.</p>
+<p>You&rsquo;ll find the documentation describing how to configure EBGP neighbors and the default EBGP policy (FRRouting and Cisco IOS XR) in the <a href="../1-session/#further">Further Reading</a> section of the <em><a href="../1-session/">Configure a Single EBGP Session</a></em> lab exercise.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Configuration guidelines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cisco IOS XE</td>
+<td><ul><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_iri-iprouting.html#:~:text=Device%28config%2Drouter%29%23%20redistribute%20ospf%202%201">Redistribute routes between routing protocols</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_iro-cfg-0.html#:~:text=Forces%20the%20ASBR%20to%20generate%20a%20default%20route%20into%20the%20OSPF%20routing%20domain">Originate a default route into OSPF</a></li></ul></td>
+</tr>
+<tr>
+<td>Arista EOS</td>
+<td><ul><li><a href="https://www.arista.com/en/um-eos/eos-open-shortest-path-first-version-2#:~:text=Redistributing%20Static%20Routes">Redistribute routes between routing protocols</a> (the example redistributes static routes into OSPF; use <strong>redistribute bgp</strong> in OSPF and <strong>redistribute ospf</strong> in BGP)</li></ul></td>
+</tr>
+<tr>
+<td>FRRouting</td>
+<td><ul><li><a href="https://docs.frrouting.org/en/latest/bgp.html#:~:text=Redistribute%20routes%20from%20other%20protocols%20into%20BGP">Redistribute routes between routing protocols</a> (OSPF uses the same <strong>redistribute</strong> command)</li><li><a href="https://docs.frrouting.org/en/latest/ospfd.html#:~:text=Originate%20an%20AS%2DExternal%20%28type%2D5%29%20LSA%20describing%20a%20default%20route">Originate a default route into OSPF</a></li></ul></td>
+</tr>
+<tr>
+<td>Cisco IOS XR (release 26.x)</td>
+<td><ul><li><a href="https://blog.ipspace.net/2025/11/iosxr-redistribute-config-mess/">Redistribute routes between routing protocols</a> (blog post; Cisco documentation describes redistribution only as routing policy attach points)</li><li><a href="https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/26xx/configuration/guide/b-routing-cg-ncs5500-26xx/implementing-routing-policy.html#:~:text=The%20default%2Dinformation%20originate%20attach%20point%20allows%20the%20user%20to%20conditionally%20inject%20the%20default%20route">Originate a default route into OSPF</a></li></ul></td>
+</tr>
+<tr>
+<td>Junos</td>
+<td><ul><li><a href="https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/policy-routing-policies-overview.html">Redistribute routes with export routing policies</a></li></ul></td>
+</tr>
+</tbody>
+</table>
+<p>You might also find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2022/03/bgp-igp-enterprise-network/">Combining BGP and IGP in an Enterprise Network</a> explains why two-way redistribution between BGP and an IGP is a bad idea and describes the alternatives, including advertising a default route into the IGP.</li>
+<li><a href="https://blog.ipspace.net/2007/06/inserting-default-route-into-ospf/">Inserting Default Route Into OSPF</a> describes how the <strong>default-information originate</strong> command inserts a default route into OSPF.</li>
 </ul>
 <h2 id="alt">Reference Information</h2>
 <p>This lab uses a superset of the <a href="../../external/4-router/">4-router lab topology</a>. You can still use that topology without the S1/S2 routers and redistribute <em>connected</em> prefixes into BGP.</p>

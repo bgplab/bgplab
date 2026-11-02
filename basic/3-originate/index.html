@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -604,6 +608,10 @@
 <p class="admonition-title">Warning</p>
 <p>If your device happens to be <a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html">fully compliant with RFC 8212</a> (example: Cisco IOS XR), you&rsquo;ll have to configure a <em>permit everything</em> outgoing filter on all EBGP neighbors or your device won&rsquo;t send them anything.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Not sure how to configure static routes or advertise IPv4 prefixes on your device? You&rsquo;ll find pointers to the relevant vendor documentation in the <a href="#further">Further Reading</a> section.</p>
+</div>
 <h2 id="verification">Verification</h2>
 <p>You can use the <strong>netlab validate</strong> command if you use FRRouting or Arista EOS on the external routers.</p>
 <p><img alt="" src="../basic-originate-validate.png" /></p>
@@ -679,6 +687,43 @@ Displayed  3 routes and 3 total paths
 <li><a href="../6-protect/">Protect EBGP sessions</a></li>
 <li><a href="../7-bfd/">Use BFD to Speed Up BGP Convergence</a></li>
 <li><a href="../8-aggregate/">BGP route aggregation</a></li>
+</ul>
+<h2 id="further">Further Reading</h2>
+<p>The following documents describe how to configure a static route pointing to the null interface and how to advertise an IPv4 prefix to BGP neighbors on commonly used network devices. Junos does not have a <strong>network</strong> command; you have to use a BGP export policy instead. Juniper documentation does not have a simple example of that, so we&rsquo;re pointing you to a blog post that explains it step-by-step.</p>
+<p>You&rsquo;ll find the documentation describing how to configure EBGP neighbors and the default EBGP policy (FRRouting and Cisco IOS XR) in the <a href="../1-session/#further">Further Reading</a> section of the <em><a href="../1-session/">Configure a Single EBGP Session</a></em> lab exercise.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Configuration guidelines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cisco IOS XE</td>
+<td><ul><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_iri-iprouting.html#:~:text=To%20configure%20a%20static%20route%2C%20use%20the%20ip%20route%20prefix%20mask">Configure a static route</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-basic-net-0.html#:~:text=For%20exterior%20protocols%2C%20the%20network%20command%20controls%20which%20networks%20are%20advertised">Advertise a prefix with the network command</a></li></ul></td>
+</tr>
+<tr>
+<td>Arista EOS</td>
+<td><ul><li><a href="https://www.arista.com/en/um-eos/eos-ipv4#:~:text=switch%28config%29%23ip%20route%20172.17.252.0%2F24%20vlan%20500">Configure a static route</a></li><li><a href="https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Network%20Route%20Advertising%20in%20Address%20Families">Advertise a prefix with the network command</a></li></ul></td>
+</tr>
+<tr>
+<td>FRRouting</td>
+<td><ul><li><a href="https://docs.frrouting.org/en/latest/static.html#:~:text=Alternatively%2C%20the%20gateway%20can%20be%20specified%20as%20Null0%20or%20blackhole%20to%20create%20a%20blackhole%20route">Configure a blackhole static route</a></li><li><a href="https://docs.frrouting.org/en/latest/bgp.html#:~:text=This%20command%20adds%20the%20announcement%20network">Advertise a prefix with the network command</a></li></ul></td>
+</tr>
+<tr>
+<td>Cisco IOS XR (release 26.x)</td>
+<td><ul><li><a href="https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/26xx/configuration/guide/b-routing-cg-ncs5500-26xx/implementing-static-routes.html#:~:text=Static%20routes%20are%20entirely%20user%20configurable%20and%20can%20point%20to%20a%20next%2Dhop%20interface%2C%20next%2Dhop%20IP%20address%2C%20or%20both">Configure a static route</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=network%20172.16.0.0%20255.255.0.0">Advertise a prefix with the network command</a></li></ul></td>
+</tr>
+<tr>
+<td>Junos</td>
+<td><ul><li><a href="https://networkingdocs.hpe.com/documentation/us/en/software/junos/static-routing/topics/topic-map/config_static-routes.html">Configure a static route</a></li><li><a href="https://www.networkcuriosity.com/junos-basic-bgp-configuration/#:~:text=Advertising%20A%20Default%20Route%20Into%20BGP">Advertise a static route with a BGP export policy</a> (blog post; use your prefix instead of the default route and apply the export policy to the EBGP neighbors).</li></ul></td>
+</tr>
+</tbody>
+</table>
+<p>You might also find this blog post useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2008/01/bgp-essentials-advertising-public-ip/">Advertising Public IP Prefixes into the Internet</a> explains why you should combine the <strong>network</strong> command with a static route to the null interface when advertising your address space to upstream ISPs.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>

@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -581,7 +585,10 @@
 </table>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you&rsquo;re using FRRouting on RTR, you might have to enable the BGP daemon first. You&rsquo;ll find more details in the <a href="../0-frrouting/">Configuring FRRouting</a> lab.</p>
+<ul>
+<li>If you&rsquo;re using FRRouting on RTR, you might have to enable the BGP daemon first. You&rsquo;ll find more details in the <a href="../0-frrouting/">Configuring FRRouting</a> lab.</li>
+<li>Not sure how to configure BGP on your device? You&rsquo;ll find pointers to the relevant vendor documentation in the <a href="#further">Further Reading</a> section.</li>
+</ul>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -622,6 +629,13 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <ul>
 <li><a href="../3-originate/">Advertise your IPv4 address space</a> to the EBGP neighbors</li>
 <li><a href="../../session/3-localas/">Use multiple BGP AS numbers on the same router</a> (advanced exercise)</li>
+</ul>
+<h2 id="further">Further Reading</h2>
+<p>You&rsquo;ll use the same configuration commands as in the <a href="../1-session/">previous lab exercise</a>, just with an extra BGP neighbor. You&rsquo;ll find pointers to the vendor documentation describing how to start a BGP routing process, configure EBGP neighbors, and deal with the default EBGP policy (FRRouting and Cisco IOS XR) in its <a href="../1-session/#further">Further Reading</a> section.</p>
+<p>You might also find these blog posts useful:</p>
+<ul>
+<li><a href="https://www.kentik.com/blog/bgp-routing-tutorial-series-part-2/">BGP Routing Tutorial Series: Part 2</a> explains the difference between single-homed and multihomed networks and why multihomed networks run BGP with their upstream providers.</li>
+<li><a href="https://www.kentik.com/blog/bgp-routing-tutorial-series-part-4/">BGP Routing Tutorial Series: Part 4</a> describes what a multihomed site gains by running BGP with its upstream ISPs and how BGP uses the AS path length to choose between routes received from them.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
