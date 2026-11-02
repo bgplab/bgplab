@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -540,7 +544,10 @@
 </table>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you&rsquo;re using an FRRouting virtual machine for RTR, you might have to enable the BGP daemon first. You&rsquo;ll find more details in the <a href="../0-frrouting/">Configuring FRRouting</a> lab.</p>
+<ul>
+<li>If you&rsquo;re using an FRRouting virtual machine for RTR, you might have to enable the BGP daemon first. You&rsquo;ll find more details in the <a href="../0-frrouting/">Configuring FRRouting</a> lab.</li>
+<li>Not sure how to configure BGP on your device? You&rsquo;ll find pointers to the relevant vendor documentation in the <a href="#further">Further Reading</a> section.</li>
+</ul>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -582,6 +589,44 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 <p><strong>Next:</strong></p>
 <ul>
 <li><a href="../2-multihomed/">Connect with the second upstream provider</a> and advertise your address space.</li>
+</ul>
+<h2 id="further">Further Reading</h2>
+<p>The following documents describe how to start a BGP routing process and configure EBGP neighbors on commonly used network devices. FRRouting and Cisco IOS XR also require EBGP routing policies by default.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Configuration guidelines</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cisco IOS XE</td>
+<td><ul><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-basic-net-0.html#:~:text=Perform%20this%20task%20to%20configure%20a%20BGP%20routing%20process">Configure a BGP routing process</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-basic-net-0.html#:~:text=Perform%20this%20task%20to%20configure%20BGP%20between%20two%20IPv4%20routers%20%28peers%29">Configure a BGP peer</a></li></ul></td>
+</tr>
+<tr>
+<td>Arista EOS</td>
+<td><ul><li><a href="https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Creating%20an%20Instance%20and%20Entering%20BGP%20Configuration%20Mode">Configure a BGP instance</a></li><li><a href="https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Establishing%20BGP%20Neighbors">Establish BGP neighbors</a></li></ul></td>
+</tr>
+<tr>
+<td>FRRouting</td>
+<td><ul><li><a href="https://docs.frrouting.org/en/latest/bgp.html#:~:text=Enable%20a%20BGP%20protocol%20process%20with%20the%20specified%20ASN">Start a BGP process</a></li><li><a href="https://docs.frrouting.org/en/latest/bgp.html#:~:text=Creates%20a%20new%20neighbor%20whose%20remote%2Das%20is%20ASN">Define a BGP peer</a></li><li><a href="https://docs.frrouting.org/en/latest/bgp.html#:~:text=This%20command%20requires%20incoming%20and%20outgoing%20filters%20to%20be%20applied">EBGP policy requirements</a></li></ul></td>
+</tr>
+<tr>
+<td>Cisco IOS XR (release 26.x)</td>
+<td><ul><li><a href="https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=Perform%20this%20task%20to%20enable%20BGP%20routing%20and%20establish%20a%20BGP%20routing%20process">Enable BGP routing</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=configures%20the%20neighbor%20IP%20address%20as%20a%20BGP%20peer">Configure a BGP neighbor</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=you%20must%20configure%20an%20inbound%20and%20outbound%20route%20policy%20on%20the%20neighbor">EBGP policy requirements</a></li></ul></td>
+</tr>
+<tr>
+<td>Junos</td>
+<td><ul><li><a href="https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#:~:text=Set%20the%20autonomous%20system%20%28AS%29%20number">Set the autonomous system number</a></li><li><a href="https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#id-example-configuring-external-bgp-point-to-point-peer-sessions">Configure EBGP neighbors</a></li></ul></td>
+</tr>
+</tbody>
+</table>
+<p>You might also find these blog posts useful:</p>
+<ul>
+<li><a href="https://www.kentik.com/bgp-routing-tutorial-series-part-3">BGP Routing Tutorial Series: Part 3</a> explains EBGP and IBGP and shows how a single <strong>neighbor</strong> command brings up a BGP session.</li>
+<li><a href="https://blog.ipspace.net/2008/06/use-explicit-address-family-ipv4-in-bgp/">Use the explicit &ldquo;address-family ipv4&rdquo; in BGP configurations</a> describes how to activate BGP neighbors within the IPv4 address family and uses neighbor descriptions and neighbor change logging in its examples.</li>
+<li><a href="https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212/">Default EBGP Policy (RFC 8212)</a> explains why some devices won&rsquo;t accept or send EBGP updates without a routing policy.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
