@@ -21,7 +21,10 @@ extra:
     'IS-IS': 'https://isis.bgplabs.net/'
     'EVPN/VXLAN': 'https://evpn.bgplabs.net/'
     'SR-MPLS': 'https://github.com/ipspace/sr-workshop'
-copyright: (C) 2023–2026 Ivan Pepelnjak (ipSpace.net AG)
+copyright: |
+  (C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
+  (<a href="https://www.ipspace.net/">ipSpace.net</a> AG)
+  and <a href="https://github.com/bgplab/bgplab/graphs/contributors?all=1">other contributors</a>
 plugins:
 - search
 - include_dir_to_nav
