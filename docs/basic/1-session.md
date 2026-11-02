@@ -97,6 +97,12 @@ The following documents describe how to start a BGP routing process and configur
 | Cisco IOS XR (release 26.x) | <ul><li>[Enable BGP routing](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=Perform%20this%20task%20to%20enable%20BGP%20routing%20and%20establish%20a%20BGP%20routing%20process)</li><li>[Configure a BGP neighbor](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=configures%20the%20neighbor%20IP%20address%20as%20a%20BGP%20peer)</li><li>[EBGP policy requirements](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=you%20must%20configure%20an%20inbound%20and%20outbound%20route%20policy%20on%20the%20neighbor)</li></ul> |
 | Junos | <ul><li>[Set the autonomous system number](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#:~:text=Set%20the%20autonomous%20system%20%28AS%29%20number)</li><li>[Configure EBGP neighbors](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#id-example-configuring-external-bgp-point-to-point-peer-sessions)</li></ul> |
 
+You might also find these blog posts useful:
+
+* [BGP Routing Tutorial Series: Part 3](https://www.kentik.com/bgp-routing-tutorial-series-part-3) explains EBGP and IBGP and shows how a single **neighbor** command brings up a BGP session.
+* [Use the explicit "address-family ipv4" in BGP configurations](https://blog.ipspace.net/2008/06/use-explicit-address-family-ipv4-in-bgp/) describes how to activate BGP neighbors within the IPv4 address family and uses neighbor descriptions and neighbor change logging in its examples.
+* [Default EBGP Policy (RFC 8212)](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212/) explains why some devices won't accept or send EBGP updates without a routing policy.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
