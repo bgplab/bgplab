@@ -39,7 +39,8 @@ You can start the lab [on your own lab infrastructure](../1-setup.md) or in [Git
 | rtr | x2 | 10.1.0.6 | 65101 |
 
 !!! Tip
-    If you're using FRRouting on RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring FRRouting](0-frrouting.md) lab.
+    * If you're using FRRouting on RTR, you might have to enable the BGP daemon first. You'll find more details in the [Configuring FRRouting](0-frrouting.md) lab.
+    * Not sure how to configure BGP on your device? You'll find pointers to the relevant vendor documentation in the [Further Reading](#further) section.
 
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* incoming filter on all EBGP neighbors or your device won't accept anything they send you.
@@ -90,6 +91,15 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 * [Advertise your IPv4 address space](3-originate.md) to the EBGP neighbors
 * [Use multiple BGP AS numbers on the same router](../session/3-localas.md) (advanced exercise)
+
+## Further Reading {#further}
+
+You'll use the same configuration commands as in the [previous lab exercise](1-session.md), just with an extra BGP neighbor. You'll find pointers to the vendor documentation describing how to start a BGP routing process, configure EBGP neighbors, and deal with the default EBGP policy (FRRouting and Cisco IOS XR) in its [Further Reading](1-session.md#further) section.
+
+You might also find these blog posts useful:
+
+* [BGP Routing Tutorial Series: Part 2](https://www.kentik.com/blog/bgp-routing-tutorial-series-part-2/) explains the difference between single-homed and multihomed networks and why multihomed networks run BGP with their upstream providers.
+* [BGP Routing Tutorial Series: Part 4](https://www.kentik.com/blog/bgp-routing-tutorial-series-part-4/) describes what a multihomed site gains by running BGP with its upstream ISPs and how BGP uses the AS path length to choose between routes received from them.
 
 ## Reference Information
 

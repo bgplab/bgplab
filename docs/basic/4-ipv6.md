@@ -64,6 +64,9 @@ Most BGP implementations treat IPv4 and IPv6 in almost the same way and use **ad
 
 I know you'll figure out those details. Just keep in mind that there's not much difference (usually) between IPv4 and IPv6, and you already know how to [setup EBGP sessions](2-multihomed.md) and [advertise IPv4 prefixes in BGP](3-originate.md). Just do the same thing for IPv6.
 
+!!! Tip
+    Not sure how to configure BGP for IPv6 on your device? You'll find pointers to the relevant vendor documentation in the [Further Reading](#further) section.
+
 ## Verification
 
 You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers.
@@ -160,6 +163,25 @@ Displayed  3 routes and 3 total paths
 
 * If you're interested in BGP routing policies, proceed to [Use BGP Weights](../policy/1-weights.md) to prefer one of the upstream ISPs.
 * If you want to build networks with more than one BGP router, continue with [Running BGP in Larger Networks](../ibgp/1-edge.md)
+
+## Further Reading {#further}
+
+The following documents describe how to configure IPv6 BGP neighbors, activate them in the IPv6 address family, and advertise IPv6 prefixes on commonly used network devices.
+
+FRRouting, Cisco IOS XR, and Junos use the same commands to configure static routes and advertise IPv6 prefixes as they do for IPv4; you'll find them in the [Further Reading](3-originate.md#further) section of the *[Advertise IPv4 Prefixes to BGP Neighbors](3-originate.md)* lab exercise. The documentation describing how to configure EBGP neighbors and the default EBGP policy (FRRouting and Cisco IOS XR) is in the [Further Reading](1-session.md#further) section of the *[Configure a Single EBGP Session](1-session.md)* lab exercise.
+
+| Platform | Configuration guidelines |
+|----------|--------------------------|
+| Cisco IOS XE | <ul><li>[Configure IPv6 BGP neighbors](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-mbgp-ext-xe.html#:~:text=By%20default%2C%20neighbors%20that%20are%20defined%20using%20the%20neighbor%20remote%2Das%20command%20in%20router%20configuration%20mode%20exchange%20only%20IPv4%20unicast%20address%20prefixes)</li><li>[Configure an IPv6 static route to null0](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-route-static-xe.html#:~:text=Configuring%20a%20static%20route%20to%20point%20at%20interface%20null0%20may%20be%20used%20for%20discarding%20traffic%20to%20a%20particular%20prefix)</li><li>[Advertise an IPv6 prefix](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_ip6-mbgp-ext-xe.html#:~:text=The%20following%20example%20injects%20the%20IPv6%20network%202001%3ADB8%3A%3A%2F24%20into%20the%20IPv6%20unicast%20database%20of%20the%20local%20device)</li></ul> |
+| Arista EOS | <ul><li>[Activate IPv6 neighbors](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Activating%20IPv6%20Neighbors)</li><li>[Configure an IPv6 static route](https://www.arista.com/en/um-eos/eos-ipv6#:~:text=The%20ipv6%20route%20command%20creates%20an%20ipv6%20static%20route%20to%20a%20destination)</li><li>[Advertise an IPv6 prefix](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Commands%20with%20an%20IPv6%20address%20are%20advertised%20to%20peers%20that%20are%20IPv6%20address%20family%2Dactive)</li></ul> |
+| FRRouting | <ul><li>[Activate a neighbor in an address family](https://docs.frrouting.org/en/latest/bgp.html#:~:text=This%20configuration%20modifies%20whether%20to%20enable%20an%20address%20family%20for%20a%20specific%20neighbor)</li></ul> |
+| Cisco IOS XR (release 26.x) | <ul><li>[Configure an address family under the neighbor](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=At%20least%2C%20one%20address%20family%20must%20be%20configured%20in%20the%20BGP%20router%20configuration%20and%20the%20same%20address%20family%20must%20also%20be%20configured%20under%20the%20neighbor)</li></ul> |
+| Junos | <ul><li>[Configure IPv6 EBGP neighbors](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/bgp-peering-sessions.html#:~:text=Junos%20OS%20supports%20EBGP%20peer%20sessions%20by%20means%20of%20IPv6%20addresses)</li><li>[Enable the IPv6 address family](https://www.juniper.net/documentation/us/en/software/junos/bgp/topics/topic-map/multiprotocol-bgp.html#:~:text=To%20enable%20MP%2DBGP%20to%20carry%20NLRI%20for%20the%20IPv6%20address%20family)</li></ul> |
+
+You might also find these blog posts useful:
+
+* [IPv4 BGP vs IPv6 BGP](https://www.noction.com/blog/ipv4-bgp-vs-ipv6-bgp) explains how multiprotocol BGP uses address families to carry IPv6 prefixes and why you have to activate IPv6 neighbors in the IPv6 address family.
+* [Use the explicit "address-family ipv4" in BGP configurations](https://blog.ipspace.net/2008/06/use-explicit-address-family-ipv4-in-bgp/) (also mentioned in the [single EBGP session](1-session.md#further) lab exercise) describes how to activate BGP neighbors within an address family; you'll have to do the same for your IPv6 neighbors.
 
 ## Reference Information
 

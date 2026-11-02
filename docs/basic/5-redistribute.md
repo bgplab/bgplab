@@ -83,6 +83,9 @@ You have to exchange OSPF routing information between the two sites using BGP. T
 !!! Warning
     Two-way redistribution between routing protocols could quickly become exceedingly complex. Advertising the default route into the edge routing protocol is often better than redistributing core routes. You should test this alternative as an optional part of the lab exercise. 
 
+!!! Tip
+    Not sure how to configure route redistribution on your device? You'll find pointers to the relevant vendor documentation in the [Further Reading](#further) section.
+
 [^PN]: You might have to add the OSPF process number to the command.
 
 [^AS]: You might have to add the BGP AS number to the command, depending on your devices. Some older platforms must be told to redistribute **subnets** into OSPF.
@@ -155,6 +158,25 @@ Gateway of last resort:
 **Next:**
 
 * You might encounter service providers that will give you the same BGP AS number for all sites. You can practice that scenario in the [Reuse a BGP AS Number Across Multiple Sites](../session/1-allowas_in.md) exercise.
+
+## Further Reading {#further}
+
+The following documents describe how to redistribute routes between routing protocols (you'll need that to redistribute OSPF routes into BGP and BGP routes into OSPF) and how to originate a default route into OSPF (the optional part of this lab exercise) on commonly used network devices. Junos does not have **redistribute** commands; you have to use export routing policies instead.
+
+You'll find the documentation describing how to configure EBGP neighbors and the default EBGP policy (FRRouting and Cisco IOS XR) in the [Further Reading](1-session.md#further) section of the *[Configure a Single EBGP Session](1-session.md)* lab exercise.
+
+| Platform | Configuration guidelines |
+|----------|--------------------------|
+| Cisco IOS XE | <ul><li>[Redistribute routes between routing protocols](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_iri-iprouting.html#:~:text=Device%28config%2Drouter%29%23%20redistribute%20ospf%202%201)</li><li>[Originate a default route into OSPF](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_iro-cfg-0.html#:~:text=Forces%20the%20ASBR%20to%20generate%20a%20default%20route%20into%20the%20OSPF%20routing%20domain)</li></ul> |
+| Arista EOS | <ul><li>[Redistribute routes between routing protocols](https://www.arista.com/en/um-eos/eos-open-shortest-path-first-version-2#:~:text=Redistributing%20Static%20Routes) (the example redistributes static routes into OSPF; use **redistribute bgp** in OSPF and **redistribute ospf** in BGP)</li></ul> |
+| FRRouting | <ul><li>[Redistribute routes between routing protocols](https://docs.frrouting.org/en/latest/bgp.html#:~:text=Redistribute%20routes%20from%20other%20protocols%20into%20BGP) (OSPF uses the same **redistribute** command)</li><li>[Originate a default route into OSPF](https://docs.frrouting.org/en/latest/ospfd.html#:~:text=Originate%20an%20AS%2DExternal%20%28type%2D5%29%20LSA%20describing%20a%20default%20route)</li></ul> |
+| Cisco IOS XR (release 26.x) | <ul><li>[Redistribute routes between routing protocols](https://blog.ipspace.net/2025/11/iosxr-redistribute-config-mess/) (blog post; Cisco documentation describes redistribution only as routing policy attach points)</li><li>[Originate a default route into OSPF](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/26xx/configuration/guide/b-routing-cg-ncs5500-26xx/implementing-routing-policy.html#:~:text=The%20default%2Dinformation%20originate%20attach%20point%20allows%20the%20user%20to%20conditionally%20inject%20the%20default%20route)</li></ul> |
+| Junos | <ul><li>[Redistribute routes with export routing policies](https://www.juniper.net/documentation/us/en/software/junos/routing-policy/topics/concept/policy-routing-policies-overview.html)</li></ul> |
+
+You might also find these blog posts useful:
+
+* [Combining BGP and IGP in an Enterprise Network](https://blog.ipspace.net/2022/03/bgp-igp-enterprise-network/) explains why two-way redistribution between BGP and an IGP is a bad idea and describes the alternatives, including advertising a default route into the IGP.
+* [Inserting Default Route Into OSPF](https://blog.ipspace.net/2007/06/inserting-default-route-into-ospf/) describes how the **default-information originate** command inserts a default route into OSPF.
 
 ## Reference Information {#alt}
 

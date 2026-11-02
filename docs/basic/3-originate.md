@@ -61,6 +61,9 @@ Yet again, there are several ways to add an IP prefix that exactly matches the p
 !!! Warning
     If your device happens to be [fully compliant with RFC 8212](https://blog.ipspace.net/2023/06/default-ebgp-policy-rfc-8212.html) (example: Cisco IOS XR), you'll have to configure a *permit everything* outgoing filter on all EBGP neighbors or your device won't send them anything.
 
+!!! Tip
+    Not sure how to configure static routes or advertise IPv4 prefixes on your device? You'll find pointers to the relevant vendor documentation in the [Further Reading](#further) section.
+
 ## Verification
 
 You can use the **netlab validate** command if you use FRRouting or Arista EOS on the external routers.
@@ -149,6 +152,24 @@ You could also do these optional exercises:
 * [Protect EBGP sessions](6-protect.md)
 * [Use BFD to Speed Up BGP Convergence](7-bfd.md)
 * [BGP route aggregation](8-aggregate.md)
+
+## Further Reading {#further}
+
+The following documents describe how to configure a static route pointing to the null interface and how to advertise an IPv4 prefix to BGP neighbors on commonly used network devices. Junos does not have a **network** command; you have to use a BGP export policy instead. Juniper documentation does not have a simple example of that, so we're pointing you to a blog post that explains it step-by-step.
+
+You'll find the documentation describing how to configure EBGP neighbors and the default EBGP policy (FRRouting and Cisco IOS XR) in the [Further Reading](1-session.md#further) section of the *[Configure a Single EBGP Session](1-session.md)* lab exercise.
+
+| Platform | Configuration guidelines |
+|----------|--------------------------|
+| Cisco IOS XE | <ul><li>[Configure a static route](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_iri-iprouting.html#:~:text=To%20configure%20a%20static%20route%2C%20use%20the%20ip%20route%20prefix%20mask)</li><li>[Advertise a prefix with the network command](https://www.cisco.com/c/en/us/td/docs/routers/ios/config/17-x/ip-routing/b-ip-routing/m_irg-basic-net-0.html#:~:text=For%20exterior%20protocols%2C%20the%20network%20command%20controls%20which%20networks%20are%20advertised)</li></ul> |
+| Arista EOS | <ul><li>[Configure a static route](https://www.arista.com/en/um-eos/eos-ipv4#:~:text=switch%28config%29%23ip%20route%20172.17.252.0%2F24%20vlan%20500)</li><li>[Advertise a prefix with the network command](https://www.arista.com/en/um-eos/eos-border-gateway-protocol-bgp#:~:text=Network%20Route%20Advertising%20in%20Address%20Families)</li></ul> |
+| FRRouting | <ul><li>[Configure a blackhole static route](https://docs.frrouting.org/en/latest/static.html#:~:text=Alternatively%2C%20the%20gateway%20can%20be%20specified%20as%20Null0%20or%20blackhole%20to%20create%20a%20blackhole%20route)</li><li>[Advertise a prefix with the network command](https://docs.frrouting.org/en/latest/bgp.html#:~:text=This%20command%20adds%20the%20announcement%20network)</li></ul> |
+| Cisco IOS XR (release 26.x) | <ul><li>[Configure a static route](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/26xx/configuration/guide/b-routing-cg-ncs5500-26xx/implementing-static-routes.html#:~:text=Static%20routes%20are%20entirely%20user%20configurable%20and%20can%20point%20to%20a%20next%2Dhop%20interface%2C%20next%2Dhop%20IP%20address%2C%20or%20both)</li><li>[Advertise a prefix with the network command](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/26xx/configuration/guide/b-bgp-cg-ncs5500-26xx/implementing-bgp.html#:~:text=network%20172.16.0.0%20255.255.0.0)</li></ul> |
+| Junos | <ul><li>[Configure a static route](https://networkingdocs.hpe.com/documentation/us/en/software/junos/static-routing/topics/topic-map/config_static-routes.html)</li><li>[Advertise a static route with a BGP export policy](https://www.networkcuriosity.com/junos-basic-bgp-configuration/#:~:text=Advertising%20A%20Default%20Route%20Into%20BGP) (blog post; use your prefix instead of the default route and apply the export policy to the EBGP neighbors).</li></ul> |
+
+You might also find this blog post useful:
+
+* [Advertising Public IP Prefixes into the Internet](https://blog.ipspace.net/2008/01/bgp-essentials-advertising-public-ip/) explains why you should combine the **network** command with a static route to the null interface when advertising your address space to upstream ISPs.
 
 ## Reference Information
 
