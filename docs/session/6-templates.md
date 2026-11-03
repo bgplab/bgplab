@@ -170,6 +170,13 @@ RPKI validation codes: V valid, I invalid, N Not found
 * If you already completed the [basic routing policy lab exercises](../policy/index.md), try out [BGP policy templates](../session/7-policy.md).
 * Use BGP peer groups to set up [dynamic BGP neighbors](../session/9-dynamic.md).
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP Peer Session and Policy Templates](https://blog.ipspace.net/2008/01/bgp-essentials-peer-session-templates/) describes the differences between BGP peer groups and BGP session and policy templates.
+* [BGP peer groups no longer a performance feature](https://blog.ipspace.net/2006/10/bgp-peer-groups-no-longer-performance/) explains why you no longer need BGP peer groups to improve BGP performance.
+
 ## Reference Information
 
 ### Lab Wiring

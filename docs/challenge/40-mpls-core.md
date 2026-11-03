@@ -161,6 +161,13 @@ traceroute to 192.168.102.1 (192.168.102.1), 30 hops max, 60 byte packets
  4  10.1.0.13 (192.168.102.1)  18.186 ms  20.036 ms  22.695 ms
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP without MPLS?](https://blog.ipspace.net/2007/12/bgp-without-mpls/) explains how MPLS allows you to run BGP only on the network edges.
+* [BGP-Free Core with SR-MPLS](https://blog.ipspace.net/2026/09/sr-mpls-bgp-free/) describes how to replace LDP with SR-MPLS in a BGP-free transport core.
+
 ## Reference Information
 
 ### Lab Wiring

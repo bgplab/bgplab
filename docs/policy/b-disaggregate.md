@@ -137,6 +137,13 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  3 routes and 5 total paths
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP Deaggregation with Conditional Route Injection](https://blog.ipspace.net/2015/01/bgp-deaggregation-with-conditional/) describes how to advertise more-specific prefixes that are not in your IP routing table.
+* [How could we filter extraneous BGP prefixes?](https://blog.ipspace.net/2012/01/how-could-we-filter-extraneous-bgp/) explains how many unnecessary more-specific prefixes pollute the global BGP table -- the reason prefix disaggregation should be the tool of last resort.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

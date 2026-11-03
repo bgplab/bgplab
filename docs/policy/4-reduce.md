@@ -110,6 +110,13 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 * Use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
 * [Use Outbound Route Filters (ORF) for IP Prefixes](f-orf.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Do you really need to see all 512K Internet routes?](https://blog.ipspace.net/2014/08/do-you-really-need-to-see-all-512k/) explains why most edge networks don't need the full Internet routing table.
+* [If You Worry About 768K Day, You’re Probably Doing Something Wrong](https://blog.ipspace.net/2019/05/if-you-worry-about-768k-day-youre/) describes how to combine default routes with prefixes received from upstream providers' customers -- the approach you'll use in this lab exercise.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

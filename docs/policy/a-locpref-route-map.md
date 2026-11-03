@@ -165,6 +165,13 @@ c1>show ip bgp neighbors 10.0.0.2 routes | begin Network
 !!! Tip
     C2 does not advertise routes it does not use to C1, so you won't be able to see any other routes from the C2 BGP table on C1.
     
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP and Route Maps](https://blog.ipspace.net/2011/10/bgp-and-route-maps/) explains how route maps work in various BGP configuration commands, including why a route map attached to a BGP neighbor also acts as a filter.
+* [BGP Route Maps and Continue Feature Limitations](https://blog.ipspace.net/2016/05/bgp-route-maps-and-continue-feature/) explores the limitations of the route map *continue* feature you might need when setting several BGP attributes in a complex routing policy.
+
 ## Reference Information
 
 ### Lab Wiring

@@ -129,6 +129,13 @@ core#show ip route 10.1.3.0
 
 **Next:** [IBGP Load Balancing with BGP Additional Paths](4-ibgp-add-path.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Creating BGP Multipath Lab with netlab](https://blog.ipspace.net/2021/11/bgp-multipath-netsim-tools/) explores the intricacies of IBGP multipathing in a network with several edge routers.
+* [Unequal-Cost Multipath with BGP DMZ Link Bandwidth](https://blog.ipspace.net/2021/06/ucmp-bgp-link-bandwidth/) (also mentioned in the [EBGP Load Balancing with BGP Link Bandwidth](2-dmz-bw.md#further) lab exercise) explains how the BGP link bandwidth extended community works.
+
 ## Reference Information
 
 ### Lab Wiring

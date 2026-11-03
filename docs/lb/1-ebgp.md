@@ -101,6 +101,13 @@ B>* 10.7.5.0/24 [20/0] via 10.1.0.1, eth1, weight 1, 00:00:08
 
 **Next:** [EBGP Load Balancing with BGP Link Bandwidth](2-dmz-bw.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Load Balancing with Parallel EBGP Sessions](https://blog.ipspace.net/2008/08/load-balancing-with-parallel-ebgp/) describes how BGP multipath works across parallel EBGP sessions between two routers.
+* [EBGP Load Balancing with a Multihop EBGP Session](https://blog.ipspace.net/2009/03/ebgp-load-balancing-with-multihop-ebgp/) (also mentioned in the [Running EBGP Across a Firewall](../basic/e-ebgp-multihop.md#further) lab exercise) describes an alternative approach: a single EBGP session between loopback interfaces.
+
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:

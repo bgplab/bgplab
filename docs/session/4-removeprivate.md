@@ -106,6 +106,13 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  3 routes and 3 total paths
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Why Is 65535 Not Part of the Private Autonomous System Range?](https://www.networkfuntimes.com/why-is-65535-not-part-of-the-private-autonomous-system-range/) explains which AS numbers are private and why.
+* [Multihoming to a Single ISP](https://blog.ipspace.net/2008/05/multihoming-to-single-isp/) describes a design in which the customer might use a private AS number and explains how the ISP should filter the prefixes it advertises to the rest of the Internet.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

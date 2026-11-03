@@ -126,6 +126,12 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 
 Finally, add another entry to the inbound prefix list on RTR and use the **debug bgp updates** together with **debug bgp neighbor-events** on FRRouting (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.
 
+## Further Reading {#further}
+
+You might find this blog post useful:
+
+* [Understanding BGP Outbound Route Filtering (BGP ORF)](https://ine.com/blog/2008-05-05-understanding-bgp-outbound-route-filtering-bgp-orf) explains how a router uses ORF to send its inbound prefix list to a BGP neighbor and compares the BGP updates sent with and without ORF.
+
 ## Reference Information
 
 This lab can run on a subset of the [4-router lab topology](../external/4-router.md).

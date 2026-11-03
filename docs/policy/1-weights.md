@@ -116,6 +116,12 @@ BGP routing table entry for 192.168.101.0/24
 * If you still need to learn how to use AS-path filters to [stop advertising transit routes ](2-stop-transit.md), do it now.
 * If you're more interested in building [more extensive BGP-based networks](../ibgp/1-edge.md), use [BGP local preference](5-local-preference.md) to implement a consistent AS-wide routing policy.
 
+## Further Reading {#further}
+
+You might find this blog post useful:
+
+* [BGP Route Selection: a Failure of Intent-Based Networking](https://blog.ipspace.net/2018/01/bgp-route-selection-failure-of-intent/) explains how BGP weights, local preference, MED, and other BGP route selection tweaks came to be.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

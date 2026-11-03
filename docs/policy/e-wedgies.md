@@ -175,6 +175,13 @@ Paths: (1 available, best #1, table default)
 
 * [Use Disaggregated Prefixes to Select the Primary Link](../policy/b-disaggregate.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Valley-Free Routing](https://blog.ipspace.net/2018/09/valley-free-routing/) explains the routing hierarchy (customers, peers, and upstream providers) behind most ISP routing policies -- the policies that make BGP wedgies possible.
+* [Unwanted traffic over backup links](https://www.noction.com/blog/unwanted-traffic-over-backup-links) (also mentioned in the [Attach BGP Communities to Outgoing BGP Updates](8-community-attach.md#further) lab exercise) explains how ISPs use local preference to prefer customer routes and how to use BGP communities to implement a backup link.
+
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:

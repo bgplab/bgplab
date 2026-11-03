@@ -114,6 +114,13 @@ Gateway of last resort is not set
            via fe80::a8c1:abff:fe16:692b, Ethernet2
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Packet Forwarding and Routing over Unnumbered Interfaces](https://blog.ipspace.net/2021/05/routing-unnumbered-interfaces/) explains how IP routing and packet forwarding work over interfaces without IP addresses.
+* [Worth Reading: BGP Unnumbered in 2025](https://blog.ipspace.net/2025/04/worth-reading-bgp-unnumbered-2025/) points to an overview of BGP unnumbered implementations and explains an RFC 8950 caveat.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

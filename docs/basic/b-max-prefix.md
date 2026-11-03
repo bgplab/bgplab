@@ -150,6 +150,13 @@ rtr##clear ip bgp 10.1.0.1
 
 * Fix the _customer_ router with the **sh stop** script and reset the EBGP session on your router. The EBGP session should be established and remain operational.
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Debugging BGP states](https://www.noction.com/blog/debug-bgp-states) explains the BGP session states, including the *Idle (PfxCt)* state of a BGP session shut down because the neighbor sent more prefixes than the configured maximum.
+* [Another BGP near-miss](https://blog.ipspace.net/2009/05/another-bgp-near-miss/) describes an incident in which an autonomous system started advertising the whole Internet routing table as its own, and why you should configure the maximum number of prefixes accepted from your customers.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

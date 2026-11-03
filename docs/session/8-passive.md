@@ -109,6 +109,13 @@ Neighbor Status Codes: m - Under maintenance
     
 Now clear all BGP sessions on the hub router with a command similar to **clear ip bgp \***. The session with S3 should enter the `Idle` or `Active` state -- S3 is configured to be a passive EBGP peer, and two passive peers cannot establish a session.
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [The Curious Case of the BGP Connect State](https://blog.ipspace.net/2025/01/bgp-connect-state/) explains the BGP finite state machine states a router goes through when establishing the TCP session with a BGP neighbor.
+* [Exploring the BGP Neighbor CONNECT State](https://blog.ipspace.net/2026/08/exploring-bgp-connect-state/) explores when (if ever) Cisco IOS/XE reports a BGP neighbor in the CONNECT state.
+
 ## Reference Information
 
 ### Lab Wiring

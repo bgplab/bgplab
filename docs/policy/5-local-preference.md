@@ -134,6 +134,13 @@ BGP routing table entry for 192.168.100.0/24
 * [Use MED to Influence Incoming Traffic Flow](6-med.md)
 * [Using BGP Local Preference in a Complex Routing Policy](a-locpref-route-map.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [CE-to-CE IBGP Session in a Multihomed Site](https://blog.ipspace.net/2023/02/ce-ibgp-multihomed-site/) (also mentioned in the [IBGP session between WAN edge routers](../ibgp/1-edge.md#further) lab exercise) explains how you can use BGP local preference to ensure consistent routing within a multihomed site.
+* [BGP Route Selection: a Failure of Intent-Based Networking](https://blog.ipspace.net/2018/01/bgp-route-selection-failure-of-intent/) (also mentioned in the [BGP weights](1-weights.md#further) lab exercise) explains how BGP weights, local preference, and other BGP route selection tweaks came to be.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.

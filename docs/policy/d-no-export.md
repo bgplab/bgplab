@@ -163,6 +163,13 @@ RPKI validation codes: V valid, I invalid, N Not found
 
 * [Use BGP Communities in Routing Policies](9-community-use.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Setting NO-EXPORT BGP Community](https://blog.ipspace.net/2012/10/setting-no-export-bgp-community/) explains what the NO_EXPORT community does and how to attach it to BGP prefixes.
+* [BGP basics: BGP communities propagation](https://blog.ipspace.net/2009/05/bgp-basics-bgp-communities-propagation/) explains why some devices don't send BGP communities to their neighbors unless you configure them to do so.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

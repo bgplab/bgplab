@@ -95,3 +95,7 @@ TCP-AO Authentication:
   Next receive key ID: 0
   Active receive key IDs: 0
 ```
+
+## Further Reading {#further}
+
+The blog posts in the [Further Reading](6-protect.md#further) section of the *[Protect BGP Sessions with Passwords and GTSM](6-protect.md)* lab exercise discuss the BGP session protection mechanisms in general.

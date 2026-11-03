@@ -167,6 +167,13 @@ If you get a similar printout in your lab, you accomplished your mission -- you 
 
 **Next:** [Use AS-Path Prepending to Influence Incoming Traffic Flow](7-prepend.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [The BGP Multi-Exit Discriminator (MED) Saga](https://blog.ipspace.net/2023/11/bgp-med-saga/) describes the multi-vendor quirks of the MED attribute, including the handling of paths without MED.
+* [The BGP Multi Exit Discriminator](https://www.noction.com/knowledge-base/bgp-multi-exit-discriminator) explains how MED is compared only between paths received from the same neighbor AS and how to adjust it on inbound and outbound updates.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.

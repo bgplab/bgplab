@@ -158,3 +158,10 @@ PING 172.18.3.1 (172.18.3.1) from 10.17.1.1 : 56(84) bytes of data.
 64 bytes from 172.18.3.1: icmp_seq=4 ttl=62 time=0.074 ms
 ^C
 ```
+
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [If You Worry About 768K Day, You’re Probably Doing Something Wrong](https://blog.ipspace.net/2019/05/if-you-worry-about-768k-day-youre/) (also mentioned in the [Minimize the Size of Your BGP Table](../policy/4-reduce.md#further) lab exercise) mentions filters between the BGP table, the IP routing table, and the forwarding table as a way to reduce the forwarding table size.
+* [Virtual aggregation: a quick fix for FIB/TCAM overflow](https://blog.ipspace.net/2010/09/virtual-aggregation-quick-fix-for/) describes another approach to reducing the number of routes in the forwarding tables of high-speed routers.

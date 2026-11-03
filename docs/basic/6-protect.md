@@ -85,6 +85,14 @@ Neighbor Status Codes: m - Under maintenance
 
 Finally, use a command similar to **show ip bgp** to display the prefixes your router received from its EBGP neighbors.
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [History of IP TTL in EBGP Sessions](https://blog.ipspace.net/2023/03/ebgp-ttl-history/) explains why EBGP sessions traditionally use IP TTL set to one, the prerequisite for understanding how GTSM works.
+* [Is BGP TTL Security Any Good?](https://blog.ipspace.net/2023/11/bgp-ttl-security-shortcomings/) tests how well GTSM implementations on several network operating systems drop TCP packets with too-low TTL.
+* [BGP Session Security: Be Very Skeptical](https://blog.ipspace.net/2023/10/bgp-session-security-snafu/) explains why you cannot blindly trust the BGP session protection mechanisms implemented by network devices.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

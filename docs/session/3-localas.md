@@ -137,6 +137,14 @@ Displayed  3 routes and 3 total paths
 
 **Next:** [Remove private AS numbers from the AS path](4-removeprivate.md).
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Fix a BGP AS Number Mismatch](https://blog.ipspace.net/2008/01/fix-bgp-as-number-mismatch/) describes how to use the **local-as** feature when a BGP neighbor expects a different AS number.
+* [Network Migration with BGP Local-AS Feature](https://blog.ipspace.net/2009/03/bgp-local-as-feature-basics/) describes the details of the **local-as** feature, including its impact on the AS path.
+* [Local-AS Has to Be Matched by Incoming Filter-List](https://blog.ipspace.net/2008/03/local-as-has-to-be-matched-by-incoming/) explains how the local AS number inserted into the AS path of inbound updates impacts your AS-path filters.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

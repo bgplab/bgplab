@@ -230,6 +230,14 @@ You can easily try out both solutions:
 * Start the `hub-spoke.yml` lab topology with **netlab up hub-spoke.yml**
 * Configure an aggregate prefix on both spine routers (see [BGP Route Aggregation](../basic/8-aggregate.md) exercise for more details) or configure default route advertisement on spine routers with a configuration command similar to **neighbor default-originate always**.
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP Route Reflector Details](https://blog.ipspace.net/2008/08/bgp-route-reflector-details/) describes how BGP route reflectors work and the attributes they use to detect routing loops.
+* [BGP Route Reflector Myths](https://blog.ipspace.net/2022/02/bgp-rr-myths/) explains why you need IBGP sessions between redundant route reflectors.
+* [Leave BGP Next Hops Unchanged on Reflected Routes](https://blog.ipspace.net/2022/10/bgp-route-reflector-next-hops/) explains why route reflectors should not change the BGP next hop of reflected routes.
+
 ## Reference Information
 
 ### Lab Wiring 

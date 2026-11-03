@@ -139,3 +139,12 @@ BGP routing table entry for 192.168.3.0/24
       Received 00:06:14 ago, valid, internal, best
 ...
 ```
+
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [iBGP Local-AS Next Hop Requirements](https://blog.ipspace.net/2025/04/ibgp-local-as-details/) explains how to use the **local-as** feature to establish an IBGP session between routers in different autonomous systems and why you have to change the BGP next hop on that session.
+* [iBGP Local-AS Route Propagation](https://blog.ipspace.net/2025/08/ibgp-local-as-rr/) explores how routes received over such a session propagate in a larger network.
+
+The blog posts in the [Further Reading](../session/3-localas.md#further) section of the *[Use Multiple AS Numbers on the Same Router](../session/3-localas.md)* lab exercise describe the **local-as** feature.

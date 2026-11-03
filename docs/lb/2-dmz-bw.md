@@ -142,6 +142,13 @@ rtr#show ip route 10.1.3.0/24
 
 **Next:** [IBGP Load Balancing with BGP Link Bandwidth](3-ibgp.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Unequal-Cost Multipath with BGP DMZ Link Bandwidth](https://blog.ipspace.net/2021/06/ucmp-bgp-link-bandwidth/) explains how the BGP link bandwidth extended community works and how to use it to implement unequal-cost multipathing.
+* [Unequal-Bandwidth EBGP Load Balancing](https://blog.ipspace.net/2008/07/unequal-bandwidth-ebgp-load-balancing/) describes how routers can use link bandwidth to split traffic across links toward the same neighbor AS proportionally to their bandwidth.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

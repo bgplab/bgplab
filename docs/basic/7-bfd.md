@@ -95,6 +95,14 @@ This is the printout you should get after completing the lab exercise:
 
 ![](basic-bfd-validate.png)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Improving BGP Convergence without Tweaking BGP Timers](https://blog.ipspace.net/2017/09/improving-bgp-convergence-without/) explains why you should not reduce BGP timers too aggressively and which mechanisms you could use instead.
+* [BGP Fast Session Deactivation](https://blog.ipspace.net/2007/11/bgp-fast-session-deactivation/) describes how a router can drop a BGP session as soon as it loses the route to the BGP neighbor.
+* [Graceful Restart and BFD](https://blog.ipspace.net/2021/10/graceful-restart-bfd/) discusses whether it makes sense to combine BFD with BGP Graceful Restart.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

@@ -121,6 +121,12 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
  
 **Next**: [Reduce the size of your BGP table](4-reduce.md) with inbound filters
 
+## Further Reading {#further}
+
+You might find this blog post useful:
+
+* [Filtering your BGP updates](https://www.noction.com/blog/filtering-bgp-updates) describes how to combine AS-path filters with prefix lists on outbound BGP updates and how to filter inbound BGP updates.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

@@ -185,6 +185,12 @@ Paths: (2 available, best #1, table default)
       Last update: Tue Oct  1 06:47:07 2024
 ```
 
+## Further Reading {#further}
+
+You might find this blog post useful:
+
+* [Network Node Shutdown Is a Process, not an Event](https://blog.ipspace.net/2016/01/network-node-shutdown-is-process-not/) explains why you should drain the traffic from a network device before shutting it down.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
