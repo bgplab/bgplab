@@ -115,6 +115,13 @@ BGP routing table entry for 172.17.207.0/24
       Rx SAFI: Unicast
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Understanding BGP Communities](https://www.noction.com/blog/understanding-bgp-communities) describes the well-known BGP communities and how an ISP can use communities set by its customers to change the local preference of their routes.
+* [BGP Essentials: BGP Communities](https://blog.ipspace.net/2008/02/bgp-essentials-bgp-communities/) (also mentioned in the [Attach BGP Communities to Outgoing BGP Updates](8-community-attach.md#further) lab exercise) describes what BGP communities are.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

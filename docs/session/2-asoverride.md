@@ -132,6 +132,12 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 !!! Tip
     The PE routers advertise the CE prefixes back to the CE routers, and the *AS override* functionality effectively disables the BGP loop prevention logic. You'll usually see two copies of the local prefixes in the BGP table.
 
+## Further Reading {#further}
+
+You might find this blog post useful:
+
+* [Scaling BGP-Based DMVPN Networks](https://blog.ipspace.net/2014/03/scaling-bgp-based-dmvpn-networks/) (also mentioned in the [Reuse a BGP AS Number Across Multiple Sites](1-allowas_in.md#further) lab exercise) mentions **as-override** as one of the tricks you can use when multiple sites use the same AS number.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

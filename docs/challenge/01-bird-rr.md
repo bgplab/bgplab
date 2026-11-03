@@ -209,6 +209,13 @@ PING x2 (192.168.101.1) from 192.168.100.1: 56 data bytes
 round-trip min/avg/max = 0.078/0.078/0.079 ms
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Running BGP Route Reflector in a Virtual Machine](https://blog.ipspace.net/2016/05/running-bgp-route-reflector-in-virtual/) explains why you can run a BGP route reflector outside of the forwarding path as a dedicated control-plane function using open-source software or a virtual machine.
+* [BGP Route Reflectors in the Forwarding Path](https://blog.ipspace.net/2022/11/bgp-route-reflectors-forwarding-path/) compares that design with route reflectors running on routers in the forwarding path.
+
 ## Reference Information
 
 ### Lab Wiring

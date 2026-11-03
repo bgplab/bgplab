@@ -275,6 +275,14 @@ This is the printout you should get after completing the lab exercise:
 
 ![](ibgp-edge-validate.png)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Configuring Internal BGP Sessions](https://blog.ipspace.net/2008/01/bgp-essentials-configuring-internal-bgp/) explains why IBGP sessions are usually established between loopback interfaces and how to configure them.
+* [IBGP Source Interface Selection Still Requires Configuration](https://blog.ipspace.net/2024/12/ibgp-source-interface-trivia/) explains why you have to configure the source interface of IBGP sessions even when they seem to work without it.
+* [CE-to-CE IBGP Session in a Multihomed Site](https://blog.ipspace.net/2023/02/ce-ibgp-multihomed-site/) explains why you need an IBGP session between WAN edge routers in a multihomed site.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

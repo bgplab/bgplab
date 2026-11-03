@@ -159,6 +159,14 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 
 **Next**: [Fix AS-Path in Environments Reusing BGP AS Numbers](2-asoverride.md).
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [More Private AS Numbers](https://blog.ipspace.net/2013/07/more-private-as-numbers/) explains why large networks run out of private AS numbers and have to reuse the same AS number on multiple sites.
+* [Scaling BGP-Based DMVPN Networks](https://blog.ipspace.net/2014/03/scaling-bgp-based-dmvpn-networks/) describes a similar design (DMVPN spoke sites using the same AS number) and mentions the AS-path tricks you can use to make it work.
+* [BGP Session and Address Family Parameters](https://blog.ipspace.net/2024/08/bgp-session-af-parameters/) explains why you might have to configure **allowas-in** within an address family.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

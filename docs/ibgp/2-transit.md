@@ -348,6 +348,13 @@ This is the printout you would get after establishing the PE1-PE2 IBGP session (
 
 ![](ibgp-transit-validate.png)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Why Do We Need IBGP Full Mesh?](https://blog.ipspace.net/2022/10/ibgp-full-mesh/) explains why BGP designers assumed a full mesh of IBGP sessions between all BGP routers in an autonomous system.
+* [IBGP, IGP Metrics, and Administrative Distances](https://blog.ipspace.net/2021/01/bgp-igp-metric-admin-distance/) explains how routers use IGP metrics toward BGP next hops to select the best IBGP path and what happens when you run multiple IGPs.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

@@ -129,6 +129,14 @@ AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Li
 * [Dynamic BGP Peers](9-dynamic.md)
 * [Passive BGP Sessions](8-passive.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Why Do Internet Exchanges Need Layer-2?](https://blog.ipspace.net/2012/07/why-do-internet-exchanges-need-layer-2/) explains why most Internet Exchange Points use a shared layer-2 network.
+* [A fresh look at BGP's NEXT_HOP](https://www.noction.com/blog/bgp-next-hop) explains how BGP routers set the BGP next hop and why a route server does not change it.
+* [The BGP Multi Exit Discriminator](https://www.noction.com/knowledge-base/bgp-multi-exit-discriminator) (also mentioned in the [MED](../policy/6-med.md#further) lab exercise) describes how route servers are used at Internet Exchange Points and how they handle the MED attribute.
+
 ## Reference Information
 
 ### Lab Wiring

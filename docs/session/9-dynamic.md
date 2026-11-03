@@ -174,6 +174,13 @@ Neighbor Status Codes: m - Under maintenance
 !!! warning
     Do not use dynamic BGP neighbors if you want to use BGP operational data (for example, **show** command printouts or SNMP information) to find failed BGP sessions.
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Scaling BGP-Based DMVPN Networks](https://blog.ipspace.net/2014/03/scaling-bgp-based-dmvpn-networks/) (also mentioned in the [Reuse a BGP AS Number Across Multiple Sites](1-allowas_in.md#further) lab exercise) explains how to use dynamic BGP neighbors on a hub router with numerous spoke sites.
+* [Will Network Devices Reject BGP Sessions from Unknown Sources?](https://blog.ipspace.net/2023/10/reject-unknown-bgp-session/) tests how network devices handle TCP sessions from IP addresses that are not configured as BGP neighbors -- the reason you have to be careful when configuring dynamic BGP peers.
+
 ## Reference Information
 
 The following information might help you if you plan to build custom lab infrastructure:

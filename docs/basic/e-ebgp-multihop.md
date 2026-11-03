@@ -137,3 +137,9 @@ ext>show ip bgp | begin Network
  * >      192.168.42.0/24        192.168.42.2          0       -          100     0       65000 i
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [History of IP TTL in EBGP Sessions](https://blog.ipspace.net/2023/03/ebgp-ttl-history/) (also mentioned in the [Protect BGP sessions](6-protect.md#further) lab exercise) explains why EBGP sessions use IP TTL set to one and why you need multihop EBGP sessions between routers that are not directly connected.
+* [EBGP Load Balancing with a Multihop EBGP Session](https://blog.ipspace.net/2009/03/ebgp-load-balancing-with-multihop-ebgp/) describes a traditional multihop EBGP use case: an EBGP session between the loopback interfaces of adjacent routers, with static routes toward the remote loopback interface.

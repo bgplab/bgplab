@@ -129,6 +129,14 @@ Displayed  3 routes and 4 total paths
 
 **Next**: [Filter prefixes advertised to EBGP neighbors](3-prefix.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP Essentials: Non-transit AS](https://blog.ipspace.net/2008/04/bgp-essentials-non-transit-as/) explains why you must ensure your autonomous system does not become a transit AS and how to use an AS-path filter to prevent that.
+* [Questions on BGP AS-Path Filters in Non-Transit Networks](https://blog.ipspace.net/2009/08/questions-on-bgp-as-path-filters-in-non/) answers common questions about outbound AS-path filters.
+* [Classification of BGP Route Leaks (RFC 7908)](https://blog.ipspace.net/2023/06/bgp-route-leak-classification/) describes the various types of BGP route leaks, including leaking routes between your upstream providers.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

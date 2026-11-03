@@ -179,6 +179,14 @@ BGP neighbor is 10.0.0.4, remote AS 65000, internal link
       IPv4 Unicast: negotiated
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP Optimal Route Reflection 101](https://blog.ipspace.net/2021/10/bgp-optimal-route-reflection/) explains how BGP route reflectors can cause the loss of path diversity and suboptimal routing.
+* [Optimal BGP Path Selection with BGP Additional Paths](https://blog.ipspace.net/2021/12/bgp-multipath-addpath/) explains how BGP Additional Paths solve that problem.
+* [Modern IBGP Design with AddPath and ORR](https://blog.ipspace.net/2022/05/modern-bgp-design-addpath-orr/) points to a presentation describing IBGP designs using BGP Additional Paths and Optimal Route Reflection.
+
 ## Reference Information
 
 ### Lab Wiring

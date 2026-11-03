@@ -132,6 +132,13 @@ Paths: (2 available, best #1, table default)
       Last update: Thu Nov  9 10:06:39 2023
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [BGP Essentials: AS-path Prepending](https://blog.ipspace.net/2008/02/bgp-essentials-as-path-prepending/) explains how to use AS-path prepending to implement a primary/backup design with two upstream ISPs.
+* [BGP AS-Path Prepending: Technical Details](https://blog.ipspace.net/2009/03/as-path-prepending-technical-details/) describes the details of AS-path prepending, including the not-so-well-known inbound AS-path prepending.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

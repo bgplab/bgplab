@@ -123,6 +123,13 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 Displayed  2 routes and 2 total paths
 ```
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Use BGP Default Route to Replace Static Routing](https://blog.ipspace.net/2007/11/bgp-default-route/) explains why a default route advertised in BGP is better than a static default route and how to configure it.
+* [Responsible Generation of BGP Default Route](https://blog.ipspace.net/2011/09/responsible-generation-of-bgp-default/) describes how to advertise the default route to a BGP neighbor only when the upstream connectivity works.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

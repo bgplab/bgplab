@@ -190,3 +190,10 @@ The following table contains a mapping between common network operating system f
 | `section`  | *no equivalent*   |
 
 [^SLN]: The '10000' parameter specifies the number of lines after the match. Increase it for very long printouts ;)
+
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [FRRouting RIB and FIB](https://blog.ipspace.net/2024/03/frr-rib-fib/) explains why FRRouting's **show ip route** printout contains routes from all routing protocols (including BGP routes that lost to OSPF routes) and how to interpret the route flags.
+* [Removing FRRouting Configuration Is Not Idempotent](https://blog.ipspace.net/2024/02/frr-bgp-prefix-origination/) describes an FRRouting configuration quirk you might encounter when removing **network** statements from the BGP configuration.

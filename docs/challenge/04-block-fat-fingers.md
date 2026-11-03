@@ -103,3 +103,11 @@ Origin codes:  i - IGP, e - EGP, ? - incomplete
 *> 100.78.43.0/24   10.1.0.5                 0             0 65101 i
 *> 198.51.100.0/24  10.1.0.9                 0             0 65107 i
 ```
+
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [AS-path Based Filter of Customer BGP Routes](https://blog.ipspace.net/2008/02/as-path-based-filter-of-customer-bgp/) describes how an ISP can use AS-path filters to accept only the routes originated by its customers.
+* [Protect Your Network with BGP maxas-limit](https://blog.ipspace.net/2009/02/protect-your-network-with-bgp-maxas/) describes an incident caused by an extremely long AS path and how to drop BGP paths with too many AS numbers.
+* [Filtering your BGP updates](https://www.noction.com/blog/filtering-bgp-updates) (also mentioned in the [Filter Advertised Prefixes](../policy/3-prefix.md#further) lab exercise) describes how to filter bogons and martians.

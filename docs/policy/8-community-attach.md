@@ -152,6 +152,14 @@ Paths: (2 available, best #2, table default)
 * [Use BGP Communities in Routing Policies](9-community-use.md)
 * [Resolve BGP Wedgies](e-wedgies.md)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Unwanted traffic over backup links](https://www.noction.com/blog/unwanted-traffic-over-backup-links) explains why AS-path prepending cannot keep the traffic off a backup link connected to another ISP and how BGP communities can help.
+* [BGP Essentials: BGP Communities](https://blog.ipspace.net/2008/02/bgp-essentials-bgp-communities/) describes what BGP communities are and how to attach them to BGP updates.
+* [Configuring BGP Community Propagation is Confusing](https://blog.ipspace.net/2025/08/bgp-community-configuration/) compares how various network operating systems decide which BGP communities to send to BGP neighbors.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). Some links are unused to retain the interface names from that topology.

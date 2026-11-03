@@ -177,6 +177,14 @@ This is the printout you could get after configuring route aggregation but befor
 
 ![](basic-aggregate-validate.png)
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Do you have a good reason to use BGP aggregation?](https://blog.ipspace.net/2008/08/do-you-have-good-reason-to-use-bgp/) explains why you should use static prefix origination when advertising your address space to the public Internet and where BGP aggregation might make sense.
+* [Internet anarchy: I’ll advertise whatever I like](https://blog.ipspace.net/2009/06/internet-anarchy-ill-advertise-whatever/) explains how much smaller the global BGP table would be if ISPs stopped advertising more-specific prefixes they could aggregate.
+* [Conditional BGP Route Origination](https://blog.ipspace.net/2008/05/conditional-bgp-route-origination/) describes an alternative way of advertising a prefix only when a matching route is in the IP routing table.
+
 ## Reference Information
 
 This lab uses the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:

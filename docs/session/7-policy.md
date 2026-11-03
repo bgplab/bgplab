@@ -158,6 +158,13 @@ Paths: (1 available, best #1, table default)
 
 * On X2, repeat the tests you did on X1.
 
+## Further Reading {#further}
+
+You might find these blog posts useful:
+
+* [Applying BGP Policy Templates](https://blog.ipspace.net/2024/02/applying-bgp-policy-templates/) discusses which BGP parameters you should apply with a policy template and which ones should be configured directly on a BGP neighbor.
+* [BGP Peer Session and Policy Templates](https://blog.ipspace.net/2008/01/bgp-essentials-peer-session-templates/) (also mentioned in the [BGP Session Templates](6-templates.md#further) lab exercise) describes the differences between BGP peer groups and BGP session and policy templates.
+
 ## Reference Information
 
 This lab uses a subset of the [4-router lab topology](../external/4-router.md). The following information might help you if you plan to build custom lab infrastructure:
