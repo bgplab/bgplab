@@ -498,6 +498,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -775,6 +779,13 @@
 </ul>
 <p>This is the printout you could get after configuring route aggregation but before configuring an outbound prefix filter:</p>
 <p><img alt="" src="../basic-aggregate-validate.png" /></p>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2008/08/do-you-have-good-reason-to-use-bgp/">Do you have a good reason to use BGP aggregation?</a> explains why you should use static prefix origination when advertising your address space to the public Internet and where BGP aggregation might make sense.</li>
+<li><a href="https://blog.ipspace.net/2009/06/internet-anarchy-ill-advertise-whatever/">Internet anarchy: I’ll advertise whatever I like</a> explains how much smaller the global BGP table would be if ISPs stopped advertising more-specific prefixes they could aggregate.</li>
+<li><a href="https://blog.ipspace.net/2008/05/conditional-bgp-route-origination/">Conditional BGP Route Origination</a> describes an alternative way of advertising a prefix only when a matching route is in the IP routing table.</li>
+</ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>

@@ -474,6 +474,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -666,6 +670,12 @@ Neighbor Status Codes: m - Under maintenance
 <p>When in doubt (the BGP states displayed by network devices can be confusing), use a command similar to <strong>show ip bgp neighbor <em>ip-address</em></strong> and look for the <em>passive</em> keyword in the printout.</p>
 </div>
 <p>Now clear all BGP sessions on the hub router with a command similar to <strong>clear ip bgp *</strong>. The session with S3 should enter the <code>Idle</code> or <code>Active</code> state &ndash; S3 is configured to be a passive EBGP peer, and two passive peers cannot establish a session.</p>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2025/01/bgp-connect-state/">The Curious Case of the BGP Connect State</a> explains the BGP finite state machine states a router goes through when establishing the TCP session with a BGP neighbor.</li>
+<li><a href="https://blog.ipspace.net/2026/08/exploring-bgp-connect-state/">Exploring the BGP Neighbor CONNECT State</a> explores when (if ever) Cisco IOS/XE reports a BGP neighbor in the CONNECT state.</li>
+</ul>
 <h2 id="reference-information">Reference Information</h2>
 <h3 id="lab-wiring">Lab Wiring</h3>
 <table>

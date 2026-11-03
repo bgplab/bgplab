@@ -474,6 +474,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
         </ul>
       </li>
       </ul>
@@ -751,6 +755,12 @@ PING 172.18.3.1 (172.18.3.1) from 10.17.1.1 : 56(84) bytes of data.
 64 bytes from 172.18.3.1: icmp_seq=4 ttl=62 time=0.074 ms
 ^C
 </code></pre>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2019/05/if-you-worry-about-768k-day-youre/">If You Worry About 768K Day, You’re Probably Doing Something Wrong</a> (also mentioned in the <a href="../../policy/4-reduce/#further">Minimize the Size of Your BGP Table</a> lab exercise) mentions filters between the BGP table, the IP routing table, and the forwarding table as a way to reduce the forwarding table size.</li>
+<li><a href="https://blog.ipspace.net/2010/09/virtual-aggregation-quick-fix-for/">Virtual aggregation: a quick fix for FIB/TCAM overflow</a> describes another approach to reducing the number of routes in the forwarding tables of high-speed routers.</li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>

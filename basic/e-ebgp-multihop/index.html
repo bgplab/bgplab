@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
         </ul>
       </li>
       </ul>
@@ -474,34 +478,6 @@
   
   
   
-  
-  <div class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
-    <ul class="nav flex-column">
-      <li class="nav-item"><a>Other Open-Source Labs</a></li>
-      
-      <ul class="nav flex-column">
-      
-      <li class="nav-item">
-        
-        <a href="https://isis.bgplabs.net/" class="nav-link">IS-IS</a>
-        
-      
-      
-      <li class="nav-item">
-        
-        <a href="https://evpn.bgplabs.net/" class="nav-link">EVPN/VXLAN</a>
-        
-      
-      
-      <li class="nav-item">
-        
-        <a href="https://github.com/ipspace/sr-workshop" class="nav-link">SR-MPLS</a>
-        
-      
-      </ul>
-      
-    </ul>
-  </div>
   
   
   <div class="navbar-collapse card bg-secondary" style="margin-bottom: 1em;">
@@ -699,6 +675,12 @@ Neighbor Status Codes: m - Under maintenance
           Network                Next Hop              Metric  AIGP       LocPref Weight  Path
  * &gt;      192.168.42.0/24        192.168.42.2          0       -          100     0       65000 i
 </code></pre>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2023/03/ebgp-ttl-history/">History of IP TTL in EBGP Sessions</a> (also mentioned in the <a href="../6-protect/#further">Protect BGP sessions</a> lab exercise) explains why EBGP sessions use IP TTL set to one and why you need multihop EBGP sessions between routers that are not directly connected.</li>
+<li><a href="https://blog.ipspace.net/2009/03/ebgp-load-balancing-with-multihop-ebgp/">EBGP Load Balancing with a Multihop EBGP Session</a> describes a traditional multihop EBGP use case: an EBGP session between the loopback interfaces of adjacent routers, with static routes toward the remote loopback interface.</li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>

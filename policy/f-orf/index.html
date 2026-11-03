@@ -474,6 +474,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -670,6 +674,11 @@ ip prefix-list 10.1.0.1.1.1: 2 entries
 </code></pre>
 <h2 id="dynamic-changes-in-orf-prefix-filters">Dynamic Changes in ORF Prefix Filters</h2>
 <p>Finally, add another entry to the inbound prefix list on RTR and use the <strong>debug bgp updates</strong> together with <strong>debug bgp neighbor-events</strong> on FRRouting (other platforms have similar debugging commands) to observe the ORF updates and refreshed routing updates triggered by changes in the inbound prefix list.</p>
+<h2 id="further">Further Reading</h2>
+<p>You might find this blog post useful:</p>
+<ul>
+<li><a href="https://ine.com/blog/2008-05-05-understanding-bgp-outbound-route-filtering-bgp-orf">Understanding BGP Outbound Route Filtering (BGP ORF)</a> explains how a router uses ORF to send its inbound prefix list to a BGP neighbor and compares the BGP updates sent with and without ORF.</li>
+</ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab can run on a subset of the <a href="../../external/4-router/">4-router lab topology</a>.</p>
 <h3 id="lab-wiring">Lab Wiring</h3>

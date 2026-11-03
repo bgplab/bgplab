@@ -486,6 +486,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -936,6 +940,13 @@ Paths: (2 available, best #1, table default)
 <ul>
 <li>Start the <code>hub-spoke.yml</code> lab topology with <strong>netlab up hub-spoke.yml</strong></li>
 <li>Configure an aggregate prefix on both spine routers (see <a href="../../basic/8-aggregate/">BGP Route Aggregation</a> exercise for more details) or configure default route advertisement on spine routers with a configuration command similar to <strong>neighbor default-originate always</strong>.</li>
+</ul>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2008/08/bgp-route-reflector-details/">BGP Route Reflector Details</a> describes how BGP route reflectors work and the attributes they use to detect routing loops.</li>
+<li><a href="https://blog.ipspace.net/2022/02/bgp-rr-myths/">BGP Route Reflector Myths</a> explains why you need IBGP sessions between redundant route reflectors.</li>
+<li><a href="https://blog.ipspace.net/2022/10/bgp-route-reflector-next-hops/">Leave BGP Next Hops Unchanged on Reflected Routes</a> explains why route reflectors should not change the BGP next hop of reflected routes.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <h3 id="lab-wiring">Lab Wiring</h3>

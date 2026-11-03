@@ -474,6 +474,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -773,6 +777,12 @@ Neighbor Status Codes: m - Under maintenance
 <p class="admonition-title">Warning</p>
 <p>Do not use dynamic BGP neighbors if you want to use BGP operational data (for example, <strong>show</strong> command printouts or SNMP information) to find failed BGP sessions.</p>
 </div>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2014/03/scaling-bgp-based-dmvpn-networks/">Scaling BGP-Based DMVPN Networks</a> (also mentioned in the <a href="../1-allowas_in/#further">Reuse a BGP AS Number Across Multiple Sites</a> lab exercise) explains how to use dynamic BGP neighbors on a hub router with numerous spoke sites.</li>
+<li><a href="https://blog.ipspace.net/2023/10/reject-unknown-bgp-session/">Will Network Devices Reject BGP Sessions from Unknown Sources?</a> tests how network devices handle TCP sessions from IP addresses that are not configured as BGP neighbors &ndash; the reason you have to be careful when configuring dynamic BGP peers.</li>
+</ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>

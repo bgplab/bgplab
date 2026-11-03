@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
       <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
         <ul class="nav flex-column">
       <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
@@ -600,6 +604,13 @@ Neighbor Status Codes: m - Under maintenance
   x2                       10.1.0.6 4 65101             17        16    0    0 00:00:04 Estab   2      2
 </code></pre>
 <p>Finally, use a command similar to <strong>show ip bgp</strong> to display the prefixes your router received from its EBGP neighbors.</p>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2023/03/ebgp-ttl-history/">History of IP TTL in EBGP Sessions</a> explains why EBGP sessions traditionally use IP TTL set to one, the prerequisite for understanding how GTSM works.</li>
+<li><a href="https://blog.ipspace.net/2023/11/bgp-ttl-security-shortcomings/">Is BGP TTL Security Any Good?</a> tests how well GTSM implementations on several network operating systems drop TCP packets with too-low TTL.</li>
+<li><a href="https://blog.ipspace.net/2023/10/bgp-session-security-snafu/">BGP Session Security: Be Very Skeptical</a> explains why you cannot blindly trust the BGP session protection mechanisms implemented by network devices.</li>
+</ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
 <h3 id="lab-wiring">Lab Wiring</h3>

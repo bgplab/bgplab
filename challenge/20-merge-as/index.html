@@ -466,6 +466,10 @@
         <ul class="nav flex-column">
         </ul>
       </li>
+      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
         </ul>
       </li>
       </ul>
@@ -474,34 +478,6 @@
   
   
   
-  
-  <div class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
-    <ul class="nav flex-column">
-      <li class="nav-item"><a>Other Open-Source Labs</a></li>
-      
-      <ul class="nav flex-column">
-      
-      <li class="nav-item">
-        
-        <a href="https://isis.bgplabs.net/" class="nav-link">IS-IS</a>
-        
-      
-      
-      <li class="nav-item">
-        
-        <a href="https://evpn.bgplabs.net/" class="nav-link">EVPN/VXLAN</a>
-        
-      
-      
-      <li class="nav-item">
-        
-        <a href="https://github.com/ipspace/sr-workshop" class="nav-link">SR-MPLS</a>
-        
-      
-      </ul>
-      
-    </ul>
-  </div>
   
   
   <div class="navbar-collapse card bg-secondary" style="margin-bottom: 1em;">
@@ -802,7 +778,14 @@ BGP routing table entry for 192.168.3.0/24
       Origin INCOMPLETE, metric 0, localpref 100, IGP metric 0, weight 0, tag 0
       Received 00:06:14 ago, valid, internal, best
 ...
-</code></pre></div>
+</code></pre>
+<h2 id="further">Further Reading</h2>
+<p>You might find these blog posts useful:</p>
+<ul>
+<li><a href="https://blog.ipspace.net/2025/04/ibgp-local-as-details/">iBGP Local-AS Next Hop Requirements</a> explains how to use the <strong>local-as</strong> feature to establish an IBGP session between routers in different autonomous systems and why you have to change the BGP next hop on that session.</li>
+<li><a href="https://blog.ipspace.net/2025/08/ibgp-local-as-rr/">iBGP Local-AS Route Propagation</a> explores how routes received over such a session propagate in a larger network.</li>
+</ul>
+<p>The blog posts in the <a href="../../session/3-localas/#further">Further Reading</a> section of the <em><a href="../../session/3-localas/">Use Multiple AS Numbers on the Same Router</a></em> lab exercise describe the <strong>local-as</strong> feature.</p></div>
             </div>
         </div>
 
