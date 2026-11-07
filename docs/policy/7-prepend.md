@@ -138,6 +138,7 @@ You might find these blog posts useful:
 
 * [BGP Essentials: AS-path Prepending](https://blog.ipspace.net/2008/02/bgp-essentials-as-path-prepending/) explains how to use AS-path prepending to implement a primary/backup design with two upstream ISPs.
 * [BGP AS-Path Prepending: Technical Details](https://blog.ipspace.net/2009/03/as-path-prepending-technical-details/) describes the details of AS-path prepending, including the not-so-well-known inbound AS-path prepending.
+* [BGP Multi-Homed with Two ISPs and Two Routers](https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/) (also mentioned in the [IBGP session between WAN edge routers](../ibgp/1-edge.md#further) lab exercise) prepends the site's AS number to updates sent to the backup ISP to make incoming traffic prefer the primary ISP.
 
 ## Reference Information
 

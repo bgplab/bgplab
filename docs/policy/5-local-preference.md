@@ -140,6 +140,7 @@ You might find these blog posts useful:
 
 * [CE-to-CE IBGP Session in a Multihomed Site](https://blog.ipspace.net/2023/02/ce-ibgp-multihomed-site/) (also mentioned in the [IBGP session between WAN edge routers](../ibgp/1-edge.md#further) lab exercise) explains how you can use BGP local preference to ensure consistent routing within a multihomed site.
 * [BGP Route Selection: a Failure of Intent-Based Networking](https://blog.ipspace.net/2018/01/bgp-route-selection-failure-of-intent/) (also mentioned in the [BGP weights](1-weights.md#further) lab exercise) explains how BGP weights, local preference, and other BGP route selection tweaks came to be.
+* [BGP Multi-Homed with Two ISPs and Two Routers](https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/) (also mentioned in the [IBGP session between WAN edge routers](../ibgp/1-edge.md#further) lab exercise) uses BGP local preference to make both WAN edge routers prefer the primary uplink.
 
 ## Reference Information
 

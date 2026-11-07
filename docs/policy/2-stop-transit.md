@@ -136,6 +136,7 @@ You might find these blog posts useful:
 * [BGP Essentials: Non-transit AS](https://blog.ipspace.net/2008/04/bgp-essentials-non-transit-as/) explains why you must ensure your autonomous system does not become a transit AS and how to use an AS-path filter to prevent that.
 * [Questions on BGP AS-Path Filters in Non-Transit Networks](https://blog.ipspace.net/2009/08/questions-on-bgp-as-path-filters-in-non/) answers common questions about outbound AS-path filters.
 * [Classification of BGP Route Leaks (RFC 7908)](https://blog.ipspace.net/2023/06/bgp-route-leak-classification/) describes the various types of BGP route leaks, including leaking routes between your upstream providers.
+* [BGP Multi-Homed with Two ISPs and Two Routers](https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/) (also mentioned in the [IBGP session between WAN edge routers](../ibgp/1-edge.md#further) lab exercise) uses an outbound prefix list or AS-path filter to stop a site with two upstream ISPs from becoming a transit AS.
 
 ## Reference Information
 

@@ -282,6 +282,7 @@ You might find these blog posts useful:
 * [Configuring Internal BGP Sessions](https://blog.ipspace.net/2008/01/bgp-essentials-configuring-internal-bgp/) explains why IBGP sessions are usually established between loopback interfaces and how to configure them.
 * [IBGP Source Interface Selection Still Requires Configuration](https://blog.ipspace.net/2024/12/ibgp-source-interface-trivia/) explains why you have to configure the source interface of IBGP sessions even when they seem to work without it.
 * [CE-to-CE IBGP Session in a Multihomed Site](https://blog.ipspace.net/2023/02/ce-ibgp-multihomed-site/) explains why you need an IBGP session between WAN edge routers in a multihomed site.
+* [BGP Multi-Homed with Two ISPs and Two Routers](https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/) walks through a Cisco IOS configuration of a site with two WAN edge routers, including the loopback-to-loopback IBGP session and **next-hop-self**.
 
 ## Reference Information
 
