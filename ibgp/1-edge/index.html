@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/ibgp/1-edge/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Establish an IBGP Session &#171; BGP Labs</title>
+        <title>Establish an IBGP Session - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -424,7 +424,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/ibgp/1-edge.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -432,100 +434,79 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3">
-<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-  <div class="navbar-header">
-      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-          <span class="fa fa-angle-down"></span>
-      </button>
-  </div>
-
-  
-  
-  
-  
-  
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
-      <ul class="nav flex-column">
-          
-      <li class="nav-item" data-level="1"><a href="#establish-an-ibgp-session-between-wan-edge-routers" class="nav-link">Establish an IBGP Session Between WAN Edge Routers</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="2"><a href="#existing-lab-configuration" class="nav-link">Existing Lab Configuration</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#bgp-configuration" class="nav-link">BGP Configuration</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="3"><a href="#ospf-configuration" class="nav-link">OSPF Configuration</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#why-do-we-need-ibgp" class="nav-link">Why Do We Need IBGP?</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#establish-ibgp-session" class="nav-link">Establish IBGP Session</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#fix-the-source-ip-address-of-the-ibgp-session" class="nav-link">Fix the Source IP Address of the IBGP Session</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#fix-the-bgp-next-hop-of-ibgp-prefixes" class="nav-link">Fix the BGP Next Hop of IBGP Prefixes</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#automated-verification" class="nav-link">Automated Verification</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-        </ul>
-      </li>
-        </ul>
-      </li>
-      </ul>
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
     </div>
-  
-  
-  
-  
-  
-  
-  <div class="navbar-collapse card bg-secondary" style="margin-bottom: 1em;">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a href="https://github.com/bgplab/bgplab/edit/master/docs/ibgp/1-edge.md" class="nav-link">
-          <i class="fa-brands fa-github"></i> View on GitHub
-        </a>
-      </li>
-    </ul>
-  </div>
-  
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#establish-an-ibgp-session-between-wan-edge-routers" class="nav-link">Establish an IBGP Session Between WAN Edge Routers</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#existing-lab-configuration" class="nav-link">Existing Lab Configuration</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#bgp-configuration" class="nav-link">BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#ospf-configuration" class="nav-link">OSPF Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#why-do-we-need-ibgp" class="nav-link">Why Do We Need IBGP?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#establish-ibgp-session" class="nav-link">Establish IBGP Session</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#fix-the-source-ip-address-of-the-ibgp-session" class="nav-link">Fix the Source IP Address of the IBGP Session</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#fix-the-bgp-next-hop-of-ibgp-prefixes" class="nav-link">Fix the BGP Next Hop of IBGP Prefixes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#automated-verification" class="nav-link">Automated Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#further" class="nav-link">Further Reading</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -857,6 +838,7 @@ Gateway of last resort is not set
 <li><a href="https://blog.ipspace.net/2008/01/bgp-essentials-configuring-internal-bgp/">Configuring Internal BGP Sessions</a> explains why IBGP sessions are usually established between loopback interfaces and how to configure them.</li>
 <li><a href="https://blog.ipspace.net/2024/12/ibgp-source-interface-trivia/">IBGP Source Interface Selection Still Requires Configuration</a> explains why you have to configure the source interface of IBGP sessions even when they seem to work without it.</li>
 <li><a href="https://blog.ipspace.net/2023/02/ce-ibgp-multihomed-site/">CE-to-CE IBGP Session in a Multihomed Site</a> explains why you need an IBGP session between WAN edge routers in a multihomed site.</li>
+<li><a href="https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/">BGP Multi-Homed with Two ISPs and Two Routers</a> walks through a Cisco IOS configuration of a site with two WAN edge routers, including the loopback-to-loopback IBGP session and <strong>next-hop-self</strong>.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
@@ -1025,11 +1007,12 @@ Gateway of last resort is not set
         </div>
 
         <footer class="col-md-12">
-<hr>
-    <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
+            <hr>
+                <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
 (<a href="https://www.ipspace.net/">ipSpace.net</a> AG)
 and <a href="https://github.com/bgplab/bgplab/graphs/contributors?all=1">other contributors</a>
 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>

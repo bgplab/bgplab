@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/policy/5-local-preference/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Select Preferred Uplink with BGP Local Preference &#171; BGP Labs</title>
+        <title>Select Preferred Uplink with BGP Local Preference - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -424,7 +424,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/5-local-preference.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -432,80 +434,59 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3">
-<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-  <div class="navbar-header">
-      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-          <span class="fa fa-angle-down"></span>
-      </button>
-  </div>
-
-  
-  
-  
-  
-  
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
-      <ul class="nav flex-column">
-          
-      <li class="nav-item" data-level="1"><a href="#select-preferred-uplink-with-bgp-local-preference" class="nav-link">Select Preferred Uplink with BGP Local Preference</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="2"><a href="#initial-router-configurations" class="nav-link">Initial Router Configurations</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#using-bgp-local-preference" class="nav-link">Using BGP Local Preference</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-        </ul>
-      </li>
-        </ul>
-      </li>
-      </ul>
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
     </div>
-  
-  
-  
-  
-  
-  
-  <div class="navbar-collapse card bg-secondary" style="margin-bottom: 1em;">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/5-local-preference.md" class="nav-link">
-          <i class="fa-brands fa-github"></i> View on GitHub
-        </a>
-      </li>
-    </ul>
-  </div>
-  
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#select-preferred-uplink-with-bgp-local-preference" class="nav-link">Select Preferred Uplink with BGP Local Preference</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#initial-router-configurations" class="nav-link">Initial Router Configurations</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#using-bgp-local-preference" class="nav-link">Using BGP Local Preference</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#further" class="nav-link">Further Reading</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -730,6 +711,7 @@ BGP routing table entry for 192.168.100.0/24
 <ul>
 <li><a href="https://blog.ipspace.net/2023/02/ce-ibgp-multihomed-site/">CE-to-CE IBGP Session in a Multihomed Site</a> (also mentioned in the <a href="../../ibgp/1-edge/#further">IBGP session between WAN edge routers</a> lab exercise) explains how you can use BGP local preference to ensure consistent routing within a multihomed site.</li>
 <li><a href="https://blog.ipspace.net/2018/01/bgp-route-selection-failure-of-intent/">BGP Route Selection: a Failure of Intent-Based Networking</a> (also mentioned in the <a href="../1-weights/#further">BGP weights</a> lab exercise) explains how BGP weights, local preference, and other BGP route selection tweaks came to be.</li>
+<li><a href="https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/">BGP Multi-Homed with Two ISPs and Two Routers</a> (also mentioned in the <a href="../../ibgp/1-edge/#further">IBGP session between WAN edge routers</a> lab exercise) uses BGP local preference to make both WAN edge routers prefer the primary uplink.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses the <a href="../../external/4-router/">4-router lab topology</a>. Some links are unused to retain the interface names from that topology.</p>
@@ -903,11 +885,12 @@ BGP routing table entry for 192.168.100.0/24
         </div>
 
         <footer class="col-md-12">
-<hr>
-    <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
+            <hr>
+                <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
 (<a href="https://www.ipspace.net/">ipSpace.net</a> AG)
 and <a href="https://github.com/bgplab/bgplab/graphs/contributors?all=1">other contributors</a>
 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>

@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/policy/7-prepend/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>Use AS-Path Prepending to Influence Incoming Traffic Flow &#171; BGP Labs</title>
+        <title>Use AS-Path Prepending to Influence Incoming Traffic Flow - BGP Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -424,7 +424,9 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/7-prepend.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -432,84 +434,63 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3">
-<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-  <div class="navbar-header">
-      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-          <span class="fa fa-angle-down"></span>
-      </button>
-  </div>
-
-  
-  
-  
-  
-  
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
-      <ul class="nav flex-column">
-          
-      <li class="nav-item" data-level="1"><a href="#use-as-path-prepending-to-influence-incoming-traffic-flow" class="nav-link">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#req" class="nav-link">Device Requirements</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#wtf" class="nav-link">What Do We Have to Fix?</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#verification" class="nav-link">Verification</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#further" class="nav-link">Further Reading</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
-        <ul class="nav flex-column">
-      <li class="nav-item" data-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-      <li class="nav-item" data-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
-        <ul class="nav flex-column">
-        </ul>
-      </li>
-        </ul>
-      </li>
-        </ul>
-      </li>
-      </ul>
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
     </div>
-  
-  
-  
-  
-  
-  
-  <div class="navbar-collapse card bg-secondary" style="margin-bottom: 1em;">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/7-prepend.md" class="nav-link">
-          <i class="fa-brands fa-github"></i> View on GitHub
-        </a>
-      </li>
-    </ul>
-  </div>
-  
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#use-as-path-prepending-to-influence-incoming-traffic-flow" class="nav-link">Use AS-Path Prepending to Influence Incoming Traffic Flow</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#existing-bgp-configuration" class="nav-link">Existing BGP Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#req" class="nav-link">Device Requirements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#start-the-lab" class="nav-link">Start the Lab</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#wtf" class="nav-link">What Do We Have to Fix?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#configuration-tasks" class="nav-link">Configuration Tasks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#verification" class="nav-link">Verification</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#further" class="nav-link">Further Reading</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#reference-information" class="nav-link">Reference Information</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="3"><a href="#lab-wiring" class="nav-link">Lab Wiring</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="3"><a href="#lab-addressing" class="nav-link">Lab Addressing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -687,6 +668,7 @@ Paths: (2 available, best #1, table default)
 <ul>
 <li><a href="https://blog.ipspace.net/2008/02/bgp-essentials-as-path-prepending/">BGP Essentials: AS-path Prepending</a> explains how to use AS-path prepending to implement a primary/backup design with two upstream ISPs.</li>
 <li><a href="https://blog.ipspace.net/2009/03/as-path-prepending-technical-details/">BGP AS-Path Prepending: Technical Details</a> describes the details of AS-path prepending, including the not-so-well-known inbound AS-path prepending.</li>
+<li><a href="https://www.packetswitch.co.uk/bgp-multi-homed-with-two-isps-and-two-routers/">BGP Multi-Homed with Two ISPs and Two Routers</a> (also mentioned in the <a href="../../ibgp/1-edge/#further">IBGP session between WAN edge routers</a> lab exercise) prepends the site&rsquo;s AS number to updates sent to the backup ISP to make incoming traffic prefer the primary ISP.</li>
 </ul>
 <h2 id="reference-information">Reference Information</h2>
 <p>This lab uses a subset of the <a href="../../external/4-router/">4-router lab topology</a>. The following information might help you if you plan to build custom lab infrastructure:</p>
@@ -792,11 +774,12 @@ Paths: (2 available, best #1, table default)
         </div>
 
         <footer class="col-md-12">
-<hr>
-    <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
+            <hr>
+                <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
 (<a href="https://www.ipspace.net/">ipSpace.net</a> AG)
 and <a href="https://github.com/bgplab/bgplab/graphs/contributors?all=1">other contributors</a>
 </p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
