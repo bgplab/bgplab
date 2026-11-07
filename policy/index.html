@@ -8,7 +8,7 @@
         <meta name="author" content="Ivan Pepelnjak, ipSpace.net AG">
         <link rel="canonical" href="https://bgplabs.net/policy/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Overview - BGP Labs</title>
+  <title>Overview &#171; BGP Labs</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/fontawesome.min.css" rel="stylesheet">
         <link href="../css/brands.min.css" rel="stylesheet">
@@ -424,9 +424,7 @@
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/index.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
-                            </li>
+
                     </ul>
                 </div>
             </div>
@@ -434,39 +432,88 @@
 
         <div class="container">
             <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
+                    <div class="col-md-3">
+<div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+  <div class="navbar-header">
+      <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+          <span class="fa fa-angle-down"></span>
+      </button>
+  </div>
 
-    
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+  
+  
+  
+  
+  
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
+      <ul class="nav flex-column">
+          
+      <li class="nav-item" data-level="1"><a href="#bgp-routing-policies" class="nav-link">BGP Routing Policies</a>
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#bgp-routing-policies" class="nav-link">BGP Routing Policies</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#filter" class="nav-link">Filtering BGP Updates</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#egress" class="nav-link">Adjusting Outgoing (Egress) Traffic Flow</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#ingress" class="nav-link">Influencing Incoming (Ingress) Traffic Flow</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#complex" class="nav-link">More Complex Routing Policies</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
+      <li class="nav-item" data-level="2"><a href="#filter" class="nav-link">Filtering BGP Updates</a>
+        <ul class="nav flex-column">
         </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#egress" class="nav-link">Adjusting Outgoing (Egress) Traffic Flow</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#ingress" class="nav-link">Influencing Incoming (Ingress) Traffic Flow</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+      <li class="nav-item" data-level="2"><a href="#complex" class="nav-link">More Complex Routing Policies</a>
+        <ul class="nav flex-column">
+        </ul>
+      </li>
+        </ul>
+      </li>
+      </ul>
     </div>
+  
+  
+  
+  
+  
+  <div class="navbar-collapse collapse card bg-secondary" style="margin-bottom: 1em;">
+    <ul class="nav flex-column">
+      <li class="nav-item"><a>Other Open-Source Labs</a></li>
+      
+      <ul class="nav flex-column">
+      
+      <li class="nav-item">
+        
+        <a href="https://isis.bgplabs.net/" class="nav-link">IS-IS</a>
+        
+      
+      
+      <li class="nav-item">
+        
+        <a href="https://evpn.bgplabs.net/" class="nav-link">EVPN/VXLAN</a>
+        
+      
+      
+      <li class="nav-item">
+        
+        <a href="https://github.com/ipspace/sr-workshop" class="nav-link">SR-MPLS</a>
+        
+      
+      </ul>
+      
+    </ul>
+  </div>
+  
+  
+  <div class="navbar-collapse card bg-secondary" style="margin-bottom: 1em;">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a href="https://github.com/bgplab/bgplab/edit/master/docs/policy/index.md" class="nav-link">
+          <i class="fa-brands fa-github"></i> View on GitHub
+        </a>
+      </li>
+    </ul>
+  </div>
+  
 </div></div>
                     <div class="col-md-9" role="main">
 
@@ -517,12 +564,11 @@ In this exercise, you&rsquo;ll learn how to create scalable BGP policy deploymen
         </div>
 
         <footer class="col-md-12">
-            <hr>
-                <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
+<hr>
+    <p>(C) 2023–2026 <a href="https://www.ipspace.net/About_Ivan_Pepelnjak">Ivan Pepelnjak</a>
 (<a href="https://www.ipspace.net/">ipSpace.net</a> AG)
 and <a href="https://github.com/bgplab/bgplab/graphs/contributors?all=1">other contributors</a>
 </p>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script src="../js/bootstrap.bundle.min.js"></script>
         <script>
